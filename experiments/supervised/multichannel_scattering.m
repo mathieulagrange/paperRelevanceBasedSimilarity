@@ -63,7 +63,7 @@ else
     [nLambda1s, nFrames, ~] = size(S1);
     nLambda2s = length(S{1+2}.data);
     scattergram = cat(3, S1, zeros(nLambda1s, nFrames, nLambda2s, nAzimuths));
-    features = S1(:, :, 1, floor(end/2));
+    features = S1(:, :, 1, ceil(end/2));
     for lambda2_index = 1:nLambda2s
         band = S{1+2}.data{lambda2_index}((1+end/4):(3*end/4), :, :);
         band = reshape(band, size(band, 1) * nChunks, nAzimuths, size(band, 3));
