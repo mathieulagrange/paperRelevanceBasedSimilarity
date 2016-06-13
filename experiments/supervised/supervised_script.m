@@ -24,16 +24,25 @@ y = cellfun(@(x) find(strcmp(x, classes)), class_names) - 1;
 clear opts;
 opts{1}.time.nFilters_per_octave = nfo;
 opts{1}.time.size = 2^19;
-opts{1}.time.T = 2^15;
+opts{1}.time.T = 2^14;
 opts{1}.time.is_chunked = false;
-opts{1}.time.gamma_bounds = [0 nfo*10]; % Restrict to top 10 acoustic octaves
+opts{1}.time.gamma_bounds = [0 nfo*11]; % Restrict to top 11 acoustic octaves
 opts{1}.time.wavelet_handle = @morlet_1d;
-opts{2}.time.nFilters_per_octave = 1;
-opts{2}.time.wavelet_handle = @morlet_1d;
+opts{1}.time.S_log2_oversampling = 0;
+opts{2}.banks.time.nFilters_per_octave = 1;
+opts{2}.banks.time.wavelet_handle = @morlet_1d;
+opts{2}.banks.time.sibling_mask_factor = 2^8;
+opts{2}.banks.time.T = 2^17;
 if strcmp(method, 'joint')
-    opts{2}.gamma.nFilters_per_octave = 1;
-    opts{2}.gamma.T = 2^nextpow2(nfo * 4);
+    opts{2}.banks.gamma.nFilters_per_octave = 1;
+    opts{2}.banks.gamma.T = 2^nextpow2(nfo * 4);
 end
+opts{2}.invariants.time.size = 2^19;
+opts{2}.invariants.time.T = 2^14;
+opts{2}.invariants.time.subscripts = 1;
+opts{3}.invariants.time.size = 2^19;
+opts{3}.invariants.time.T = 2^14;
+opts{3}.invariants.time.subscripts = 1;
 archs = sc_setup(opts);
 
 % Prepare azimuthal augmentation
