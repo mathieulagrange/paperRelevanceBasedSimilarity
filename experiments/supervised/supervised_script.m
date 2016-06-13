@@ -48,14 +48,34 @@ archs = sc_setup(opts);
 azimuths = linspace(0.0, 1.0, nAzimuths);
 mixing_matrix = cat(1, azimuths, 1.0 - azimuths);
 
-%%
+%
+prefix = [modulations, '_Q=', num2str(nfo, '%0.2d')];
+folder_path = fullfile('memoized_features', prefix);
+[~,~] = mkdir(folder_path); % [~,~] is to ignore the "already exists" warning
 
-nFiles = length(paths);
-file_index = 1
-%for file_index = 1:nFiles
-    path = paths{file_index};
-    stereo_waveform = audioread(path);
-    multichannel_waveform = stereo_waveform * mixing_matrix;
-    [features, scattergram] = ...
-        multichannel_scattering(multichannel_waveform, archs);
-%end
+%%
+nFiles = length(names);
+scattering_data = cell(1, nFiles);
+parfor file_index = 1:nFiles
+    name = names{file_index};
+    out_name = [prefix, '_', name(1:(end-4))];
+    out_path = fullfile(folder_path, out_name);
+    try
+        % Load
+        scattering_data{file_index} = load(out_path);
+    catch ME
+        if (strcmp(ME.identifier, 'MATLAB:load:couldNotReadFile')
+            path = fullfile(dataset_path, name);
+            stereo_waveform = audioread(path);
+            multichannel_waveform = stereo_waveform * mixing_matrix;
+            [features, scattergram] = ...
+                multichannel_scattering(multichannel_waveform, archs);
+            file_X = ...
+                struct('features', features, 'scattergram', scattergram);
+            parfor_save(out_path, file_X);
+            scattering_data{file_index} = file_X;
+        else
+            rethrow(ME)
+        end
+    end
+end
