@@ -1,6 +1,9 @@
 dataset_path = '~/datasets/dcase2013/scenes_stereo';
 method = 'plain';
 nfo = 4;
+nAzimuths = 5;
+azimuth_index = 3;
+azimuths = linspace(0, 1, nAzimuths);
 
 % Load names
 listing = list_dir(dataset_path);
