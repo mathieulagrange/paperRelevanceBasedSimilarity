@@ -64,7 +64,7 @@ parfor file_index = 1:nFiles
         % Load
         scattering_data{file_index} = load(out_path);
     catch ME
-        if (strcmp(ME.identifier, 'MATLAB:load:couldNotReadFile')
+        if (strcmp(ME.identifier, 'MATLAB:load:couldNotReadFile'))
             path = fullfile(dataset_path, name);
             stereo_waveform = audioread(path);
             multichannel_waveform = stereo_waveform * mixing_matrix;
@@ -75,7 +75,7 @@ parfor file_index = 1:nFiles
             parfor_save(out_path, file_X);
             scattering_data{file_index} = file_X;
             disp([prefix, ' finished on worker ', labindex(), ...
-                ' at ', datestr(now(), 'HH:MM:SS']);
+                ' at ', datestr(now(), 'HH:MM:SS')]);
         else
             rethrow(ME)
         end
