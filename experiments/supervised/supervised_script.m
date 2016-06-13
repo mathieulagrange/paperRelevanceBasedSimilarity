@@ -1,5 +1,7 @@
+% Before running this script, the libraries scattering.m and rastamat must
+% have been added to the path
 dataset_path = '~/datasets/dcase2013/scenes_stereo';
-method = 'plain';
+modulations = 'time';
 nfo = 4;
 nAzimuths = 5;
 
@@ -9,9 +11,6 @@ names = {listing.name};
 
 % Remove hidden files
 names = names(~cellfun(@(x) x(1)=='.', names));
-
-% Make a cell array of paths
-paths = cellfun(@(x) fullfile(dataset_path, x), names, 'UniformOutput', false);
 
 % Parse class indices to get annotation vector y
 classes = { ...
@@ -27,13 +26,13 @@ opts{1}.time.size = 2^19;
 opts{1}.time.T = 2^14;
 opts{1}.time.is_chunked = false;
 opts{1}.time.gamma_bounds = [0 nfo*11]; % Restrict to top 11 acoustic octaves
-opts{1}.time.wavelet_handle = @morlet_1d;
+opts{1}.time.wavelet_handle = @gammatone_1d;
 opts{1}.time.S_log2_oversampling = 0;
 opts{2}.banks.time.nFilters_per_octave = 1;
-opts{2}.banks.time.wavelet_handle = @morlet_1d;
-opts{2}.banks.time.sibling_mask_factor = 2^8;
+opts{2}.banks.time.wavelet_handle = @gammatone_1d;
+opts{2}.banks.time.sibling_mask_factor = 2^6;
 opts{2}.banks.time.T = 2^17;
-if strcmp(method, 'joint')
+if strcmp(modulations, 'time-frequency')
     opts{2}.banks.gamma.nFilters_per_octave = 1;
     opts{2}.banks.gamma.T = 2^nextpow2(nfo * 4);
 end
