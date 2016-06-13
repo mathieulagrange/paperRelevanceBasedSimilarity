@@ -7,7 +7,10 @@ names = {listing.name};
 % Remove hidden files
 names = names(~cellfun(@(x) x(1)=='.', names))
 
-% Get class indices
+% Make a cell array of paths
+paths = cellfun(@(x) fullfile(dataset_path, x), names, 'UniformOutput', false);
+
+% Parse class indices to get annotation vector y
 classes = { ...
     'bus', 'busystreet', 'office', 'openairmarket', 'park', ...
     'quietstreet', 'restaurant', 'supermarket', 'tube', 'tubestation'};
