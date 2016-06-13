@@ -1,0 +1,184 @@
+\documentclass[journal]{IEEEtran}
+\usepackage{cite}
+% *** GRAPHICS RELATED PACKAGES ***
+%
+\ifCLASSINFOpdf
+  \usepackage[pdftex]{graphicx}
+%
+\usepackage[cmex10]{amsmath}
+
+
+% *** ALIGNMENT PACKAGES ***
+%
+\usepackage{array}
+\usepackage{fixltx2e}
+
+
+\usepackage{stfloats}
+% LaTeX2e). It also provides a command:
+\fnbelowfloat
+
+\usepackage{pgf}
+\usepackage{tikz}
+\usetikzlibrary{arrows,positioning}
+\usepackage{url}
+\usepackage{color}
+
+% correct bad hyphenation here
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+\usepackage{color}
+\newcommand{\gl}[1]{\textcolor{red}{Gregoire : #1}}
+\newcommand{\mr}[1]{\textcolor{magenta}{Mathias : #1}}
+\newcommand{\ml}[1]{\textcolor{blue}{ Mathieu : #1}}
+
+
+\begin{document}
+%
+% paper title
+% can use linebreaks \\ within to get better formatting as desired
+% Do not put math or special symbols in the title.
+%\title{An evaluation framework for event detection using a morphological model of acoustic scenes}
+\title{Unsupervised Acoustic Scene Micro-Segmentation for High Level (Semantic ?) Attributes Prediction}
+%
+%
+
+
+
+
+
+% make the title area
+\maketitle
+
+% As a general rule, do not put math, special symbols or citations
+% in the abstract or keywords.
+\begin{abstract}
+This paper introduces a 
+\end{abstract}
+
+% Note that keywords are not normally used for peerreview paper.
+\begin{IEEEkeywords}
+Acoustic scene classification, segmentation.
+\end{IEEEkeywords}
+
+
+
+
+
+
+% For peer review papers, you can put extra information on the cover
+% page as needed:
+% \ifCLASSOPTIONpeerreview
+% \begin{center} \bfseries EDICS Category: 3-BBND \end{center}
+% \fi
+%
+% For peerreview papers, this IEEEtran command inserts a page break and
+% creates the second title. It will be ignored for other modes.
+\IEEEpeerreviewmaketitle
+
+\section{Introduction}
+
+\IEEEPARstart{O}{ver} the past decades, the amount of audio data recorded from our sonic environment has considerably grown. 1. Recent research areas such as eco-acoustics \cite{ECOACOUSTICS2014, krause} start to consider massive deployment of acoustic sensors around the world in order to measure potential animal biodiversity modification over large temporal scales due to human activity or climate change \cite{NessSST13, stowell13a, stowell13b}. 
+
+2. Recent regulations -> pleasantness
+
+
+We believe that those matters have strong societal impacts, but those fields of research are still in infancy and consequently very few well built dataset are available for evaluation purposes. 
+
+A relatively more mature field of investigation is the classification 
+
+despite its lower value, it has the advantage of being rooted by numerous works in cognitive psychology and been considered in the data processing field for a while, with availability of some well designed evaluation datasets. 
+
+In this paper, we investigate the potential of a new unsupervised segmentation paradigm that allows us to 
+
+This data has to be processed
+
+
+Environment sound
+
+describe in terms of high level attributes
+
+be they cognitive ones such as pleasantness, or descriptive ones such as the type of environment where the 
+
+
+%As part of the aforementioned research areas and applications, the emerging field of \emph{Acoustic Scene Analysis} (also called \emph{Sound Scene Analysis}) \cite{Stowell15} aims to develop approaches and systems for the automatic analysis of environmental sounds and soundscapes (originating both from urban or nature environments). While research methodologies in related fields such as Automatic Speech Recognition (ASR) \cite{Rabiner93} and Music Information Retrieval (MIR) \cite{Muller07} are now well established, research addressing Acoustic Scene Analysis remains relatively young. 
+
+Whilst the range of applications are very large, so is the need
+
+holistic / event based
+
+skeleton of events on a bed of texture.
+
+debate about the kind of process underlying perception
+
+strong indication that the detection of specific events, named markers suffice to trigger class prediction
+
+From a numerical data processing overview, the holistic scheme as a simplicity, but clearly face poor performance on realistic conditions \cite{jasa-el}.
+
+If available, the complete description of the scene in terms of event occurences is powerful enough to reliably predict high level cognitive classes, \textit{i.e.} the presence of birds are strong pleasantness indicators and very likely to be heard in parks in urban areas.
+
+\section{Overview}
+
+\section{Micro Structure}
+
+\subsection{In Music}
+
+\subsection{In Environmental Scenes}
+
+\section{Pleasantness Prediction}
+
+\section{Environnment Prediction}
+
+\section{Discussion}
+
+\section{Conclusion}
+
+\bibliographystyle{unsrt}
+\bibliography{biblio}
+
+% biography section
+% 
+% If you have an EPS/PDF photo (graphicx package needed) extra braces are
+% needed around the contents of the optional argument to biography to prevent
+% the LaTeX parser from getting confused when it sees the complicated
+% \includegraphics command within an optional argument. (You could create
+% your own custom macro containing the \includegraphics command to make things
+% simpler here.)
+%\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{mshell}}]{Michael Shell}
+% or if you just want to reserve a space for a photo:
+
+%\begin{IEEEbiography}{Mathieu Lagrange}
+%Biography text here.
+%\end{IEEEbiography}
+
+% if you will not have a photo at all:
+%\begin{IEEEbiographynophoto}{John Doe}
+%Biography text here.
+%\end{IEEEbiographynophoto}
+
+% insert where needed to balance the two columns on the last page with
+% biographies
+%\newpage
+
+%\begin{IEEEbiographynophoto}{Jane Doe}
+%Biography text here.
+%\end{IEEEbiographynophoto}
+
+% You can push biographies down or up by placing
+% a \vfill before or after them. The appropriate
+% use of \vfill depends on what kind of text is
+% on the last page and whether or not the columns
+% are being equalized.
+
+%\vfill
+
+% Can be used to pull up biographies so that the bottom of the last one
+% is flush with the other column.
+%\enlargethispage{-5in}
+
+
+
+% that's all folks
+\end{document}
+
+
