@@ -74,6 +74,8 @@ parfor file_index = 1:nFiles
                 struct('features', features, 'scattergram', scattergram);
             parfor_save(out_path, file_X);
             scattering_data{file_index} = file_X;
+            disp([prefix, ' finished on worker ', labindex(), ...
+                ' at ', datestr(now(), 'HH:MM:SS']);
         else
             rethrow(ME)
         end
