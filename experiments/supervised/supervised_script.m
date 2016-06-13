@@ -2,8 +2,6 @@ dataset_path = '~/datasets/dcase2013/scenes_stereo';
 method = 'plain';
 nfo = 4;
 nAzimuths = 5;
-azimuth_index = 3;
-azimuths = linspace(0, 1, nAzimuths);
 
 % Load names
 listing = list_dir(dataset_path);
@@ -37,3 +35,7 @@ if strcmp(method, 'joint')
     opts{2}.gamma.T = 2^nextpow2(nfo * 4);
 end
 archs = sc_setup(opts);
+
+% Prepare azimuthal augmentation
+azimuths = linspace(0.0, 1.0, nAzimuths);
+mixing_matrix = cat(1, azimuths, 1.0 - azimuths);
