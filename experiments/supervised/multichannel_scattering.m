@@ -68,7 +68,7 @@ else
         band = S{1+2}.data{lambda2_index}((1+end/4):(3*end/4), :, :);
         band = reshape(band, size(band, 1) * nChunks, nAzimuths, size(band, 3));
         band = permute(band, [3, 1, 4, 2]);
-        features = cat(1, features, band(:, :, floor(end/2)));
+        features = cat(1, features, band(:, :, ceil(end/2)));
         scattergram(1:size(band,1), :, end + 1 - lambda2_index, :) = band;
     end
 end
