@@ -58,26 +58,13 @@ nFiles = length(names);
 scattering_data = cell(1, nFiles);
 parfor file_index = 1:nFiles
     name = names{file_index};
-    out_name = [prefix, '_', name(1:(end-4))];
-    out_path = fullfile(folder_path, out_name);
-    try
-        % Load
-        scattering_data{file_index} = load(out_path);
-    catch ME
-        if (strcmp(ME.identifier, 'MATLAB:load:couldNotReadFile'))
-            path = fullfile(dataset_path, name);
-            stereo_waveform = audioread(path);
-            multichannel_waveform = stereo_waveform * mixing_matrix;
-            [features, scattergram] = ...
-                multichannel_scattering(multichannel_waveform, archs);
-            file_X = ...
-                struct('features', features, 'scattergram', scattergram);
-            parfor_save(out_path, file_X);
-            scattering_data{file_index} = file_X;
-            disp([prefix, ' finished on worker ', labindex(), ...
-                ' at ', datestr(now(), 'HH:MM:SS')]);
-        else
-            rethrow(ME)
-        end
-    end
+    path = fullfile(dataset_path, name);
+    stereo_waveform = audioread(path);
+    multichannel_waveform = stereo_waveform * mixing_matrix;
+    [features, scattergram] = ...
+        multichannel_scattering(multichannel_waveform, archs);
+    scattering_data{file_index} = ...
+        struct('features', features, 'scattergram', scattergram);
+    disp([name, ' finished on worker ', labindex(), ...
+        ' at ', datestr(now(), 'HH:MM:SS')]);
 end
