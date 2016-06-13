@@ -1,6 +1,6 @@
 % Before running this script, the libraries scattering.m and rastamat must
 % have been added to the path
-dataset_path = '~/datasets/dcase2013/scenes_stereo';
+dataset_path = '~/datasets/dcase2013/scenes_stereo_testset';
 modulations = 'time';
 nfo = 4;
 nAzimuths = 5;
@@ -49,9 +49,11 @@ azimuths = linspace(0.0, 1.0, nAzimuths);
 mixing_matrix = cat(1, azimuths, 1.0 - azimuths);
 
 %
-prefix = [modulations, '_Q=', num2str(nfo, '%0.2d')];
-folder_path = fullfile('memoized_features', prefix);
-[~,~] = mkdir(folder_path); % [~,~] is to ignore the "already exists" warning
+out_file_name = [modulations, '_Q=', num2str(nfo, '%0.2d')];
+if strcmp(dataset_path((end-6):end), 'testset')
+    out_file_name = [out_file_name, '_test'];
+end
+[~,~] = mkdir('memoized_features'); % [~,~] is to ignore the "already exists" warning
 
 %%
 nFiles = length(names);
@@ -77,3 +79,5 @@ parfor file_index = 1:nFiles
         struct('features', azimuth_features, ...
         'scattergram', azimuth_scattergrams);
 end
+
+save(fullfile('memoized_features', out_file_name), scattering_data);
