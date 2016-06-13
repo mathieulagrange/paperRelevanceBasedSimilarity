@@ -24,9 +24,9 @@ y = cellfun(@(x) find(strcmp(x, classes)), class_names) - 1;
 clear opts;
 opts{1}.time.nFilters_per_octave = nfo;
 opts{1}.time.size = 2^19;
-opts{1}.time.T = 16384;
+opts{1}.time.T = 2^15;
 opts{1}.time.is_chunked = false;
-opts{1}.time.gamma_bounds = [];
+opts{1}.time.gamma_bounds = [0 nfo*10]; % Restrict to top 10 acoustic octaves
 opts{1}.time.wavelet_handle = @morlet_1d;
 opts{2}.time.nFilters_per_octave = 1;
 opts{2}.time.wavelet_handle = @morlet_1d;
