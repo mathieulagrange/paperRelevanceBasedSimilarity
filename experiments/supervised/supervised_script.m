@@ -2,7 +2,7 @@
 % have been added to the path
 dataset_path = '~/datasets/dcase2013/scenes_stereo_testset';
 modulations = 'time';
-nfo = 4;
+nfo = 8;
 nAzimuths = 5;
 
 % Load names
@@ -52,6 +52,8 @@ mixing_matrix = cat(1, azimuths, 1.0 - azimuths);
 out_file_name = [modulations, '_Q=', num2str(nfo, '%0.2d')];
 if strcmp(dataset_path((end-6):end), 'testset')
     out_file_name = [out_file_name, '_test'];
+else
+    out_file_name = [out_file_name, '_train'];
 end
 [~,~] = mkdir('memoized_features'); % [~,~] is to ignore the "already exists" warning
 
@@ -76,8 +78,10 @@ parfor file_index = 1:nFiles
             ' at ', datestr(now(), 'HH:MM:SS')]);
     end
     scattering_data{file_index} = ...
-        struct('features', azimuth_features, ...
-        'scattergram', azimuth_scattergrams);
+        struct('features', cat(3, azimuth_features), ...
+        'scattergram', cat(4, azimuth_scattergrams));
 end
-
-save(fullfile('memoized_features', out_file_name), scattering_data);
+X_features = cat(4, scattering_data);
+X_scattergrams = cat(5, azimuth_features);
+save(fullfile('memoized_features', out_file_name), ...
+    'X_features', 'X_scattergrams');
