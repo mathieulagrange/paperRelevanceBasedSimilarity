@@ -5,5 +5,8 @@ modulations = 'time';
 nfo = 8;
 nAzimuths = 5;
 
-dcase_scattering(dataset_path, modulations, nfo, nAzimuths);
-dcase_scattering([dataset_path,'_testset'], modulations, nfo, nAzimuths);
+dcase_scattering(dataset_path, 'time', 8, nAzimuths);
+dcase_scattering([dataset_path,'_testset'], 'time', 8, nAzimuths);
+
+dcase_scattering(dataset_path, 'time', 4, nAzimuths);
+dcase_scattering([dataset_path,'_testset'], 'time', 4, nAzimuths);
