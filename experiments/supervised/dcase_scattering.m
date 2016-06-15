@@ -6,13 +6,6 @@ names = {listing.name};
 % Remove hidden files
 names = names(~cellfun(@(x) x(1)=='.', names));
 
-% Parse class indices to get annotation vector y
-classes = { ...
-    'bus', 'busystreet', 'office', 'openairmarket', 'park', ...
-    'quietstreet', 'restaurant', 'supermarket', 'tube', 'tubestation'};
-class_names = cellfun(@(x) x(1:(end-6)), names, 'UniformOutput', false);
-y = cellfun(@(x) find(strcmp(x, classes)), class_names) - 1;
-
 % Prepare scattering "architectures", i.e. filter banks and nonlinearities
 opts{1}.time.nFilters_per_octave = nfo;
 opts{1}.time.size = 2^19;
