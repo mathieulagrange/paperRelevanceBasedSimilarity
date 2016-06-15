@@ -52,7 +52,8 @@ end
 
 %%
 nFiles = length(names);
-scattering_data = cell(1, nFiles);
+X_features = cell(1, nFiles);
+X_scattergrams = cell(1,nFiles);
 parfor file_index = 1:nFiles
     name = names{file_index};
     path = fullfile(dataset_path, name);
@@ -70,12 +71,11 @@ parfor file_index = 1:nFiles
             ' finished on worker ', num2str(labindex()), ...
             ' at ', datestr(now(), 'HH:MM:SS')]);
     end
-    scattering_data{file_index} = ...
-        struct('features', cat(3, azimuth_features), ...
-        'scattergram', cat(4, azimuth_scattergrams));
+    X_features{file_index} = cat(3, azimuth_features);
+    X_scattergrams{file_index} = cat(4, azimuth_scattergrams);
 end
-X_features = cat(4, scattering_data);
-X_scattergrams = cat(5, azimuth_features);
+X_features = cat(4, X_features);
+X_scattergrams = cat(5,  X_scattergrams);
 save(fullfile('memoized_features', out_file_name), ...
     'X_features', 'X_scattergrams');
 end
