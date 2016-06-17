@@ -6,6 +6,9 @@ names = {listing.name};
 % Remove hidden files
 names = names(~cellfun(@(x) x(1)=='.', names));
 
+% Keep only WAV extension
+names = names(~cellfun(@(x) x((end-4):end)=='.wav', names));
+
 % Prepare scattering "architectures", i.e. filter banks and nonlinearities
 opts{1}.time.nFilters_per_octave = nfo;
 opts{1}.time.size = 2^19;
