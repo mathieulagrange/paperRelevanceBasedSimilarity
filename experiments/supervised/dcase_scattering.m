@@ -7,7 +7,7 @@ names = {listing.name};
 names = names(~cellfun(@(x) x(1)=='.', names));
 
 % Keep only WAV extension
-names = names(~cellfun(@(x) strcmp(x((end-4):end), '.wav'), names));
+names = names(cellfun(@(x) strcmp(x((end-3):end), '.wav'), names));
 
 % Prepare scattering "architectures", i.e. filter banks and nonlinearities
 opts{1}.time.nFilters_per_octave = nfo;
