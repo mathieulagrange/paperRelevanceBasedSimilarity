@@ -12,8 +12,8 @@ import sklearn.preprocessing
 np.set_printoptions(precision=2)
 
 for method in ['time']:
-    for selection in [False, True]:
-        for compression in [False, True]:
+    for selection in [False]:
+        for compression in [True]:
             method_str = "Method: " + method
             if selection:
                 method_str + " + feature selection"
@@ -33,9 +33,18 @@ for method in ['time']:
             Y_training = np.ravel(hdf5_group[u'Y_train'])
             Y_test = np.ravel(hdf5_group[u'Y_test'])
 
-            # Pick azimuth zero, sum along time
-            X_training = np.squeeze(np.sum(X_training[:, 2, :, :], 1))
-            X_test = np.squeeze(np.sum(X_test[:, 2, :, :], 1))
+            # Concatenate azimuths as different training examples
+            X_training = np.reshape(X_training,
+                (X_training.shape[0] * X_training.shape[1],
+                X_training.shape[2], X_training.shape[3]))
+            Y_training = np.repeat(Y_training, 5)
+
+            # Pick central azimuth at test time
+            X_test = X_test[:, 2, :, :]
+
+            # Sum along the time dimension
+            X_training = np.sum(X_training, 1)
+            X_test = np.sum(X_test, 1)
 
             # Discard features with less than 1% of the energy
             if selection:
