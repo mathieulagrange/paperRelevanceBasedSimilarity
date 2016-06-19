@@ -10,11 +10,8 @@ import sklearn.metrics
 import sklearn.preprocessing
 
 np.set_printoptions(precision=2)
-method = 'time'
-compression = True
-selection = True
 
-for method in ['time', 'time-frequency']:
+for method in ['time']:
     for selection in [False, True]:
         for compression in [False, True]:
             method_str = "Method: " + method
@@ -40,7 +37,7 @@ for method in ['time', 'time-frequency']:
             X_training = np.squeeze(np.sum(X_training[:, 2, :, :], 1))
             X_test = np.squeeze(np.sum(X_test[:, 2, :, :], 1))
 
-            # Discard features with less than 10% of the energy
+            # Discard features with less than 1% of the energy
             if selection:
                 print(datetime.datetime.now().time().strftime('%H:%M:%S') +
                     " Selection")
@@ -50,7 +47,7 @@ for method in ['time', 'time-frequency']:
                 sorting_indices = np.argsort(feature_energies)
                 sorted_feature_energies = feature_energies[sorting_indices]
                 cumulative = np.cumsum(sorted_feature_energies)
-                start_feature = np.where(cumulative > 0.10)[0][0]
+                start_feature = np.where(cumulative > 0.01)[0][0]
                 dominant_indices = sorting_indices[start_feature:]
                 X_training = X_training[:, dominant_indices]
                 X_test = X_test[:, dominant_indices]
@@ -90,17 +87,16 @@ for method in ['time', 'time-frequency']:
             average_miss_rate = 1.0 - average_recall
             print "Average miss rate = " + str(100 * average_miss_rate)
             print ""
-            # dictionary = {
-            #     'average_miss_rate': average_miss_rate,
-            #     'C': 1e3,
-            #     'compression': compression,
-            #     'method': method,
-            #     'method_str': method_str,
-            #     'selection': selection,
-            #     'Y_test': Y_test,
-            #     'Y_test_predicted': Y_test_predicted,
-            #     'Y_training': Y_training,
-            #     'Y_training_predicted': Y_training_predicted}
-            # output_file = open(method_str + '.pkl', 'wb')
-            # pickle.dump(dictionary, output_file)
-            # output_file.close()
+            dictionary = {
+                'average_miss_rate': average_miss_rate,
+                'compression': compression,
+                'method': method,
+                'method_str': method_str,
+                'selection': selection,
+                'Y_test': Y_test,
+                'Y_test_predicted': Y_test_predicted,
+                'Y_training': Y_training,
+                'Y_training_predicted': Y_training_predicted}
+            output_file = open(method_str + '.pkl', 'wb')
+            pickle.dump(dictionary, output_file)
+            output_file.close()
