@@ -26,7 +26,7 @@ for method in ['time']:
                 " Loading")
             hdf5_file = h5py.File("memoized_features/" + method + "_Q=08.mat")
             hdf5_file.keys()
-            hdf5_group = f[u'data']
+            hdf5_group = hdf5_file[u'data']
 
             X_training = hdf5_group[u'X_features_train']
             X_test = hdf5_group[u'X_features_test']
@@ -91,13 +91,12 @@ for method in ['time']:
                 " Evaluation")
             Y_training_predicted = clf.predict(X_training)
             Y_test_predicted = clf.predict(X_test)
-            average_recall = sklearn.metrics.recall_score(
-                Y_test, Y_test_predicted, average="macro")
-            average_miss_rate = 1.0 - average_recall
-            print "Average miss rate = " + str(100 * average_miss_rate)
+            accuracy =\
+                sklearn.metrics.accuracy_score(Y_test_predicted, Y_test)
+            print "Accuracy = " + str(100 * accuracy)
             print ""
             dictionary = {
-                'average_miss_rate': average_miss_rate,
+                'accuracy': accuracy,
                 'compression': compression,
                 'method': method,
                 'method_str': method_str,
