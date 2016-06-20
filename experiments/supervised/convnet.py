@@ -93,4 +93,12 @@ model.add(Activation('softmax'))
 print(model.summary())
 model.compile(loss="categorical_crossentropy", optimizer="adam")
 
-model.fit(X_training, Y_training, batch_size=20, nb_epoch=10)
+model.fit(X_training, Y_training, batch_size=1, nb_epoch=100)
+
+
+##
+import librosa
+for n in range(100):
+    print n
+    librosa.display.specshow(np.squeeze(X_training[n, :, :]))
+    plt.savefig("figs/" + str(n).zfill(2) + ".png")
