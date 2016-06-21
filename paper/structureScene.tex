@@ -156,6 +156,7 @@ Scattering transforms are a multiscale representations of audio signals which ca
 Depending upon the chosen architecture, the modulation filterbank may either be performed solely over the time variable or on both time and frequency.
 In this section, we present both the temporal scattering transform and the time-frequency scattering transform.
 
+\subsection{Invariance and stability in acoustic scene classification}
 The notion of invariance to translation plays an essential role in auditory scene classification.
 Indeed, the starting time of the recordings are chosen arbitrarily, and thus do not convey any information about the class.
 To cancel this superfluous source of variability, signals must be mapped to a translation-invariant feature space prior to training the classifier.
@@ -166,6 +167,7 @@ set to $1/T$:
 \begin{equation}
 \mathbf{S_1}\boldsymbol{x}(t, \gamma_1) = (\boldsymbol{x_1} \ast \phi) (t).
 \end{equation}
+\subsection{Temporal scattering}
 
 VL
 The wavelet transform $\boldsymbol{}$ of an audio signal
@@ -186,6 +188,7 @@ frequency range, whereas the CQT has a fixed temporal resolution.
 Therefore, the wavelet scalogram has a better temporal localization at high
 frequencies, which allows to observe steady amplitude modulations.
 
+\subsection{Time-frequency scattering}
 \section{Unsupervised approach}
 
 GL
