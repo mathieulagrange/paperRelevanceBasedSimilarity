@@ -58,9 +58,9 @@ S1 = reshape(S1, size(S1, 1) * nChunks, nAzimuths, size(S1, 3));
 S1 = permute(S1, [3, 1, 4, 2]);
 
 %%
+[nLambda1s, nFrames, ~] = size(S1);
 if iscell(S{1+2})
 else
-    [nLambda1s, nFrames, ~] = size(S1);
     nLambda2s = length(S{1+2}.data);
     scattergram = cat(3, S1, zeros(nLambda1s, nFrames, nLambda2s, nAzimuths));
     features = S1(:, :, 1, ceil(end/2));
