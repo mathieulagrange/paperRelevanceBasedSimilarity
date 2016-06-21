@@ -160,13 +160,15 @@ In this section, we present both the temporal scattering transform and the time-
 The notion of invariance to translation plays an essential role in auditory scene classification.
 Indeed, the starting time of the recordings are chosen arbitrarily, and thus do not convey any information about the class.
 To cancel this superfluous source of variability, signals must be mapped to a translation-invariant feature space prior to training the classifier.
-From any set of descriptors, \eg a time-frequency representation $\boldsymbol{x_1}(t,\gamma_1)$,
+From any set of descriptors -- \eg the time-frequency representation $\boldsymbol{x_1}(t,\gamma_1)$ of  a signal $\boldsymbol{x}(t)$ --
 a translation-invariant representation up to time skills of duration $T$ can be simply obtained
-by concolving $\boldsymbol{x_1}$ with a low-pass filter $\boldsymbol{\phi}(t)$ of cutoff frequency
+by convolving $\boldsymbol{x_1}$ with a low-pass filter $\boldsymbol{\phi}(t)$ of cutoff frequency
 set to $1/T$:
 \begin{equation}
 \mathbf{S_1}\boldsymbol{x}(t, \gamma_1) = (\boldsymbol{x_1} \ast \phi) (t).
 \end{equation}
+As a downside, the transient information in $\boldsymbol{x_1}$ at finer scales than $T$ are lost by this low-pass filtering, hence a lack of discriminability in feature space.
+To address this issue, the temporal scattering transform is to recover this information by convolving $x_1$ with wavelets whose center frequencies are above $1/T$, and subsequently applying complex modulus.
 \subsection{Temporal scattering}
 
 VL
