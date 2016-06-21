@@ -39,13 +39,9 @@
 % can use linebreaks \\ within to get better formatting as desired
 % Do not put math or special symbols in the title.
 %\title{An evaluation framework for event detection using a morphological model of acoustic scenes}
-\title{Scattering transform for acoustic scene classification : supervised and unsupervised approaches}
+\title{Acoustic Scene Classification: \\ Supervised and Unsupervised Approaches using the Scattering Transform}
 
-%
-%
-
-
-% Authors :  Vincent Lostanlen, Grégoire Lafay and Mathieu Lagrange
+\author{Vincent Lostanlen, Gr\'egoire Lafay, Joakim Anden and Mathieu Lagrange}
 
 
 % make the title area
@@ -79,16 +75,11 @@ Acoustic scene classification, segmentation.
 
 \section{Introduction}
 
-\IEEEPARstart{O}{ver} the past decades, the amount of audio data recorded from our sonic environment has considerably grown. 1. Recent research areas such as eco-acoustics \cite{ECOACOUSTICS2014, krause} start to consider massive deployment of acoustic sensors around the world in order to measure potential animal biodiversity modification over large temporal scales due to human activity or climate change \cite{NessSST13, stowell13a, stowell13b}. 
+\IEEEPARstart{O}{ver} the past decades, the amount of audio data recorded from our sonic environment has considerably grown. Recent research areas such as eco-acoustics \cite{ECOACOUSTICS2014, krause} start to consider massive deployment of acoustic sensors around the world in order to measure potential animal biodiversity modification over large temporal scales due to human activity or climate change \cite{NessSST13, stowell13a, stowell13b}. 
 
-2. Recent regulations -> pleasantness
+Also, some recent works demonstrate the interest of such approaches for the characterization of human acoustic pleasantness in urban areas \cite{lafay, lavandier} and the prediction of annoyance due to the traffic \cite{gloaguen}. We believe that those case study are of interest for the signal processing community as they have strong societal impacts and raises interesting research avenues. Unfortunately, those fields of research are still in infancy and consequently very few well built datasets are available for evaluation purposes. 
 
-
-We believe that those matters have strong societal impacts, but those fields of research are still in infancy and consequently very few well built dataset are available for evaluation purposes. 
-
-A relatively more mature field of investigation is the classification 
-
-despite its lower value, it has the advantage of being rooted by numerous works in cognitive psychology and been considered in the data processing field for a while, with availability of some well designed evaluation datasets. 
+A closely related field of investigation that is relatively more mature is the classification of acoustic scenes whose aim is to predict labels by processing audio data. Despite its lower value, it has the advantage of being rooted by numerous works in cognitive psychology on categorization \cite{dubois} and been considered in the data processing field for a while, with availability of some well designed evaluation datasets. 
 
 In this paper, we investigate the potential of a new unsupervised segmentation paradigm that allows us to 
 
@@ -114,7 +105,7 @@ debate about the kind of process underlying perception
 
 strong indication that the detection of specific events, named markers suffice to trigger class prediction
 
-From a numerical data processing overview, the holistic scheme as a simplicity, but clearly face poor performance on realistic conditions \cite{jasa-el}.
+From a numerical data processing overview, the holistic scheme as a simplicity, but clearly face poor performance on realistic conditions \cite{lagrange:hal-01082501}.
 
 If available, the complete description of the scene in terms of event occurences is powerful enough to reliably predict high level cognitive classes, \textit{i.e.} the presence of birds are strong pleasantness indicators and very likely to be heard in parks in urban areas.
 
@@ -123,6 +114,39 @@ If available, the complete description of the scene in terms of event occurences
 GL 1
 
 ML 2
+
+\subsection{Goal}
+
+\subsection{Methods}
+
+\subsection{Datasets}
+
+defreville \cite{aucouturier2007bag}
+
+\cite{lagrange:hal-01082501}
+
+dcase2013 \cite{7100934} \cite{giannoulis2013database}
+
+For each scene type, three different recordists (DG, DS,
+EB) visited a wide variety of locations in Greater London over
+a period of months (Summer and Autumn 2012), and in each
+scene recorded a few minutes of audio. We ensured that no
+systematic variations in the recordings covaried with scene
+type: all recordings were made in moderate weather condi-
+tions, and varying times of day and week, and each recordist
+recorded each scene type.
+
+Rouen \cite{rakotomamonjy2015histogram}
+
+\url{https://sites.google.com/site/alainrakotomamonjy/home/audio-scene}
+
+dCase2016 \cite{Mesaros2016_EUSIPCO}
+
+advantages of dcase2013:
+
+controled intra class diversity
+
+despite its size, it is still challenging as state-of-the-art systems achieves 76 \% \cite{6701890} (winner of the 2013 challenge RQA+SVM). For the sake of comparison the HOG+SVM approach \cite{rakotomamonjy2015histogram} achieves 75 \% and 92 \% on the dcase2013 and the Rouen datasets respectively. On the latter, the state-of-the-art is currently 95 \% \cite{bisot2016acoustic}.
 
 \section{Scattering}
 
