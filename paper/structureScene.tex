@@ -153,7 +153,7 @@ controled intra class diversity
 despite its size, it is still challenging as state-of-the-art systems achieves 76 \% \cite{6701890} (winner of the 2013 challenge RQA+SVM). For the sake of comparison the HOG+SVM approach \cite{rakotomamonjy2015histogram} achieves 75 \% and 92 \% on the dcase2013 and the Rouen datasets respectively. On the latter, the state-of-the-art is currently 95 \% \cite{bisot2016acoustic}.
 
 \section{Scattering transforms}
-Scattering transforms are a multiscale representations of audio signals which cascade an auditory filterbank and a modulation filterbank, interspersed with complex modulus nonlinearities.
+Scattering transforms are translation-invariant representations of audio signals which cascade an auditory filterbank and a modulation filterbank, interspersed with complex modulus nonlinearities.
 Depending upon the chosen architecture, the modulation filterbank may either be performed solely over the time variable or on both time and frequency.
 In this section, we present both the temporal scattering transform and the time-frequency scattering transform.
 
@@ -166,7 +166,7 @@ a translation-invariant representation up to time skills of duration $T$ can be 
 by convolving $\boldsymbol{x_1}$ with a low-pass filter $\boldsymbol{\phi}(t)$ of cutoff frequency
 set to $1/T$:
 \begin{equation}
-\mathbf{S_1}\boldsymbol{x}(t, \gamma_1) = (\boldsymbol{x_1} \ast \phi) (t).
+\mathbf{S_1}\boldsymbol{x}(t, \gamma_1) = (\boldsymbol{x_1} \ast \boldsymbol{\phi}) (t).
 \end{equation}
 As a downside, the transient information in $\boldsymbol{x_1}$ at finer scales than $T$ are lost by this low-pass filtering, hence a lack of discriminability in feature space.
 To address this issue, the temporal scattering transform recovers this information by convolving $x_1$ with wavelets whose center frequencies are above $1/T$ and subsequently applying complex modulus.
