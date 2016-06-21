@@ -181,14 +181,19 @@ The next section describes the operations involved in temporal scattering.
 
 \subsection{Temporal scattering}
 Let $\boldsymbol{\psi}(t)$ a complex-valued band-pass filter of
-dimensionless frequency $1$ and bandwidth $1/Q$.
-A filter bank of wavelets is built by dilating $\boldsymbol{\psi}$
-according to a geometric sequence of scales $2^{-\gamma_1/Q}$,
-where the variable $\gamma$ takes integer values.
+dimensionless frequency $1$ and bandwidth $1/Q_1$.
+A filter bank of wavelets is built by dilating $\boldsymbol{\psi}(t)$
+according to a geometric sequence of temporal scales $2^{-\gamma_1/Q_1}$.
+The variable $\gamma_1$, akin to a log-frequency, takes integer values between $0$ and $(J_1 \times Q_1 - 1)$.
+In the sequel, the number of filters per octave $Q_1$ is set to $8$, and
+the number of octaves $J_1$ is set to $10$, \ie the full audible range.
+We denote by
 \begin{equation}
-\boldsymbol{\psi_{\gamma_1}}(t) = 2^{-\gamma_1/Q} \boldsymbol{\psi}(-2^{\gamma_1/Q} t)
+\boldsymbol{\psi_{\gamma_1}}(t) = 2^{-\gamma_1/Q_1} \boldsymbol{\psi}(-2^{\gamma_1/Q_1} t)
 \end{equation}
-We denote by $\boldsymbol{\psi_{\gamma_1}}(t)$ the resulting wavelets.
+the wavelets resulting from the dilation of $\boldsymbol{\psi}$(t).
+For some $\gamma_1$, the wavelet $\boldsymbol{\psi_{\gamma_1}}(t)$
+has a center frequency of $2^{-\gamma_1/Q_1}$, a bandwidth of $2^{-\gamma_1/Q_1}/Q_1$, and a quality factor of $Q_1$.
 
 The wavelet transform $\boldsymbol{}$ of an audio signal
 $\boldsymbol{x}(t)$ is obtained by convolution with all wavelets:
