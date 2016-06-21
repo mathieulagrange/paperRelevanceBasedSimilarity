@@ -156,7 +156,14 @@ In this section, we present both the temporal scattering transform and the time-
 
 The notion of invariance to translation plays an essential role in auditory scene classification.
 Indeed, the starting time of the recordings are chosen arbitrarily, and thus do not convey any information about the class.
-To cancel this superfluous source of variability, signals must be mapped to a translation-invariant feature space prior to training a classifier.
+To cancel this superfluous source of variability, signals must be mapped to a translation-invariant feature space prior to training the classifier.
+From any set of descriptors, \eg a time-frequency representation $\boldsymbol{x_1}(t,\gamma_1)$,
+a translation-invariant representation up to time skills of duration $T$ can be simply obtained
+by concolving $\boldsymbol{x_1}$ with a low-pass filter $\boldsymbol{\phi}(t)$ of cutoff frequency
+set to $1/T$:
+\begin{equation}
+\mathbf{S_1}\boldsymbol{x}(t, \gamma_1) = (\boldsymbol{x_1} \ast \phi) (t).
+\end{equation}
 
 VL
 The wavelet transform $\boldsymbol{}$ of an audio signal
