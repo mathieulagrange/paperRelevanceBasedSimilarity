@@ -170,6 +170,15 @@ set to $1/T$:
 As a downside, the transient information in $\boldsymbol{x_1}$ at finer scales than $T$ are lost by this low-pass filtering, hence a lack of discriminability in feature space.
 To address this issue, the temporal scattering transform is to recover this information by convolving $x_1$ with wavelets whose center frequencies are above $1/T$, and subsequently applying complex modulus.
 \subsection{Temporal scattering}
+Let $\boldsymbol{\psi}(t)$ a complex-valued band-pass filter of
+dimensionless frequency $1$ and bandwidth $1/Q$.
+A filter bank of wavelets is built by dilating $\boldsymbol{\psi}$
+according to a geometric sequence of scales $2^{-\gamma_1/Q}$,
+where the variable $\gamma$ takes integer values.
+\begin{equation}
+\boldsymbol{\psi_{\gamma_1}}(t) = 2^{-\gamma_1/Q} \boldsymbol{\psi}(-2^{\gamma_1/Q} t)
+\end{equation}
+We denote by $\boldsymbol{\psi_{\gamma_1}}(t)$ the resulting wavelets.
 
 The wavelet transform $\boldsymbol{}$ of an audio signal
 $\boldsymbol{x}(t)$ is obtained by convolution with all wavelets:
