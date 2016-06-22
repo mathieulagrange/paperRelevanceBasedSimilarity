@@ -24,6 +24,7 @@
 \usetikzlibrary{arrows,positioning}
 \usepackage{url}
 \usepackage{color}
+\usepackage{graphicx}
 \usepackage{xspace}
 \newcommand*{\eg}{e.g.\@\xspace}
 \newcommand*{\ie}{i.e.\@\xspace}
@@ -233,7 +234,21 @@ In all experiments, wavelets
 $\boldsymbol{\psi_{\gamma_1}}(t)$ and $\boldsymbol{\psi_{\gamma_2}}(t)$ are designed as a fourth-order Gammatone
 wavelet with one vanishing moment \cite{Venkitaraman2014}.
 
+\begin{figure}
+\begin{center}
+\setlength{\unitlength}{1cm}
+\begin{picture}(5,2)
+ \put(-1.5,0.0){\includegraphics[height=2cm,width=3.5cm]{gammatone_Q8.png}}
+ \put(2.5,0.0){\includegraphics[height=2cm,width=3.5cm]{gammatone_Q1.png}}
+\end{picture}
+\caption{
+Left: Gammatone wavelet $\boldsymbol{\psi_{\gamma_1}}(t)$ with a quality factor of $Q_1=8$.
+Right: Gammatone wavelet $\boldsymbol{\psi_{\gamma_2}}(t)$ with a quality factor of $Q_2=1$.}
+\end{center}
+\end{figure}
+
 \subsection{Time-frequency scattering}
+
 
 \begin{equation}
 \boldsymbol{\psi_{\gamma_{\mathrm{fr}}, \theta_{\mathrm{fr}}}}(\gamma_1)
@@ -248,6 +263,7 @@ wavelet with one vanishing moment \cite{Venkitaraman2014}.
 \overset{\gamma_1}{\ast} \boldsymbol{\psi_{\gamma_{\mathrm{fr}}, \theta_{\mathrm{fr}}}}
 \vert (t,\gamma_1)
 \end{equation}
+Again, we use the generic literal $\gamma$ as a shorthand for $\gamma_1$ or $(\gamma_1, \gamma_2, \gamma_{\mathrm{fr}}, \theta_{\mathrm{fr}})$.
 
 \section{Unsupervised approach}
 
