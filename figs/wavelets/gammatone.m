@@ -1,4 +1,5 @@
 nfo = 8;
+line_width = 1.5;
 
 opts{1}.time.nFilters_per_octave = nfo;
 opts{1}.time.size = 2^19;
@@ -26,10 +27,9 @@ psi2_ift = ifftshift(ifft(psi2_ft));
 psi2_ift = psi2_ift((end/2) + (-3000:10000));
 psi2 = [real(psi2_ift),imag(psi2_ift),abs(psi2_ift)];
 
-figure(1);
-plot(psi1)
+plot(psi1, 'LineWidth', line_width)
 axis off
 export_fig -transparent gammatone_Q8.png
-plot(psi2)
+plot(psi2, 'LineWidth', line_width);
 axis off
 export_fig -transparent gammatone_Q1.png
