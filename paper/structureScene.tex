@@ -223,16 +223,12 @@ The amplitude modulation spectrum resulting from this operator is
 \vert \boldsymbol{x_1} \ast \boldsymbol{\psi_{\gamma_2}} \vert(t,\gamma_1),
 \end{equation}
 where the center frequencies of the wavelets $\boldsymbol{\psi_{\gamma_2}}(t)$ are of the form $2^{-\gamma_2/Q_2} \xi_2$, and the second-order log-frequency index $\gamma_2$ takes integer values between $0$ and $(J_2 \times Q_2 - 1)$.
-In the sequel, we set $\xi_2$ to $2.5\,\mathrm{kHz}$, $Q_2$ to $1$, and $J_2$ to $12$. Finally, the low-pass filter $\phi(t)$ is applied to $\boldsymbol{x_2}$ to guarantee invariance to translation:
+In the sequel, we set $\xi_2$ to $2.5\,\mathrm{kHz}$, $Q_2$ to $1$, and $J_2$ to $12$. Finally, the low-pass filter $\phi(t)$ is applied to $\boldsymbol{x_2}$ to guarantee invariance to translation, yielding
 \begin{equation}
 \mathbf{S_2}\boldsymbol{x}(t,\gamma_1,\gamma_2) =
 (\boldsymbol{x_2} \ast \phi)(t,\gamma_1,\gamma_2).
 \end{equation}
-The scattering transform consists of the concatenation of first-order coefficients $\mathbf{S_1}\boldsymbol{x}(t,\gamma_1)$ and second-order coefficients $\mathbf{S_1}\boldsymbol{x}(t,\gamma_1,\gamma_2)$ into a feature matrix $\mathbf{S}\boldsymbol{x}(t,\gamma)$, where $\gamma$ is a shorthand index for $\gamma_1$ or $(\gamma_1,\gamma_2)$.
-
-In all experiments, wavelets
-$\boldsymbol{\psi_{\gamma_1}}(t)$ and $\boldsymbol{\psi_{\gamma_2}}(t)$ are designed as a fourth-order Gammatone
-wavelet with one vanishing moment \cite{Venkitaraman2014}.
+The scattering transform consists of the concatenation of first-order coefficients $\mathbf{S_1}\boldsymbol{x}(t,\gamma_1)$ and second-order coefficients $\mathbf{S_1}\boldsymbol{x}(t,\gamma_1,\gamma_2)$ into a feature matrix $\mathbf{S}\boldsymbol{x}(t,\gamma)$, where $\gamma$ is a shorthand index for either $\gamma_1$ or $(\gamma_1,\gamma_2)$.
 
 \begin{figure}
 \begin{center}
@@ -242,10 +238,20 @@ wavelet with one vanishing moment \cite{Venkitaraman2014}.
  \put(2.5,0.0){\includegraphics[height=2cm,width=3.5cm]{gammatone_Q1.png}}
 \end{picture}
 \caption{
+\label{fig:gammatones}
 Left: Gammatone wavelet $\boldsymbol{\psi_{\gamma_1}}(t)$ with a quality factor of $Q_1=8$.
 Right: Gammatone wavelet $\boldsymbol{\psi_{\gamma_2}}(t)$ with a quality factor of $Q_2=1$.}
 \end{center}
 \end{figure}
+
+Wavelets
+$\boldsymbol{\psi_{\gamma_1}}(t)$ and $\boldsymbol{\psi_{\gamma_2}}(t)$ are designed as fourth-order Gammatone
+wavelets with one vanishing moment \cite{Venkitaraman2014}, as shown in Figure \ref{fig:gammatones}.
+In the context of auditory scene analysis, the asymmetric envelope of Gammatone wavelets is more biologically plausible than the symmetric, Gaussian-like envelope of the widespread Morlet wavelets.
+Indeed, it allows to reproduce two important psychoacoustic effects in the mammalian cochlea: the asymmetry of temporal masking and the asymmetry of spectral masking \cite{Fastl2007}.
+Moreover, it should be noted that Gammatone wavelets follow the typical amplitude profile of natural sounds, beginning with a relatively sharp attack and ending with a slower decay, hence an 
+
+
 
 \subsection{Time-frequency scattering}
 
