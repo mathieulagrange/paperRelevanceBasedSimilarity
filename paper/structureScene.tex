@@ -213,7 +213,8 @@ However, contrary to the CQT, the wavelet scalogram reaches the Heisenberg
 theoretical limit of optimal time-frequency localization across the whole
 frequency range, whereas the CQT has a fixed temporal resolution, constrained by the support of the STFT analyzing window.
 Therefore, the wavelet scalogram has a better temporal localization at high
-frequencies, which allows to observe steady amplitude modulations.
+frequencies than the CQT, at the expense of a greater computational cost.
+This property allows to observe amplitude modulations at fine temporal scales in the scalogram, down to the minimum scale $2Q_1/\xi$ for $\gamma = 0$, of the order of $1\,\textrm{ms}$ given the aforementioned values of $Q_1$ and $\xi$.
 
 In all subsequent experiments, wavelets
 $\boldsymbol{\psi_{\gamma_1}}(t)$ and $\boldsymbol{\psi_{\gamma_2}}(t)$ are designed as a fourth-order Gammatone
