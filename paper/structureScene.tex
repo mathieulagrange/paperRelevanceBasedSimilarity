@@ -183,13 +183,13 @@ The next section describes the operations involved in temporal scattering.
 Let $\boldsymbol{\psi}(t)$ a complex-valued band-pass filter of
 dimensionless frequency $1$ and bandwidth $1/Q_1$.
 A filter bank of wavelets is built by dilating $\boldsymbol{\psi}(t)$
-according to a geometric sequence of temporal scales $2^{-\gamma_1/Q_1}$.
+according to a geometric sequence of temporal scales $2^{\gamma_1/Q_1}$.
 The variable $\gamma_1$, akin to a log-frequency, takes integer values between $0$ and $(J_1 \times Q_1 - 1)$.
-In the sequel, the number of filters per octave $Q_1$ is set to $8$, and
-the number of octaves $J_1$ is set to $10$, \ie the maximum range of human hearing.
+In the sequel, we set the number of wavelets per octave $Q_1$ to $8$, and
+the number of octaves $J_1$ to $10$, \ie the maximum range of human hearing.
 We denote by
 \begin{equation}
-\boldsymbol{\psi_{\gamma_1}}(t) = 2^{-\gamma_1/Q_1} \boldsymbol{\psi}(-2^{\gamma_1/Q_1} t)
+\boldsymbol{\psi_{\gamma_1}}(t) = 2^{-\gamma_1/Q_1} \boldsymbol{\psi}(2^{-\gamma_1/Q_1} t)
 \end{equation}
 the wavelets resulting from the dilation of $\boldsymbol{\psi}$(t).
 For some $\gamma_1$, the wavelet $\boldsymbol{\psi_{\gamma_1}}(t)$
@@ -206,8 +206,8 @@ the wavelet scalogram
 = \vert \boldsymbol{y_1}(t, \gamma_1)\vert
 = \vert \boldsymbol{x} \ast \boldsymbol{\psi_{\gamma_1}} \vert (t).
 \end{equation}
-The wavelet scalogram bears a resemblance to the constant-Q transform (CQT),
-which is derived from the short-time Fourier transform (STFT) by averaging the frequency
+The wavelet scalogram bears resemblance to the constant-Q transform (CQT),
+which is derived from the short-term Fourier transform (STFT) by averaging the frequency
 axis into constant-Q subbands of center frequencies $2^{-\gamma_1/Q}$.
 Indeed, both time-frequency representations are indexed by time $t$ and log-frequency $\gamma_1$.
 However, contrary to the CQT, the wavelet scalogram reaches the Heisenberg
