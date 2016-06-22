@@ -33,9 +33,11 @@
 \hyphenation{op-tical net-works semi-conduc-tor}
 
 \usepackage{color}
-\newcommand{\gl}[1]{\textcolor{red}{Gregoire : #1}}
-\newcommand{\mr}[1]{\textcolor{magenta}{Mathias : #1}}
+\newcommand{\vl}[1]{\textcolor{orange}{Vincent : #1}}
+\newcommand{\gl}[1]{\textcolor{red}{Gr\'egoire : #1}}
+\newcommand{\ja}[1]{\textcolor{magenta}{Joakim : #1}}
 \newcommand{\ml}[1]{\textcolor{blue}{ Mathieu : #1}}
+
 
 
 \begin{document}
@@ -173,7 +175,7 @@ As a downside, the transient information in $\boldsymbol{x_1}$ at finer scales t
 To address this issue, the temporal scattering transform recovers this information by convolving $\boldsymbol{x_1}$ with wavelets whose center frequencies are above $1/T$, and subsequently applying complex modulus.
 
 By resorting to wavelet modulus, as opposed to Fourier transform modulus, the resulting features are provably stable to small time warps,
-in the sense of Lipschitz regularity with respect to diffeomorphisms \cite{Mallat2010}.
+in the sense of Lipschitz regularity with respect to diffeomorphisms \cite{Mallat2012}.
 Besides invariance to translation, this stability property is crucial in signal classification, as it entails a guarantee of robustness to small variations in pitch, reverberation, and rhythmic organization of events, which make up an important part of the intra-class variability among natural sounds.
 
 The scattering transform is defined mathematically as an infinite cascade of nonlinear layers, each consisting of a wavelet transform modulus operator.
