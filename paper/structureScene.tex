@@ -215,13 +215,18 @@ This property allows to observe amplitude modulations at fine temporal scales in
 
 Among auditory scenes, amplitude modulations may be caused by a broad variety of mechanical interactions, including collision, friction, and turbulent flow.
 They also account for some higher-level cognitive attributes of sound, \eg prosody in speech or rhythm in music.
-Although they are discarded while filtering $\boldsymbol{x_1}(t,\gamma_1)$ into a translation-invariant representation $\mathbf{S_1}\boldsymbol{x}(t,\gamma_1)$, they can be recovered by a second wavelet transform modulus operator:
+Although they are discarded while filtering $\boldsymbol{x_1}(t,\gamma_1)$ into a translation-invariant representation $\mathbf{S_1}\boldsymbol{x}(t,\gamma_1)$, they can be recovered by a second wavelet transform modulus operator.
+The amplitude modulation spectrum resulting from this operator is
 \begin{equation}
 \boldsymbol{x_2}(t,\gamma_1,\gamma_2) =
 \vert \boldsymbol{x_1} \ast \boldsymbol{\psi_{\gamma_2}} \vert(t,\gamma_1),
 \end{equation}
-where the center frequencies of the wavelets $\boldsymbol{\psi_{\gamma_2}}$ are of the form $2^{-\gamma_2/Q_2} \xi_2$, and the second-order log-frequency index $\gamma_2$ takes integer values between $0$ and $(J_2 \times Q_2 - 1)$.
-
+where the center frequencies of the wavelets $\boldsymbol{\psi_{\gamma_2}}(t)$ are of the form $2^{-\gamma_2/Q_2} \xi_2$, and the second-order log-frequency index $\gamma_2$ takes integer values between $0$ and $(J_2 \times Q_2 - 1)$.
+In the sequel, we set $\xi_2$ to $2.5\,\mathrm{kHz}$, $Q_2$ to $1$, and $J_2$ to $12$.
+\begin{equation}
+\mathbf{S_2}\boldsymbol{x}(t,\gamma_1,\gamma_2) =
+(\boldsymbol{x_2} \ast \phi)(t,\gamma_1,\gamma_2).
+\end{equation}
 In all subsequent experiments, wavelets
 $\boldsymbol{\psi_{\gamma_1}}(t)$ and $\boldsymbol{\psi_{\gamma_2}}(t)$ are designed as a fourth-order Gammatone
 wavelet with one vanishing moment \cite{Venkitaraman2014}.
