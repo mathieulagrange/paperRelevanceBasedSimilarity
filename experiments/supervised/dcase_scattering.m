@@ -21,7 +21,7 @@ opts{2}.banks.time.nFilters_per_octave = 1;
 opts{2}.banks.time.wavelet_handle = @gammatone_1d;
 opts{2}.banks.time.sibling_mask_factor = 2^3;
 opts{2}.banks.time.T = 2^17;
-if strcmp(modulations, 'time-frequency')
+if strcmp(modulations, 'timefrequency')
     opts{2}.banks.gamma.nFilters_per_octave = 1;
     opts{2}.banks.gamma.T = 2^nextpow2(nfo * 4);
 end
