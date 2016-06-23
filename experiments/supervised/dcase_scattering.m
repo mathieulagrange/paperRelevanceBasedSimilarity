@@ -19,7 +19,7 @@ opts{1}.time.wavelet_handle = @gammatone_1d;
 opts{1}.time.S_log2_oversampling = 0;
 opts{2}.banks.time.nFilters_per_octave = 1;
 opts{2}.banks.time.wavelet_handle = @gammatone_1d;
-opts{2}.banks.time.sibling_mask_factor = 2^6;
+opts{2}.banks.time.sibling_mask_factor = 2^3;
 opts{2}.banks.time.T = 2^17;
 if strcmp(modulations, 'time-frequency')
     opts{2}.banks.gamma.nFilters_per_octave = 1;
@@ -56,8 +56,8 @@ for file_index = 1:nFiles
     multichannel_waveform = stereo_waveform * mixing_matrix;
     azimuth_features = cell(1, nAzimuths);
     for azimuth_index = 1:nAzimuths
-        features = ...
-            multichannel_scattering(multichannel_waveform(:, azimuth_index), archs);
+        features = multichannel_scattering( ...
+            multichannel_waveform(:, azimuth_index), archs);
         azimuth_features{azimuth_index} = features;
         disp([name, ...
             ', azimuth ', num2str(azimuth_index), ...
