@@ -49,29 +49,22 @@ end
 %%
 nFiles = length(names);
 X_features = cell(1, nFiles);
-X_scattergrams = cell(1,nFiles);
-parfor file_index = 1:nFiles
+for file_index = 1:nFiles
     name = names{file_index};
     path = fullfile(dataset_path, name);
     stereo_waveform = audioread(path);
     multichannel_waveform = stereo_waveform * mixing_matrix;
     azimuth_features = cell(1, nAzimuths);
-    azimuth_scattergrams = cell(1, nAzimuths);
     for azimuth_index = 1:nAzimuths
-        [features, scattergram] = multichannel_scattering( ...
-            multichannel_waveform(:, azimuth_index), archs);
+        features = ...
+            multichannel_scattering(multichannel_waveform(:, azimuth_index), archs);
         azimuth_features{azimuth_index} = features;
-        azimuth_scattergrams{azimuth_index} = scattergram;
         disp([name, ...
             ', azimuth ', num2str(azimuth_index), ...
             ' finished on worker ', num2str(labindex()), ...
             ' at ', datestr(now(), 'HH:MM:SS')]);
     end
     X_features{file_index} = cat(3, azimuth_features);
-    X_scattergrams{file_index} = cat(4, azimuth_scattergrams);
 end
 X_features = cat(4, X_features);
-X_scattergrams = cat(5,  X_scattergrams);
-save(fullfile('memoized_features', out_file_name), ...
-    'X_features', 'X_scattergrams');
 end
