@@ -33,7 +33,6 @@ opts{1}.time.T = 2^14;
 opts{1}.time.is_chunked = false;
 opts{1}.time.gamma_bounds = [0 nfo*11]; % Restrict to top 11 acoustic octaves
 opts{1}.time.wavelet_handle = @gammatone_1d;
-opts{1}.time.S_log2_oversampling = 0;
 opts{2}.banks.time.nFilters_per_octave = 1;
 opts{2}.banks.time.wavelet_handle = @gammatone_1d;
 opts{2}.banks.time.sibling_mask_factor = 2^6;
