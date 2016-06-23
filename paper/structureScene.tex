@@ -259,21 +259,7 @@ The next subsection extends the second-order scattering operator to joint wavele
 \subsection{Time-frequency scattering}
 
 \cite{Anden2015}
-%The temporal scale $2^{\gamma_2}/\xi_2$ takes $5$ values between $23\,\mathrm{ms}$ and $370\,\mathrm{ms}$.
-%The log-frequential scale $\beta$ takes $5$ values between $1/4^{\mathrm{th}}$ of an octave and $4$ octaves, as well as their $5$ "mirror" frequencies,
-%according to a geometric sequence.
-%In addition, the edge case $\gamma_{\mathrm{fr}} = \infty$ corresponds
-%to a log-frequential low-pass filter along $4$ octaves
-%according to all $5$ temporal scales $2^{\gamma_2}/\xi_2$.
-
-
-\begin{equation}
-\boldsymbol{\psi_{\gamma_{\mathrm{fr}}, \theta_{\mathrm{fr}}}}(\gamma_1)
-= \theta_{\mathrm{fr}} 2^{-\gamma_{\mathrm{fr}}/Q_{\mathrm{fr}}}
-\boldsymbol{\psi_{\theta_{\mathrm{fr}}}}( \theta_{\mathrm{fr}}  2^{-\gamma_{\mathrm{fr}}/Q_{\mathrm{fr}}}\gamma_1)
-\end{equation}
-
-
+Since it operates over a complex-valued input, the filterbank over log-frequencies $\gamma_1$ must cover the whole Fourier spectrum, including negative frequencies and the null frequency, to ensure invertibility and energy conservation.
 
 \begin{equation}
 \boldsymbol{x_2}(t,\gamma_1,\gamma_2,\gamma_{\mathrm{fr}},\theta_{\mathrm{fr}}) =
