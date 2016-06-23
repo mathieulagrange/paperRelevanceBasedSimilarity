@@ -262,6 +262,8 @@ The next subsection extends the second-order scattering operator to joint wavele
 
 \cite{Anden2015}
 Since it operates over a complex-valued input, the filterbank over log-frequencies $\gamma_1$ must cover the whole Fourier spectrum, including negative frequencies and the null frequency, to ensure invertibility and energy conservation.
+Therefore, wavelets on $\gamma_1$ have center frequencies of the form
+$\theta_{\mathrm{fr}}  2^{-\gamma_{\mathrm{fr}}/Q_{\mathrm{fr}}}$, where $\gamma_{\mathrm{fr}}$ takes integer values betwen $0$ and $(J_\mathrm{fr} \times Q_\mathrm{fr} - 1)$ and $\theta_{\mathrm{fr}} = \pm 1$.
 
 \begin{equation}
 \boldsymbol{x_2}(t,\gamma_1,\gamma_2,\gamma_{\mathrm{fr}},\theta_{\mathrm{fr}}) =
