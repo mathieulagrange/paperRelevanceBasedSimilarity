@@ -37,7 +37,7 @@ archs = sc_setup(opts);
 azimuths = linspace(0.0, 1.0, nAzimuths);
 mixing_matrix = cat(1, azimuths, 1.0 - azimuths);
 
-%
+% Prepare paths for memoized features
 out_file_name = [modulations, '_Q=', num2str(nfo, '%0.2d')];
 if strcmp(dataset_path((end-6):end), 'testset')
     out_file_name = [out_file_name, '_test'];
