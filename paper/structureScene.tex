@@ -14,11 +14,12 @@
 \usepackage{array}
 \usepackage{fixltx2e}
 
-
 \usepackage{stfloats}
 % LaTeX2e). It also provides a command:
 \fnbelowfloat
 
+\usepackage{amssymb}
+\usepackage{amsmath}
 \usepackage{pgf}
 \usepackage{tikz}
 \usetikzlibrary{arrows,positioning}
@@ -256,13 +257,23 @@ Moreover, it should be noted that Gammatone wavelets follow the typical amplitud
 The next subsection extends the second-order scattering operator to joint wavelet transforms over the time and log-frequency variables.
 
 \subsection{Time-frequency scattering}
+
 \cite{Anden2015}
+%The temporal scale $2^{\gamma_2}/\xi_2$ takes $5$ values between $23\,\mathrm{ms}$ and $370\,\mathrm{ms}$.
+%The log-frequential scale $\beta$ takes $5$ values between $1/4^{\mathrm{th}}$ of an octave and $4$ octaves, as well as their $5$ "mirror" frequencies,
+%according to a geometric sequence.
+%In addition, the edge case $\gamma_{\mathrm{fr}} = \infty$ corresponds
+%to a log-frequential low-pass filter along $4$ octaves
+%according to all $5$ temporal scales $2^{\gamma_2}/\xi_2$.
+
 
 \begin{equation}
 \boldsymbol{\psi_{\gamma_{\mathrm{fr}}, \theta_{\mathrm{fr}}}}(\gamma_1)
 = \theta_{\mathrm{fr}} 2^{-\gamma_{\mathrm{fr}}/Q_{\mathrm{fr}}}
 \boldsymbol{\psi_{\theta_{\mathrm{fr}}}}( \theta_{\mathrm{fr}}  2^{-\gamma_{\mathrm{fr}}/Q_{\mathrm{fr}}}\gamma_1)
 \end{equation}
+
+
 
 \begin{equation}
 \boldsymbol{x_2}(t,\gamma_1,\gamma_2,\gamma_{\mathrm{fr}},\theta_{\mathrm{fr}}) =
@@ -282,6 +293,21 @@ GL
 GL
 
 \section{Supervised approach}
+
+\subsection{}
+
+\begin{equation}
+\widetilde{\mathbf{S}}\boldsymbol{X}(\gamma, n) =
+\dfrac{\log \mathbf{S}\boldsymbol{X}(\gamma, n) -
+\mathbb{E}[\log \mathbf{S}\boldsymbol{X}(\gamma)]}{\sigma(\log \mathbf{S}\boldsymbol{X}(\gamma))}
+\end{equation}
+where $\mathbb{E}[\log \mathbf{S}\boldsymbol{X}(\gamma)] = \frac{1}{N} \sum_{n=1}^{N} \log \mathbf{S}\boldsymbol{X}(\gamma,n)$ is the expected value of $\log \mathbf{S}\boldsymbol{X}(\gamma,n)$ and
+\begin{equation}
+\sigma(\log \mathbf{S}\boldsymbol{X} (\gamma)) =
+\frac{1}{N-1} \sum_{n=1}^{N}
+( \log \mathbf{S}\boldsymbol{X}(\gamma,n) - \mathbb{E}[\log \mathbf{S}\boldsymbol{X}] )
+\end{equation}
+ is the sample standard deviation.
 
 \subsection{Results}
 
