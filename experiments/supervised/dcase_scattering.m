@@ -67,4 +67,5 @@ for file_index = 1:nFiles
     X_features{file_index} = cat(3, azimuth_features);
 end
 X_features = cat(4, X_features);
+save(fullfile('memoized_features', out_file_name), 'X_features', '-v7.3');
 end
