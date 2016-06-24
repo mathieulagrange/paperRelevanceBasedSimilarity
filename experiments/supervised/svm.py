@@ -25,7 +25,6 @@ for method in ['time']:
             print(datetime.datetime.now().time().strftime('%H:%M:%S') +
                 " Loading")
             hdf5_file = h5py.File("memoized_features/" + method + "_Q=08.mat")
-            hdf5_file.keys()
             hdf5_group = hdf5_file[u'data']
 
             X_training = hdf5_group[u'X_features_train']
