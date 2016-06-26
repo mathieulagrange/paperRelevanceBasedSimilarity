@@ -279,6 +279,34 @@ Prior to supervised or unsupervised classification, is it beneficial to process 
 This section reviews binaural data augmentation, feature selection, logarithmic compression, standardization, and temporal integration.
 The former is novel and specific to stereophonic recordings, whereas the next ones would also apply to many other problems.
 
+\subsection{Binaural data augmentation}
+The recording condition of most acoustic scene datasets follow a binaural protocol, \ie a pair of microphones respectively located over the ears of the recordist.
+This protocol provides a realistic description of the spatial auditory environment, as it reproduces the natural listening conditions of humans.
+% In particular, the inter-intensity difference (IID) between left and right channel conveys the approximate azimuth of each sound source that make up the scene with respect to the listener.
+Yet, since the location of the recordist may vary across instances of the same class, the feature space for classification should be invariant to the location of sources.
+In order to achieve invariance to location, averaging the left and right channels into a monophonic signal is by far the most widespread technique.
+
+\begin{equation}
+\boldsymbol{x}(t) =
+\alpha \boldsymbol{\times x_\mathsf{L}}\!(t) +
+(1-\alpha) \boldsymbol{\times x_\mathsf{R}}\!(t)
+\end{equation}
+In practice, $\alpha$ takes values in ${0\%, 25\%, 50\%, 75\%, 100\%}$.
+
+\subsection{Feature selection}
+
+\subsection{Logarithmic compression}
+% linearizes the dependency with respect to the distance to the source
+
+\subsection{Standardization}
+
+\subsection{Early vs. late integration}
+Fine-grained classification of acoustic scenes is only made
+possible by integrating signal information over a long temporal context.
+Whereas a few seconds are often sufficient to recognize a speaker,
+a musical instrument, or a genre, it may require up to 30 seconds
+to disambiguate closely related acoustic scenes.
+
 \section{Unsupervised approach}
 
 GL
