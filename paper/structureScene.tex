@@ -286,28 +286,61 @@ In particular, the interaural level difference (ILD) between left and right chan
 Yet, since the location of the recordist varies across instances of the same class, the feature space for classification should be invariant to these azimuths.
 
 In order to achieve invariance to ILD, averaging the left and right channels into a monophonic signal is by far the most widespread approach.
-An important drawback is that it biases the measurement towards the center of the scene, as lateral sources get damped.
-%Moreover, sources 
+However, it favors the center of the scene while attenuating the presence of lateral sources.
+Moreover, sources that are on distinct azimuths get mixed, which may cause bias at training time.
+Instead, so as to take advantage of stereophonic data, we perform multiiple combinations of the left channel $\boldsymbol{x_{\mathsf{L}}}(t)$ and right channel $\boldsymbol{x_{\mathsf{R}}}(t)$ into monophonic signals $\boldsymbol{x_{\alpha}}(t)$ according to the equation
 \begin{equation}
-\boldsymbol{x}(t) =
-\alpha \boldsymbol{\times x_\mathsf{L}}\!(t) +
-(1-\alpha) \boldsymbol{\times x_\mathsf{R}}\!(t)
+\boldsymbol{x_{\alpha}}(t) =
+\dfrac{1+\alpha}{2} \boldsymbol{x_\mathsf{L}}(t) +
+\dfrac{1-\alpha}{2} \boldsymbol{x_\mathsf{R}}(t),
 \end{equation}
-In practice, $\alpha$ takes values in ${0\%, 25\%, 50\%, 75\%, 100\%}$.
+where $\alpha$ is a panoramic mixing weight, taking values between $-1$ and $+1$, which could be deterministic or random.
+In following experiments, we deterministically set $\alpha$ to the values $-1$, $\frac{1}{2}$, $0$, $+\frac{1}{2}$, and $+1$.
+This is a form of data augmentation, because $5$ monophonic signals are derived from each binaural recording in the training set.
 
 \subsection{Feature selection}
+The starting scale $\gamma_{1,\min}$ corresponding to some upper bound $\xi_{1,\max}$ on the frequency axis is given by
+\begin{equation}
+\gamma_{1,\min} =
+\left\lfloor Q_1 \log_2 \frac{\xi_1}{\xi_{1,\max}} \right\rceil
+\end{equation}
+where $\lfloor \cdot \rceil$ denotes a rounding to the nearest integer.
 
 \subsection{Logarithmic compression}
+Many pattern recognition algorithms, including nearest neighbour classifiers and support vector machines, tend to work best when all features follow a standard normal distribution across all training instances.
+
+%Logarithmic compression is corroborated by psychoacoustics
 % linearizes the dependency with respect to the distance to the source
 
+And\'en \cite{Anden2014}
+\begin{equation}
+\log \dfrac{\mathbf{S_2}\boldsymbol{x}(t,\gamma_1,\gamma_2)}{\mathbf{S_1}\boldsymbol{x}(t,\gamma_1)} =
+\log \mathbf{S_2}\boldsymbol{x}(t, \gamma_1, \gamma_2) -
+\log \mathbf{S_1}\boldsymbol{x}(t, \gamma_1)
+\end{equation}
+
 \subsection{Standardization}
+
+\begin{equation}
+\widetilde{\mathbf{S}}\boldsymbol{X}(\gamma, n) =
+\dfrac{ \mathbf{S}\boldsymbol{X}(\gamma, n) -
+\mathbb{E}[ \mathbf{S}\boldsymbol{X}(\gamma)]}{\sigma( \mathbf{S}\boldsymbol{X}(\gamma))}
+\end{equation}
+where $\mathbb{E}[ \mathbf{S}\boldsymbol{X}(\gamma)] = \frac{1}{N} \sum_{n=1}^{N} \mathbf{S}\boldsymbol{X}(\gamma,n)$ is the expected value of $\mathbf{S}\boldsymbol{X}(\gamma,n)$ and
+\begin{equation}
+\sigma(\mathbf{S}\boldsymbol{X} (\gamma)) =
+\sqrt{\frac{1}{N-1} \sum_{n=1}^{N}
+\left( \mathbf{S}\boldsymbol{X}(\gamma,n) - \mathbb{E}[\mathbf{S}\boldsymbol{X}] \right)^2}
+\end{equation}
+ is the sample standard deviation.
 
 \subsection{Early vs. late integration}
 Fine-grained classification of acoustic scenes is only made
 possible by integrating signal information over a long temporal context.
-Whereas a few seconds are often sufficient to recognize a speaker,
-a musical instrument, or a genre, it may require up to 30 seconds
-to disambiguate closely related acoustic scenes.
+
+\cite{Joder2009}
+
+The next section discusses more advanced methods for the temporal integration of scattering coefficients in an unsupervised setting.
 
 \section{Unsupervised approach}
 
@@ -320,20 +353,6 @@ GL
 \section{Supervised approach: support vector machines}
 Support vector machines are large-margin binary discriminators with tunable regularization of misclassified examples.
 
-\subsection{}
-
-\begin{equation}
-\widetilde{\mathbf{S}}\boldsymbol{X}(\gamma, n) =
-\dfrac{\log \mathbf{S}\boldsymbol{X}(\gamma, n) -
-\mathbb{E}[\log \mathbf{S}\boldsymbol{X}(\gamma)]}{\sigma(\log \mathbf{S}\boldsymbol{X}(\gamma))}
-\end{equation}
-where $\mathbb{E}[\log \mathbf{S}\boldsymbol{X}(\gamma)] = \frac{1}{N} \sum_{n=1}^{N} \log \mathbf{S}\boldsymbol{X}(\gamma,n)$ is the expected value of $\log \mathbf{S}\boldsymbol{X}(\gamma,n)$ and
-\begin{equation}
-\sigma(\log \mathbf{S}\boldsymbol{X} (\gamma)) =
-\frac{1}{N-1} \sum_{n=1}^{N}
-( \log \mathbf{S}\boldsymbol{X}(\gamma,n) - \mathbb{E}[\log \mathbf{S}\boldsymbol{X}] )
-\end{equation}
- is the sample standard deviation.
 
 \subsection{Results}
 
