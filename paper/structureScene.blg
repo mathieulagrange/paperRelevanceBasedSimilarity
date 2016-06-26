@@ -1,0 +1,55 @@
+This is BibTeX, Version 0.99d (TeX Live 2015)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: structureScene.aux
+The style file: unsrt.bst
+Database file #1: biblio.bib
+Warning--I didn't find a database entry for "lafay"
+Warning--I didn't find a database entry for "lavandier"
+Warning--I didn't find a database entry for "gloaguen"
+Warning--I didn't find a database entry for "dubois"
+Warning--I didn't find a database entry for "Venkitaraman2014"
+Warning--empty author in ECOACOUSTICS2014
+Warning--empty booktitle in ECOACOUSTICS2014
+Warning--empty publisher in Fastl2007
+You've used 16 entries,
+            1791 wiz_defined-function locations,
+            559 strings with 7015 characters,
+and the built_in function-call counts, 4085 in all, are:
+= -- 360
+> -- 177
+< -- 5
++ -- 65
+- -- 49
+* -- 288
+:= -- 624
+add.period$ -- 50
+call.type$ -- 16
+change.case$ -- 15
+chr.to.int$ -- 0
+cite$ -- 19
+duplicate$ -- 191
+empty$ -- 407
+format.name$ -- 49
+if$ -- 939
+int.to.chr$ -- 0
+int.to.str$ -- 16
+missing$ -- 17
+newline$ -- 82
+num.names$ -- 15
+pop$ -- 57
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 87
+stack$ -- 0
+substring$ -- 267
+swap$ -- 50
+text.length$ -- 5
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 3
+while$ -- 36
+width$ -- 18
+write$ -- 177
+(There were 8 warnings)
