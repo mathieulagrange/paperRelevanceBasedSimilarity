@@ -160,7 +160,7 @@ controled intra class diversity
 
 despite its size, it is still challenging as state-of-the-art systems achieves 76 \% \cite{roma2013} (winner of the 2013 challenge RQA+SVM). For the sake of comparison the HOG+SVM approach \cite{rakotomamonjy2015histogram} achieves 75 \% and 92 \% on the dcase2013 and the Rouen datasets respectively. On the latter, the state-of-the-art is currently 95 \% \cite{bisot2016acoustic}.
 
-\section{Scattering representations}
+\section{Scattering representations \label{sec:scattering}}
 Scattering transforms are translation-invariant representations of audio signals which cascade an auditory filterbank and a modulation filterbank, interspersed with complex modulus nonlinearities.
 Depending upon the chosen architecture, the modulation filterbank may either be performed solely over the time variable or on both time and frequency.
 In this section, we present both the temporal scattering transform and the time-frequency scattering transform.
@@ -334,10 +334,16 @@ Interestingly, taking the logarithm of renormalized coefficients would yield
 \ie a linear combination of the logarithms of first- and second-order coefficients.
 Therefore, the theoretical insight brought by \cite{Anden2014} in favor of renormalized scattering also applies to log-scattering up to a linear transformation in feature space, to which affine classifiers are not sensitive.
 
-\subsection{Early vs. late integration}
-Fine-grained classification of acoustic scenes is only made
+\subsection{Early vs. late temporal integration}
+Owing to the scarcity of salient events in many natural soundscapes, fine-grained classification of auditory scenes is only made
 possible by integrating signal information over a long temporal context.
-A straightforward approach, known as early integration, consists in summarizing the multivariate time series of scattering coefficients
+Indeed, whereas a few seconds are often sufficient to recognize a speaker,
+a musical instrument, or a genre, it may require up to 30 seconds
+to disambiguate auditory scenes which share part of their semantic content, \eg a subway train from a subway station or a quiet street from a park.
+
+A straightforward approach, known as early integration, consists in summarizing the multivariate time series of scattering coefficients over the full duration of the auditory scene, by retaining their average values only.
+Going back to the definition of the scattering transform given in section \ref{sec:scattering}, this is equivalent to increasing the support $T$ of the low-pass filter $\boldsymbol{\phi}(t)$ up to infinity.
+
 
 Early and late integration methods lie at opposite ends of the bias-versus-variance statistical tradeoff. We refer to \cite{Joder2009} for a comprehensive review of this problematic.
 
