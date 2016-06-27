@@ -64,8 +64,21 @@ truncated_scalogram = log_scalogram(starting_gamma:end, :);
 figure(12);
 imagesc(max(truncated_scalogram, 0));
 
+%% Load memoized features
+memoized_path = ...
+    'experiments/supervised/memoized_features/dcase2013_timeQ8_train.mat';
+training_data = load(memoized_path);
+X_train = training_data.dcase2013_timeQ8_train.X_train;
+
+%% Compute mean and standard deviation
+X_sizes = size(X_train);
+X_train = reshape(X_train, X_sizes(1), prod(X_sizes(2:end)));
+X_mean = mean(X_train, 2);
+X_std = std(X_train, [], 2);
+gamma_range = starting_gamma + (1:size(truncated_scalogram, 1)) - 1;
+X_mean = X_mean(gamma_range);
+X_std = X_std(gamma_range);
+
 %% Standardization
-scalogram_mean = mean(truncated_scalogram, 2);
-scalogram_std = std(truncated_scalogram, [], 2);
-centered_scalogram = bsxfun(@minus, truncated_scalogram, scalogram_mean);
-imagesc(centered_scalogram)
+centered_scalogram = bsxfun(@minus, truncated_scalogram, X_mean);
+standardized_scalogram = bsxfun(@rdivide, centered_scalogram, X_std);
