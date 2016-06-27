@@ -305,8 +305,11 @@ This is a form of data augmentation, because $5$ monophonic signals are derived 
 At test time, only the center mix ($\alpha = 0$) is used to perform a prediction.
 
 \subsection{Feature selection}
-In a scattering representation $\mathbf{S}\boldsymbol{x}(t,\gamma)$, some coefficients $\gamma$ may consistently bear negligible information for the task of interest.
-This has lead \cite{roma2013}
+In a multivariate time series of descriptors $\mathbf{S}\boldsymbol{x}(t,\gamma)$, some coefficients $\gamma$ may consistently bear negligible information for the task of interest.
+This fact may cause the classifier to overfit the training set, especially when the number of features is large and the number of training instances is small, as is the case here.
+
+%Many approaches coexist for feature selection, including matrix factorization, orthogonal matching pursuit.
+This is inspired by the state-of-the-art results of \cite{roma2013}, which rely on cepstral descriptors computed up to a cutoff frequency as small as 900 Hz.
 
 The starting scale $\gamma_{1,\min}$ corresponding to some upper bound $\xi_{1,\max}$ on the frequency axis is given by
 \begin{equation}
