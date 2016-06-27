@@ -264,7 +264,9 @@ The most salient events among auditory scenes draw highly structured patterns in
 \vl{missing sentence here ?}
 Despite its invariance and stability properties, the temporal scattering transform fails to characterize these patterns, because it extracts the amplitude modulations of each wavelet subband separately.
 
-A recent improvement to the temporal scattering transform has been brought by \cite{Anden2015}, 
+This issue was remedied by time-frequency scattering \cite{Anden2015}, which performs a wavelet decomposition over the log-frequency variable $\gamma_1$ after the second-order wavelet decomposition over time.
+While temporal scattering merely extracts the average amplitude modulation spectrum, time-frequency scattering computes spectral modulations at various temporal rates and spectral scales.
+% link with GBFB and STRF which have proven useful for acoustic scene classification.
 
 Since it operates over a complex-valued input, the filterbank over log-frequencies $\gamma_1$ must cover the whole Fourier spectrum, including negative frequencies and the null frequency, to ensure invertibility and energy conservation.
 Therefore, wavelets on $\gamma_1$ have center frequencies of the form
@@ -281,7 +283,7 @@ Again, we use the generic literal $\gamma$ as a shorthand for $\gamma_1$ or $(\g
 \section{Feature design}
 Before supervised or unsupervised classification, is it beneficial to process scattering coefficients with feature transformations that improve invariance, normality, or generalization power. 
 This section reviews binaural data augmentation, feature selection, logarithmic compression, standardization, and temporal integration.
-The former is novel and specific to stereophonic recordings, whereas the next ones would also apply to many other problems.
+The former is novel and specific to stereophonic recordings, whereas the next ones would also apply to many other kinds of data.
 
 \subsection{Binaural data augmentation}
 The recording condition of most acoustic scene datasets follow a binaural protocol, \ie a pair of microphones respectively located over the ears of the recordist.
