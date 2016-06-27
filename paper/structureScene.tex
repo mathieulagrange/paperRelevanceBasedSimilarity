@@ -154,7 +154,7 @@ advantages of dcase2013:
 
 controled intra class diversity
 
-despite its size, it is still challenging as state-of-the-art systems achieves 76 \% \cite{6701890} (winner of the 2013 challenge RQA+SVM). For the sake of comparison the HOG+SVM approach \cite{rakotomamonjy2015histogram} achieves 75 \% and 92 \% on the dcase2013 and the Rouen datasets respectively. On the latter, the state-of-the-art is currently 95 \% \cite{bisot2016acoustic}.
+despite its size, it is still challenging as state-of-the-art systems achieves 76 \% \cite{roma2013} (winner of the 2013 challenge RQA+SVM). For the sake of comparison the HOG+SVM approach \cite{rakotomamonjy2015histogram} achieves 75 \% and 92 \% on the dcase2013 and the Rouen datasets respectively. On the latter, the state-of-the-art is currently 95 \% \cite{bisot2016acoustic}.
 
 \section{Scattering representations}
 Scattering transforms are translation-invariant representations of audio signals which cascade an auditory filterbank and a modulation filterbank, interspersed with complex modulus nonlinearities.
@@ -295,10 +295,15 @@ Instead, so as to take advantage of stereophonic data, we perform multiiple comb
 \dfrac{1-\alpha}{2} \boldsymbol{x_\mathsf{R}}(t),
 \end{equation}
 where $\alpha$ is a panoramic mixing weight, taking values between $-1$ and $+1$, which could be deterministic or random.
+
 In following experiments, we deterministically set $\alpha$ to the values $-1$, $\frac{1}{2}$, $0$, $+\frac{1}{2}$, and $+1$.
 This is a form of data augmentation, because $5$ monophonic signals are derived from each binaural recording in the training set.
+At test time, only the center mix ($\alpha = 0$) is used to perform a prediction.
 
 \subsection{Feature selection}
+In a scattering representation $\mathbf{S}\boldsymbol{x}(t,\gamma)$, some coefficients $\gamma$ may consistently bear negligible information for the task of interest.
+This has lead \cite{roma2013}
+
 The starting scale $\gamma_{1,\min}$ corresponding to some upper bound $\xi_{1,\max}$ on the frequency axis is given by
 \begin{equation}
 \gamma_{1,\min} =
@@ -307,10 +312,14 @@ The starting scale $\gamma_{1,\min}$ corresponding to some upper bound $\xi_{1,\
 where $\lfloor \cdot \rceil$ denotes a rounding to the nearest integer.
 
 \subsection{Logarithmic compression}
-Many pattern recognition algorithms, including nearest neighbour classifiers and support vector machines, tend to work best when all features follow a standard normal distribution across all training instances.
+Many algorithms in pattern recognition, including nearest neighbor classifiers and support vector machines, tend to work best when all features follow a standard normal distribution across all training instances.
+Yet, because of the complex modulus nonlinearity, scattering coefficients are nonnegative by design, and their distribution is typically skewed towards the right.
 
-%Logarithmic compression is corroborated by psychoacoustics
-% linearizes the dependency with respect to the distance to the source
+This issue can be addressed by applying to all coefficients a pointwise concave transformation, \eg logarithmic, hence reducing skewness.
+In particular, logarithmic compression is ubiquitous in audio signal processing, as it is corroborated by the Weber-Fechner law in psychoacoustics, which states that the sensation of loudness is roughly proportional to the logarithm of the acoustic pressure.
+In the context of auditory scenes, we must also stress that the measured amplitude of sound sources often decays polynomially with the distance to the binaural microphone.
+Logarithmic compression can linearize this dependency, which arguably facilitates the construction of an invariant to this distance at the classifier stage.
+
 
 And\'en \cite{Anden2014}
 \begin{equation}
@@ -318,6 +327,13 @@ And\'en \cite{Anden2014}
 \log \mathbf{S_2}\boldsymbol{x}(t, \gamma_1, \gamma_2) -
 \log \mathbf{S_1}\boldsymbol{x}(t, \gamma_1)
 \end{equation}
+
+\subsection{Early vs. late integration}
+Fine-grained classification of acoustic scenes is only made
+possible by integrating signal information over a long temporal context.
+A straightforward approach, known as early integration, consists in summarizing the multivariate time series of scattering coefficients
+
+Early and late integration methods lie at opposite ends of the bias-versus-variance statistical tradeoff. We refer to \cite{Joder2009} for a comprehensive review of this problematic.
 
 \subsection{Standardization}
 
@@ -333,14 +349,8 @@ where $\mathbb{E}[ \mathbf{S}\boldsymbol{X}(\gamma)] = \frac{1}{N} \sum_{n=1}^{N
 \left( \mathbf{S}\boldsymbol{X}(\gamma,n) - \mathbb{E}[\mathbf{S}\boldsymbol{X}] \right)^2}
 \end{equation}
  is the sample standard deviation.
-
-\subsection{Early vs. late integration}
-Fine-grained classification of acoustic scenes is only made
-possible by integrating signal information over a long temporal context.
-
-\cite{Joder2009}
-
-The next section discusses more advanced methods for the temporal integration of scattering coefficients in an unsupervised setting.
+ 
+The next section discusses adaptive methods for the temporal integration of scattering coefficients in an unsupervised setting.
 
 \section{Unsupervised approach}
 
