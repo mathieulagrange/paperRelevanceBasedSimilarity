@@ -355,9 +355,17 @@ Going back to the definition of the scattering transform given in section \ref{s
 \end{equation}
 the summarized features.
 
-In turn, late integration 
+In turn, a late integration scheme relies on probabilistic estimates over short-term windows of length $T$, which are subsequently aggregated to produce a final decision
+\begin{equation}
+\hat{y} = \arg \max_{y} \rho\Big(\big\{ \mathbb{P}\left[y \,\vert\, \mathbf{S}\boldsymbol{x}(t,\gamma) \right] \big\}_{t} \Big),
+\end{equation}
+where $\rho$ is a reduction function, such as sum, product, or majority vote \cite{Kittler1998}.
 
-Early and late integration methods lie at opposite ends of the bias-versus-variance statistical tradeoff. We refer to \cite{Joder2009} for a comprehensive review of this problematic.
+The principal drawback of early integration is that it drastically reduces the number of training instances at the classifier stage, down to one per auditory scene -- if we don't account for data augmentation.
+In the context of the DCASE 2013 dataset, this corresponds to merely $10$ training instances per class, and $100$ instances overall, hence a risk of overfitting.
+On the contrary, a late integration scheme for $T=188\textrm{ ms}$ would yield $128$ instances per auditory scene, resulting in $12800$ instances overall.
+However, many of these instances may be silent or lack any salient properties of the category they are assigned to, hence an increase in bias and a risk of underfitting.
+In short, early and late integration methods lie at opposite ends of the bias-versus-variance statistical tradeoff. We refer to \cite{Joder2009} for a comprehensive review of this problematic in the context of musical instrument recognition.
 
 \subsection{Standardization}
 
@@ -386,7 +394,7 @@ GL
 
 \section{Supervised approach: support vector machines}
 Support vector machines are large-margin binary discriminators with tunable regularization of misclassified examples.
-
+% The training set is linearly separable in feature space.
 
 \subsection{Results}
 
