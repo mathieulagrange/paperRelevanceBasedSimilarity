@@ -1,3 +1,9 @@
+%% Add perceptual colormaps and scattering toolbox to path
+addpath(genpath('~/MATLAB/scattering.m'));
+addpath(genpath('~/MATLAB/Colormaps'));
+magma_colormap = magma();
+rev_magma = magma_colormap(end:-1:1, :);
+
 %% Load waveform
 dataset_path = '~/datasets/dcase2013/scenes_stereo';
 file_name = 'openairmarket05.wav';
@@ -42,7 +48,7 @@ for azimuth_index = 1:nAzimuths
     figure(5 + azimuth_index - 1);
     imagesc(azimuth_scalogram);
     axis off;
-    colormap rev_gray;
+    colormap(rev_magma);
 end
 
 %% Pick an azimuth
@@ -55,7 +61,6 @@ log_scalogram = log(scalogram);
 log_scalogram = max(log_scalogram, 0); % threshold to increase contrast
 imagesc(log_scalogram);
 axis off;
-colormap rev_gray;
 
 %% Feature selection
 starting_octave = 3;
@@ -63,6 +68,7 @@ starting_gamma = 1 + (starting_octave - 1) * nfo;
 truncated_scalogram = log_scalogram(starting_gamma:end, :);
 figure(12);
 imagesc(max(truncated_scalogram, 0));
+colormap(rev_magma);
 
 %% Load memoized features
 memoized_path = ...
