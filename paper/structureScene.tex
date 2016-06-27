@@ -123,7 +123,7 @@ If available, the complete description of the scene in terms of event occurences
 
 
 
-\gl{DCASE challenge:} \cite{chum2013ieee}: CHR system, using HMM and frame based classification. \cite{elizalde2013vector} ELF system, I vector approach using probabilistic LDA as classifier. \cite{geiger2013large} GSR system, basically mel/MFCC using SVM as classifier. \cite{krijnders2013tone} KH system, tone fit features computed from cochleogram (but similar results are obtained with MFCCs) using SVM as classifier. \cite{li2013auditory} LTT system, Tree bagger classifier used on segments (MFCCs) prior to a majority vote. \cite{lee2013acoustic} NHL system, unsupervised feature learning approach on mel frequency spectrogram with selective Max-pooling. Supervised training is performed using SVM. \cite{nogueira2013sound} NR1 system, MFCC and spatial features (inter-aural differences) with SVM as classifier. \cite{olivetti2013wonder} OE system, normalized compression distance (I honestly did not understand a thing about it, but this the worst method of the challenge anyway) using  Random Forest  classifier.  \cite{patil2013multiresolution} PE system, 2D Gabor filters applied on 1sec segments with SVM as classifier.  \cite{rakotomamonjy2015histogram} RG system, histogram of gradient representation, computed from a constant Q transform with SVM as classifier.  \cite{roma2013recurrence} RNH system, RQA stacked with MFCC, SVM as classifier. \\
+\gl{DCASE challenge:} \cite{chum2013ieee}: CHR system, using HMM and frame based classification. \cite{elizalde2013vector} ELF system, I vector approach using probabilistic LDA as classifier. \cite{geiger2013large} GSR system, basically mel/MFCC using SVM as classifier. \cite{krijnders2013tone} KH system, tone fit features computed from cochleogram (but similar results are obtained with MFCCs) using SVM as classifier. \cite{li2013auditory} LTT system, Tree bagger classifier used on segments (MFCCs) before a majority vote. \cite{lee2013acoustic} NHL system, unsupervised feature learning approach on mel frequency spectrogram with selective Max-pooling. Supervised training is performed using SVM. \cite{nogueira2013sound} NR1 system, MFCC and spatial features (inter-aural differences) with SVM as classifier. \cite{olivetti2013wonder} OE system, normalized compression distance (I honestly did not understand a thing about it, but this the worst method of the challenge anyway) using  Random Forest  classifier.  \cite{patil2013multiresolution} PE system, 2D Gabor filters applied on 1sec segments with SVM as classifier.  \cite{rakotomamonjy2015histogram} RG system, histogram of gradient representation, computed from a constant Q transform with SVM as classifier.  \cite{roma2013recurrence} RNH system, RQA stacked with MFCC, SVM as classifier. \\
 
 \gl{Other paper:} \cite{jiang2005svm, kalinli2009saliency, su2011environmental, barchiesi2015acoustic, ye2015acoustic, bisot2015hog, chakrabarty2015exploring, xue2015auditory, bisot2016acoustic}
 
@@ -168,7 +168,7 @@ In this section, we present both the temporal scattering transform and the time-
 \subsection{Invariance and stability in acoustic scene classification}
 The notion of invariance to translation plays an essential role in auditory scene classification.
 Indeed, the starting time of the recordings are chosen arbitrarily, and thus do not convey any information about the class.
-To cancel this superfluous source of variability, signals must be mapped to a translation-invariant feature space prior to training the classifier.
+To cancel this superfluous source of variability, signals must be mapped to a translation-invariant feature space before training the classifier.
 From any set of descriptors -- \eg the time-frequency representation $\boldsymbol{x_1}(t,\gamma_1)$ of  a signal $\boldsymbol{x}(t)$ --
 a translation-invariant representation up to time skills of duration $T$ can be simply obtained
 by convolving $\boldsymbol{x_1}$ with a low-pass filter $\boldsymbol{\phi}(t)$ of cutoff frequency
@@ -259,16 +259,16 @@ In the context of auditory scene analysis, the asymmetric envelope of Gammatone 
 Indeed, it allows to reproduce two important psychoacoustic effects in the mammalian cochlea: the asymmetry of temporal masking and the asymmetry of spectral masking \cite{Fastl2007}.
 Moreover, it should be noted that Gammatone wavelets follow the typical amplitude profile of natural sounds, beginning with a relatively sharp attack and ending with a slower decay.
 
-\vl{missing sentence here ?}
-The next subsection extends the second-order scattering operator to joint wavelet transforms over the time and log-frequency variables.
-
 \subsection{Time-frequency scattering}
+The most salient events among auditory scenes draw highly structured patterns in the time-frequency plane.
+\vl{missing sentence here ?}
+Despite its invariance and stability properties, the temporal scattering transform fails to characterize these patterns, because it extracts the amplitude modulations of each wavelet subband separately.
 
-\cite{Anden2015}
+A recent improvement to the temporal scattering transform has been brought by \cite{Anden2015}, 
+
 Since it operates over a complex-valued input, the filterbank over log-frequencies $\gamma_1$ must cover the whole Fourier spectrum, including negative frequencies and the null frequency, to ensure invertibility and energy conservation.
 Therefore, wavelets on $\gamma_1$ have center frequencies of the form
 $\theta_{\mathrm{fr}}  2^{-\gamma_{\mathrm{fr}}/Q_{\mathrm{fr}}}$, where $\gamma_{\mathrm{fr}}$ takes integer values betwen $0$ and $(J_\mathrm{fr} \times Q_\mathrm{fr} - 1)$ and $\theta_{\mathrm{fr}} = \pm 1$.
-
 \begin{equation}
 \boldsymbol{x_2}(t,\gamma_1,\gamma_2,\gamma_{\mathrm{fr}},\theta_{\mathrm{fr}}) =
 \vert \boldsymbol{x_1}
@@ -279,7 +279,7 @@ $\theta_{\mathrm{fr}}  2^{-\gamma_{\mathrm{fr}}/Q_{\mathrm{fr}}}$, where $\gamma
 Again, we use the generic literal $\gamma$ as a shorthand for $\gamma_1$ or $(\gamma_1, \gamma_2, \gamma_{\mathrm{fr}}, \theta_{\mathrm{fr}})$.
 
 \section{Feature design}
-Prior to supervised or unsupervised classification, is it beneficial to process scattering coefficients with feature transformations that improve invariance, normality, or generalization power. 
+Before supervised or unsupervised classification, is it beneficial to process scattering coefficients with feature transformations that improve invariance, normality, or generalization power. 
 This section reviews binaural data augmentation, feature selection, logarithmic compression, standardization, and temporal integration.
 The former is novel and specific to stereophonic recordings, whereas the next ones would also apply to many other problems.
 
