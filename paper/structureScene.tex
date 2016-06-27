@@ -318,19 +318,21 @@ where $\lfloor \cdot \rceil$ denotes a rounding to the nearest integer.
 \subsection{Logarithmic compression}
 Many algorithms in pattern recognition, including nearest neighbor classifiers and support vector machines, tend to work best when all features follow a standard normal distribution across all training instances.
 Yet, because of the complex modulus nonlinearity, scattering coefficients are nonnegative by design, and their distribution is typically skewed towards the right.
+This issue can however be addressed by applying to all coefficients a pointwise concave transformation, \eg logarithmic, hence reducing skewness.
 
-This issue can be addressed by applying to all coefficients a pointwise concave transformation, \eg logarithmic, hence reducing skewness.
 In particular, logarithmic compression is ubiquitous in audio signal processing, as it is corroborated by the Weber-Fechner law in psychoacoustics, which states that the sensation of loudness is roughly proportional to the logarithm of the acoustic pressure.
-In the context of auditory scenes, we must also stress that the measured amplitude of sound sources often decays polynomially with the distance to the binaural microphone.
-Logarithmic compression can linearize this dependency, which arguably facilitates the construction of an invariant to this distance at the classifier stage.
+In the context of auditory scenes, we must also recall that the measured amplitude of sound sources often decays polynomially with the distance to the binaural microphone, which is a spurious factor a variability to the task of auditory scene classification.
+Logarithmic compression can linearize this dependency, which arguably facilitates the construction of a powerful invariant at the classifier stage.
 
-
-And\'en \cite{Anden2014}
+Given a task of musical genre recognition, \cite{Anden2014} has advocated for the renormalization of second-order scattering coefficients $\mathbf{S_2}\boldsymbol{x}(t,\gamma_1,\gamma_2)$ by the corresponding first-order scattering coefficients $\mathbf{S_1}\boldsymbol{x}(t,\gamma_1)$, as it provably decorrelates the amplitudes of their activations.
+Interestingly, taking the logarithm of renormalized coefficients would yield
 \begin{equation}
 \log \dfrac{\mathbf{S_2}\boldsymbol{x}(t,\gamma_1,\gamma_2)}{\mathbf{S_1}\boldsymbol{x}(t,\gamma_1)} =
 \log \mathbf{S_2}\boldsymbol{x}(t, \gamma_1, \gamma_2) -
-\log \mathbf{S_1}\boldsymbol{x}(t, \gamma_1)
+\log \mathbf{S_1}\boldsymbol{x}(t, \gamma_1),
 \end{equation}
+\ie a linear combination of the logarithms of first- and second-order coefficients.
+Therefore, the theoretical insight brought by \cite{Anden2014} in favor of renormalized scattering also applies to log-scattering up to a linear transformation in feature space, to which affine classifiers are not sensitive.
 
 \subsection{Early vs. late integration}
 Fine-grained classification of acoustic scenes is only made
