@@ -288,9 +288,10 @@ In particular, the interaural level difference (ILD) between left and right chan
 Yet, since the location of the recordist varies across instances of the same class, the feature space for classification should be invariant to these azimuths.
 
 In order to achieve invariance to ILD, averaging the left and right channels into a monophonic signal is by far the most widespread approach.
-However, it favors the center of the scene while attenuating the presence of lateral sources.
+However, it favors the center of the scene while attenuating lateral cues.
 Moreover, sources that are on distinct azimuths get mixed, which may cause bias at training time.
-Instead, so as to take advantage of stereophonic data, we perform multiiple combinations of the left channel $\boldsymbol{x_{\mathsf{L}}}(t)$ and right channel $\boldsymbol{x_{\mathsf{R}}}(t)$ into monophonic signals $\boldsymbol{x_{\alpha}}(t)$ according to the equation
+
+Instead, so as to leverage stereophonic data, we perform multiple combinations of the left channel $\boldsymbol{x_{\mathsf{L}}}(t)$ and right channel $\boldsymbol{x_{\mathsf{R}}}(t)$ into monophonic signals $\boldsymbol{x_{\alpha}}(t)$ according to the equation
 \begin{equation}
 \boldsymbol{x_{\alpha}}(t) =
 \dfrac{1+\alpha}{2} \boldsymbol{x_\mathsf{L}}(t) +
@@ -300,13 +301,13 @@ where $\alpha$ is a panoramic mixing weight, taking values between $-1$ and $+1$
 
 In following experiments, we deterministically set $\alpha$ to the values $-1$, $\frac{1}{2}$, $0$, $+\frac{1}{2}$, and $+1$.
 This is a form of data augmentation, because $5$ monophonic signals are derived from each binaural recording in the training set.
-At test time, only the center mix ($\alpha = 0$) is used to perform a prediction.
+At test time, only the center mix ($\alpha = 0$) is used to perform the class.
 
 \subsection{Feature selection}
 In a multivariate time series of descriptors $\mathbf{S}\boldsymbol{x}(t,\gamma)$, some coefficients $\gamma$ may consistently bear negligible information for the task of interest.
 This fact may cause the classifier to overfit the training set, especially when the number of features is large and the number of training instances is small, as is the case here.
 
-%Many approaches coexist for feature selection, including matrix factorization, orthogonal matching pursuit.
+
 This is inspired by the state-of-the-art results of \cite{roma2013}, which rely on cepstral descriptors computed up to a cutoff frequency as small as 900 Hz.
 
 The starting scale $\gamma_{1,\min}$ corresponding to some upper bound $\xi_{1,\max}$ on the frequency axis is given by
