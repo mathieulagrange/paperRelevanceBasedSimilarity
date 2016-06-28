@@ -66,6 +66,9 @@ for file_index = 1:nFiles
     end
     X_features{file_index} = cat(3, azimuth_features);
 end
-X_features = cat(4, X_features);
+X_features = cat(1, X_features{:}).';
+X_features = cat(3, X_features{:});
+X_features = reshape(X_features, size(X_features, 1), size(X_features, 2), ...
+    nAzimuths, size(X_features, 3)/nAzimuths);
 save(fullfile('memoized_features', out_file_name), 'X_features', '-v7.3');
 end
