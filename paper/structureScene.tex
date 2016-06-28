@@ -66,11 +66,6 @@ This paper introduces a
 Acoustic scene classification, segmentation.
 \end{IEEEkeywords}
 
-
-
-
-
-
 % For peer review papers, you can put extra information on the cover
 % page as needed:
 % \ifCLASSOPTIONpeerreview
@@ -170,7 +165,7 @@ The notion of invariance to translation plays an essential role in auditory scen
 Indeed, the starting time of the recordings are chosen arbitrarily, and thus do not convey any information about the class.
 To cancel this superfluous source of variability, signals must be mapped to a translation-invariant feature space before training the classifier.
 From any set of descriptors -- \eg the time-frequency representation $\boldsymbol{x_1}(t,\gamma_1)$ of  a signal $\boldsymbol{x}(t)$ --
-a translation-invariant representation up to time skills of duration $T$ can be simply obtained
+a translation-invariant representation up to time shifts of duration $T$ can be simply obtained
 by convolving $\boldsymbol{x_1}$ with a low-pass filter $\boldsymbol{\phi}(t)$ of cutoff frequency
 set to $1/T$:
 \begin{equation}
@@ -179,12 +174,13 @@ set to $1/T$:
 As a downside, the transient information in $\boldsymbol{x_1}$ at finer scales than $T$ are lost by this low-pass filtering, hence a lack of discriminability in feature space.
 To address this issue, the temporal scattering transform recovers this information by convolving $\boldsymbol{x_1}$ with wavelets whose center frequencies are above $1/T$, and subsequently applying complex modulus.
 
-By resorting to wavelet modulus, as opposed to Fourier transform modulus, the resulting features are provably stable to small time warps,
+By resorting to wavelet transform modulus, as opposed to Fourier transform modulus, the resulting features are provably stable to small time warps,
 in the sense of Lipschitz regularity with respect to diffeomorphisms \cite{Mallat2012}.
 Besides invariance to translation, this stability property is crucial in signal classification, as it entails a guarantee of robustness to small variations in pitch, reverberation, and rhythmic organization of events, which make up an important part of the intra-class variability among natural sounds.
 
 The scattering transform is defined mathematically as an infinite cascade of nonlinear layers, each consisting of a wavelet transform modulus operator.
 In practice, to achieve invariance to translation up to $T = 186\,\mathrm{ms}$, \ie of the order of the minimal duration between non-overlapping acoustic events, two layers of scattering transform of the audio signal $\boldsymbol{x}(t)$ suffice.
+
 The next subsection describes the operations involved in temporal scattering.
 
 \subsection{Temporal scattering}
@@ -199,7 +195,7 @@ We denote by
 \boldsymbol{\psi_{\gamma_1}}(t) = 2^{-\gamma_1/Q_1} \boldsymbol{\psi}(2^{-\gamma_1/Q_1} t)
 \end{equation}
 the wavelets resulting from the dilation of $\boldsymbol{\psi}$(t).
-For some $\gamma_1$, the wavelet $\boldsymbol{\psi_{\gamma_1}}(t)$
+For each $\gamma_1$, the wavelet $\boldsymbol{\psi_{\gamma_1}}(t)$
 has a center frequency of $2^{-\gamma_1/Q_1}\xi_1$, a bandwidth of $2^{-\gamma_1/Q_1}\xi_1/Q_1$, and a quality factor of $Q_1$.
 
 The wavelet transform $\boldsymbol{}$ of an audio signal
@@ -235,7 +231,7 @@ In the sequel, we set $\xi_2$ to $2.5\,\mathrm{kHz}$, $Q_2$ to $1$, and $J_2$ to
 \mathbf{S_2}\boldsymbol{x}(t,\gamma_1,\gamma_2) =
 (\boldsymbol{x_2} \ast \phi)(t,\gamma_1,\gamma_2).
 \end{equation}
-The scattering transform consists of the concatenation of first-order coefficients $\mathbf{S_1}\boldsymbol{x}(t,\gamma_1)$ and second-order coefficients $\mathbf{S_1}\boldsymbol{x}(t,\gamma_1,\gamma_2)$ into a feature matrix $\mathbf{S}\boldsymbol{x}(t,\gamma)$, where $\gamma$ is a shorthand index for either $\gamma_1$ or $(\gamma_1,\gamma_2)$.
+The scattering transform consists of the concatenation of first-order coefficients $\mathbf{S_1}\boldsymbol{x}(t,\gamma_1)$ and second-order coefficients $\mathbf{S_1}\boldsymbol{x}(t,\gamma_1,\gamma_2)$ into a feature matrix $\mathbf{S}\boldsymbol{x}(t,\gamma)$, where $\gamma$ is a shorthand for either $\gamma_1$ or $(\gamma_1,\gamma_2)$.
 
 \begin{figure}
 \begin{center}
@@ -286,9 +282,9 @@ This section reviews binaural data augmentation, feature selection, logarithmic 
 The former is novel and specific to stereophonic recordings, whereas the next ones would also apply to many other kinds of data.
 
 \subsection{Binaural data augmentation}
-The recording condition of most acoustic scene datasets follow a binaural protocol, \ie a pair of microphones respectively located over the ears of the recordist.
+Most acoustic scene datasets are recorded according to a binaural protocol, \ie with a pair of in-ear microphones \cite{Wang2006}.
 This protocol provides a realistic description of the spatial auditory environment, as it reproduces the natural listening conditions of humans.
-In particular, the interaural level difference (ILD) between left and right channel conveys the approximate azimuth of each sound source that make up the scene with respect to the listener. \vl{ref needed}
+In particular, the interaural level difference (ILD) between left and right channel conveys the approximate azimuth of each sound source that make up the scene with respect to the listener \cite{Blauert2003}.
 Yet, since the location of the recordist varies across instances of the same class, the feature space for classification should be invariant to these azimuths.
 
 In order to achieve invariance to ILD, averaging the left and right channels into a monophonic signal is by far the most widespread approach.
