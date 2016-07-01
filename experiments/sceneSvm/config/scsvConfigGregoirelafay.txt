@@ -30,7 +30,6 @@ machineNames  = {{'pc-lafay-home-fixe','pc-lafay-home-portable','pc-lafay'},{'pc
 % path to input data (usually accessed read only)
 inputPath  = 
 % path to the code repository of the experiment (diamond operator <> do not replace unless you do not want expLanes to fill this field automatically)
-codePath  = /home/lagrange/papers/paperStructureScene16/experiments/sceneSvm
 codePath  = {'/home/gregoirelafay/papers/paperStructureScene16/experiments/sceneSvm','','/home/gregoirelafay/papers/paperStructureScene16/experiments/sceneSvm','/papers/paperStructureScene16/experiments/sceneSvm'}
 % path to the data repository of the experiment (structured with one directory per step)
 dataPath  = {'~/data/experiments/sceneSvm','','/opt/lagrange/data/gregoire/sceneSvm','/nfs/sunda/data/gregoire/sceneSvm'}

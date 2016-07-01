@@ -11,7 +11,7 @@ function [config, store, obs] = scsv1learn(config, setting, data)
 % Date: 29-Jun-2016
 
 % Set behavior for debug mode
-if nargin==0, sceneSvm('do', 1, 'mask', {}); return; else store=[]; obs=[]; end
+if nargin==0, sceneSvm('do', 1, 'mask', {},'parallel',4); return; else store=[]; obs=[]; end
 
 expRandomSeed();
 
@@ -41,8 +41,10 @@ switch setting.features
 end
 
 acc = [];
-trainSetting = ' -q ';
 for k=1:5
+    
+    trainSetting = ' -q ';
+    
     switch setting.kernel
         case 'none'
             trainSet = features(setxor(1:100, ids(k, :)), :);
@@ -74,9 +76,9 @@ for k=1:5
             
     end
     model = svmtrain(trainGt, trainSet, trainSetting);
-    predict_label = svmpredict(testGt, testSet, model, '-q');
-    
-    acc = [acc; predict_label==testGt];
+    predict_label = svmpredict(testGt, testSet, model,'-q');
+
+    acc = [acc; mean(predict_label==testGt)];
 end
 
 obs.accuracy = acc;
