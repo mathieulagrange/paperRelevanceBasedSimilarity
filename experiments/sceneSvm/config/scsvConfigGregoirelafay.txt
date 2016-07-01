@@ -3,7 +3,7 @@
 % email address used to acknowledge when processing is started or over server side (leave empty for no mailing service), can be a cell array of email addresses
 emailAddress  = lafaygregoire@gmail.com
 % complete name of user
-completeName  = Grégoire Lafay
+completeName  = Gregoire Lafay
 
 %% PROJECT
 

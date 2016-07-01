@@ -11,7 +11,7 @@ function [config, store, obs] = scsv1learn(config, setting, data)
 % Date: 29-Jun-2016
 
 % Set behavior for debug mode
-if nargin==0, sceneSvm('do', 1, 'mask', {},'parallel',4); return; else store=[]; obs=[]; end
+if nargin==0, sceneSvm('do', 1, 'mask', {}); return; else store=[]; obs=[]; end
 
 expRandomSeed();
 
@@ -43,7 +43,7 @@ end
 acc = [];
 for k=1:5
     
-    trainSetting = ' -q ';
+    trainSetting = ' -q';
     
     switch setting.kernel
         case 'none'
