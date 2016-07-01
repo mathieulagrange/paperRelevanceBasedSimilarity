@@ -26,7 +26,6 @@ config = expExpose(config, 'p','fontSize','scriptsize','step', 1, 'mask', {0 0 c
     'plotCommand',{'legend(''mfcc, objBased, closest'',''mfcc, objBased, EMD'',''Scat, objBased, closest'',''Scat, objBased, EMD'',''mfcc, baseline'',''Scat, baseline'')', ...
     'ylabel(''accuracy'')','ylim([.3 1])',gcaStyle,['title(''MFCC vs. Scattering using SVM on ' setVal{set} ''')']});
 
-
 %% run test set with best setting
 set=2;
 
@@ -35,3 +34,8 @@ config = expExpose(config, 'p','fontSize','scriptsize','step', 1, 'mask', {0 0 c
     'plotCommand',{'legend(''mfcc, objBased, closest'',''mfcc, objBased, EMD'',''Scat, objBased, closest'',''Scat, objBased, EMD'',''mfcc, baseline'',''Scat, baseline'')', ...
     'ylabel(''accuracy'')','ylim([.3 1])',gcaStyle,['title(''MFCC vs. Scattering using SVM on ' setVal{set} ''')']});
 
+select=0;
+kernel=2;
+distance=0;
+config = expExpose(config, 'p','fontSize','scriptsize','step', 1, 'mask', {0 kernel cut set distance select},'obs',1,'precision', 2, ...
+    'plotAxisProperties',{'fontsize',16},'expand','select','plotCommand',{'legend(''mfcc, closest'',''mfcc, EMD'',''Scattering, closest'',''Scattering, EMD'')'});
