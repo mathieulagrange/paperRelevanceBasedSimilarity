@@ -1,0 +1,6 @@
+features === {'mfcc', 'scatteringV'}
+kernel === {'baseline', 'objectBased'}
+cut === [.02 0.04 .08 .1]
+set === {'train', 'test'}
+distance ==2/2= {'closest', 'emd'}
+select ==2/2= [10:10:40]
