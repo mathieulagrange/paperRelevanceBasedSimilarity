@@ -1,4 +1,4 @@
-function X_freqs = get_timefrequency_frequencies(nfo)
+function X_freqs = get_time_frequencies(nfo)
 
 % Prepare scattering "architectures", i.e. filter banks and nonlinearities
 opts{1}.time.nFilters_per_octave = nfo;
@@ -62,7 +62,7 @@ for ref_index = 1:nS2_refs
     gamma1_index = S2_refs(2,ref_index).subs{2};
     gamma1_range = S{1+2}{1}.ranges{1}{gamma2_index}(:,3);
     gamma1_start = gamma1_range(1);
-    S2_path.gamma = gamma_start + gamma1_index - 1;
+    S2_path.gamma = gamma1_start + gamma1_index - 1;
     S2_paths(ref_index) = S2_path;
 end
 
