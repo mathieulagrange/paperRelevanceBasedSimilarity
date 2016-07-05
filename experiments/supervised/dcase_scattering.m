@@ -19,7 +19,11 @@ opts{1}.time.wavelet_handle = @gammatone_1d;
 opts{1}.time.S_log2_oversampling = 0;
 opts{2}.banks.time.nFilters_per_octave = 1;
 opts{2}.banks.time.wavelet_handle = @gammatone_1d;
-opts{2}.banks.time.sibling_mask_factor = 2^3;
+if strcmp(modulations, 'time')
+    opts{2}.banks.time.sibling_mask_factor = 2^6;
+elseif strcmp(modulations, 'timefrequency')
+    opts{2}.banks.time.sibling_mask_factor = 2^3;
+end
 opts{2}.banks.time.T = 2^17;
 if strcmp(modulations, 'timefrequency')
     opts{2}.banks.gamma.nFilters_per_octave = 1;
