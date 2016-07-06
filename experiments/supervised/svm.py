@@ -1,3 +1,4 @@
+import collections
 import datetime
 import numpy as np
 import pickle
@@ -15,16 +16,25 @@ np.set_printoptions(precision=2)
 print(datetime.datetime.now().time().strftime('%H:%M:%S') + " Loading")
 hdf5_time_file = h5py.File("dcase2013_timeQ8_test.mat")
 X_time = hdf5_time_file["dcase2013_timeQ8_test"]["X_test"]
+freqs_time = np.ravel(hdf5_time_file["dcase2013_timeQ8_test"]["freqs"])
 Y = np.ravel(hdf5_time_file["dcase2013_timeQ8_test"][u'Y_test'])
 hdf5_timefrequency_file = h5py.File("dcase2013_timefrequencyQ8_test.mat")
+freqs_timefrequency = np.ravel(
+    hdf5_timefrequency_file["dcase2013_timefrequencyQ8_test"]["X_freqs"])
 X_timefrequency = hdf5_timefrequency_file[
     "dcase2013_timefrequencyQ8_test"]["X_test"]
 
-folds = np.mod(np.arange(100), 5)
+folds = np.mod(np.arange(100), 5
 
-for augmentation in [True, False], method in ['time', 'timefrequency'],
-    selection in [False, True], integration in ['early', 'true']:
-        method_str = method
+fmin = 20.0 # in Herz
+
+for octmin in [ 0, 1, 2, 3 ]:
+    octmax in [ 10, 9, 8, 7, 6, 5, 4 ],
+    augmentation in [True, False],
+    method in ['time', 'timefrequency'],
+    selection in [False, True],
+    integration in ['early', 'late']:
+        method_str = method + "_oct" + str(octmin) + "to" + str(octmax)
         if augmentation:
             method_str = method_str + "_augmentation"
         if selection:
@@ -34,8 +44,15 @@ for augmentation in [True, False], method in ['time', 'timefrequency'],
 
         if method == "time":
             X = X_time
+            freqs = freqs_time
         if method == "timefrequency":
             X = X_timefrequency
+            freqs = freqs_timefrequency
+
+        fmin = 20.0 * (2**octmin)
+        fmax = 20.0 * (2**octmax)
+        freq_indices = (freqs > fmin) & (freqs < fmax)
+        X = X[:, :, :, :, freq_indices]
 
         # Rectify
         X = np.maximum(0.0, X)
@@ -113,13 +130,13 @@ for augmentation in [True, False], method in ['time', 'timefrequency'],
             if integration == "early":
                 Y_test_predicted = clf.predict(X_test)
             if integration == "late":
-                logprobs_test = clf.predict_log_proba(X_test)
-                logprobs_test = np.reshape(
-                    logprobs_test.shape[0],
-                    128,
-                    logprobs_test.shape[1] / 128)
-                sumlogprobs_test = np.sum(logprobs_test, axis=1)
-                Y_test_predicted = np.argmax(sumlogprobs_test, axis=0)
+                vote_test = clf.predict(X_test)
+                vote_test = np.reshape(vote_test,
+                    (vote_test.shape[0] / 128, 128))
+                votes = [vote_test[n,:] for n in range(20)]
+                Y_test_predicted = np.hstack(
+                    [ counter.most_common(1)[0][0] for counter in counters ])
+
             accuracy =\
                 sklearn.metrics.accuracy_score(Y_test_predicted, Y_test)
             print "Accuracy = " + str(100 * accuracy)
@@ -127,6 +144,8 @@ for augmentation in [True, False], method in ['time', 'timefrequency'],
             dictionary = {
                 'accuracy': accuracy,
                 'augmentation': augmentation,
+                'fmin': fmin,
+                'fmax': fmax,
                 'fold_id': fold_id,
                 'integration': integration,
                 'method': method,
