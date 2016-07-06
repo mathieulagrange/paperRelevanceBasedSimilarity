@@ -129,7 +129,6 @@ def dcase_svm(octmin, octmax, augmentation, method, selection, integration):
         'augmentation': augmentation,
         'fmin': fmin,
         'fmax': fmax,
-        'fold_id': fold_id,
         'integration': integration,
         'method': method,
         'method_str': method_str,
