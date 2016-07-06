@@ -13,10 +13,14 @@ np.set_printoptions(precision=2)
 
 # Load
 print(datetime.datetime.now().time().strftime('%H:%M:%S') + " Loading")
-hdf5_file = h5py.File(
-    "memoized_features/dcase2013_" + method + "Q8_test.mat")
-X = hdf5_file[u'X_test']
-Y = np.ravel(hdf5_file[u'Y_test'])
+hdf5_time_file = h5py.File("dcase2013_timeQ8_test.mat")
+X_time = hdf5_time_file["dcase2013_timeQ8_test"]["X_test"]
+Y = np.ravel(hdf5_time_file["dcase2013_timeQ8_test"][u'Y_test'])
+hdf5_timefrequency_file = h5py.File("dcase2013_timefrequencyQ8_test.mat")
+X_timefrequency = hdf5_timefrequency_file[
+    "dcase2013_timefrequencyQ8_test"]["X_test"]
+
+folds = np.mod(np.arange(100), 5)
 
 for augmentation in [True, False], method in ['time', 'timefrequency'],
     selection in [False, True], integration in ['early', 'true']:
@@ -28,36 +32,35 @@ for augmentation in [True, False], method in ['time', 'timefrequency'],
         method_str = method_str + " + " + integration + " integration"
         print method_str
 
+        if method == "time":
+            X = X_time
+        if method == "timefrequency":
+            X = X_timefrequency
         # Split folds
         X = np.reshape(X,
-            (X.shape[0],       # ~1k features
-             X.shape[1],       # 128 time
-             X.shape[2],       #   5 azimuths
-             X.shape[3] / 5,   #  20 scenes per fold
+            (X.shape[0] / 5,   #  20 scenes per fold
              5,                #   5 folds
-            )
+             X.shape[1],       #   5 azimuths
+             X.shape[2],       # 123 time
+             X.shape[3]))      # ~1k features
 
         for fold_id in range(5):
-            Y_training = Y[[fold_id]]
-            Y_test = Y[[np.range(5)!=fold_id]]
+            if integration == "early":
+                X_training = np.sum(X, 3)[:, np.newaxis, :, :, :]
+            if integration == "late":
+                Y = np.repeat(Y, 128)
+
+            Y_training = Y[folds == fold_id]
+            Y_test = Y[folds != fold_id]
 
             # Concatenate azimuths as different training examples
             if augmentation:
-                X_training = X[:, :, :, :, np.range(5)!=fold_id]
+                X_training = X[:, np.arange(5)!=fold_id, :, :, :]
                 Y_training = np.repeat(Y_training, 5)
             else:
-                X_training = X[:, :, [2], :, np.range(5)!=fold_id]
+                X_training = X[:, np.arange(5)!=fold_id, :, :, :]
             # Pick central azimuth at test time
-            X_test = X[:, :, [2], :, [fold_id]]
-
-            if integration == "early":
-                X_training =
-                    np.sum(X_training, 1)[:, np.newaxis, :, :, :]
-                X_test =
-                    np.sum(X_training, 1)[:, np.newaxis, :, :, :]
-            if integration == "late":
-                Y_training = np.repeat(Y_training, 128)
-                Y_test = np.repeat(Y_test, 128)
+            X_test = X[:, [fold_id], [2], :, :]
 
             X_training = np.transpose(np.reshape(X_training,
                 X_training.shape[0], np.prod(X_training.shape[1:4])))
