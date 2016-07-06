@@ -50,6 +50,7 @@ def dcase_svm(octmin, octmax, augmentation, method, selection, integration):
     # Early integration
     X_early = np.sum(X, 3)[:, :, :, np.newaxis, :]
 
+    accuracies = []
     for fold_id in range(5):
         if integration == "early":
             X_int = X_early
@@ -119,18 +120,22 @@ def dcase_svm(octmin, octmax, augmentation, method, selection, integration):
             sklearn.metrics.accuracy_score(Y_test_predicted, Y_test)
         print "Method: " + method_str + " on fold " +
             str(fold_id) + "   " + str(100 * accuracy)
-        dictionary = {
-            'accuracy': accuracy,
-            'augmentation': augmentation,
-            'fmin': fmin,
-            'fmax': fmax,
-            'fold_id': fold_id,
-            'integration': integration,
-            'method': method,
-            'method_str': method_str,
-            'octmin': octmin,
-            'octmax': octmax,
-            'selection': selection,
-            'Y_test': Y_test,
-            'Y_test_predicted': Y_test_predicted}
-        return dictionary
+        accuracies.append(accuracy)
+
+    dictionary = {
+        'accuracies': accuracies,
+        'accuracy_mean' : np.mean(accuracies),
+        'accuracy_std': np.std(accuracies),
+        'augmentation': augmentation,
+        'fmin': fmin,
+        'fmax': fmax,
+        'fold_id': fold_id,
+        'integration': integration,
+        'method': method,
+        'method_str': method_str,
+        'octmin': octmin,
+        'octmax': octmax,
+        'selection': selection,
+        'Y_test': Y_test,
+        'Y_test_predicted': Y_test_predicted}
+    return dictionary
