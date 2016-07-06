@@ -18,7 +18,7 @@ np.set_printoptions(precision=2)
 
 delayed_dcase_svm = joblib.delayed(cached_dcase_svm)
 
-dictionaries = joblib.Parallel(barch_size=1, n_jobs=-1, verbose=10)(
+dictionaries = joblib.Parallel(batch_size=1, n_jobs=-1, verbose=10)(
     delayed_dcase_svm(
         octmin,
         octmax,
