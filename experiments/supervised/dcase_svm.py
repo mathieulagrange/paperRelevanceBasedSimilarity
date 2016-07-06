@@ -1,8 +1,10 @@
 import collections
 import datetime
+import joblib
 import numpy as np
 import pickle
 import h5py
+import os.path
 import scipy.stats
 import sklearn.decomposition
 import sklearn.ensemble
@@ -118,14 +120,16 @@ def dcase_svm(octmin, octmax, augmentation, method, selection, integration):
 
         accuracy =\
             sklearn.metrics.accuracy_score(Y_test_predicted, Y_test)
-        print "Method: " + method_str + " on fold " +
-            str(fold_id) + "   " + str(100 * accuracy)
         accuracies.append(accuracy)
 
+    mean_accuracy = np.mean(accuracies)
+    std_accuracy = np.std(accuracies)
+    print method_str + ": " + str(100 * mean_accuracy) +\
+        " +/- " + str(100 * std_accuracy)
     dictionary = {
         'accuracies': accuracies,
-        'accuracy_mean' : np.mean(accuracies),
-        'accuracy_std': np.std(accuracies),
+        'accuracy_mean' : mean_accuracy,
+        'accuracy_std': std_accuracy,
         'augmentation': augmentation,
         'fmin': fmin,
         'fmax': fmax,
@@ -139,3 +143,7 @@ def dcase_svm(octmin, octmax, augmentation, method, selection, integration):
         'Y_test': Y_test,
         'Y_test_predicted': Y_test_predicted}
     return dictionary
+
+cachedir = os.path.expanduser('~/joblib')
+memory = joblib.Memory(cachedir=cachedir, verbose=0)
+cached_dcase_svm = memory.cache(dcase_svm)
