@@ -50,15 +50,11 @@ def dcase_svm(octmin, octmax, augmentation, method, selection, integration):
     folds = np.mod(np.arange(100), 5)
 
     # Early integration
-    X_early = np.sum(X, 3)[:, :, :, np.newaxis, :]
+    if integration == "early":
+        X = np.sum(X, 3)[:, :, :, np.newaxis, :]
 
     accuracies = []
     for fold_id in range(5):
-        if integration == "early":
-            X_int = X_early
-        if integration == "late":
-            X_int = X
-
         Y_training = Y[folds != fold_id]
         Y_test = Y[folds == fold_id]
 
@@ -67,12 +63,12 @@ def dcase_svm(octmin, octmax, augmentation, method, selection, integration):
 
         # Concatenate azimuths as different training examples
         if augmentation:
-            X_training = X_int[:, np.arange(5)!=fold_id, :, :, :]
+            X_training = X[:, np.arange(5)!=fold_id, :, :, :]
             Y_training = np.repeat(Y_training, 5)
         else:
-            X_training = X_int[:, np.arange(5)!=fold_id, :, :, :]
+            X_training = X[:, np.arange(5)!=fold_id, :, :, :]
         # Pick central azimuth at test time
-        X_test = X_int[:, fold_id, 2, :, :]
+        X_test = X[:, fold_id, 2, :, :]
 
         X_training = np.reshape(X_training,
             (np.prod(X_training.shape[0:-1]), X_training.shape[-1]))
