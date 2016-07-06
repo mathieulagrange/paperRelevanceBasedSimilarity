@@ -81,42 +81,50 @@ for augmentation in [True, False], method in ['time', 'timefrequency'],
             X_training = np.log(1e-16 + X_training)
             X_test = np.log(1e-16 + X_test)
 
-        # Standardize features
-        print(datetime.datetime.now().time().strftime('%H:%M:%S') +
-            " Standardization")
-        scaler = sklearn.preprocessing.StandardScaler().fit(X_training)
-        X_training = scaler.transform(X_training)
-        X_test = scaler.transform(X_test)
-        report = []
-        output_file = open('mdb' + method + 'svm_y.pkl', 'wb')
-        pickle.dump(report, output_file)
-        output_file.close()
+            # Standardize features
+            print(datetime.datetime.now().time().strftime('%H:%M:%S') +
+                " Standardization")
+            scaler = sklearn.preprocessing.StandardScaler().fit(X_training)
+            X_training = scaler.transform(X_training)
+            X_test = scaler.transform(X_test)
+            report = []
+            output_file = open('mdb' + method + 'svm_y.pkl', 'wb')
+            pickle.dump(report, output_file)
+            output_file.close()
 
-        # Train linear SVM
-        print(datetime.datetime.now().time().strftime('%H:%M:%S') +
-            " Training")
-        clf = sklearn.svm.LinearSVC(class_weight="balanced")
-        clf.fit(X_training, Y_training)
+            # Train linear SVM
+            print(datetime.datetime.now().time().strftime('%H:%M:%S') +
+                " Training")
+            clf = sklearn.svm.LinearSVC(class_weight="balanced")
+            clf.fit(X_training, Y_training)
 
-        # Predict and evaluate average miss rate
-        print(datetime.datetime.now().time().strftime('%H:%M:%S') +
-            " Evaluation")
-        Y_training_predicted = clf.predict(X_training)
-        Y_test_predicted = clf.predict(X_test)
-        accuracy =\
-            sklearn.metrics.accuracy_score(Y_test_predicted, Y_test)
-        print "Accuracy = " + str(100 * accuracy)
-        print ""
-        dictionary = {
-            'accuracy': accuracy,
-            'compression': compression,
-            'method': method,
-            'method_str': method_str,
-            'selection': selection,
-            'Y_test': Y_test,
-            'Y_test_predicted': Y_test_predicted,
-            'Y_training': Y_training,
-            'Y_training_predicted': Y_training_predicted}
-        output_file = open(method_str + '.pkl', 'wb')
-        pickle.dump(dictionary, output_file)
-        output_file.close()
+            # Predict and evaluate average miss rate
+            print(datetime.datetime.now().time().strftime('%H:%M:%S') +
+                " Evaluation")
+            if integration == "early":
+                Y_test_predicted = clf.predict(X_test)
+            if integration == "late":
+                logprobs_test = clf.predict_log_proba(X_test)
+                logprobs_test = np.reshape(
+                    logprobs_test.shape[0],
+                    128,
+                    logprobs_test.shape[1] / 128)
+                sumlogprobs_test = np.sum(logprobs_test, axis=1)
+                Y_test_predicted = np.argmax(sumlogprobs_test, axis=0)
+            accuracy =\
+                sklearn.metrics.accuracy_score(Y_test_predicted, Y_test)
+            print "Accuracy = " + str(100 * accuracy)
+            print ""
+            dictionary = {
+                'accuracy': accuracy,
+                'augmentation': augmentation,
+                'fold_id': fold_id,
+                'integration': integration,
+                'method': method,
+                'method_str': method_str,
+                'selection': selection,
+                'Y_test': Y_test,
+                'Y_test_predicted': Y_test_predicted}
+            output_file = open(method_str + '.pkl', 'wb')
+            pickle.dump(dictionary, output_file)
+            output_file.close()
