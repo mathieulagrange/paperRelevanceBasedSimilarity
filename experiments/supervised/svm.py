@@ -34,6 +34,9 @@ for octmin in [ 0, 1, 2, 3 ]:
             for method in [ 'time', 'timefrequency' ]:
                 for selection in [ False, True ]:
                     for integration in [ 'early', 'late' ]:
+                        setting =
+
+
                         method_str = method + "_oct" + str(octmin) + "to" + str(octmax)
                         if augmentation:
                             method_str = method_str + "_augmentation"
@@ -133,7 +136,8 @@ for octmin in [ 0, 1, 2, 3 ]:
                                 vote_test = clf.predict(X_test)
                                 vote_test = np.reshape(vote_test,
                                     (vote_test.shape[0] / 128, 128))
-                                votes = [vote_test[n,:] for n in range(20)]
+                                votes = [vote_test[n, :] for n in range(20)]
+                                counters = map(collections.Counter, votes)
                                 Y_test_predicted = np.hstack(
                                     [ counter.most_common(1)[0][0] for counter in counters ])
 
