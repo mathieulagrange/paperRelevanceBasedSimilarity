@@ -24,48 +24,58 @@ folds = np.mod(np.arange(100), 5)
 
 for augmentation in [True, False], method in ['time', 'timefrequency'],
     selection in [False, True], integration in ['early', 'true']:
-        method_str = "Method: " + method
+        method_str = method
         if augmentation:
-            method_str = method_str + " + augmentation"
+            method_str = method_str + "_augmentation"
         if selection:
-            method_str = method_str + " + selection"
-        method_str = method_str + " + " + integration + " integration"
-        print method_str
+            method_str = method_str + "_selection"
+        method_str = method_str + "_" + integration
+        print "Method: " + method_str
 
         if method == "time":
             X = X_time
         if method == "timefrequency":
             X = X_timefrequency
+
+        # Rectify
+        X = np.maximum(0.0, X)
+
         # Split folds
         X = np.reshape(X,
             (X.shape[0] / 5,   #  20 scenes per fold
              5,                #   5 folds
              X.shape[1],       #   5 azimuths
-             X.shape[2],       # 123 time
+             X.shape[2],       # 128 time
              X.shape[3]))      # ~1k features
+
+        # Early integration
+        X_early = np.sum(X, 3)[:, :, :, np.newaxis, :]
 
         for fold_id in range(5):
             if integration == "early":
-                X_training = np.sum(X, 3)[:, np.newaxis, :, :, :]
+                X_int = X_early
             if integration == "late":
-                Y = np.repeat(Y, 128)
+                X_int = X
 
-            Y_training = Y[folds == fold_id]
-            Y_test = Y[folds != fold_id]
+            Y_training = Y[folds != fold_id]
+            Y_test = Y[folds == fold_id]
+
+            if integration == "late":
+                Y_training = np.repeat(Y_training, 128)
 
             # Concatenate azimuths as different training examples
             if augmentation:
-                X_training = X[:, np.arange(5)!=fold_id, :, :, :]
+                X_training = X_int[:, np.arange(5)!=fold_id, :, :, :]
                 Y_training = np.repeat(Y_training, 5)
             else:
-                X_training = X[:, np.arange(5)!=fold_id, :, :, :]
+                X_training = X_int[:, np.arange(5)!=fold_id, :, :, :]
             # Pick central azimuth at test time
-            X_test = X[:, [fold_id], [2], :, :]
+            X_test = X_int[:, fold_id, 2, :, :]
 
-            X_training = np.transpose(np.reshape(X_training,
-                X_training.shape[0], np.prod(X_training.shape[1:4])))
-            X_test = np.transpose(np.reshape(X_training,
-                X_training.shape[0], np.prod(X_training.shape[1:4])))
+            X_training = np.reshape(X_training,
+                (np.prod(X_training.shape[0:-1]), X_training.shape[-1]))
+            X_test = np.reshape(X_test,
+                (np.prod(X_test.shape[0:-1]), X_test.shape[-1]))
 
             # Discard features with less than 1% of the energy
             if selection:
@@ -80,30 +90,26 @@ for augmentation in [True, False], method in ['time', 'timefrequency'],
                 X_training = X_training[:, dominant_indices]
                 X_test = X_test[:, dominant_indices]
 
-            # Log transformation
-            X_training = np.log(1e-16 + X_training)
-            X_test = np.log(1e-16 + X_test)
+            # Log transformation (1e2 is what yields the lowest skewness)
+            medians = np.median(X_training, axis=0)[np.newaxis, :]
+            X_training = np.log1p(1e2 * X_training / medians)
+            X_test = np.log1p(1e2 * X_test / medians)
 
             # Standardize features
-            print(datetime.datetime.now().time().strftime('%H:%M:%S') +
-                " Standardization")
             scaler = sklearn.preprocessing.StandardScaler().fit(X_training)
             X_training = scaler.transform(X_training)
             X_test = scaler.transform(X_test)
             report = []
-            output_file = open('mdb' + method + 'svm_y.pkl', 'wb')
+            output_file = open(
+                'mdb' + method_str + 'fold' + str(fold_id) + '.pkl', 'wb')
             pickle.dump(report, output_file)
             output_file.close()
 
             # Train linear SVM
-            print(datetime.datetime.now().time().strftime('%H:%M:%S') +
-                " Training")
             clf = sklearn.svm.LinearSVC(class_weight="balanced")
             clf.fit(X_training, Y_training)
 
             # Predict and evaluate average miss rate
-            print(datetime.datetime.now().time().strftime('%H:%M:%S') +
-                " Evaluation")
             if integration == "early":
                 Y_test_predicted = clf.predict(X_test)
             if integration == "late":
