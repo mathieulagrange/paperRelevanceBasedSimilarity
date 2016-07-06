@@ -66,7 +66,7 @@ def dcase_svm(octmin, octmax, augmentation, method, selection, integration):
             X_training = X[:, np.arange(5)!=fold_id, :, :, :]
             Y_training = np.repeat(Y_training, 5)
         else:
-            X_training = X[:, np.arange(5)!=fold_id, :, :, :]
+            X_training = X[:, np.arange(5)!=fold_id, 2, :, :]
         # Pick central azimuth at test time
         X_test = X[:, fold_id, 2, :, :]
 
