@@ -30,13 +30,16 @@ for selection in [ False, True ]:
             dcase_svm(0, 9, augmentation,
                 "timefrequency", selection, "late")
 
-
 for selection in [ False, True ]:
     for augmentation in [ True, False ]:
-        for octmin in [0, 1, 2, 3]:
-                dcase_svm(octmin, 9, augmentation,
-                    "timefrequency", selection, "early")
+        dcase_svm(0, 9, augmentation,
+            "timefrequency", selection, "early")
 
+for selection in [ False, True ]:
+    dcase_svm(0, 9, False, "timefrequency", selection, "early")
+
+for octmin in [0, 1, 2, 3, 4]:
+    dcase_svm(octmin, 9, False, "timefrequency", False, "early")
 
 dictionaries = joblib.Parallel(n_jobs=-1, verbose=10)(
     delayed_dcase_svm(
