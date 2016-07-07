@@ -47,7 +47,7 @@
 % can use linebreaks \\ within to get better formatting as desired
 % Do not put math or special symbols in the title.
 %\title{An evaluation framework for event detection using a morphological model of acoustic scenes}
-\title{Scattering Auditory Scenes for Classification: Supervised and Unsupervised Approaches}
+\title{Object-based Auditory Scenes Similarity and Classification Using Scattering Features}
 
 \author{Vincent Lostanlen, Gr\'egoire Lafay, Joakim And\'en, and Mathieu Lagrange}
 
@@ -58,12 +58,14 @@
 % As a general rule, do not put math, special symbols or citations
 % in the abstract or keywords.
 \begin{abstract}
-This paper introduces a 
+This paper introduces a generic hierarchical modeling of acoustic scenes using time/frequency scattering features for time spans below the second and object-based segmentation for larger time spans that effectiely model the scene with almost no requirement for optimization. Application of the proposed approach to the acoustic scene similarity and acoustic scene classification tasks demonstrates its potential.   
+
+More precisely, the proposed approach achieves 
 \end{abstract}
 
 % Note that keywords are not normally used for peerreview paper.
 \begin{IEEEkeywords}
-Acoustic scene classification, segmentation.
+Acoustic scene classification, acoustic scene segmentation.
 \end{IEEEkeywords}
 
 % For peer review papers, you can put extra information on the cover
@@ -84,45 +86,21 @@ Also, some recent works demonstrate the interest of such approaches for the char
 
 Unfortunately, those fields of research are still in infancy and consequently very few well built datasets are readily available for evaluation purposes for the signal processing community. A closely related field of investigation that is relatively more mature is the classification of acoustic scenes whose aim is to predict labels by processing audio data. Despite being narrower in terms of range of applications, it has the advantage of being rooted by numerous works in cognitive psychology on categorization \cite{dubois2006cognitive, maffiolo_caracterisation_1999, guastavino_ideal_2006} and been considered in the data processing field for a while, with availability of some well designed evaluation datasets. 
 
-Despite the differences, the following question is valid both for the above cited future application and the acoustic scene classification (ASC). How can we efficiently and effectively process large amount of audio data using representations that are both compact, generic in their design and with a large application range ?  
+Despite the differences, the following question is valid both for the above cited future application and the acoustic scene classification (ASC) task. How can we efficiently and effectively process large amount of audio data using representations that are both compact, generic in their design and with a large application range ?  
 
+The research described in this paper tackles that question by demonstrating the usefulness of two main contributions: 1) the use of the scattering transform allows us to extract discriminative features with almost no parameter optimization and 2) object-based modeling of the acoustic scene based on individual unsupervised clustering of each acoustic scene  allows us to effectively focus the description on areas of interest. After studying the state of the art in the field of acoustic scene modeling in Section \ref{sec:soa}, those contributions are extensively described, respectively in Section \ref{sec:scattering} and \ref{sec:object} and evaluated both in an unsupervised setting, \textit{i.e.} acoustic scene similarity (ASS) and in a supervised setting, \textit{i.e.}  acoustic scene classification (ASC), respectively in Section \ref{sec:similarity} and Section \ref{sec:classification}.
 
-The research described in this paper tackles that question by demonstrating the usefulness of two main contributions: 1) the use of the scattering transform allows us to extract discriminative features with almost no parameter optimization and 2) object-based modeling of the acoustic scene based on individual unsupervised clustering of each acoustic scene  allows us to effectively focus the description on areas of interest. Those contributions are extensively described, respectively in Section \ref{sec:scattering} and \ref{sec:object} and evaluated both in an unsupervised setting, \textit{i.e.} acoustic scene similarity (ASS) and in a supervised setting, \textit{i.e.}  acoustic scene classification (ASC), respectively in Section \ref{sec:similarity} and Section \ref{sec:classification}.
+\section{Previous work} \label{sec:soa}
 
-paper
+As stated in the introduction, the field of eco-acoustics is relatively young, but significant works are worth mentioning. One avenue of research issued from bio acoustic studies, consider the audio stream as a set of events produced animals, and is processed to retrieve the precise species that produced the sound and potentially the type of vocalization in order to predict some behavior of the animal under study \cite{dan}. Another, more recent, avenue of research, process the audio stream in an holistic manner in order to infer large time-scale properties of the bio-acoustic scene for example to estimate which part of the stream need to be analyzed in details, \textit{i.e.} by a human \cite{australians}.
 
-In this paper, we investigate the potential of a new unsupervised segmentation paradigm that allows us to 
+The same dichotomy applies for the field of audio scene analysis, where the interest can be whether 1) to isolate and identify precise events, \textit{i.e.} acoustic event detection (AED) or 2) to predict global attributes assigned to large time spans of audio, \textit{i.e.} ASC. For the latter, most state-of-the-art systems roughly follow the bag of frame approach (BOF) initiated in \cite{aucouturier2007bag} where the audio is modelled as high level statistics comptued from a set of local features. Even though this approach as the advantage of high genericity and follows some evidence found by psycho perception research \cite{macdermott}, for the specific implementation with gaussian mixture models (GMMs) of Mel-frequency cepstral coefficients (MFCCs) it is demonstrated to be equivalent to  \cite{lagrange:hal-01082501}.
 
-This data has to be processed
+citer papier event based de l'intro de jj
 
+ there is evidence that modelling the scene as a set of events allows us to predict high level semantic information such as pleasantness
 
-Environment sound
-
-describe in terms of high level attributes
-
-be they cognitive ones such as pleasantness, or descriptive ones such as the type of environment where the 
-
-
-%As part of the aforementioned research areas and applications, the emerging field of \emph{Acoustic Scene Analysis} (also called \emph{Sound Scene Analysis}) \cite{Stowell15} aims to develop approaches and systems for the automatic analysis of environmental sounds and soundscapes (originating both from urban or nature environments). While research methodologies in related fields such as Automatic Speech Recognition (ASR) \cite{Rabiner93} and Music Information Retrieval (MIR) \cite{Muller07} are now well established, research addressing Acoustic Scene Analysis remains relatively young. 
-
-Whilst the range of applications are very large, so is the need
-
-holistic / event based
-
-skeleton of events on a bed of texture.
-
-debate about the kind of process underlying perception
-
-strong indication that the detection of specific events, named markers suffice to trigger class prediction
-
-From a numerical data processing overview, the holistic scheme as a simplicity, but clearly face poor performance on realistic conditions \cite{lagrange:hal-01082501}.
-
-If available, the complete description of the scene in terms of event occurences is powerful enough to reliably predict high level cognitive classes, \textit{i.e.} the presence of birds are strong pleasantness indicators and very likely to be heard in parks in urban areas.
-
-\section{Previous work}
-
-\gl{bag of frame approach:} \cite{aucouturier2007bag}: bag of frame approach. \cite{lagrange:hal-01082501}: why the bag of frame approach does no work. \\
-
+Eventhough the precise list of events that occur in a given time is unachievable to get even for trained human, research shows that using only a few events, so called markers \cite{} is enough to reliably predict high level attributes. For example, the presence of a few bird calls in a smooth traffic hubhub is likely to be tagged by humans as a park scene in urban areas \gl{citations ?}.
 
 
 \gl{DCASE challenge:} \cite{chum2013ieee}: CHR system, using HMM and frame based classification. \cite{elizalde2013vector} ELF system, I vector approach using probabilistic LDA as classifier. \cite{geiger2013large} GSR system, basically mel/MFCC using SVM as classifier. \cite{krijnders2013tone} KH system, tone fit features computed from cochleogram (but similar results are obtained with MFCCs) using SVM as classifier. \cite{li2013auditory} LTT system, Tree bagger classifier used on segments (MFCCs) before a majority vote. \cite{lee2013acoustic} NHL system, unsupervised feature learning approach on mel frequency spectrogram with selective Max-pooling. Supervised training is performed using SVM. \cite{nogueira2013sound} NR1 system, MFCC and spatial features (inter-aural differences) with SVM as classifier. \cite{olivetti2013wonder} OE system, normalized compression distance (I honestly did not understand a thing about it, but this the worst method of the challenge anyway) using  Random Forest  classifier.  \cite{patil2013multiresolution} PE system, 2D Gabor filters applied on 1sec segments with SVM as classifier.  \cite{rakotomamonjy2015histogram} RG system, histogram of gradient representation, computed from a constant Q transform with SVM as classifier.  \cite{roma2013recurrence} RNH system, RQA stacked with MFCC, SVM as classifier. \\
@@ -397,13 +375,32 @@ The next section discusses adaptive methods for the temporal integration of scat
 
 \section{Object-based modeling of the scene}
 
-\subsection{Protocol}
+describe in terms of high level attributes
 
-\subsection{Results}
+be they cognitive ones such as pleasantness, or descriptive ones such as the type of environment where the 
+
+
+%As part of the aforementioned research areas and applications, the emerging field of \emph{Acoustic Scene Analysis} (also called \emph{Sound Scene Analysis}) \cite{Stowell15} aims to develop approaches and systems for the automatic analysis of environmental sounds and soundscapes (originating both from urban or nature environments). While research methodologies in related fields such as Automatic Speech Recognition (ASR) \cite{Rabiner93} and Music Information Retrieval (MIR) \cite{Muller07} are now well established, research addressing Acoustic Scene Analysis remains relatively young. 
+
+Whilst the range of applications are very large, so is the need
+
+holistic / event based
+
+skeleton of events on a bed of texture.
+
+debate about the kind of process underlying perception
+
+strong indication that the detection of specific events, named markers suffice to trigger class prediction
+
+From a numerical data processing overview, the holistic scheme as a simplicity, but clearly face poor performance on realistic conditions \cite{lagrange:hal-01082501}.
+
+If available, the complete description of the scene in terms of event occurrences is powerful enough to reliably predict high level cognitive classes, \textit{i.e.} the presence of birds are strong pleasantness indicators and very likely to be heard in parks in urban areas.
 
 \section{Acoustic Scene Similarity}
 
-GL
+\subsection{Protocol}
+
+\subsection{Results}
 
 \section{Acoustic Scene Classification}
 Support vector machines are large-margin binary discriminators with tunable regularization of misclassified examples.
