@@ -286,7 +286,7 @@ where $\alpha$ is a panoramic mixing weight, taking values between $-1$ and $+1$
 
 In following experiments, we deterministically set $\alpha$ to the values $-1$, $\frac{1}{2}$, $0$, $+\frac{1}{2}$, and $+1$.
 This is a form of data augmentation, because $5$ monophonic signals are derived from each binaural recording in the training set.
-At test time, only the center mix ($\alpha = 0$) is used to perform the class.
+At test time, only the center mix ($\alpha = 0$) is used to predict the class.
 
 \subsection{Feature selection}
 In a multivariate time series of descriptors $\mathbf{S}\boldsymbol{x}(t,\gamma)$, some coefficients $\gamma$ may consistently bear negligible information for the task of interest.
