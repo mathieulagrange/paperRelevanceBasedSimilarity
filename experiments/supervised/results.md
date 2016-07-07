@@ -8,6 +8,7 @@ time_oct1to10_selection_early: 64.0 +/- 8.60232526704
 time_oct1to10_selection_late: 71.0 +/- 12.0
 
 time_oct0to7_augmentation_late: 69.0 +/- 4.89897948557
+
 timefrequency_oct0to9_augmentation_late: 77.0 +/- 5.09901951359
 timefrequency_oct0to9_selection_late: 69.0 +/- 10.677078252
 timefrequency_oct0to9_augmentation_selection_late: 69.0 +/- 13.5646599663
