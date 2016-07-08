@@ -76,17 +76,17 @@ def dcase_svm(octmin, octmax, augmentation, scattering, compression, integration
             (np.prod(X_test.shape[0:-1]), X_test.shape[-1]))
 
         # Discard features with less than 1% of the energy
-        if selection:
-            energies = X_training * X_training
-            feature_energies = np.mean(X_training, axis=0)
-            feature_energies /= np.sum(feature_energies)
-            sorting_indices = np.argsort(feature_energies)
-            sorted_feature_energies = feature_energies[sorting_indices]
-            cumulative = np.cumsum(sorted_feature_energies)
-            start_feature = np.where(cumulative > 0.01)[0][0]
-            dominant_indices = sorting_indices[start_feature:]
-            X_training = X_training[:, dominant_indices]
-            X_test = X_test[:, dominant_indices]
+        # if selection:
+        #     energies = X_training * X_training
+        #     feature_energies = np.mean(X_training, axis=0)
+        #     feature_energies /= np.sum(feature_energies)
+        #     sorting_indices = np.argsort(feature_energies)
+        #     sorted_feature_energies = feature_energies[sorting_indices]
+        #     cumulative = np.cumsum(sorted_feature_energies)
+        #     start_feature = np.where(cumulative > 0.01)[0][0]
+        #     dominant_indices = sorting_indices[start_feature:]
+        #     X_training = X_training[:, dominant_indices]
+        #     X_test = X_test[:, dominant_indices]
 
         # Log transformation (1e2 is what yields the lowest skewness)
         if compression == "logmedian":

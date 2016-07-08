@@ -16,9 +16,10 @@ from dcase_svm import cached_dcase_svm, dcase_svm
 
 np.set_printoptions(precision=2)
 
-exp1 = []
+
 
 # Evaluate role of compression
+exp1 = []
 for C in np.arange(5):
     exp1.append(dcase_svm(0, 12, False, "time", "none", "early", C))
     exp1.append(dcase_svm(0, 12, False, "time", "log", "early", C))
