@@ -293,9 +293,16 @@ At test time, only the center mix ($\alpha = 0$) is used to predict the class.
 \subsection{Feature selection}
 In a multivariate time series of descriptors $\mathbf{S}\boldsymbol{x}(t,\gamma)$, some coefficients $\gamma$ may consistently bear negligible information for the task of interest.
 This fact may cause the classifier to overfit the training set, especially when the number of features is large and the number of training instances is small, as is the case here.
+Selecting features appropriately before the training stage may circumvent this problem.
+However, the parameters of the chosen feature selection algorithm are themselves prone to overfitting.
+Instead, we adopt the more conservative approach of retaining all coefficients within a certain range of subband indices $\gamma_1$ and $\gamma_2$.
+In comparison with adaptive algorithms, the subset of selected features $\gamma$ has a suboptimal statistical relevance, but it is easily interpretable in the realm of audio signal processing, as it is equivalent to a coarse band-pass filtering of $\boldsymbol{x}(t)$ and $\boldsymbol{x_1}(t,\gamma_1)$ over the time dimension $t$.
 
+The conservation equations underlying the physics of sound production constrain the waveform $\boldsymbol{x}(t)$ to be regular in the time domain, that is, to have a polynomial decay in the Fourier domain.
+This decay is only made sharper by the specific properties of acoustic environments, especially indoor.
+As a result, the amount of energy in the wavelet subband $\gamma_1$ is roughly proportional to the center frequency $2^{-\gamma_1/Q_1}$.
 
-This is inspired by the state-of-the-art results of \cite{roma2013}, which rely on cepstral descriptors computed up to a cutoff frequency as small as 900 Hz.
+This is consistent with the results of \cite{roma2013}, who secured the first place in the 2013 edition of the DCASE challenge, by relying on cepstral descriptors computed up to a cutoff frequency as small as 900 Hz.
 
 The starting scale $\gamma_{1,\min}$ corresponding to some upper bound $\xi_{1,\max}$ on the frequency axis is given by
 \begin{equation}
