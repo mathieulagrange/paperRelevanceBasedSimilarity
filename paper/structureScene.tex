@@ -204,7 +204,7 @@ frequencies than the CQT, at the expense of a greater computational cost.
 This property allows us to observe amplitude modulations at fine temporal scales in the scalogram, down to the minimum scale $2Q_1/\xi_1$ for $\gamma_1 = 0$, of the order of $1\,\textrm{ms}$ given the aforementioned values of $Q_1$ and $\xi_1$.
 
 Among auditory scenes, amplitude modulations may be caused by a broad variety of mechanical interactions, including collision, friction, and turbulent flow.
-They also account for some higher-level cognitive attributes of sound, \eg prosody in speech or rhythm in music. \ml{je ne parlerai pas de cognition a ce stade, je dirais plutot que les modulations s'expriment aussi bien au niveau physique à l'échelle fine (interactions mecaniques) qu'a une echelle temporelle plus large (prososdie, rhythme). Apres, si tu as des citations, tu peux dire que ce sont des indices importants pour la perception, ce qui est le cas}
+At a longer scale, they also account for some higher-level attributes of sound, \eg prosody in speech or rhythm in music.
 Although they are discarded while filtering $\boldsymbol{x_1}(t,\gamma_1)$ into a translation-invariant representation $\mathbf{S_1}\boldsymbol{x}(t,\gamma_1)$, they can be recovered by a second wavelet transform modulus operator.
 The amplitude modulation spectrum resulting from this operator is
 \begin{equation}
@@ -212,7 +212,7 @@ The amplitude modulation spectrum resulting from this operator is
 \vert \boldsymbol{x_1} \ast \boldsymbol{\psi_{\gamma_2}} \vert(t,\gamma_1),
 \end{equation}
 where the center frequencies of the wavelets $\boldsymbol{\psi_{\gamma_2}}(t)$ are of the form $2^{-\gamma_2/Q_2} \xi_2$, and the second-order log-frequency index $\gamma_2$ takes integer values between $0$ and $(J_2 \times Q_2 - 1)$.
-In the sequel, we set $\xi_2$ to $2.5\,\mathrm{kHz}$, $Q_2$ to $1$, and $J_2$ to $12$. Finally, \ml{finnaly a un sens particulier en Anglais, il implique une sorte de soulagement. Dans des documents techniques on met plutot lastly} the low-pass filter $\phi(t)$ is applied to $\boldsymbol{x_2}$ to guarantee invariance to translation, yielding
+In the sequel, we set $\xi_2$ to $2.5\,\mathrm{kHz}$, $Q_2$ to $1$, and $J_2$ to $12$. Lastly, the low-pass filter $\phi(t)$ is applied to $\boldsymbol{x_2}$ to guarantee invariance to translation, yielding
 \begin{equation}
 \mathbf{S_2}\boldsymbol{x}(t,\gamma_1,\gamma_2) =
 (\boldsymbol{x_2} \ast \phi)(t,\gamma_1,\gamma_2).
