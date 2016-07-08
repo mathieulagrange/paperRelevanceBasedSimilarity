@@ -247,30 +247,6 @@ Before supervised or unsupervised classification, it is beneficial to process sc
 In this section, we review several ways of achieving these properties, namely binaural data augmentation, feature selection, logarithmic compression, standardization, and temporal integration.
 The former has, to the best of our knowledge, not being considered for ASC and is specific to multichannel recordings, whereas the next ones would also apply to many other kinds of data.
 
-\subsection{Binaural data augmentation}
-Most acoustic scene datasets are recorded according to a binaural protocol, \ie with a pair of in-ear microphones \cite{Wang2006}.
-This protocol provides a realistic description of the spatial auditory environment, as it reproduces the natural listening conditions of humans.
-In particular, the interaural level difference (ILD) between left and right channel conveys the approximate azimuth of each sound source that make up the scene with respect to the listener \cite{Blauert2003}.
-Yet, the location of the recordist may vary across instances of the same class.
-Therefore, any global rotations of all azimuths, corresponding to a rotation of the head of the recordist, should be discarded as a spurious source of variability in the observed data.
-
-For classification purposes, averaging the left and right channels into a monophonic signal is by far the most widespread approach, because the resulting monophonic signal is approximately invariant to azimuth.
-However, it favors the center of the scene while attenuating lateral cues.
-Moreover, sources that are on distinct azimuths get mixed, which may cause bias at training time.
-\vl{qu'en penses-tu ML ?}
-
-Instead, so as to leverage stereophonic data, we perform multiple combinations of the left channel $\boldsymbol{x_{\mathsf{L}}}(t)$ and right channel $\boldsymbol{x_{\mathsf{R}}}(t)$ into monophonic signals $\boldsymbol{x_{\alpha}}(t)$ according to the equation
-\begin{equation}  
-\boldsymbol{x_{\alpha}}(t) =
-\dfrac{1+\alpha}{2} \boldsymbol{x_\mathsf{L}}(t) +
-\dfrac{1-\alpha}{2} \boldsymbol{x_\mathsf{R}}(t),
-\end{equation}
-where $\alpha$ is a panoramic mixing weight, taking values between $-1$ and $+1$, which could be deterministic or random.
-
-In following experiments, we deterministically set $\alpha$ to the values $-1$, $\frac{1}{2}$, $0$, $+\frac{1}{2}$, and $+1$.
-This is a form of data augmentation, because $5$ monophonic signals are derived from each binaural recording in the training set.
-At test time, only the center mix ($\alpha = 0$) is used to predict the class.
-
 \subsection{Feature selection by restricting the frequency range}
 In a multivariate time series of descriptors $\mathbf{S}\boldsymbol{x}(t,\gamma)$, some coefficients $\gamma$ may consistently bear negligible information for the task of interest.
 This fact may cause the classifier to overfit the training set, especially when the number of features is large and the number of training instances is small, as is the case here.
