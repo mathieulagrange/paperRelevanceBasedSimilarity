@@ -89,11 +89,11 @@ def dcase_svm(octmin, octmax, augmentation, scattering, compression, integration
             X_test = X_test[:, dominant_indices]
 
         # Log transformation (1e2 is what yields the lowest skewness)
-        if compression = "logmedian":
+        if compression == "logmedian":
             medians = np.median(X_training, axis=0)[np.newaxis, :]
             X_training = np.log1p(1e2 * X_training / medians)
             X_test = np.log1p(1e2 * X_test / medians)
-        if compression = "log"
+        if compression == "log"
             X_training = np.log(X_training)
             X_test = np.log1p(X_test)
 
