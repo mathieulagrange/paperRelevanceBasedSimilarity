@@ -346,6 +346,7 @@ where $\hat{y}$ is the estimated class label and $\rho$ is a reduction function,
 The principal drawback of early integration is that it drastically reduces the number of training instances at the classifier stage, down to one per auditory scene -- if data augmentation is not considered.
 In the context of the DCASE 2013 dataset, this corresponds to merely $10$ training instances per class, and $100$ instances overall, hence an increase in variance in statistical estimation and a risk of overfitting.
 On the contrary, a late integration scheme for $T=188\textrm{ ms}$ would yield $128$ instances per auditory scene, resulting in $12800$ instances overall.
+\vl{Update number of instances with new train / test split}
 However, many of these instances may be silent or lack any salient properties of the category they are assigned to, hence an increase in bias and a risk of underfitting.
 In short, early and late integration methods lie at opposite ends of the bias-versus-variance statistical tradeoff. We refer to \cite{Joder2009} for a comprehensive review of this problematic in the context of musical instrument recognition.
 
