@@ -29,7 +29,6 @@ def dcase_svm(octmin, octmax, augmentation, scattering, compression, integration
     method_str = method_str + "_" + compression
     if augmentation:
         method_str = method_str + "_augmentation"
-    if
     method_str = method_str + "_" + integration
     method_str = method_str + "_C" + str(C)
 
