@@ -18,15 +18,15 @@ X = X(:, :, 3, :);
 X = X(:);
 X = max(X, 0);
 
-clf();
-subplot(121);
+%%
+figure(1);
 histogram(X, nBins, 'EdgeColor', 'none', 'FaceColor', color, ...
     'FaceAlpha', 1.0);
 axis off
-subplot(122);
+export_fig -transparent feature_histogram.png
+
+figure(2);
 histogram(log(X), nBins, 'EdgeColor', 'none', 'FaceColor', color, ...
     'FaceAlpha', 1.0);
 axis off
-
-%%
-export_fig -transparent compressed_histogram.png
+export_fig -transparent feature_histogram_logcompressed.png
