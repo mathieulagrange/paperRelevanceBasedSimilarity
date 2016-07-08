@@ -142,7 +142,7 @@ despite its size, it is still challenging as state-of-the-art systems achieves 7
 
 \section{Scattering representations \label{sec:scattering}}
 Scattering transforms are translation-invariant representations of audio signals which cascade an auditory filterbank and a modulation filterbank, interspersed with complex modulus nonlinearities.
-Depending upon the chosen architecture, the modulation filterbank may either be performed solely over the time variable or on both time and frequency.
+Depending upon the chosen architecture, the modulation filterbank may either be performed solely over the time variable or on both time and frequency variables.
 In this section, we present both the temporal scattering transform and the time-frequency scattering transform.
 
 \subsection{Invariance and stability in acoustic scene classification}
@@ -200,10 +200,10 @@ theoretical limit of optimal time-frequency localization across the whole
 frequency range, whereas the temporal resolution of the CQT is fixed by the support of the STFT analyzing window.
 Therefore, the wavelet scalogram has a better temporal localization at high
 frequencies than the CQT, at the expense of a greater computational cost.
-This property allows to observe amplitude modulations at fine temporal scales in the scalogram, down to the minimum scale $2Q_1/\xi_1$ for $\gamma_1 = 0$, of the order of $1\,\textrm{ms}$ given the aforementioned values of $Q_1$ and $\xi_1$.
+This property allows us to observe amplitude modulations at fine temporal scales in the scalogram, down to the minimum scale $2Q_1/\xi_1$ for $\gamma_1 = 0$, of the order of $1\,\textrm{ms}$ given the aforementioned values of $Q_1$ and $\xi_1$.
 
 Among auditory scenes, amplitude modulations may be caused by a broad variety of mechanical interactions, including collision, friction, and turbulent flow.
-They also account for some higher-level cognitive attributes of sound, \eg prosody in speech or rhythm in music.
+They also account for some higher-level cognitive attributes of sound, \eg prosody in speech or rhythm in music. \ml{je ne parlerai pas de cognition a ce stade, je dirais plutot que les modulations s'expriment aussi bien au niveau physique à l'échelle fine (interactions mecaniques) qu'a une echelle temporelle plus large (prososdie, rhythme). Apres, si tu as des citations, tu peux dire que ce sont des indices importants pour la perception, ce qui est le cas}
 Although they are discarded while filtering $\boldsymbol{x_1}(t,\gamma_1)$ into a translation-invariant representation $\mathbf{S_1}\boldsymbol{x}(t,\gamma_1)$, they can be recovered by a second wavelet transform modulus operator.
 The amplitude modulation spectrum resulting from this operator is
 \begin{equation}
@@ -211,7 +211,7 @@ The amplitude modulation spectrum resulting from this operator is
 \vert \boldsymbol{x_1} \ast \boldsymbol{\psi_{\gamma_2}} \vert(t,\gamma_1),
 \end{equation}
 where the center frequencies of the wavelets $\boldsymbol{\psi_{\gamma_2}}(t)$ are of the form $2^{-\gamma_2/Q_2} \xi_2$, and the second-order log-frequency index $\gamma_2$ takes integer values between $0$ and $(J_2 \times Q_2 - 1)$.
-In the sequel, we set $\xi_2$ to $2.5\,\mathrm{kHz}$, $Q_2$ to $1$, and $J_2$ to $12$. Finally, the low-pass filter $\phi(t)$ is applied to $\boldsymbol{x_2}$ to guarantee invariance to translation, yielding
+In the sequel, we set $\xi_2$ to $2.5\,\mathrm{kHz}$, $Q_2$ to $1$, and $J_2$ to $12$. Finally, \ml{finnaly a un sens particulier en Anglais, il implique une sorte de soulagement. Dans des documents techniques on met plutot lastly} the low-pass filter $\phi(t)$ is applied to $\boldsymbol{x_2}$ to guarantee invariance to translation, yielding
 \begin{equation}
 \mathbf{S_2}\boldsymbol{x}(t,\gamma_1,\gamma_2) =
 (\boldsymbol{x_2} \ast \phi)(t,\gamma_1,\gamma_2).
@@ -238,11 +238,11 @@ $\boldsymbol{\psi_{\gamma_1}}(t)$ and $\boldsymbol{\psi_{\gamma_2}}(t)$ are desi
 wavelets with one vanishing moment \cite{Venkitaraman2014}, as shown in Figure \ref{fig:gammatones}.
 In the context of auditory scene analysis, the asymmetric envelope of Gammatone wavelets is more biologically plausible than the symmetric, Gaussian-like envelope of the widespread Morlet wavelets.
 Indeed, it allows to reproduce two important psychoacoustic effects in the mammalian cochlea: the asymmetry of temporal masking and the asymmetry of spectral masking \cite{Fastl2007}.
-Moreover, it should be noted that Gammatone wavelets follow the typical amplitude profile of natural sounds, beginning with a relatively sharp attack and ending with a slower decay.
+Moreover, it should be noted that Gammatone wavelets follow the typical amplitude profile of natural sounds, beginning with a relatively sharp attack and ending with a slower decay. \ml{tu peux citer le travail publié a Nature de lewicki, qui montrent que ces formes se retrouvent par ICA de sons naturels http://www.cs.cmu.edu/~learning/talks-2002/02-10-21.lewicki.pdf}
 
 \subsection{Time-frequency scattering}
 The most salient events among auditory scenes draw highly structured patterns in the time-frequency plane.
-\vl{missing sentence here ?}
+\vl{missing sentence here ? oui, en lien avec les strf, tu peux donner des exmeples d'orientation de modulation frequentielle}
 Despite its invariance and stability properties, the temporal scattering transform fails to characterize these patterns, because it extracts the amplitude modulations of each wavelet subband separately.
 
 This issue was remedied by time-frequency scattering \cite{Anden2015}, which performs a wavelet decomposition over the log-frequency variable $\gamma_1$ after the second-order wavelet decomposition over time.
@@ -251,7 +251,7 @@ While temporal scattering merely extracts the average amplitude modulation spect
 
 Since it operates over a complex-valued input, the filterbank over log-frequencies $\gamma_1$ must cover the whole Fourier spectrum, including negative frequencies and the null frequency, to ensure invertibility and energy conservation.
 Therefore, wavelets on $\gamma_1$ have center frequencies of the form
-$\theta_{\mathrm{fr}}  2^{-\gamma_{\mathrm{fr}}/Q_{\mathrm{fr}}}$, where $\gamma_{\mathrm{fr}}$ takes integer values betwen $0$ and $(J_\mathrm{fr} \times Q_\mathrm{fr} - 1)$ and $\theta_{\mathrm{fr}} = \pm 1$.
+$\theta_{\mathrm{fr}}  2^{-\gamma_{\mathrm{fr}}/Q_{\mathrm{fr}}}$, where $\gamma_{\mathrm{fr}}$ takes integer values between $0$ and $(J_\mathrm{fr} \times Q_\mathrm{fr} - 1)$ and $\theta_{\mathrm{fr}} = \pm 1$.
 \begin{equation}
 \boldsymbol{x_2}(t,\gamma_1,\gamma_2,\gamma_{\mathrm{fr}},\theta_{\mathrm{fr}}) =
 \vert \boldsymbol{x_1}
@@ -262,9 +262,9 @@ $\theta_{\mathrm{fr}}  2^{-\gamma_{\mathrm{fr}}/Q_{\mathrm{fr}}}$, where $\gamma
 Again, we use the generic literal $\gamma$ as a shorthand for $\gamma_1$ or $(\gamma_1, \gamma_2, \gamma_{\mathrm{fr}}, \theta_{\mathrm{fr}})$.
 
 \section{Feature design}
-Before supervised or unsupervised classification, is it beneficial to process scattering coefficients with feature transformations that improve invariance, normality, or generalization power. 
-This section reviews binaural data augmentation, feature selection, logarithmic compression, standardization, and temporal integration.
-The former is novel and specific to stereophonic recordings, whereas the next ones would also apply to many other kinds of data.
+Before supervised or unsupervised classification, it is beneficial to process scattering coefficients with feature transformations that improve invariance, normality, or generalization power. 
+This section reviews \ml{several means of achieving those goals:} binaural data augmentation, feature selection, logarithmic compression, standardization, and temporal integration.
+\ml{The former has, to the best of our knowledge, not being considered for ASC and specific to multichannel recordings}, whereas the next ones would also apply to many other kinds of data.
 
 \subsection{Binaural data augmentation}
 Most acoustic scene datasets are recorded according to a binaural protocol, \ie with a pair of in-ear microphones \cite{Wang2006}.
@@ -272,9 +272,8 @@ This protocol provides a realistic description of the spatial auditory environme
 In particular, the interaural level difference (ILD) between left and right channel conveys the approximate azimuth of each sound source that make up the scene with respect to the listener \cite{Blauert2003}.
 Yet, since the location of the recordist varies across instances of the same class, the feature space for classification should be invariant to these azimuths.
 
-In order to achieve invariance to ILD, averaging the left and right channels into a monophonic signal is by far the most widespread approach.
-However, it favors the center of the scene while attenuating lateral cues.
-Moreover, sources that are on distinct azimuths get mixed, which may cause bias at training time.
+In order to achieve invariance to ILD, averaging the left and right channels into a monophonic signal is by far the most widespread approach \ml{for classification purposes}.
+However, it favors the center of the scene while attenuating lateral cues and sources that are on distinct azimuths get mixed, which may cause bias at training time.
 
 Instead, so as to leverage stereophonic data, we perform multiple combinations of the left channel $\boldsymbol{x_{\mathsf{L}}}(t)$ and right channel $\boldsymbol{x_{\mathsf{R}}}(t)$ into monophonic signals $\boldsymbol{x_{\alpha}}(t)$ according to the equation
 \begin{equation}
@@ -301,11 +300,11 @@ The starting scale $\gamma_{1,\min}$ corresponding to some upper bound $\xi_{1,\
 \left\lfloor Q_1 \log_2 \frac{\xi_1}{\xi_{1,\max}} \right\rceil
 \end{equation}
 where $\lfloor \cdot \rceil$ denotes a rounding to the nearest integer.
-% Advantage over PCA: we keep nonnegativity and the features remain uninterpretable.
+% Advantage over PCA: we keep nonnegativity and the features remain interpretable.
 
 \subsection{Logarithmic compression}
 Many algorithms in pattern recognition, including nearest neighbor classifiers and support vector machines, tend to work best when all features follow a standard normal distribution across all training instances.
-Yet, because of the complex modulus nonlinearity, scattering coefficients are nonnegative by design, and their distribution is typically skewed towards the right.
+Yet, because of the complex modulus nonlinearity, scattering coefficients are nonnegative by design, and their distribution is typically skewed towards the right \ml{c'est quoi la droite, sans figure c'est pas facile de voir de quoi tu parles}.
 This issue can however be addressed by applying to all coefficients a pointwise concave transformation, \eg logarithmic, hence reducing skewness.
 
 In particular, logarithmic compression is ubiquitous in audio signal processing, as it is corroborated by the Weber-Fechner law in psychoacoustics, which states that the sensation of loudness is roughly proportional to the logarithm of the acoustic pressure.
@@ -323,7 +322,7 @@ Interestingly, taking the logarithm of renormalized coefficients would yield
 Therefore, the theoretical insight brought by \cite{Anden2014} in favor of renormalized scattering also applies to log-scattering up to a linear transformation in feature space, to which affine classifiers are not sensitive.
 
 \subsection{Early vs. late temporal integration}
-Owing to the scarcity of salient events in many natural soundscapes, fine-grained classification of auditory scenes is only made
+Owing to the scarcity of salient events in many natural \ml{sound scenes soundscapes est un modele de perception de la scene}, fine-grained classification of auditory scenes is only made
 possible by integrating signal information over a long temporal context.
 Indeed, whereas a few seconds are often sufficient to recognize a speaker,
 a musical instrument, or a genre, it may require up to 30 seconds
@@ -344,11 +343,13 @@ Conversely, a late integration scheme relies on probabilistic estimates over sho
 \end{equation}
 where $\hat{y}$ is the estimated class label and $\rho$ is a reduction function, such as sum, product, or majority vote \cite{Kittler1998}.
 
-The principal drawback of early integration is that it drastically reduces the number of training instances at the classifier stage, down to one per auditory scene -- if we don't account for data augmentation.
+The principal drawback of early integration is that it drastically reduces the number of training instances at the classifier stage, down to one per auditory scene -- if data augmentation is not considered.
 In the context of the DCASE 2013 dataset, this corresponds to merely $10$ training instances per class, and $100$ instances overall, hence an increase in variance in statistical estimation and a risk of overfitting.
 On the contrary, a late integration scheme for $T=188\textrm{ ms}$ would yield $128$ instances per auditory scene, resulting in $12800$ instances overall.
 However, many of these instances may be silent or lack any salient properties of the category they are assigned to, hence an increase in bias and a risk of underfitting.
 In short, early and late integration methods lie at opposite ends of the bias-versus-variance statistical tradeoff. We refer to \cite{Joder2009} for a comprehensive review of this problematic in the context of musical instrument recognition.
+
+\ml{Superbe section !!}
 
 \subsection{Standardization}
 Let $\mathbf{S}\boldsymbol{X}(\gamma,n)$ be a dataset, where the indices $\gamma$ and $n$ respectively denotes features and examples.
