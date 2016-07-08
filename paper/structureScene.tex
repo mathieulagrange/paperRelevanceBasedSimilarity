@@ -423,7 +423,11 @@ Support vector machines are large-margin binary discriminators with tunable regu
 
 \section{Conclusion}
 
-\ml{ML 1/2 colonne}
+In this paper, the benefit of considering 1) the scattering transform for building discriminant features and 2) unsupervised clustering for the modeling of large time span environmental acoustic scenes. Experiments shows that the time/frequency scattering achieves better discriminability than the time scattering one or MFCCs as they probably better isolate elements of interest in different information channels, thus allowing an efficient and scalable early integration process. This leads to improvement both for the ASSR and ASC tasks.
+
+Abstracting the scene as a reduced set of exemplars with adapted similarity strategies allows us to improve ASSR performance when the BOF approaches based on GMMs fails with reference to an early integration scheme. Those results advocate for a hierarchical model of the scene, where small time scale structure  (below a second) shall be decorelated using convolutional network such as the ones of the scattering transforms and larger time scale (over a second) structure shall be modeled as adaptive aggregates that can be identified in the time domain in an unsupervised setting and in the features domain in the supervised case (provided that the dimensionality is sufficiently high). 
+
+This assertion shall be challenged in future work by considering larger databases and more diverse application scenarios, such as pleasantness prediction \cite{acta} or ecoacoustics tasks.
 
 \bibliographystyle{unsrt}
 \bibliography{biblio}
