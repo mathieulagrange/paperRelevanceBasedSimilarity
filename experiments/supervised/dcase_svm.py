@@ -37,9 +37,6 @@ def dcase_svm(octmin, octmax, augmentation, scattering, compression, integration
     freq_indices = (freqs > fmin) & (freqs < fmax)
     X = X[:, :, :, freq_indices]
 
-    # Rectify
-    X = np.maximum(0.0, X)
-
     # Split folds
     X = np.reshape(X,
         (X.shape[0] / 5,   #  20 scenes per fold
@@ -95,8 +92,8 @@ def dcase_svm(octmin, octmax, augmentation, scattering, compression, integration
             X_training = np.log1p(1e2 * X_training / medians)
             X_test = np.log1p(1e2 * X_test / medians)
         if compression == "log":
-            X_training = np.log(1e-6 + X_training)
-            X_test = np.log1p(1e-6 + X_test)
+            X_training = np.log(1e-6 + np.maximum(X_training, 0))
+            X_test = np.log1p(1e-6 + np.maximum(X_test, 0))
 
         # Standardize features
         scaler = sklearn.preprocessing.StandardScaler().fit(X_training)
