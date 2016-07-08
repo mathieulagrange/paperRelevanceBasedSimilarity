@@ -31,6 +31,7 @@ def dcase_svm(octmin, octmax, augmentation, scattering, compression, integration
         method_str = method_str + "_augmentation"
     if
     method_str = method_str + "_" + integration
+    method_str = method_str + "_C" + str(C)
 
     fmin = 10.0 * (2**octmin) # in Hz
     fmax = 10.0 * (2**octmax) # in Hz

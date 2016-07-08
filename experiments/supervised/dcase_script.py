@@ -16,42 +16,25 @@ from dcase_svm import cached_dcase_svm, dcase_svm
 
 np.set_printoptions(precision=2)
 
-delayed_dcase_svm = joblib.delayed(cached_dcase_svm)
+exp1 = []
 
-for augmentation in [ True, False ]:
-    for selection in [ False, True ]:
-        for integration in [ "early", "late" ]:
-            dcase_svm(1, 10, augmentation,
-                "time", selection, integration)
+# Evaluate role of compression
+for C in np.arange(5):
+    exp1.append(dcase_svm(0, 12, False, "time", "none", "early", C))
+    exp1.append(dcase_svm(0, 12, False, "time", "log", "early", C))
+    exp1.append(dcase_svm(0, 12, False, "time", "logmedian", "early", C))
+    exp1.append(dcase_svm(0, 12, False, "timefrequency", "none", "early", C))
+    exp1.append(dcase_svm(0, 12, False, "timefrequency", "log", "early", C))
+    exp1.append(dcase_svm(0, 12, False, "timefrequency", "logmedian", "early", C))
 
-
-for selection in [ False, True ]:
-    for augmentation in [ False, True ]:
-            dcase_svm(0, 9, augmentation,
-                "timefrequency", selection, "late")
-
-for selection in [ False, True ]:
-    for augmentation in [ True, False ]:
-        dcase_svm(0, 9, augmentation,
-            "timefrequency", selection, "early")
-
-for selection in [ False, True ]:
-    dcase_svm(0, 9, False, "timefrequency", selection, "early")
-
-for octmin in [0, 1, 2, 3, 4]:
-    dcase_svm(octmin, 9, False, "timefrequency", False, "early")
-
-dictionaries = joblib.Parallel(n_jobs=-1, verbose=10)(
-    delayed_dcase_svm(
-        octmin,
-        octmax,
-        augmentation,
-        method,
-        selection,
-        integration)
-    for octmin in [ 1 ]
-    for octmax in [ 10 ]
-    for augmentation in [ False, True ]
-    for method in [ 'time' ]
-    for selection in [ False, True ]
-    for integration in [ "early", "late"])
+# Compare time vs. time-frequency scattering, and role of data augmentation
+exp2 = []
+for C in np.arange(5):
+    exp2.append(dcase_svm(0, 12, False, "time", "log", "early", C))
+    exp2.append(dcase_svm(0, 12, False, "timefrequency", "log", "early", C))
+    exp2.append(dcase_svm(0, 12, False, "time", "log", "late", C))
+    exp2.append(dcase_svm(0, 12, False, "timefrequency", "log", "late", C))
+    exp2.append(dcase_svm(0, 12, False, "time", "log", "early", C))
+    exp2.append(dcase_svm(0, 12, False, "timefrequency", "log", "early", C))
+    exp2.append(dcase_svm(0, 12, False, "time", "log", "late", C))
+    exp2.append(dcase_svm(0, 12, False, "timefrequency", "log", "late", C))
