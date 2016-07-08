@@ -32,11 +32,11 @@ for C in 2**np.arange(5):
 # Compare time vs. time-frequency scattering, and role of data augmentation
 exp2 = []
 for C in 2**np.arange(5):
-    exp2.append(dcase_svm(0, 12, False, "time", "log", "early", C))
-    exp2.append(dcase_svm(0, 12, False, "timefrequency", "log", "early", C))
-    exp2.append(dcase_svm(0, 12, False, "time", "log", "late", C))
-    exp2.append(dcase_svm(0, 12, False, "timefrequency", "log", "late", C))
-    exp2.append(dcase_svm(0, 12, False, "time", "log", "early", C))
-    exp2.append(dcase_svm(0, 12, False, "timefrequency", "log", "early", C))
-    exp2.append(dcase_svm(0, 12, False, "time", "log", "late", C))
-    exp2.append(dcase_svm(0, 12, False, "timefrequency", "log", "late", C))
+    exp2.append(dcase_svm(0, 12, False, "time", "logmedian", "early", C))
+    exp2.append(dcase_svm(0, 12, False, "timefrequency", "logmedian", "early", C))
+    exp2.append(dcase_svm(0, 12, False, "time", "logmedian", "late", C))
+    exp2.append(dcase_svm(0, 12, False, "timefrequency", "logmedian", "late", C))
+    exp2.append(dcase_svm(0, 12, False, "time", "logmedian", "early", C))
+    exp2.append(dcase_svm(0, 12, False, "timefrequency", "logmedian", "early", C))
+    exp2.append(dcase_svm(0, 12, False, "time", "logmedian", "late", C))
+    exp2.append(dcase_svm(0, 12, False, "timefrequency", "logmedian", "late", C))

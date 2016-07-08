@@ -95,8 +95,8 @@ def dcase_svm(octmin, octmax, augmentation, scattering, compression, integration
             X_training = np.log1p(1e2 * X_training / medians)
             X_test = np.log1p(1e2 * X_test / medians)
         if compression == "log":
-            X_training = np.log(X_training)
-            X_test = np.log1p(X_test)
+            X_training = np.log(1e-6 + X_training)
+            X_test = np.log1p(1e-6 + X_test)
 
         # Standardize features
         scaler = sklearn.preprocessing.StandardScaler().fit(X_training)
