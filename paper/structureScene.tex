@@ -318,6 +318,19 @@ Many algorithms in pattern recognition, including nearest neighbor classifiers a
 Yet, because of the complex modulus nonlinearity, scattering coefficients are nonnegative by design, and their distribution is typically skewed towards the right \ml{c'est quoi la droite, sans figure c'est pas facile de voir de quoi tu parles}.
 This issue can however be addressed by applying to all coefficients a pointwise concave transformation, \eg logarithmic, hence reducing skewness.
 
+\begin{figure}
+\begin{center}
+\setlength{\unitlength}{1cm}
+\begin{picture}(5,2)
+ \put(-1.5,0.0){\includegraphics[height=2cm,width=3.5cm]{feature_histogram.png}}
+ \put(2.5,0.0){\includegraphics[height=2cm,width=3.5cm]{feature_histogram_logcompressed.png}}
+\end{picture}
+\caption{
+\label{fig:histograms}
+\vl{we should discuss color schemes and axis labels}}
+\end{center}
+\end{figure}
+
 In particular, logarithmic compression is ubiquitous in audio signal processing, as it is corroborated by the Weber-Fechner law in psychoacoustics, which states that the sensation of loudness is roughly proportional to the logarithm of the acoustic pressure.
 In the context of auditory scenes, we must also recall that the measured amplitude of sound sources often decays polynomially with the distance to the binaural microphone, which is a spurious factor a variability to the task of auditory scene classification.
 Logarithmic compression can linearize this dependency, which arguably facilitates the construction of a powerful invariant at the classifier stage.
