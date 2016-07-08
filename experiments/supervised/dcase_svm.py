@@ -141,7 +141,6 @@ def dcase_svm(octmin, octmax, augmentation, scattering, compression, integration
         'octmin': octmin,
         'octmax': octmax,
         'scattering': scattering,
-        'selection': selection,
         'Y': Y,
         'Y_predicted': Y_predicted}
     return dictionary
