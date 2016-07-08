@@ -53,6 +53,7 @@ def dcase_svm(octmin, octmax, augmentation, scattering, compression, integration
     if integration == "early":
         X = np.sum(X, 3)[:, :, :, np.newaxis, :]
 
+    Y_predicted = []
     accuracies = []
     for fold_id in range(5):
         Y_training = Y[folds != fold_id]
