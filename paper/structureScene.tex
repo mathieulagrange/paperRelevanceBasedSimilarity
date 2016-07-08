@@ -346,7 +346,8 @@ Interestingly, taking the logarithm of renormalized coefficients would yield
 Therefore, the theoretical insight brought by \cite{Anden2014} in favor of renormalized scattering also applies to log-scattering up to a linear transformation in feature space, to which affine classifiers are not sensitive.
 
 \subsection{Early vs. late temporal integration}
-Owing to the scarcity of salient events in many natural \ml{sound scenes soundscapes est un modele de perception de la scene}, fine-grained classification of auditory scenes is only made
+Owing to the scarcity of salient events in many natural scenes,
+fine-grained classification is only made
 possible by integrating signal information over a long temporal context.
 Indeed, whereas a few seconds are often sufficient to recognize a speaker,
 a musical instrument, or a genre, it may require up to 30 seconds
@@ -368,9 +369,8 @@ Conversely, a late integration scheme relies on probabilistic estimates over sho
 where $\hat{y}$ is the estimated class label and $\rho$ is a reduction function, such as sum, product, or majority vote \cite{Kittler1998}.
 
 The principal drawback of early integration is that it drastically reduces the number of training instances at the classifier stage, down to one per auditory scene -- if data augmentation is not considered.
-In the context of the DCASE 2013 dataset, this corresponds to merely $10$ training instances per class, and $100$ instances overall, hence an increase in variance in statistical estimation and a risk of overfitting.
-On the contrary, a late integration scheme for $T=188\textrm{ ms}$ would yield $128$ instances per auditory scene, resulting in $12800$ instances overall.
-\vl{Update number of instances with new train / test split}
+In the context of the DCASE 2013 dataset, this corresponds to merely $8$ training instances per class, and $80$ instances overall, hence an increase in variance in statistical estimation and a risk of overfitting.
+On the contrary, a late integration scheme for $T=188\textrm{ ms}$ would yield $128$ instances per auditory scene, resulting in $10240$ instances overall.
 However, many of these instances may be silent or lack any salient properties of the category they are assigned to, hence an increase in bias and a risk of underfitting.
 In short, early and late integration methods lie at opposite ends of the bias-versus-variance statistical tradeoff. We refer to \cite{Joder2009} for a comprehensive review of this problematic in the context of musical instrument recognition.
 
