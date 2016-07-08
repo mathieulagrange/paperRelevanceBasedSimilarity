@@ -263,8 +263,8 @@ Again, we use the generic literal $\gamma$ as a shorthand for $\gamma_1$ or $(\g
 
 \section{Feature design}
 Before supervised or unsupervised classification, it is beneficial to process scattering coefficients with feature transformations that improve invariance, normality, or generalization power. 
-This section reviews \ml{several means of achieving those goals:} binaural data augmentation, feature selection, logarithmic compression, standardization, and temporal integration.
-\ml{The former has, to the best of our knowledge, not being considered for ASC and specific to multichannel recordings}, whereas the next ones would also apply to many other kinds of data.
+In this section, we review several ways of achieving these properties, namely binaural data augmentation, feature selection, logarithmic compression, standardization, and temporal integration.
+The former has, to the best of our knowledge, not being considered for ASC and is specific to multichannel recordings, whereas the next ones would also apply to many other kinds of data.
 
 \subsection{Binaural data augmentation}
 Most acoustic scene datasets are recorded according to a binaural protocol, \ie with a pair of in-ear microphones \cite{Wang2006}.
@@ -349,8 +349,6 @@ On the contrary, a late integration scheme for $T=188\textrm{ ms}$ would yield $
 \vl{Update number of instances with new train / test split}
 However, many of these instances may be silent or lack any salient properties of the category they are assigned to, hence an increase in bias and a risk of underfitting.
 In short, early and late integration methods lie at opposite ends of the bias-versus-variance statistical tradeoff. We refer to \cite{Joder2009} for a comprehensive review of this problematic in the context of musical instrument recognition.
-
-\ml{Superbe section !!}
 
 \subsection{Standardization}
 Let $\mathbf{S}\boldsymbol{X}(\gamma,n)$ be a dataset, where the indices $\gamma$ and $n$ respectively denotes features and examples.
