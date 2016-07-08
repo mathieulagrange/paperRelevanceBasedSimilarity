@@ -270,10 +270,13 @@ The former has, to the best of our knowledge, not being considered for ASC and i
 Most acoustic scene datasets are recorded according to a binaural protocol, \ie with a pair of in-ear microphones \cite{Wang2006}.
 This protocol provides a realistic description of the spatial auditory environment, as it reproduces the natural listening conditions of humans.
 In particular, the interaural level difference (ILD) between left and right channel conveys the approximate azimuth of each sound source that make up the scene with respect to the listener \cite{Blauert2003}.
-Yet, since the location of the recordist varies across instances of the same class, the feature space for classification should be invariant to these azimuths.
+Yet, the location of the recordist may vary across instances of the same class.
+Therefore, any global rotations of all azimuths, corresponding to a rotation of the head of the recordist, should be discarded as a spurious source of variability in the observed data.
 
-In order to achieve invariance to ILD, averaging the left and right channels into a monophonic signal is by far the most widespread approach \ml{for classification purposes}.
-However, it favors the center of the scene while attenuating lateral cues and sources that are on distinct azimuths get mixed, which may cause bias at training time.
+For classification purposes, averaging the left and right channels into a monophonic signal is by far the most widespread approach, because the resulting monophonic signal is approximately invariant to azimuth.
+However, it favors the center of the scene while attenuating lateral cues.
+Moreover, sources that are on distinct azimuths get mixed, which may cause bias at training time.
+\vl{qu'en penses-tu ML ?}
 
 Instead, so as to leverage stereophonic data, we perform multiple combinations of the left channel $\boldsymbol{x_{\mathsf{L}}}(t)$ and right channel $\boldsymbol{x_{\mathsf{R}}}(t)$ into monophonic signals $\boldsymbol{x_{\alpha}}(t)$ according to the equation
 \begin{equation}
