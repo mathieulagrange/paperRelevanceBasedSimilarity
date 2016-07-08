@@ -12,7 +12,7 @@ import sklearn.linear_model
 import sklearn.metrics
 import sklearn.preprocessing
 
-def dcase_svm(octmin, octmax, augmentation, scattering, compression, integration, C=C):
+def dcase_svm(octmin, octmax, augmentation, scattering, compression, integration, C):
     if scattering == "time":
         hdf5_file = h5py.File("memoized_features/dcase2013_timeQ8_test.mat")
         X = hdf5_file["dcase2013_timeQ8_test"]["X_test"]
