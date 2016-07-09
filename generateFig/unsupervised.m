@@ -1,15 +1,12 @@
 clear all
 addpath(genpath('functions'))
 
-
-
 %% settings
 
 % dataset='train'; % test;
 dataset='test'; 
 
 dataPath={['~/projets/ass_features/report/figures/unsupervised_earlyInt_' dataset]};
-freqRange = {'27,5_1000','27,5_2000','27,5_4000','27,5_8000','27,5_16000','27,5_22050'};
 
 linewidth=2;
 markersize=10;
@@ -42,13 +39,12 @@ c0=strcmp('1',data{1}(4,:));
 scat_log=strcmp('1',data{1}(5,:));
 stand=strcmp('stand',data{1}(6,:));
 gaussian=strcmp('gaussian_full',data{1}(7,:));
-nn_5=strcmp('0.05',data{1}(8,:));
-nn_15=strcmp('0.15',data{1}(8,:));
+nn_10=strcmp('0.10',data{1}(8,:));
 
 
-pak_early_mfcc=pak_early(:,mfcc & gaussian & ~stand & mfcc40 & c0 & nn_15 & freq);
-pak_early_scat=pak_early(:,scat & gaussian & ~stand  & nn_15 & ~scat_log);
-pak_early_scat_log=pak_early(:,scat & gaussian & ~stand  & nn_15 & scat_log);
+pak_early_mfcc=pak_early(:,mfcc & gaussian & ~stand & mfcc40 & c0 & nn_10 & freq);
+pak_early_scat=pak_early(:,scat & gaussian & ~stand  & nn_10 & ~scat_log);
+pak_early_scat_log=pak_early(:,scat & gaussian & ~stand  & nn_10 & scat_log);
 
 %%
 figure(1)

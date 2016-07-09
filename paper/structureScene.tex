@@ -132,7 +132,7 @@ recorded each scene type. The dataset is split into a public dataset that can us
 As of today, there exist larger publicly available dataset, the
 Rouen dataset \cite{rakotomamonjy2015histogram} and the dCase2016 \cite{Mesaros2016_EUSIPCO} (only the public part). The latter is also considered in this paper as a validation of the proposed approach.
 
-As studied in \cite{lagrange:hal-01082501}, the DCASE2013 dataset has interesting intra class diversity while remaining manageable in terms of size, making it suitable for extensive evaluation of algorithmic design choices. Also, it is still challenging as state-of-the-art systems based on feqtures design and support vector machines (SVMs) achieves 76 \% \cite{roma2013} (winner of the 2013 challenge RQA+SVM). For the sake of comparison the HOG+SVM approach \cite{rakotomamonjy2015histogram} achieves 75 \% and 92 \% on the dcase2013 and the Rouen datasets respectively. On the former, recent advances using hierarchical classifiers architectures reports 84 to 87 \% of accuracy depending on the prior knowledge considered for building the classifier architecture \cite{phan2016label}. On the latter, the state-of-the-art is currently 95 \% \cite{bisot2016acoustic}. 
+As studied in \cite{lagrange:hal-01082501}, the DCASE2013 dataset has interesting intra class diversity while remaining manageable in terms of size, making it suitable for extensive evaluation of algorithmic design choices. Also, it is still challenging as state-of-the-art systems based on features design and support vector machines (SVMs) achieves 76 \% \cite{roma2013} (winner of the 2013 challenge RQA+SVM). For the sake of comparison the HOG+SVM approach \cite{rakotomamonjy2015histogram} achieves 75 \% and 92 \% on the dcase2013 and the Rouen datasets respectively. On the former, recent advances using hierarchical classifiers architectures reports 84 to 87 \% of accuracy depending on the prior knowledge considered for building the classifier architecture \cite{phan2016label}. On the latter, the state-of-the-art is currently 95 \% \cite{bisot2016acoustic}. 
 
 \section{Scattering representations \label{sec:scattering}}
 
@@ -442,16 +442,27 @@ Other articles using EMD in vision \cite{zhang2007local}
 The object-based approach is assessed considering both an ASS and an ASC scenario:
 
 \begin{itemize}
-\item \emph{ASS}: It is an unsupervised scenario. Evaluation is performed on the private dataset of the DCASE 2013 challenge, using the precision at rank $k$ ($k=[3,\ldots,9]$) metrics. Similarity between scenes features is then computed using a Gaussian kernel with local scaling. 
+\item \emph{ASS}: It is an unsupervised scenario. Evaluation is performed on the private dataset of the DCASE 2013 challenge, using the precision at rank $k$ ($k=[1,\ldots,9]$) metrics. Note that a $p@1$ is equivalent to an accuracy computed based on the labels of the 1st nearest neighbors of the points to classify.
 
 \item \emph{ASC}: It is a supervised scenario. The systems are evaluated  with five-fold  stratified cross validation on the  private dataset of the DCASE 2013 challenge. The folds are identical to those used in the original challenge. A linear Support Vector Machine (SVM) is used as classifier. For object-based approach, we only consider the step 2. Consequently, each scene is represented by a set of centroids and each centroid is classified separately. The final scene classification is based on a majority vote. In this case, the object-based approach may be seen as a mid integration strategy.
 \end{itemize}
+
+\subsection{Comparison with early and late integration}
+
+ASC, ASS:   Similarity between scenes features is then computed using a Gaussian kernel with local scaling. 
 
 The object-based approach is compared to standard approaches using early integration strategy for the ASS scenario, and both early and late integration strategies for the ASC scenario (see Section \ref{XX}). 
 
 \subsection{Features}
 
-Two features are used to describe the scenes: temporal-scattering and Mel Frequency Cesptral Coefficients (MFCCs). For the temporal-scattering, each scene is described by 128 vectors of scattering coefficients. A logarithm compression (see Section\ref{XX}) is applied to the temporal-scattering coefficient. Different set of parameters were tested to compute the MFFCs, we here present only the results for the best setting, that is, 40 MFCCs (including the 0 energy coefficient) computed for windows of 50ms and hops of 25ms, with a limited frequency range of $27.5-1000$Hz. This setting gives us 600 feature vectors per scenes. To reduce the data dimensionality, a pooling step is performed on the MFCCs vectors: each set of MFCCs vectors is dividing into $n$ non-overlapping $t$-seconds long slices. Each $n$ MFCC slices is then averaged over time. To ensure that each scene is described by circa the same number of vectors for both the temporal-scattering and the MFCCs, we set $t$ to 250ms, giving us 120 MFCCs vectors per scenes. 
+Two types features are used to describe the scenes: 
+
+\begin{itemize}
+\item \emph{temporal-scattering}: Each scene is described by 128 vectors of scattering coefficients. 
+\item \emph{Mel Frequency Cesptral Coefficients} (MFCCs): Different set of parameters were tested to compute the MFFCs, we here present only the results for the best setting, which is similar to the one used by the winners of the previous DCASE 2013 challenge \cite{roma2013}. We use 40 MFCCs (including the 0 energy coefficient) computed for windows of 50ms and hops of 25ms, with a limited frequency range going from $27.5$Hz to $1000$Hz. This setting gives us 600 feature vectors per scenes. To reduce the data dimensionality, a pooling step is performed on the MFCCs vectors: each set of MFCCs vectors is dividing into $n$ non-overlapping $t$-seconds long slices. Each $n$ MFCC slices is then averaged over time. As the object-based approach (see \ref{XX}) involves a clustering step, we want to ensure that each scene is described by circa the same number of vectors prior to the clustering, for both the temporal-scattering and the MFCCs. To do so, $t$ is set to 250ms, which gives us 120 MFCCs vectors per scenes. 
+\end{itemize}
+
+For the ASC scenario, the features are standardized prior to the SVM classification step.
 
 \section{Results: Acoustic Scene Similarity}
 
@@ -479,35 +490,38 @@ Two features are used to describe the scenes: temporal-scattering and Mel Freque
 \section{Results: Acoustic Scene Classification}
 Support vector machines are large-margin binary discriminators with tunable regularization of misclassified examples.
 
+\begin{figure}
+\begin{center}
+\includegraphics[width=\columnwidth]{gfx/supervised_linear_test1.eps}
+\caption{...}
+\end{center}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=\columnwidth]{gfx/supervised_rbf_test2.eps}
+\caption{...}
+\end{center}
+\end{figure}
+
 \begin{table}
 \begin{center}
-\begin{tabular}{c|cc}
-             & time-scattering & mfcc \\
+\begin{tabular}{cccc}
+                    & time-scattering & time-scattering & mfcc \\
+                    & w/ log comp.    & w/o log comp.   &      \\
              \hline
-early int.   & XX (XX)    & XX (XX)   \\
-late int.    & XX (XX)    & XX (XX)   \\
-ob-closest.  & XX (XX)    & XX (XX)   \\
-ob-averaged. & XX (XX)    & XX (XX)   \\
-ob-weighted. & XX (XX)    & XX (XX)   \\
+early int. (linear)  & 66 (11)        & 62 (6)  & 46 (8)    \\
+early int. (RBF)     & 60 (7)         & 57 (8)  & 60 (8)    \\
+late int.  (linear)  & XX (XX)        & XX (XX) & XX (XX)   \\
+late int.  (RBF)     & XX (XX)        & XX (XX) & XX (XX)   \\
+ob-closest.          & XX (XX)        & XX (XX) & XX (XX)   \\
+ob-averaged.         & XX (XX)        & XX (XX) & XX (XX)   \\
+ob-weighted.         & XX (XX)        & XX (XX) & XX (XX)   \\
 \end{tabular}
 \caption{...}
 \end{center}
 \end{table}
 
-\begin{table}
-\begin{center}
-\begin{tabular}{c|cc}
-             & w/ log comp. & w/o log comp. \\
-             \hline
-early int.   & XX (XX)      & XX (XX)   \\
-late int.    & XX (XX)      & XX (XX)   \\
-ob-closest.  & XX (XX)      & XX (XX)   \\
-ob-averaged. & XX (XX)      & XX (XX)   \\
-ob-weighted. & XX (XX)      & XX (XX)   \\
-\end{tabular}
-\caption{...}
-\end{center}
-\end{table}
 \subsection{Role of logarithmic compression}
 
 \subsection{MFCC \vs Time scattering}
