@@ -58,9 +58,11 @@ hold on
 plot(pak_early_scat_log,'+-','markersize',markersize,'linewidth',linewidth)
 hold off
 legend({'ei, mfcc','ei, time-scattering'},'interpreter','none')
+legend('boxoff')
 set(gca,'xtick',1:7,'xticklabel',3:9)
 xlabel('k')
 ylabel('p@k')
+box off
 disp('')
 
 figure(2)
@@ -70,14 +72,16 @@ hold on
 plot(pak_early_scat_log,'+-','markersize',markersize,'linewidth',linewidth)
 hold off
 legend({'ei, w/o log','ei, w/ log'},'interpreter','none')
+legend('boxoff')
 set(gca,'xtick',1:7,'xticklabel',3:9)
 xlabel('k')
 ylabel('p@k')
+box off
 disp('')
 
 %% print
 figOpt.fontsize=16;
-figOpt.height=35;
+figOpt.height=15;
 figOpt.width=20;
 
 printFigures([1 2],['~/papers/paperStructureScene16/paper/gfx/unsupervised_' dataset],figOpt)

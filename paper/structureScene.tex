@@ -457,22 +457,68 @@ The object-based approach is compared to standard approaches using early integra
 
 Two features are used to describe the scenes: temporal-scattering and Mel Frequency Cesptral Coefficients (MFCCs). For the temporal-scattering, each scene is described by 128 vectors of scattering coefficients. A logarithm compression (see Section\ref{XX}) is applied to the temporal-scattering coefficient. Different set of parameters were tested to compute the MFFCs, we here present only the results for the best setting, that is, 40 MFCCs (including the 0 energy coefficient) computed for windows of 50ms and hops of 25ms, with a limited frequency range of $27.5-1000$Hz. This setting gives us 600 feature vectors per scenes. To reduce the data dimensionality, a pooling step is performed on the MFCCs vectors: each set of MFCCs vectors is dividing into $n$ non-overlapping $t$-seconds long slices. Each $n$ MFCC slices is then averaged over time. To ensure that each scene is described by circa the same number of vectors for both the temporal-scattering and the MFCCs, we set $t$ to 250ms, giving us 120 MFCCs vectors per scenes. 
 
-\section{Acoustic Scene Similarity}
+\section{Results: Acoustic Scene Similarity}
 
-\subsection{Role of logarithmic compression}
+\begin{figure}
+\begin{center}
+\includegraphics[width=\columnwidth]{gfx/unsupervised_test1.eps}
+\caption{...}
+\end{center}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=\columnwidth]{gfx/unsupervised_test2.eps}
+\caption{...}
+\end{center}
+\end{figure}
 
 \subsection{MFCC \vs Time scattering}
 
 \subsection{Object-based \vs early integration}
 
-\section{Acoustic Scene Classification}
+\subsection{Role of logarithmic compression}
+
+
+\section{Results: Acoustic Scene Classification}
 Support vector machines are large-margin binary discriminators with tunable regularization of misclassified examples.
 
+\begin{table}
+\begin{center}
+\begin{tabular}{c|cc}
+             & time-scattering & mfcc \\
+             \hline
+early int.   & XX (XX)    & XX (XX)   \\
+late int.    & XX (XX)    & XX (XX)   \\
+ob-closest.  & XX (XX)    & XX (XX)   \\
+ob-averaged. & XX (XX)    & XX (XX)   \\
+ob-weighted. & XX (XX)    & XX (XX)   \\
+\end{tabular}
+\caption{...}
+\end{center}
+\end{table}
+
+\begin{table}
+\begin{center}
+\begin{tabular}{c|cc}
+             & w/ log comp. & w/o log comp. \\
+             \hline
+early int.   & XX (XX)      & XX (XX)   \\
+late int.    & XX (XX)      & XX (XX)   \\
+ob-closest.  & XX (XX)      & XX (XX)   \\
+ob-averaged. & XX (XX)      & XX (XX)   \\
+ob-weighted. & XX (XX)      & XX (XX)   \\
+\end{tabular}
+\caption{...}
+\end{center}
+\end{table}
 \subsection{Role of logarithmic compression}
 
 \subsection{MFCC \vs Time scattering}
 
 \subsection{Object-based \vs early/late integration}
+
+\section{Results: DCASE 2016}
 
 \section{Conclusion}
 
