@@ -103,7 +103,7 @@ The proposed approach is motivated in Section \ref{sec:motivations}  and a brief
 
 As stated in the introduction, the field of eco-acoustics is relatively young, but significant works are worth mentioning. One avenue of research issued from bio acoustic studies, consider the audio stream as a set of events produced animals, and is processed to retrieve the precise species that produced the sound and potentially the type of vocalization in order to predict some behavior of the animal under study \cite{au2008principles, stowell2014large}. Another, more recent, avenue of research, tackles problems associated with long duration recordings of the environment, in particular, building recognizers for species of interest, extracting acoustic indices to aid navigation and visualisation. It typically process the audio stream in an holistic manner in order to infer large time-scale properties of the bio-acoustic scene for example to estimate which part of the stream need to be analyzed more in details, \textit{i.e.} by a human \cite{rosenstock2002landbird,diefenbach2007incorporating}.
 
-The same dichotomy applies for the field of audio scene analysis, where the interest can be whether 1) to isolate and identify precise events, \textit{i.e.} acoustic event detection (AED) or 2) to predict global attributes assigned to large time spans of audio, \textit{i.e.} ASC. For the latter, most state-of-the-art systems roughly follow the bag of frame approach (BOF) initiated in \cite{aucouturier2007bag} where the audio is modelled as high level statistics computed from a set of local features. Even though this approach as the advantage of high genericity and follows some evidence found by psycho perception research \cite{macdermott}, for the specific implementation with gaussian mixture models (GMMs) of Mel-frequency cepstral coefficients (MFCCs) it is demonstrated to be perform equivalently compared to a mere point averaging of the features  \cite{lagrange:hal-01082501}.
+The same dichotomy applies for the field of audio scene analysis, where the interest can be whether 1) to isolate and identify precise events, \textit{i.e.} acoustic event detection (AED) or 2) to predict global attributes assigned to large time spans of audio, \textit{i.e.} ASC. For the latter, most state-of-the-art systems roughly follow the bag of frame approach (BOF) initiated in \cite{aucouturier2007bag} where the audio is modelled as high level statistics computed from a set of local features. Even though this approach as the advantage of high genericity and follows some evidence found by psycho perception research \cite{mcdermott2013summary}, for the specific implementation with gaussian mixture models (GMMs) of Mel-frequency cepstral coefficients (MFCCs) it is demonstrated to be perform equivalently compared to a mere point averaging of the features  \cite{lagrange:hal-01082501}.
 
 Intuitively, this result indicates that not all the features distribution is not of equal interest while modeling acoustic scenes, which is coherent with the typical morphology of acoustic scene which are relatively scarce in terms of events, even if those events can trigger fast perceptual recognition for humans. We thus could consider the acoustic scene as a "skeleton of events on a bed of textures" \cite{nelken_ear_2013}.
 
@@ -238,7 +238,7 @@ The scattering transform consists of the concatenation of first-order coefficien
 \label{fig:gammatones}
 Left: Gammatone wavelet $\boldsymbol{\psi_{\gamma_1}}(t)$ with a quality factor of $Q_1=8$.
 Right: Gammatone wavelet $\boldsymbol{\psi_{\gamma_2}}(t)$ with a quality factor of $Q_2=1$.
-\vl{we should discuss color schemes and axis labels}}
+\vl{we should discuss color schemes and axis labels} \ml{yes we should but for the second submission, go ahead}}
 \end{center}
 \end{figure}
 
@@ -275,10 +275,11 @@ In the sequel, we evaluate the impact of discarding the scattering coefficients 
 \end{equation}
 where $\lfloor \cdot \rceil$ denotes a rounding to the nearest integer.
 
-This strategy is already widespread in the literature.
-For instance, we should note that \cite{roma2013}, who secured the first place in the 2013 edition of the DCASE challenge, rely on cepstral descriptors computed up to a cutoff frequency as small as $\xi_{1,\max}  = 900\,\mathrm{Hz}$ instead of the more conventional value of $16\,\mathrm{kHz}$.
+Reducing the frequency range is an effective way to enhance invariance, widely used in the literature.
+For instance, \cite{roma2013} achieved the best performance in the 2013 edition of the DCASE challenge, rely on cepstral descriptors computed up to a cutoff frequency as small as $\xi_{1,\max}  = 900\,\mathrm{Hz}$ instead of the more conventional value of $16\,\mathrm{kHz}$.
 \vl{Qu'en penses-tu ML ?}
-
+\ml{j'ai un peu reformuler}
+ 
 \subsection{Logarithmic compression}
 Many algorithms in pattern recognition, including nearest neighbor classifiers and support vector machines, tend to work best when all features follow a standard normal distribution across all training instances.
 Yet, because of the complex modulus nonlinearity, scattering coefficients are nonnegative by design.
@@ -286,6 +287,7 @@ It appears empirically that their distribution is skewed towards the right, whic
 However, skewness can be reduced by applying to all coefficients a pointwise concave transformation, \eg logarithmic.
 Figure \ref{fig:histograms} shows the distribution of an arbitrarily chosen scattering coefficient over the DCASE 2013 dataset, before and after logarithmic compression.
 \vl{Qu'en penses-tu ML ?}
+\ml{tres bien, mettre les deux distributions de couleurs differentes}
 
 \begin{figure}
 \begin{center}
