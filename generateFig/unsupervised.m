@@ -5,7 +5,9 @@ addpath(genpath('functions'))
 
 %% settings
 
-dataset='train'; % test;
+% dataset='train'; % test;
+dataset='test'; 
+
 dataPath={['~/projets/ass_features/report/figures/unsupervised_earlyInt_' dataset]};
 freqRange = {'27,5_1000','27,5_2000','27,5_4000','27,5_8000','27,5_16000','27,5_22050'};
 
