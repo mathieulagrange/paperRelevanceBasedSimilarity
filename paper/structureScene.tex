@@ -23,6 +23,7 @@
 \usepackage{pgf}
 \usepackage{tikz}
 \usetikzlibrary{arrows,positioning}
+\usetikzlibrary{arrows.meta}
 \usepackage{url}
 \usepackage{color}
 \usepackage{graphicx}
@@ -32,7 +33,7 @@
 \newcommand*{\vs}{vs.\@\xspace}
 
 % correct bad hyphenation here
-\hyphenation{op-tical net-works semi-conduc-tor}
+\hyphenation{wave-let}
 
 \usepackage{color}
 \newcommand{\vl}[1]{\textcolor{orange}{Vincent : #1}}
@@ -215,18 +216,25 @@ The scattering transform consists of the concatenation of first-order coefficien
 
 \begin{figure}
 \begin{center}
-\setlength{\unitlength}{1cm}
-\begin{picture}(5,2)
- \put(-1.5,0.0){\includegraphics[height=2cm,width=3.5cm]{gammatone_Q8.png}}
- \put(2.5,0.0){\includegraphics[height=2cm,width=3.5cm]{gammatone_Q1.png}}
-\end{picture}
+\begin{tikzpicture}
+\useasboundingbox[red] (-0.25, -0.5) rectangle (8.25, 2);
+\node (omlabel1) at (3.5, 1) {$t$};
+\draw[-{Latex[length=2mm]}] (0, 1) -- (omlabel1);
+\draw[-{Latex[length=2mm]}] (0, 1) -- (0, 2);
+\node[anchor=south west,inner sep=0] at (0, 0) {\includegraphics[height=2cm,width=3cm]{gammatone_Q8.png}};
+\node at (2, -0.25) {(a)};
+\node (omlabel2) at (8, 1) {$t$};
+\draw[-{Latex[length=2mm]}] (4.5, 1) -- (omlabel2);
+\draw[-{Latex[length=2mm]}] (4.5, 1) -- (4.5, 2);
+\node[anchor=south west,inner sep=0] at (4.5, 0) {\includegraphics[height=2cm,width=3cm]{gammatone_Q1.png}};
+\node at (6.5, -0.25) {(b)};
+\end{tikzpicture}
 \caption{
 \label{fig:gammatones}
-Left: Gammatone wavelet $\boldsymbol{\psi_{\gamma_1}}(t)$ with a quality factor of $Q_1=8$.
-Right: Gammatone wavelet $\boldsymbol{\psi_{\gamma_2}}(t)$ with a quality factor of $Q_2=1$.
-\vl{we should discuss color schemes and axis labels} \ml{yes we should but for the second submission, go ahead}}
+Gammatone wavelets $\psi(t)$ in the time domain with quality factors (a) $Q = 4$ and (b) $Q = 1$. Blue and red oscillations represent the real and imaginary parts. The orange envelope represents the complex modulus.}
 \end{center}
 \end{figure}
+
 
 Wavelets
 $\boldsymbol{\psi_{\gamma_1}}(t)$ and $\boldsymbol{\psi_{\gamma_2}}(t)$ are designed as fourth-order Gammatone
@@ -263,8 +271,6 @@ where $\lfloor \cdot \rceil$ denotes a rounding to the nearest integer.
 
 Reducing the frequency range is an effective way to enhance invariance, widely used in the literature.
 For instance, \cite{roma2013} achieved the best performance in the 2013 edition of the DCASE challenge, rely on cepstral descriptors computed up to a cutoff frequency as small as $\xi_{1,\max}  = 900\,\mathrm{Hz}$ instead of the more conventional value of $16\,\mathrm{kHz}$.
-\vl{Qu'en penses-tu ML ?}
-\ml{j'ai un peu reformuler}
  
 \subsection{Logarithmic compression}
 Many algorithms in pattern recognition, including nearest neighbor classifiers and support vector machines, tend to work best when all features follow a standard normal distribution across all training instances.
