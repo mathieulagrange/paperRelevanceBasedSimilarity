@@ -109,47 +109,33 @@ Intuitively, this result indicates that not all the features distribution is not
 
 If the precise list of events that occur in a given time is unachievable to get even for trained humans, research shows that using only a few events, so called markers \cite{} is enough to reliably predict high level attributes. For example, the presence of a few bird calls in a smooth traffic hubhub is likely to be tagged by humans as a park scene in urban areas \gl{citations ?}.
 
-\section{Previous work} \label{sec:soa}
+\section{Background} \label{sec:soa}
 
+Apart from \cite{aucouturier2007bag} and \cite{lagrange:hal-01082501} that consider the task of, much of the work dedicated to acoustic scene modeling is applied to the ASC tasks.
+
+To this end, studying the first DCASE challenge \cite{barchiesi2015acoustic} in 2013 is convenient as it concentrates much of the effort for this task.
 
 \gl{DCASE challenge:} \cite{chum2013ieee}: CHR system, using HMM and frame based classification. \cite{elizalde2013vector} ELF system, I vector approach using probabilistic LDA as classifier. \cite{geiger2013large} GSR system, basically mel/MFCC using SVM as classifier. \cite{krijnders2013tone} KH system, tone fit features computed from cochleogram (but similar results are obtained with MFCCs) using SVM as classifier. \cite{li2013auditory} LTT system, Tree bagger classifier used on segments (MFCCs) before a majority vote. \cite{lee2013acoustic} NHL system, unsupervised feature learning approach on mel frequency spectrogram with selective Max-pooling. Supervised training is performed using SVM. \cite{nogueira2013sound} NR1 system, MFCC and spatial features (inter-aural differences) with SVM as classifier. \cite{olivetti2013wonder} OE system, normalized compression distance (I honestly did not understand a thing about it, but this the worst method of the challenge anyway) using  Random Forest  classifier.  \cite{patil2013multiresolution} PE system, 2D Gabor filters applied on 1sec segments with SVM as classifier.  \cite{rakotomamonjy2015histogram} RG system, histogram of gradient representation, computed from a constant Q transform with SVM as classifier.  \cite{roma2013recurrence} RNH system, RQA stacked with MFCC, SVM as classifier. \\
 
-\gl{Other paper:} \cite{jiang2005svm, kalinli2009saliency, su2011environmental, barchiesi2015acoustic, ye2015acoustic, bisot2015hog, chakrabarty2015exploring, xue2015auditory, bisot2016acoustic}
+%\gl{Other paper:} \cite{jiang2005svm, kalinli2009saliency, su2011environmental, ye2015acoustic, bisot2015hog, chakrabarty2015exploring, xue2015auditory}
 
-\subsection{Describing a scene (Feature extraction)}
+%\subsection{Datasets}
 
-\subsection{Classifying a scene}
-
-\subsection{Datasets}
-
-defreville \cite{aucouturier2007bag}
-
-\cite{lagrange:hal-01082501}
-
-DCASE 2013 challenge reference papers. \cite{giannoulis2013database, 7100934} \\
-
-For each scene type, three different recordists (DG, DS,
-EB) visited a wide variety of locations in Greater London over
-a period of months (Summer and Autumn 2012), and in each
-scene recorded a few minutes of audio. We ensured that no
+For most of the experiments reported in this paper, the DCASE2013 datatset is considered \cite{giannoulis2013database, 7100934}. To build this dataset, three different recordists visited a wide variety of locations in Greater London over
+a period of months and in each
+scene recorded a few minutes of audio for each scene type. No
 systematic variations in the recordings covaried with scene
 type: all recordings were made in moderate weather condi-
 tions, and varying times of day and week, and each recordist
-recorded each scene type.
+recorded each scene type. The dataset is split into a public dataset that can used for optimizing the ASC system and a private dataset used for computing the resulting accuracy using a 5 fold cross validation scheme. The folds used in this paper are the same as the ones used during the challenge.
 
-Rouen \cite{rakotomamonjy2015histogram}
+As of today, there exist larger publicly available dataset, the
+Rouen dataset \cite{rakotomamonjy2015histogram} and the dCase2016 \cite{Mesaros2016_EUSIPCO} (only the public part). The latter is also considered in this paper as a validation of the proposed approach.
 
-\url{https://sites.google.com/site/alainrakotomamonjy/home/audio-scene}
-
-dCase2016 \cite{Mesaros2016_EUSIPCO}
-
-advantages of dcase2013:
-
-controled intra class diversity
-
-despite its size, it is still challenging as state-of-the-art systems achieves 76 \% \cite{roma2013} (winner of the 2013 challenge RQA+SVM). For the sake of comparison the HOG+SVM approach \cite{rakotomamonjy2015histogram} achieves 75 \% and 92 \% on the dcase2013 and the Rouen datasets respectively. On the latter, the state-of-the-art is currently 95 \% \cite{bisot2016acoustic}.
+As studied in \cite{lagrange:hal-01082501}, the DCASE2013 dataset has interesting intra class diversity while remaining manageable in terms of size, making it suitable for extensive evaluation of algorithmic design choices. Also, it is still challenging as state-of-the-art systems based on feqtures design and support vector machines (SVMs) achieves 76 \% \cite{roma2013} (winner of the 2013 challenge RQA+SVM). For the sake of comparison the HOG+SVM approach \cite{rakotomamonjy2015histogram} achieves 75 \% and 92 \% on the dcase2013 and the Rouen datasets respectively. On the former, recent advances using hierarchical classifiers architectures reports 84 to 87 \% of accuracy depending on the prior knowledge considered for building the classifier architecture \cite{phan2016label}. On the latter, the state-of-the-art is currently 95 \% \cite{bisot2016acoustic}. 
 
 \section{Scattering representations \label{sec:scattering}}
+
 Scattering transforms are translation-invariant representations of audio signals which cascade an auditory filterbank and a modulation filterbank, interspersed with complex modulus nonlinearities.
 Depending upon the chosen architecture, the modulation filterbank may either be performed solely over the time variable or on both time and frequency variables.
 In this section, we present both the temporal scattering transform and the time-frequency scattering transform.
