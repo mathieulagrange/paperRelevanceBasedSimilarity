@@ -361,6 +361,7 @@ The next section discusses adaptive methods for the temporal integration of scat
 
 \section{Object-based modeling of the scene}
 
+It has been shown the perception of complex acoustic scene rely on the identification of putative sound sources.
 \ml{GL 2 colonnes}
 
 describe in terms of high level attributes
@@ -384,28 +385,94 @@ From a numerical data processing overview, the holistic scheme as a simplicity, 
 
 If available, the complete description of the scene in terms of event occurrences is powerful enough to reliably predict high level cognitive classes, \textit{i.e.} the presence of birds are strong pleasantness indicators and very likely to be heard in parks in urban areas.
 
+To take into account this object-based representation, we propose the following 3-steps algorithm:
+
+\begin{itemize}
+\item step 1: features extraction.
+\item step 2: scene-wise clustering step. A clustering is performed on each scene using an enhanced version of the popular K-means algorithm known as K-means$++$ \cite{arthur2007k}, which differs from k-means method in terms of selection of starting points. Each scene is then describe with a set of centroids.
+\item step 3: Centroids similarity. The similarity between the centroids is computed using a radial basis function kernel $K^c$ as well as the local scaling method proposed in \cite{selfTuneManor2004}: \\
+\begin{equation}
+\begin{split}
+K^c_{ij} & =exp\left( - \dfrac{\parallel x_i - x_j \parallel^2}{\sigma_{i}\sigma_{j}} \right) \\
+\sigma_{i} & =\parallel x_i - x_N \parallel
+\end{split}
+\end{equation}
+
+with $x_N$ the $N$'th nearest neihgbor of the centroid $x_i$. \\
+
+\item step 4: scene similarity \\
+\end{itemize}
+
+To compute the scene similarity based on the extracted centroids, we propose the three following strategies:
+
+\begin{itemize}
+\item \emph{closest}: the similarity between two scenes is equal to the largest similarity between their centroids.
+\item \emph{averaged}: the similarity between two scenes is equal to the average of their centroids similarities.
+\item \emph{weighted}: for each scene, each centroid is weighted according to the number of frames belonging to its cluster. 
+\end{itemize}
+
+To compute the  weighted similarity between two scenes by taking into account both theirs clusters weights and theirs centroids similarities, we use a variant of the Earth Moving Distance ($EMD$) adapted for non-normalized histograms known as $\widehat{EMD}$ \cite{pele2008linear} with the implementation proposed in  \cite{pele2009fast}. Considering two histograms $h_i$ and $h_j$, represented the centroids weights of each scene, the $\widehat{EMD}$ is computed as follow:
+
+\begin{equation}
+\begin{split}
+\widehat{EMD}(h_i,h_j) &=( \min\limits_{f_{ij}} \sum\limits_{i,j} f_{ij}D_{ij} )  \\ 
+&+ \mid \sum\limits_{i} h_i - \sum\limits_{j} h_j  \mid \alpha \max\limits_{i,j} D_{ij}
+\end{split}
+\end{equation}
+
+\begin{equation*}
+s.t. \quad f_{ij}\geq0\quad \sum\limits_{j} f_{ij} \leq h_{i}\quad \sum\limits_{i} f_{ij} \leq h_{j} 
+\end{equation*}
+\begin{equation*}
+\sum\limits_{i,j}f_{ij} = \min( \sum\limits_{i} h_{i} ,\sum\limits_{j} h_{j} )
+\end{equation*}
+
+where $f_{ij}$ is the flow, and $D_{ij}$ is the ground distance. In our case the ground distance is $1-K^c_{ij}$ 
+
+To get the final similarity measure between two scenes $s_i$ and $s_j$, we use an extended Gaussian kernels $K^s$ (Chapelle et al., 1999; Jing et al., 2003).
+
+\begin{equation*}
+K^s(s_i,s_j) = exp\left( - \dfrac{\widehat{EMD}(h_i,h_j)}{A} \right) \\
+\end{equation*}
+
+with $A$ a scaling parameter, set to the mean value of the $\widehat{EMD}$. \\
+
+The resulting kernel is an EMD kernel. It has to be noted that there is no proof that such kernel is positive definite.
+
+\section{Experimental Evaluation}
+
+\subsection{Acoustic Scene Similarity and Classification}
+
+The object-based approach is assessed considering both an ASS and an ASC scenario:
+
+\begin{itemize}
+\item \emph{ASS}: It is an unsupervised scenario. Evaluation is performed on the private dataset of the DCASE 2013 challenge, using the precision at rank $k$ ($k=[3,\ldots,9]$) metrics. Similarity between scenes features is then computed using a Gaussian kernel with local scaling. 
+
+\item \emph{ASC}: It is a supervised scenario. The systems are evaluated  with five-fold  stratified cross validation on the  private dataset of the DCASE 2013 challenge. The folds are identical to those used in the original challenge. A linear Support Vector Machine (SVM) is used as classifier. For object-based approach, we only consider the step 2. Consequently, each scene is represented by a set of centroids and each centroid is classified separately. The final scene classification is based on a majority vote. In this case, the object-based approach may be seen as a mid integration strategy.
+\end{itemize}
+
+The object-based approach is compared to standard approaches using early integration strategy for the ASS scenario, and both early and late integration strategies for the ASC scenario (see Section \ref{XX}). 
+
+\subsection{Features}
+
+Two features are used to describe the scenes: temporal-scattering and Mel Frequency Cesptral Coefficients (MFCCs). For the temporal-scattering, each scene is described by 128 vectors of scattering coefficients. A logarithm compression (see Section\ref{XX}) is applied to the temporal-scattering coefficient. Different set of parameters were tested to compute the MFFCs, we here present only the results for the best setting, that is, 40 MFCCs (including the 0 energy coefficient) computed for windows of 50ms and hops of 25ms, with a limited frequency range of $27.5-1000$Hz. This setting gives us 600 feature vectors per scenes. To reduce the data dimensionality, a pooling step is performed on the MFCCs vectors: each set of MFCCs vectors is dividing into $n$ non-overlapping $t$-seconds long slices. Each $n$ MFCC slices is then averaged over time. To ensure that each scene is described by circa the same number of vectors for both the temporal-scattering and the MFCCs, we set $t$ to 250ms, giving us 120 MFCCs vectors per scenes. 
+
 \section{Acoustic Scene Similarity}
 
-\ml{GL 1 colonne}
+\subsection{Role of logarithmic compression}
 
+\subsection{MFCC \vs Time scattering}
 
-
-\subsection{Protocol}
-
-\subsection{Results}
+\subsection{Object-based \vs early integration}
 
 \section{Acoustic Scene Classification}
 Support vector machines are large-margin binary discriminators with tunable regularization of misclassified examples.
 
 \subsection{Role of logarithmic compression}
 
-\subsection{Time scattering \vs time-frequency scattering}
+\subsection{MFCC \vs Time scattering}
 
-\subsection{Early \vs late integration}
-
-\subsection{Role of data augmentation}
-
-\subsection{Role of frequency range}
+\subsection{Object-based \vs early/late integration}
 
 \section{Conclusion}
 
