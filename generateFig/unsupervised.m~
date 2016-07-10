@@ -113,16 +113,15 @@ disp('')
 
 figure(2)
 clf
-plot(pak_ei_scat,'o--','markersize',markersize,'linewidth',linewidth)
+plot(pak_ei_scat,'o-','markersize',markersize,'linewidth',linewidth)
 hold on
-plot(pak_emd_scat,'x--','markersize',markersize,'linewidth',linewidth)
-plot(pak_closest_scat,'*--','markersize',markersize,'linewidth',linewidth)
-plot(pak_ei_scat_log,'d-','markersize',markersize,'linewidth',linewidth)
-plot(pak_emd_scat_log,'v-','markersize',markersize,'linewidth',linewidth)
-plot(pak_closest_scat_log,'^-','markersize',markersize,'linewidth',linewidth)
+plot(pak_closest_scat,'+-','markersize',markersize,'linewidth',linewidth)
+plot(pak_closest_scat,'+-','markersize',markersize,'linewidth',linewidth)
+
 hold off
-legend({'ei, w/o log','emd, w/o log','closest, w/o log','ei, w/ log','emd, w/ log','closest, w/ log'},'interpreter','none')
+legend({'ei, w/o log','ei, w/ log'},'interpreter','none')
 legend('boxoff')
+set(gca,'xtick',1:7,'xticklabel',3:9)
 xlabel('k')
 ylabel('p@k')
 box off
