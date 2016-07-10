@@ -21,9 +21,9 @@
 \usepackage{amssymb}
 \usepackage{amsmath}
 \usepackage{pgf}
-%\usepackage{tikz}
-%\usetikzlibrary{arrows,positioning}
-%\usetikzlibrary{arrows.meta}
+\usepackage{tikz}
+\usetikzlibrary{arrows,positioning}
+\usetikzlibrary{arrows.meta}
 \usepackage{url}
 \usepackage{color}
 \usepackage{graphicx}
@@ -249,26 +249,26 @@ In the sequel, we set $\xi_2$ to $2.5\,\mathrm{kHz}$, $Q_2$ to $1$, and $J_2$ to
 \end{equation}
 The scattering transform consists of the concatenation of first-order coefficients $\mathbf{S_1}\boldsymbol{x}(t,\gamma_1)$ and second-order coefficients $\mathbf{S_1}\boldsymbol{x}(t,\gamma_1,\gamma_2)$ into a feature matrix $\mathbf{S}\boldsymbol{x}(t,\gamma)$, where $\gamma$ is a shorthand for either $\gamma_1$ or $(\gamma_1,\gamma_2)$.
 
-%\begin{figure}
-%\begin{center}
-%\begin{tikzpicture}
-%\useasboundingbox[red] (-0.25, -0.5) rectangle (8.25, 2);
-%\node (omlabel1) at (3.5, 1) {$t$};
-%\draw[-{Latex[length=2mm]}] (0, 1) -- (omlabel1);
-%\draw[-{Latex[length=2mm]}] (0, 1) -- (0, 2);
-%\node[anchor=south west,inner sep=0] at (0, 0) {\includegraphics[height=2cm,width=3cm]{gammatone_Q8.png}};
-%\node at (2, -0.25) {(a)};
-%\node (omlabel2) at (8, 1) {$t$};
-%\draw[-{Latex[length=2mm]}] (4.5, 1) -- (omlabel2);
-%\draw[-{Latex[length=2mm]}] (4.5, 1) -- (4.5, 2);
-%\node[anchor=south west,inner sep=0] at (4.5, 0) {\includegraphics[height=2cm,width=3cm]{gammatone_Q1.png}};
-%\node at (6.5, -0.25) {(b)};
-%\end{tikzpicture}
-%\caption{
-%\label{fig:gammatones}
-%Gammatone wavelets $\psi(t)$ in the time domain with quality factors (a) $Q = 4$ and (b) $Q = 1$. Blue and red oscillations represent the real and imaginary parts. The orange envelope represents the complex modulus.}
-%\end{center}
-%\end{figure}
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}
+\useasboundingbox[red] (-0.25, -0.5) rectangle (8.25, 2);
+\node (omlabel1) at (3.5, 1) {$t$};
+\draw[-{Latex[length=2mm]}] (0, 1) -- (omlabel1);
+\draw[-{Latex[length=2mm]}] (0, 1) -- (0, 2);
+\node[anchor=south west,inner sep=0] at (0, 0) {\includegraphics[height=2cm,width=3cm]{gammatone_Q8.png}};
+\node at (2, -0.25) {(a)};
+\node (omlabel2) at (8, 1) {$t$};
+\draw[-{Latex[length=2mm]}] (4.5, 1) -- (omlabel2);
+\draw[-{Latex[length=2mm]}] (4.5, 1) -- (4.5, 2);
+\node[anchor=south west,inner sep=0] at (4.5, 0) {\includegraphics[height=2cm,width=3cm]{gammatone_Q1.png}};
+\node at (6.5, -0.25) {(b)};
+\end{tikzpicture}
+\caption{
+\label{fig:gammatones}
+Gammatone wavelets $\psi(t)$ in the time domain with quality factors (a) $Q = 4$ and (b) $Q = 1$. Blue and red oscillations represent the real and imaginary parts. The orange envelope represents the complex modulus.}
+\end{center}
+\end{figure}
 
 
 Wavelets
@@ -308,6 +308,8 @@ Reducing the frequency range is an effective way to enhance invariance, widely u
 For instance, \cite{roma2013} achieved the best performance in the 2013 edition of the DCASE challenge, rely on cepstral descriptors computed up to a cutoff frequency as small as $\xi_{1,\max}  = 900\,\mathrm{Hz}$ instead of the more conventional value of $16\,\mathrm{kHz}$.
  
 \subsection{Logarithmic compression}
+\label{sec:logcomp}
+
 Many algorithms in pattern recognition, including nearest neighbor classifiers and support vector machines, tend to work best when all features follow a standard normal distribution across all training instances.
 Yet, because of the complex modulus nonlinearity, scattering coefficients are nonnegative by design.
 It appears empirically that their distribution is skewed towards the right, which means that the tail towards greater values is longer than the tail towards lower values.
@@ -315,27 +317,27 @@ However, skewness can be reduced by applying to all coefficients a pointwise con
 Figure \ref{fig:histograms} shows the distribution of an arbitrarily chosen scattering coefficient over the DCASE 2013 dataset, before and after logarithmic compression.
 
 
-%\begin{figure}
-%\begin{center}
-%\begin{tikzpicture}
-%\useasboundingbox[red] (-0.25, -0.5) rectangle (8.25, 2);
-%\node[anchor=south west,inner sep=0] at (-0.36, 0) {\includegraphics[height=2cm,width=5cm]{feature_histogram.png}};
-%\node (histlabel1) at (2.3, 0.01) {$\mathbf{S}\boldsymbol{x}(\gamma)$};
-%\draw[-{Latex[length=2mm]}] (-0.3, 0.01) -- (histlabel1);
-%\draw[-{Latex[length=2mm]}] (-0.3, 0.01) -- (-0.3, 2.5);
-%\node at (0.8, -0.35) {(a)};
-%\node (histlabel2) at (7.6, 0.01) {$\log \mathbf{S}\boldsymbol{x}(\gamma)$};
-%\node[anchor=south west,inner sep=0] at (3.45, 0) {\includegraphics[height=2cm,width=3cm]{feature_histogram_logcompressed.png}};
-%\draw[-{Latex[length=2mm]}] (3.2, 0.01) -- (histlabel2);
-%\draw[-{Latex[length=2mm]}] (4.9, 0.01) -- (4.9, 2.5);
-%\node at (4.9, -0.35) {(b)};
-%\end{tikzpicture}
-%\caption{
-%\label{fig:histograms}
-%Histogram of values taken by the first-order scattering coefficient $\mathbf{S}\boldsymbol{x}(\gamma)$, corresponding to a center acoustic frequency of $302\,\mathrm{Hz}$,
-%(a) before and (b) after logarithmic compression.}
-%\end{center}
-%\end{figure}
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}
+\useasboundingbox[red] (-0.25, -0.5) rectangle (8.25, 2);
+\node[anchor=south west,inner sep=0] at (-0.36, 0) {\includegraphics[height=2cm,width=5cm]{feature_histogram.png}};
+\node (histlabel1) at (2.3, 0.01) {$\mathbf{S}\boldsymbol{x}(\gamma)$};
+\draw[-{Latex[length=2mm]}] (-0.3, 0.01) -- (histlabel1);
+\draw[-{Latex[length=2mm]}] (-0.3, 0.01) -- (-0.3, 2.5);
+\node at (0.8, -0.35) {(a)};
+\node (histlabel2) at (7.6, 0.01) {$\log \mathbf{S}\boldsymbol{x}(\gamma)$};
+\node[anchor=south west,inner sep=0] at (3.45, 0) {\includegraphics[height=2cm,width=3cm]{feature_histogram_logcompressed.png}};
+\draw[-{Latex[length=2mm]}] (3.2, 0.01) -- (histlabel2);
+\draw[-{Latex[length=2mm]}] (4.9, 0.01) -- (4.9, 2.5);
+\node at (4.9, -0.35) {(b)};
+\end{tikzpicture}
+\caption{
+\label{fig:histograms}
+Histogram of values taken by the first-order scattering coefficient $\mathbf{S}\boldsymbol{x}(\gamma)$, corresponding to a center acoustic frequency of $302\,\mathrm{Hz}$,
+(a) before and (b) after logarithmic compression.}
+\end{center}
+\end{figure}
 
 
 The application of the pointwise logarithm to magnitude spectra is ubiquitous in audio signal processing.
@@ -456,9 +458,9 @@ with $c_N$ the $N$'th nearest neihgbor of the centroid $c_i$. \\
 The scene similarity is computed based on the extracted centroids. We propose the three following strategies:
 
 \begin{itemize}
-\item \emph{closest}: the similarity between two scenes is equal to the largest similarity between their centroids.
-\item \emph{averaged}: the similarity between two scenes is equal to the average of their centroids similarities.
-\item \emph{weighted}: for each scene, each centroid is weighted according to the number of frames belonging to its cluster.\\
+\item \emph{ob-closest}: the similarity between two scenes is equal to the largest similarity between their centroids.
+\item \emph{ob-averaged}: the similarity between two scenes is equal to the average of their centroids similarities.
+\item \emph{ob-weighted}: for each scene, each centroid is weighted according to the number of frames belonging to its cluster.\\
 \end{itemize}
 
 Compared to the closest or averaged approach, the  weighted similarity between two scenes takes into account both the clusters weights and the centroids similarities. To do so, each scene $s_u$ is viewed as a signature $S_u$ of $m$ clusters ($S_u=\lbrace(c_1^u,w_1^u),\ldots,(c_m^u,w_m^u)\rbrace$), with $c_i^u$ and $w_i^u$ being the centroid and the weight of the $i$th cluster of the scene $s_u$ respectively. 
@@ -470,7 +472,7 @@ $\widehat{EMD}$ is a variant version of the $EMD$ adapted for non-normalized his
 \begin{equation}
 \begin{split}
 \widehat{EMD}(S_u,S_v) &=( \min\limits_{\lbrace f_{ij}\rbrace} \sum\limits_{i,j} f_{ij}D_{ij} )  \\ 
-&+ \mid \sum\limits_{i} w_i^u - \sum\limits_{j} w_j^v  \mid  \max\limits_{i,j}\lbrace  D_{ij}\rbrace
+&+ \mid \sum\limits_{i} w_i^u - \sum\limits_{j} w_j^v  \mid \alpha \max\limits_{i,j}\lbrace  D_{ij}\rbrace
 \end{split}
 \end{equation}
 
@@ -482,12 +484,12 @@ s.t. \quad f_{ij}\geq0 \quad \sum\limits_{j} f_{ij} \leq w_i^u \quad \sum\limits
 \sum\limits_{i,j}f_{ij} = \min( \sum\limits_{i} w_i^u ,\sum\limits_{j} w_j^v )
 \end{equation*}
 
-where $f_{ij}$ is the optimal flow between the clusters weights $w_i^u$ and $w_j^v$, that is, the amount transported from the $i$th bin to the $j$th bin. $D_{ij}$ is the ground distance between the centroids $c_i^u$ and $c_j^v$, which is equal to $D_{ij}=1-K^c_{ij}$.\\
+where $\lbrace f_{ij} \rbrace$ is the optimal flow between the clusters weights $w_i^u$ and $w_j^v$, that is, the amount transported from the $i$th bin to the $j$th bin. $D_{ij}$ is the ground distance between the centroids $c_i^u$ and $c_j^v$, which is equal to $D_{ij}=1-K^c_{ij}$. As suggested in \cite{pele2009fast}, the $\alpha$ parameter is set to one.\\
 
 To obtain the final similarity measure between the scenes $s_u$ and $s_v$, an extended Gaussian kernels $K^s$ \cite{chapelle1999support,jing2003support} is computed:
 
 \begin{equation*}
-K_{uv}^s(s_u,s_v) = exp\left( - \dfrac{\widehat{EMD}(S_u,S_v)}{A} \right) \\
+K_{uv}^s = exp\left( - \dfrac{\widehat{EMD}(S_u,S_v)}{A} \right) \\
 \end{equation*}
 
 with $A$ a scaling parameter, set to the mean value of the $\widehat{EMD}$ between all the scenes. The resulting kernel $K^s$ is called an EMD kernel, and it has to be noted that there is no proof that such kernel is positive definite. \\
@@ -497,7 +499,7 @@ with $A$ a scaling parameter, set to the mean value of the $\widehat{EMD}$ betwe
 
 \subsection{Acoustic Scene Similarity and Classification}
 
-The influence of the temporal-scattering transform and the object-based approach (\emph{ob}) are assessed in an unsupervised setting (\emph{i.e.} ASS) and in a supervised setting (\emph{i.e.} ASC). 
+The influence of the temporal-scattering transform and the \emph{ob} are assessed in an unsupervised setting (\emph{i.e.} ASS) and in a supervised setting (\emph{i.e.} ASC). 
 
 For the ASS setting, evaluation is performed on the private dataset of the DCASE 2013 challenge. The metric used is the precision at rank $k$ ($p@k$), which is the  average  number  of  items  of  the  same  class among the $k$ closest items averaged for all possible seed items. The $p@k$ is computed for $k=[1,\ldots,9]$. Note that a $p@1$ is equivalent to an accuracy computed based on the labels of the 1st nearest neighbors of the items to classify.
  
@@ -505,15 +507,17 @@ For the ASC setting, the systems are evaluated  with five-fold  stratified cross
 
 \subsection{Comparison with early and late integration}
 
-The \emph{ob} approach is compared to commonly used approaches using an early integration strategy (\emph{ei}) for the ASS setting, and both an early and a late integration (\emph{li}) strategy for the ASC setting (see Section \ref{sec:eili}). 
+The \emph{ob} approach is compared to commonly used approaches using an early integration strategy (\emph{ei}) for the ASS setting, and both an early and a late integration (\emph{li}) strategy for the ASC setting (see Section \ref{sec:eili}).
 
 \subsection{Features}
 
-Experiments are carried out using temporal-scattering coefficients as well as Mel Frequency Cesptral Coefficients (MFCCs) as features. For the temporal-scattering, each scene is described by 128 vectors of scattering coefficients \gl{vincent: windows and hops ?}. Different sets of parameters were tested to compute the MFFCs. We here report only the results for the best setting, which is similar to the one used by the winners of the previous DCASE 2013 challenge \cite{roma2013}. 40 MFCCs (including the first energy coefficient) are computed for windows of 50ms and hops of 25ms, with a limited frequency range going from $27.5$Hz to $1000$Hz. This setting gives us 600 feature vectors per scenes. It has been reported that classifying the full set of frames directly may not be the best approach. In order to reduce the data dimensionality, a pooling step is performed on the MFCCs vectors: each set of MFCCs vectors is dividing into $n$ non-overlapping $t$-seconds long slices. Each $n$ MFCC slices is then averaged over time. As the \emph{ob} approach involves a clustering step, it is desirable to ensure that each scene is described by circa the same number of vectors,for both the temporal-scattering and the MFCCs, prior to running the clustering. Thus, $t$ is set to 250ms, which gives us 120 MFCCs vectors per scenes. 
+Experiments are carried out using temporal-scattering coefficients as well as Mel Frequency Cesptral Coefficients (MFCCs) as features. For the temporal-scattering, each scene is described by 128 vectors of scattering coefficients \gl{vincent: windows and hops ?}. Experiments are conducted with and without the log compression (see Section \ref{sec:logcomp}).
+
+Different sets of parameters were tested to compute the MFFCs. We here report only the results for the best setting, which is similar to the one used by the winners of the previous DCASE 2013 challenge \cite{roma2013}. 40 MFCCs (including the first energy coefficient) are computed for windows of 50ms and hops of 25ms, with a limited frequency range going from $27.5$Hz to $1000$Hz. This setting gives us 600 feature vectors per scenes. It has been reported that classifying the full set of frames directly may not be the best approach. In order to reduce the data dimensionality, a pooling step is performed on the MFCCs vectors: each set of MFCCs vectors is dividing into $n$ non-overlapping $t$-seconds long slices. Each $n$ MFCC slices is then averaged over time. As the \emph{ob} approach involves a clustering step, it is desirable to ensure that each scene is described by circa the same number of vectors,for both the temporal-scattering and the MFCCs, prior to running the clustering. Thus, $t$ is set to 250ms, which gives us 120 MFCCs vectors per scenes. 
 
 \subsection{Classifier}
 
-As most of the 2013 DCASE challenge participant did, a Support Vector Machine (SVM), which is a large-margin binary discriminators with tunable regularization of misclassified examples, is used as classifier for the ASC setting. For the \emph{ob} approach, we use XX. For both the \emph{ei} and \emph{li} approaches, a linear kernel as well as a RBF kernel are used. As for the \emph{ob} approach, the RBF kernel is scaled locally using the method proposed in \cite{selfTuneManor2004}. All features, that is the frames, the pooled frames or the centroids depending on the approach considered, are standardized prior to be filled into the classifier. The standardization is computed with respect to the train/test set split of the cross validation scheme (see \ref{sec:stand}).
+As most of the 2013 DCASE challenge participants did, a Support Vector Machine (SVM), which is a large-margin binary discriminators with tunable regularization of misclassified examples, is used as classifier for the ASC setting. For the \emph{ob} approach, \gl{TODO}. For both the \emph{ei} and \emph{li} approaches, a linear kernel as well as a RBF kernel are used. As for the \emph{ob} approach, the RBF kernel is scaled locally using the method proposed in \cite{selfTuneManor2004}. All features, \emph{i.e.} the frames, the pooled frames or the centroids depending on the approach considered, are standardized prior to be filled into the classifier. The standardization is computed with respect to the train/test set split of the cross validation scheme (see Section \ref{sec:stand}).
 
 \section{Results: Acoustic Scene Similarity}
 
