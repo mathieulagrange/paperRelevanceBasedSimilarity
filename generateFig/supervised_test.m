@@ -4,24 +4,36 @@ addpath(genpath('functions'))
 %% settings
 
 dataset='test'; 
-dataPath={['~/projets/ass_features/report/figures/supervised_earlyInt_' dataset]};
 
 linewidth=2;
 markersize=10;
 markerLeg={'diamond','o','*','x','^'};
+
 %% load data
 
-data=cell(1,length(dataPath));
-leg=cell(1,length(dataPath));
+d=load(['~/projets/ass_features/report/figures/supervised_earlyInt_' dataset]);
+[data{1},leg{1}]=parseTable(d.data.tables{1});
 
-for jj=1:length(dataPath)
-    d=load(dataPath{jj});
-    [data{jj},leg{jj}]=parseTable(d.data(1).tables{end});
-end
+d=load(['~/projets/ass_clustering_features/report/figures/supervised_object2v_Late_' dataset]);
+[data{2},leg{2}]=parseTable(d.data.tables{1});
 
-acc=str2double(data{1}(10:14,:));
-m_acc=mean(acc,1);
-std_acc=std(acc,[],1);
+d=load(['~/projets/ass_clustering_features/report/figures/supervised_object_' dataset]);
+[data{3},leg{3}]=parseTable(d.data.tables{2});
+
+acc_ei=str2double(data{1}(10:14,:));
+m_acc_ei=mean(acc_ei,1);
+
+acc_li=str2double(data{2}(20:24,:));
+m_acc_li=mean(acc_li,1);
+
+acc_obj=str2double(data{3}(9:13,:));
+m_acc_obj=mean(acc_obj,1);
+
+acc_obj_1v=str2double(data{2}(8:12,:));
+m_acc_obj_1v=mean(acc_obj_1v,1);
+
+acc_obj_2v=str2double(data{2}(14:18,:));
+m_acc_obj_2v=mean(acc_obj_2v,1);
 
 scat=strcmp('scatT',data{1}(1,:));
 mfcc=strcmp('mfcc',data{1}(1,:));
