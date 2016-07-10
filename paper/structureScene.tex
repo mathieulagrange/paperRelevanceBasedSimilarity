@@ -307,16 +307,16 @@ Figure \ref{fig:histograms} shows the distribution of an arbitrarily chosen scat
 \begin{center}
 \begin{tikzpicture}
 \useasboundingbox[red] (-0.25, -0.5) rectangle (8.25, 2);
-\node[anchor=south west,inner sep=0] at (-0.01, 0) {\includegraphics[height=2cm,width=5cm]{feature_histogram.png}};
-\node (histlabel1) at (3, 0.01) {$\mathbf{S}\boldsymbol{x}$};
-\draw[-{Latex[length=2mm]}] (0.05, 0.01) -- (histlabel1);
-\draw[-{Latex[length=2mm]}] (0.05, 0.01) -- (0.05, 2.5);
-\node at (1.5, -0.25) {(a)};
-\node (histlabel2) at (8, 0.01) {$\log \mathbf{S}\boldsymbol{x}$};
-\node[anchor=south west,inner sep=0] at (4, 0) {\includegraphics[height=2cm,width=3cm]{feature_histogram_logcompressed.png}};
-\draw[-{Latex[length=2mm]}] (3.8, 0.01) -- (histlabel2);
+\node[anchor=south west,inner sep=0] at (-0.36, 0) {\includegraphics[height=2cm,width=5cm]{feature_histogram.png}};
+\node (histlabel1) at (2.5, 0.01) {$\mathbf{S}\boldsymbol{x}$};
+\draw[-{Latex[length=2mm]}] (-0.3, 0.01) -- (histlabel1);
+\draw[-{Latex[length=2mm]}] (-0.3, 0.01) -- (-0.3, 2.5);
+\node at (1, -0.35) {(a)};
+\node (histlabel2) at (7.8, 0.01) {$\log \mathbf{S}\boldsymbol{x}$};
+\node[anchor=south west,inner sep=0] at (3.3, 0) {\includegraphics[height=2cm,width=3.5cm]{feature_histogram_logcompressed.png}};
+\draw[-{Latex[length=2mm]}] (3.2, 0.01) -- (histlabel2);
 \draw[-{Latex[length=2mm]}] (5, 0.01) -- (5, 2.5);
-\node at (6, -0.25) {(b)};
+\node at (5.5, -0.35) {(b)};
 \end{tikzpicture}
 \caption{
 \label{fig:gammatones}
