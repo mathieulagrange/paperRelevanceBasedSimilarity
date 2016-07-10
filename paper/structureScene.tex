@@ -497,27 +497,30 @@ with $A$ a scaling parameter, set to the mean value of the $\widehat{EMD}$ betwe
 \section{Experimental Evaluation}
 \label{sec:ExpEval}
 
-\subsection{Acoustic Scene Similarity and Classification}
-
-The influence of the temporal-scattering transform and the \emph{ob} are assessed in an unsupervised setting (\emph{i.e.} ASS) and in a supervised setting (\emph{i.e.} ASC). 
-
-For the ASS setting, evaluation is performed on the private dataset of the DCASE 2013 challenge. The metric used is the precision at rank $k$ ($p@k$), which is the  average  number  of  items  of  the  same  class among the $k$ closest items averaged for all possible seed items. The $p@k$ is computed for $k=[1,\ldots,9]$. Note that a $p@1$ is equivalent to an accuracy computed based on the labels of the 1st nearest neighbors of the items to classify.
- 
-For the ASC setting, the systems are evaluated  with five-fold  stratified cross validation on the private dataset of the DCASE 2013 challenge. The folds are identical to those used in the original challenge. Optimal parameters, \emph{i.e.} the number of clusters $m$ for the \emph{ob} approach and the scaling parameters $N$ of the RBF kernels (see Eq. \ref{eq:kc}), are learned on the public dataset of the DCASE 2013 challenge, using five-fold  stratified cross validation as well. 
-
-\subsection{Comparison with early and late integration}
-
-The \emph{ob} approach is compared to commonly used approaches using an early integration strategy (\emph{ei}) for the ASS setting, and both an early and a late integration (\emph{li}) strategy for the ASC setting (see Section \ref{sec:eili}).
-
 \subsection{Features}
 
 Experiments are carried out using temporal-scattering coefficients as well as Mel Frequency Cesptral Coefficients (MFCCs) as features. For the temporal-scattering, each scene is described by 128 vectors of scattering coefficients \gl{vincent: windows and hops ?}. Experiments are conducted with and without the log compression (see Section \ref{sec:logcomp}).
 
 Different sets of parameters were tested to compute the MFFCs. We here report only the results for the best setting, which is similar to the one used by the winners of the previous DCASE 2013 challenge \cite{roma2013}. 40 MFCCs (including the first energy coefficient) are computed for windows of 50ms and hops of 25ms, with a limited frequency range going from $27.5$Hz to $1000$Hz. This setting gives us 600 feature vectors per scenes. It has been reported that classifying the full set of frames directly may not be the best approach. In order to reduce the data dimensionality, a pooling step is performed on the MFCCs vectors: each set of MFCCs vectors is dividing into $n$ non-overlapping $t$-seconds long slices. Each $n$ MFCC slices is then averaged over time. As the \emph{ob} approach involves a clustering step, it is desirable to ensure that each scene is described by circa the same number of vectors,for both the temporal-scattering and the MFCCs, prior to running the clustering. Thus, $t$ is set to 250ms, which gives us 120 MFCCs vectors per scenes. 
 
+
+\subsection{Acoustic Scene Similarity and Classification}
+
+The influence of the temporal-scattering transform and the \emph{ob} are assessed in an unsupervised setting (\emph{i.e.} ASS) and in a supervised setting (\emph{i.e.} ASC). 
+
+For the ASS setting, evaluation is performed on the private dataset of the DCASE 2013 challenge. The metric used is the precision at rank $k$ ($p@k$), which is the  average  number  of  items  of  the  same  class among the $k$ closest items averaged for all possible seed items. The $p@k$ is computed for $k=[1,\ldots,9]$. Note that a $p@1$ is equivalent to an accuracy computed based on the labels of the 1st nearest neighbors of the items to classify. For each experimental setting, we report the results for the set of parameters, \emph{i.e.} the number of clusters $m$ for the \emph{ob} approach and the scaling parameters $N$ of the RBF kernels (see Eq. \ref{eq:kc}) giving the best $p@9$.
+ 
+For the ASC setting, the systems are evaluated  with five-fold  stratified cross validation on the private dataset of the DCASE 2013 challenge. The folds are identical to those used in the original challenge. Optimal parameters (see above) are this time learned on the public dataset of the DCASE 2013 challenge, using five-fold  stratified cross validation as well. 
+
+
+\subsection{Comparison with early and late integration}
+
+The \emph{ob} approach is compared to commonly used approaches using an early integration strategy (\emph{ei}) for the ASS setting, and both an early and a late integration (\emph{li}) strategy for the ASC setting (see Section \ref{sec:eili}) \gl{TODO: maj vote}. 
+
+
 \subsection{Classifier}
 
-As most of the 2013 DCASE challenge participants did, a Support Vector Machine (SVM), which is a large-margin binary discriminators with tunable regularization of misclassified examples, is used as classifier for the ASC setting. For the \emph{ob} approach, \gl{TODO}. For both the \emph{ei} and \emph{li} approaches, a linear kernel as well as a RBF kernel are used. As for the \emph{ob} approach, the RBF kernel is scaled locally using the method proposed in \cite{selfTuneManor2004}. All features, \emph{i.e.} the frames, the pooled frames or the centroids depending on the approach considered, are standardized prior to be filled into the classifier. The standardization is computed with respect to the train/test set split of the cross validation scheme (see Section \ref{sec:stand}).
+As most of the 2013 DCASE challenge participants did, a Support Vector Machine (SVM), which is a large-margin binary discriminators with tunable regularization of misclassified examples, is used as classifier for the ASC setting. For the \emph{ob} approach, \gl{TODO: kernel used}. For both the \emph{ei} and \emph{li} approaches, a linear kernel as well as a RBF kernel are used. As for the \emph{ob} approach, the RBF kernel is scaled locally using the method proposed in \cite{selfTuneManor2004}. All features, \emph{i.e.} the frames, the pooled frames or the centroids depending on the approach considered, are standardized prior to be filled into the classifier. The standardization is computed with respect to the train/test set split of the cross validation scheme (see Section \ref{sec:stand}).
 
 \section{Results: Acoustic Scene Similarity}
 
