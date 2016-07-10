@@ -21,9 +21,9 @@
 \usepackage{amssymb}
 \usepackage{amsmath}
 \usepackage{pgf}
-%\usepackage{tikz}
-%\usetikzlibrary{arrows,positioning}
-%\usetikzlibrary{arrows.meta}
+\usepackage{tikz}
+\usetikzlibrary{arrows,positioning}
+\usetikzlibrary{arrows.meta}
 \usepackage{url}
 \usepackage{color}
 \usepackage{graphicx}
@@ -237,26 +237,26 @@ In the sequel, we set $\xi_2$ to $2.5\,\mathrm{kHz}$, $Q_2$ to $1$, and $J_2$ to
 \end{equation}
 The scattering transform consists of the concatenation of first-order coefficients $\mathbf{S_1}\boldsymbol{x}(t,\gamma_1)$ and second-order coefficients $\mathbf{S_1}\boldsymbol{x}(t,\gamma_1,\gamma_2)$ into a feature matrix $\mathbf{S}\boldsymbol{x}(t,\gamma)$, where $\gamma$ is a shorthand for either $\gamma_1$ or $(\gamma_1,\gamma_2)$.
 
-%\begin{figure}
-%\begin{center}
-%\begin{tikzpicture}
-%\useasboundingbox[red] (-0.25, -0.5) rectangle (8.25, 2);
-%\node (omlabel1) at (3.5, 1) {$t$};
-%\draw[-{Latex[length=2mm]}] (0, 1) -- (omlabel1);
-%\draw[-{Latex[length=2mm]}] (0, 1) -- (0, 2);
-%\node[anchor=south west,inner sep=0] at (0, 0) {\includegraphics[height=2cm,width=3cm]{gammatone_Q8.png}};
-%\node at (2, -0.25) {(a)};
-%\node (omlabel2) at (8, 1) {$t$};
-%\draw[-{Latex[length=2mm]}] (4.5, 1) -- (omlabel2);
-%\draw[-{Latex[length=2mm]}] (4.5, 1) -- (4.5, 2);
-%\node[anchor=south west,inner sep=0] at (4.5, 0) {\includegraphics[height=2cm,width=3cm]{gammatone_Q1.png}};
-%\node at (6.5, -0.25) {(b)};
-%\end{tikzpicture}
-%\caption{
-%\label{fig:gammatones}
-%Gammatone wavelets $\psi(t)$ in the time domain with quality factors (a) $Q = 4$ and (b) $Q = 1$. Blue and red oscillations represent the real and imaginary parts. The orange envelope represents the complex modulus.}
-%\end{center}
-%\end{figure}
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}
+\useasboundingbox[red] (-0.25, -0.5) rectangle (8.25, 2);
+\node (omlabel1) at (3.5, 1) {$t$};
+\draw[-{Latex[length=2mm]}] (0, 1) -- (omlabel1);
+\draw[-{Latex[length=2mm]}] (0, 1) -- (0, 2);
+\node[anchor=south west,inner sep=0] at (0, 0) {\includegraphics[height=2cm,width=3cm]{gammatone_Q8.png}};
+\node at (2, -0.25) {(a)};
+\node (omlabel2) at (8, 1) {$t$};
+\draw[-{Latex[length=2mm]}] (4.5, 1) -- (omlabel2);
+\draw[-{Latex[length=2mm]}] (4.5, 1) -- (4.5, 2);
+\node[anchor=south west,inner sep=0] at (4.5, 0) {\includegraphics[height=2cm,width=3cm]{gammatone_Q1.png}};
+\node at (6.5, -0.25) {(b)};
+\end{tikzpicture}
+\caption{
+\label{fig:gammatones}
+Gammatone wavelets $\psi(t)$ in the time domain with quality factors (a) $Q = 4$ and (b) $Q = 1$. Blue and red oscillations represent the real and imaginary parts. The orange envelope represents the complex modulus.}
+\end{center}
+\end{figure}
 
 
 Wavelets
@@ -540,11 +540,11 @@ Support vector machines are large-margin binary discriminators with tunable regu
              \hline
 early int. (linear)  & 66 (11)        & 62 (6)  & 46 (8)    \\
 early int. (RBF)     & 60 (7)         & 57 (8)  & 60 (8)    \\
-late int.  (linear)  & XX (XX)        & XX (XX) & XX (XX)   \\
-late int.  (RBF)     & XX (XX)        & XX (XX) & XX (XX)   \\
-ob-closest.          & XX (XX)        & XX (XX) & XX (XX)   \\
-ob-averaged.         & XX (XX)        & XX (XX) & XX (XX)   \\
-ob-weighted.         & XX (XX)        & XX (XX) & XX (XX)   \\
+late int.  (linear)  & 75 (5)         & 70 (8)  & 63 (8)   \\
+late int.  (RBF)     & 78 (6)         & 73 (8)  & 72 (10)   \\
+ob-closest.          & 66 (7)         & 58 (6)  & 56 (9)   \\
+ob-averaged.         & 61 (7)         & 54 (8)  & 61 (9)   \\
+ob-weighted.         & 54 (11)        & 43 (10) & 51 (15)   \\
 \end{tabular}
 \caption{...}
 \end{center}
