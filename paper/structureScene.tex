@@ -354,6 +354,8 @@ Interestingly, taking the logarithm of renormalized coefficients would yield
 Therefore, the theoretical insight brought by \cite{Anden2014} in favor of renormalized scattering also applies to log-scattering up to a linear transformation in feature space, to which affine classifiers are not sensitive.
 
 \subsection{Early \vs late temporal integration}
+\label{sec:eili}
+
 Owing to the scarcity of salient events in many natural scenes,
 fine-grained classification is only made
 possible by integrating signal information over a long temporal context.
@@ -383,6 +385,8 @@ However, many of these instances may be silent or lack any salient properties of
 In short, early and late integration methods lie at opposite ends of the bias-versus-variance statistical tradeoff. We refer to \cite{Joder2009} for a comprehensive review of this problematic in the context of musical instrument recognition.
 
 \subsection{Standardization}
+\label{sec:stand}
+
 Let $\mathbf{S}\boldsymbol{X}(\gamma,n)$ be a dataset, where the indices $\gamma$ and $n$ respectively denotes features and examples.
 It is commonly acknowledged that support vector machines should be trained on scaled features with null mean and unit variance, so as to avoid mismatch in numeric ranges.
 This operation may also help making the dataset linearly separable in feature space.
@@ -430,7 +434,7 @@ From a numerical data processing overview, the holistic scheme as a simplicity, 
 
 If available, the complete description of the scene in terms of event occurrences is powerful enough to reliably predict high level cognitive classes, \textit{i.e.} the presence of birds are strong pleasantness indicators and very likely to be heard in parks in urban areas.
 
-To take into account this object-based representation, we propose the following 3-steps algorithm:
+To take into account this object-based representation, we propose the following 4-steps algorithm:
 
 \begin{itemize}
 \item step 1: features extraction.
@@ -501,7 +505,7 @@ For the ASC setting, the systems are evaluated  with five-fold  stratified cross
 
 \subsection{Comparison with early and late integration}
 
-The \emph{ob} approach is compared to commonly used approaches using an early integration strategy (\emph{ei}) for the ASS setting, and both an early and a late integration (\emph{li}) strategy for the ASC setting (see Section \ref{XX}). 
+The \emph{ob} approach is compared to commonly used approaches using an early integration strategy (\emph{ei}) for the ASS setting, and both an early and a late integration (\emph{li}) strategy for the ASC setting (see Section \ref{sec:eili}). 
 
 \subsection{Features}
 
@@ -509,7 +513,7 @@ Experiments are carried out using temporal-scattering coefficients as well as Me
 
 \subsection{Classifier}
 
-As most of the 2013 DCASE challenge participant did, a Support Vector Machine (SVM), which is a large-margin binary discriminators with tunable regularization of misclassified examples, is used as classifier for the ASC setting. For the \emph{ob} approach, we use XX. For both the \emph{ei} and \emph{li} approaches, a linear kernel as well as a RBF kernel are used. As for the \emph{ob} approach, the RBF kernel is scaled locally using the method proposed in \cite{selfTuneManor2004}. All features, that is the frames, the pooled frames or the centroids depending on the approach considered, are standardized prior to be filled into the classifier. The standardization is computed with respect to the train/test set split of the cross validation scheme (see \ref{}).
+As most of the 2013 DCASE challenge participant did, a Support Vector Machine (SVM), which is a large-margin binary discriminators with tunable regularization of misclassified examples, is used as classifier for the ASC setting. For the \emph{ob} approach, we use XX. For both the \emph{ei} and \emph{li} approaches, a linear kernel as well as a RBF kernel are used. As for the \emph{ob} approach, the RBF kernel is scaled locally using the method proposed in \cite{selfTuneManor2004}. All features, that is the frames, the pooled frames or the centroids depending on the approach considered, are standardized prior to be filled into the classifier. The standardization is computed with respect to the train/test set split of the cross validation scheme (see \ref{sec:stand}).
 
 \section{Results: Acoustic Scene Similarity}
 
