@@ -112,13 +112,36 @@ If the precise list of events that occur in a given time is unachievable to get 
 
 \section{Background} \label{sec:soa}
 
-Apart from \cite{aucouturier2007bag} and \cite{lagrange:hal-01082501} that consider the task of, much of the work dedicated to acoustic scene modeling is applied to the ASC tasks.
+Aside from \cite{aucouturier2007bag} and \cite{lagrange:hal-01082501} that consider the task of ASSR, much of the work dedicated to acoustic scene modeling is applied to the ASC tasks.
 
-To this end, studying the first DCASE challenge \cite{barchiesi2015acoustic} in 2013 is convenient as it concentrates much of the effort for this task.
+Thus, studying the first DCASE challenge \cite{barchiesi2015acoustic} in 2013 is convenient as it concentrates much of the effort for this latter task. The table \ref{tab:dcase} summarizes the different algorithmic choices taken by the teams. Unless otherwise stated, scene predictions are achieved by majority voting of predictions \ml{gregoire ?}.
 
-\gl{DCASE challenge:} \cite{chum2013ieee}: CHR system, using HMM and frame based classification. \cite{elizalde2013vector} ELF system, I vector approach using probabilistic LDA as classifier. \cite{geiger2013large} GSR system, basically mel/MFCC using SVM as classifier. \cite{krijnders2013tone} KH system, tone fit features computed from cochleogram (but similar results are obtained with MFCCs) using SVM as classifier. \cite{li2013auditory} LTT system, Tree bagger classifier used on segments (MFCCs) before a majority vote. \cite{lee2013acoustic} NHL system, unsupervised feature learning approach on mel frequency spectrogram with selective Max-pooling. Supervised training is performed using SVM. \cite{nogueira2013sound} NR1 system, MFCC and spatial features (inter-aural differences) with SVM as classifier. \cite{olivetti2013wonder} OE system, normalized compression distance (I honestly did not understand a thing about it, but this the worst method of the challenge anyway) using  Random Forest  classifier.  \cite{patil2013multiresolution} PE system, 2D Gabor filters applied on 1sec segments with SVM as classifier.  \cite{rakotomamonjy2015histogram} RG system, histogram of gradient representation, computed from a constant Q transform with SVM as classifier.  \cite{roma2013recurrence} RNH system, RQA stacked with MFCC, SVM as classifier. \\
+\begin{table}
+\begin{center}
+\caption{Designs submitted to the DCASE2013 ASC challenge. RQA stands for recurrence quantification analysis, ILD for inter-aural differences and UL for unsupervised learning.  \label{tab:dcase}}
+\begin{tabular}{lcl}
+& Acc. \%  &  \multicolumn{1}{c}{Design}  \\
+\cite{olivetti2013wonder} OE & 17 & compression distance, Random Forests \\
+\cite{elizalde2013vector} ELF & 55 & I vector approach, LDA \\
+\cite{krijnders2013tone} KH & 55 & cochleogram, SVMs \\
+\cite{patil2013multiresolution} PE & 58 & 2D Gabor filters, SVMs \\
+\cite{lee2013acoustic} NHL & 60 & UL of Mel spectra, SVMs \\
+\cite{nogueira2013sound} NR1 & 60 & MFCCs and ILD features, SVMs \\
+\cite{chum2013ieee} CHR & 65 & \ml{gregoire ?}, HMMs  \\
+\cite{geiger2013large} GSR & 69 & Mel and MFCCs, SVMs \\
+\cite{rakotomamonjy2015histogram} RG & 69  & histogram of gradient (HOG), SVMs \\
+\cite{li2013auditory} LTT & 72 & MFCCs, Tree baggers \\
+\cite{roma2013recurrence} RNH & 76 & RQA features stacked with MFCCs, SVMs \\
+\end{tabular}
+\end{center}
+\end{table}
 
-%\gl{Other paper:} \cite{jiang2005svm, kalinli2009saliency, su2011environmental, ye2015acoustic, bisot2015hog, chakrabarty2015exploring, xue2015auditory}
+
+
+In this paper, we are interested in evaluating different algorithmic designs leading to different scene models, we therefore resort to straightforward ranking performance measures for the ASSR task. Also, we resort to the use of SVMs with default parameters (C=1) for computing classification accuracy for the ASC task, as SVMs are widely used in the community and allows us to better root our work and focus our performance analysis on the earlier processing stages. Moreover, since the MFCCs are well established features and perform well in this task, they will be thoroughly used as baselines features in the experiments described in this paper.
+
+ 
+%\gl{Othe this r paper:} \cite{jiang2005svm, kalinli2009saliency, su2011environmental, ye2015acoustic, bisot2015hog, chakrabarty2015exploring, xue2015auditory}
 
 %\subsection{Datasets}
 
@@ -474,7 +497,7 @@ For the ASC scenario, the features are standardized prior to the SVM classificat
 \begin{figure}
 \begin{center}
 \includegraphics[width=\columnwidth]{gfx/unsupervised_test1.eps}
-\caption{... \ml{fusionner les deux figures et commencer x a 1 par pas de 1}}
+\caption{... \ml{super, c'est propre}}
 \end{center}
 \end{figure}
 
@@ -505,7 +528,7 @@ Support vector machines are large-margin binary discriminators with tunable regu
 \begin{figure}
 \begin{center}
 \includegraphics[width=\columnwidth]{gfx/supervised_rbf_test2.eps}
-\caption{...}
+\caption{\ml{simplifier les xticklabels en mettant des acronymes expliquer dans la caption}}
 \end{center}
 \end{figure}
 
