@@ -301,21 +301,29 @@ Yet, because of the complex modulus nonlinearity, scattering coefficients are no
 It appears empirically that their distribution is skewed towards the right, which means that the tail towards greater values is longer than the tail towards lower values.
 However, skewness can be reduced by applying to all coefficients a pointwise concave transformation, \eg logarithmic.
 Figure \ref{fig:histograms} shows the distribution of an arbitrarily chosen scattering coefficient over the DCASE 2013 dataset, before and after logarithmic compression.
-\vl{Qu'en penses-tu ML ?}
-\ml{tres bien, mettre les deux distributions de couleurs differentes}
+
 
 \begin{figure}
 \begin{center}
-\setlength{\unitlength}{1cm}
-\begin{picture}(5,2)
- \put(-1.5,0.0){\includegraphics[height=2cm,width=3.5cm]{feature_histogram.png}}
- \put(2.5,0.0){\includegraphics[height=2cm,width=3.5cm]{feature_histogram_logcompressed.png}}
-\end{picture}
+\begin{tikzpicture}
+\useasboundingbox[red] (-0.25, -0.5) rectangle (8.25, 2);
+\node[anchor=south west,inner sep=0] at (-0.01, 0) {\includegraphics[height=2cm,width=5cm]{feature_histogram.png}};
+\node (histlabel1) at (3, 0.01) {$\mathbf{S}\boldsymbol{x}$};
+\draw[-{Latex[length=2mm]}] (0.05, 0.01) -- (histlabel1);
+\draw[-{Latex[length=2mm]}] (0.05, 0.01) -- (0.05, 2.5);
+\node at (1.5, -0.25) {(a)};
+\node (histlabel2) at (8, 0.01) {$\log \mathbf{S}\boldsymbol{x}$};
+\node[anchor=south west,inner sep=0] at (4, 0) {\includegraphics[height=2cm,width=3cm]{feature_histogram_logcompressed.png}};
+\draw[-{Latex[length=2mm]}] (3.8, 0.01) -- (histlabel2);
+\draw[-{Latex[length=2mm]}] (5, 0.01) -- (5, 2.5);
+\node at (6, -0.25) {(b)};
+\end{tikzpicture}
 \caption{
-\label{fig:histograms}
-\vl{we should discuss color schemes and axis labels}}
+\label{fig:gammatones}
+Gammatone wavelets $\psi(t)$ in the time domain with quality factors (a) $Q = 4$ and (b) $Q = 1$. Blue and red oscillations represent the real and imaginary parts. The orange envelope represents the complex modulus.}
 \end{center}
 \end{figure}
+
 
 The application of the pointwise logarithm to magnitude spectra is ubiquitous in audio signal processing.
 Indeed, it is corroborated by the Weber-Fechner law in psychoacoustics, which states that the sensation of loudness is roughly proportional to the logarithm of the acoustic pressure.
