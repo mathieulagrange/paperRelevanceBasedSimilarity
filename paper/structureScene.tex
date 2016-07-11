@@ -23,7 +23,7 @@
 \usepackage{pgf}
 \usepackage{tikz}
 \usetikzlibrary{arrows,positioning}
-\usetikzlibrary{arrows.meta}
+%\usetikzlibrary{arrows.meta}
 \usepackage{url}
 \usepackage{color}
 \usepackage{graphicx}
@@ -258,19 +258,19 @@ The scattering transform consists of the concatenation of first-order coefficien
 
 \begin{figure}
 \begin{center}
-\begin{tikzpicture}
-\useasboundingbox[red] (-0.25, -0.5) rectangle (8.25, 2);
-\node (omlabel1) at (3.5, 1) {$t$};
-\draw[-{Latex[length=2mm]}] (0, 1) -- (omlabel1);
-\draw[-{Latex[length=2mm]}] (0, 1) -- (0, 2);
-\node[anchor=south west,inner sep=0] at (0, 0) {\includegraphics[height=2cm,width=3cm]{gammatone_Q8.png}};
-\node at (2, -0.25) {(a)};
-\node (omlabel2) at (8, 1) {$t$};
-\draw[-{Latex[length=2mm]}] (4.5, 1) -- (omlabel2);
-\draw[-{Latex[length=2mm]}] (4.5, 1) -- (4.5, 2);
-\node[anchor=south west,inner sep=0] at (4.5, 0) {\includegraphics[height=2cm,width=3cm]{gammatone_Q1.png}};
-\node at (6.5, -0.25) {(b)};
-\end{tikzpicture}
+%\begin{tikzpicture}
+%\useasboundingbox[red] (-0.25, -0.5) rectangle (8.25, 2);
+%\node (omlabel1) at (3.5, 1) {$t$};
+%\draw[-{Latex[length=2mm]}] (0, 1) -- (omlabel1);
+%\draw[-{Latex[length=2mm]}] (0, 1) -- (0, 2);
+%\node[anchor=south west,inner sep=0] at (0, 0) {\includegraphics[height=2cm,width=3cm]{gammatone_Q8.png}};
+%\node at (2, -0.25) {(a)};
+%\node (omlabel2) at (8, 1) {$t$};
+%\draw[-{Latex[length=2mm]}] (4.5, 1) -- (omlabel2);
+%\draw[-{Latex[length=2mm]}] (4.5, 1) -- (4.5, 2);
+%\node[anchor=south west,inner sep=0] at (4.5, 0) {\includegraphics[height=2cm,width=3cm]{gammatone_Q1.png}};
+%\node at (6.5, -0.25) {(b)};
+%\end{tikzpicture}
 \caption{
 \label{fig:gammatones}
 Gammatone wavelets $\psi(t)$ in the time domain with quality factors (a) $Q = 4$ and (b) $Q = 1$. Blue and red oscillations represent the real and imaginary parts. The orange envelope represents the complex modulus.}
@@ -327,19 +327,19 @@ Figure \ref{fig:histograms} shows the distribution of an arbitrarily chosen scat
 
 \begin{figure}
 \begin{center}
-\begin{tikzpicture}
-\useasboundingbox[red] (-0.25, -0.5) rectangle (8.25, 2);
-\node[anchor=south west,inner sep=0] at (-0.36, 0) {\includegraphics[height=2cm,width=5cm]{feature_histogram.png}};
-\node (histlabel1) at (2.3, 0.01) {$\mathbf{S}\boldsymbol{x}(\gamma)$};
-\draw[-{Latex[length=2mm]}] (-0.3, 0.01) -- (histlabel1);
-\draw[-{Latex[length=2mm]}] (-0.3, 0.01) -- (-0.3, 2.5);
-\node at (0.8, -0.35) {(a)};
-\node (histlabel2) at (7.6, 0.01) {$\log \mathbf{S}\boldsymbol{x}(\gamma)$};
-\node[anchor=south west,inner sep=0] at (3.45, 0) {\includegraphics[height=2cm,width=3cm]{feature_histogram_logcompressed.png}};
-\draw[-{Latex[length=2mm]}] (3.2, 0.01) -- (histlabel2);
-\draw[-{Latex[length=2mm]}] (4.9, 0.01) -- (4.9, 2.5);
-\node at (4.9, -0.35) {(b)};
-\end{tikzpicture}
+%\begin{tikzpicture}
+%\useasboundingbox[red] (-0.25, -0.5) rectangle (8.25, 2);
+%\node[anchor=south west,inner sep=0] at (-0.36, 0) {\includegraphics[height=2cm,width=5cm]{feature_histogram.png}};
+%\node (histlabel1) at (2.3, 0.01) {$\mathbf{S}\boldsymbol{x}(\gamma)$};
+%\draw[-{Latex[length=2mm]}] (-0.3, 0.01) -- (histlabel1);
+%\draw[-{Latex[length=2mm]}] (-0.3, 0.01) -- (-0.3, 2.5);
+%\node at (0.8, -0.35) {(a)};
+%\node (histlabel2) at (7.6, 0.01) {$\log \mathbf{S}\boldsymbol{x}(\gamma)$};
+%\node[anchor=south west,inner sep=0] at (3.45, 0) {\includegraphics[height=2cm,width=3cm]{feature_histogram_logcompressed.png}};
+%\draw[-{Latex[length=2mm]}] (3.2, 0.01) -- (histlabel2);
+%\draw[-{Latex[length=2mm]}] (4.9, 0.01) -- (4.9, 2.5);
+%\node at (4.9, -0.35) {(b)};
+%\end{tikzpicture}
 \caption{
 \label{fig:histograms}
 Histogram of values taken by the first-order scattering coefficient $\mathbf{S}\boldsymbol{x}(\gamma)$, corresponding to a center acoustic frequency of $302\,\mathrm{Hz}$,
@@ -517,7 +517,7 @@ As most of the 2013 DCASE challenge participants did, a Support Vector Machine (
 
 For the \emph{ob} approaches, we use the precomputed kernels described in Section \ref{sec:object}. For both the \emph{ei} and \emph{li} approaches, a linear kernel as well as a RBF kernel are used. As for the \emph{ob} approaches, the RBF kernel is scaled locally using the method proposed in \cite{selfTuneManor2004}. All feature vectors, being frames, texture windows or centroids are standardized prior to be given to the classifier. The standardization is computed with respect to the train/test set splits of the cross validation scheme (see Section \ref{sec:stand}).
 
-\section{Acoustic Scene Similarity Retrieval}
+\section{Results}
 
 \begin{figure}
 \begin{center}
@@ -535,23 +535,25 @@ For the \emph{ob} approaches, we use the precomputed kernels described in Sectio
 \end{center}
 \end{figure}
 
+\subsection{Acoustic Scene Similarity Retrieval}
+
 This section present evaluation results for the ASS settings. The $p@k$ for different settings are showed in the Figures~\ref{fig:ASS_1} and \ref{fig:ASS_2}.
 
-\subsection{MFCC \vs scattering transform}
+\subsection*{MFCC \vs scattering transform}
 
 Irrespective of the rank $k$ considered, best result is achieved for the scattering transform with logarithmic compression using the \emph{ob-c} approach. Overall, log-compressed scattering coefficients systematically outperform MFCCs.
 
-\subsection{Object-based \vs early integration}
+\subsection*{Object-based \vs early integration}
 
 For both MFCCs and scattering, \emph{ob-c} and \emph{ob-w} outperform \emph{ei}, thus confirming the benefits of using an object-based representation to refine the similarity measures between the scenes. However, it is worth noticing that \emph{ob-a} perform equivalently to \emph{ei}, which shows that the discriminant information is not carried by all the centroids. To take advantage of an object-based representation, a selection step has to be run on the representatives of the scenes.
 
 Lastly, we see that while \emph{ob-c} and \emph{ob-w} perform equivalently for the MFCCs, \emph{ob-c} seems to be able to better characterize the classes than \emph{ob-w} for scattering coefficients. This last observation suggests that weighted a centroid according to the number of frames belonging to it may prove to be a limited solution. Indeed, nothing a priori indicates that the discriminant information between two scenes lays within the majority of their frames. On the contrary, two similar environments  \gl{find examples} may shared a lot of similar sound sources \gl{reformulate}.
 
-\subsection{Role of logarithmic compression}
+\subsection*{Role of logarithmic compression}
 
 Outcomes for the scattering with and without logarithmic compression are showed in Figure~\ref{fig:ASS_2}. It can be seen that the logarithmic compression strongly improves the results, specially for the \emph{ob} approaches, which perform lesser than \emph{ei} without the logarithmic compression. \gl{une idée du pourquoi ?}
 
-\section{Acoustic Scene Classification}
+\subsection{Acoustic Scene Classification}
 
 
 \begin{figure}
@@ -586,13 +588,13 @@ ob-w         & 54 (11)        & 43 (10) & 51 (15)   \\
 \end{center}
 \end{table}
 
-\subsection{MFCC \vs scattering}
+MFCC \vs scattering
 
-\subsection{Object-based \vs early/late integration}
+Object-based \vs early/late integration
 
-\subsection{Role of logarithmic compression}
+Role of logarithmic compression
 
-\section{Results: DCASE 2016}
+Results: DCASE 2016
 
 \section{Conclusion}
 
