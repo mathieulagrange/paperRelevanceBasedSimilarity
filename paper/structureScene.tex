@@ -438,7 +438,7 @@ K^c_{ij} & =exp\left( - \dfrac{\parallel c_i - c_j \parallel^2}{\sigma_{i}\sigma
 \end{split}
 \end{equation}
 
-with $c_N$ the $N$'th nearest neihgbor of the centroid $c_i$. 
+with $c_N$ the $N$'th nearest neihgbor of the centroid $c_i$, and $\parallel \bullet \parallel$ the euclidean norm. 
 
 Compared to the closest or averaged approach, the  weighted similarity between two scenes takes into account both the centroids similarities and the clusters weights. Each scene $s_u$ is described by a signature $S_u$ of $m$ clusters ($S_u=\lbrace(c_1^u,w_1^u),\ldots,(c_m^u,w_m^u)\rbrace$), with $c_i^u$ and $w_i^u$ being the centroid and the weight of the $i$th cluster of the scene $s_u$ respectively. 
 
@@ -531,13 +531,13 @@ Irrespective of the rank $k$ considered, best result is achieved for the time-sc
 
 \subsection{Object-based \vs early integration}
 
-For both the MFCCs and the time-scattering, \emph{ob-c} and \emph{ob-w} outperform \emph{ei}, thus confirming the benefits of using an object-based representation to refine the similarity measures between the scenes. However, it is worth noticing that \emph{ob-a} perform equivalently to \emph{ei}, which shows that the discriminant information is not carried by all the centroids. To take advantage of an object-based representation, a selection step has to be run on the representatives of the scenes.
+For both MFCCs and time-scattering, \emph{ob-c} and \emph{ob-w} outperform \emph{ei}, thus confirming the benefits of using an object-based representation to refine the similarity measures between the scenes. However, it is worth noticing that \emph{ob-a} perform equivalently to \emph{ei}, which shows that the discriminant information is not carried by all the centroids. To take advantage of an object-based representation, a selection step has to be run on the representatives of the scenes.
 
 Lastly, we see that while \emph{ob-c} and \emph{ob-w} perform equivalently for the MFCCs, \emph{ob-c} seems to be able to better characterized the classes than \emph{ob-w} for the time scattering. This last observation suggests that weighted a centroid according to the number of frames belonging to it may prove to be a limited solution. Indeed, nothing a priori indicates that the discriminant information between two scenes lays within the majority of their frames. On the contrary, two similar environments  \gl{find examples} may shared a lot of similar sound sources \gl{reformulate}.
 
 \subsection{Role of logarithmic compression}
 
-Outcomes for time-scattering with and without log compression are showed in Figure~\ref{fig:ASS_2}. It can be seen that the log compression strongly improves the results, specially for the \emph{ob} approaches, which perform lesser than \emph{ei} without the log compression. \gl{une idée du pourquoi ?}
+Outcomes for the time-scattering with and without log compression are showed in Figure~\ref{fig:ASS_2}. It can be seen that the log compression strongly improves the results, specially for the \emph{ob} approaches, which perform lesser than \emph{ei} without the log compression. \gl{une idée du pourquoi ?}
 
 \section{Results: Acoustic Scene Classification}
 
@@ -574,11 +574,11 @@ ob-w         & 54 (11)        & 43 (10) & 51 (15)   \\
 \end{center}
 \end{table}
 
-\subsection{Role of logarithmic compression}
-
 \subsection{MFCC \vs Time scattering}
 
 \subsection{Object-based \vs early/late integration}
+
+\subsection{Role of logarithmic compression}
 
 \section{Results: DCASE 2016}
 
