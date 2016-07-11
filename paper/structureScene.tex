@@ -537,7 +537,7 @@ For the \emph{ob} approaches, we use the precomputed kernels described in Sectio
 
 This section present evaluation results for the ASS settings. The $p@k$ for different settings are showed in the Figures~\ref{fig:ASS_1} and \ref{fig:ASS_2}.
 
-\subsection{MFCC \vs Time scattering}
+\subsection{MFCC \vs scattering transform}
 
 Irrespective of the rank $k$ considered, best result is achieved for the time-scattering with logarithmic compression using the \emph{ob-c} approach. Overall, the time scattering with the logarithmic compression outperform the MFCCs systematically.
 
@@ -596,7 +596,8 @@ ob-w         & 54 (11)        & 43 (10) & 51 (15)   \\
 
 \section{Conclusion}
 
-In this paper, the benefit of considering 1) the scattering transform for building discriminant features and 2) unsupervised clustering for the modeling of large time span environmental acoustic scenes. Experiments shows that the time/frequency scattering achieves better discriminability than the time scattering one or MFCCs as they probably better isolate elements of interest in different information channels, thus allowing an efficient and scalable early integration process. This leads to improvement both for the ASSR and ASC tasks.
+In this paper, the benefit of considering 1) the scattering transform for building discriminant features and 2) unsupervised clustering for the modeling of large time span environmental acoustic scenes.
+This leads to improvement both for the ASSR and ASC tasks.
 
 Abstracting the scene as a reduced set of exemplars with adapted similarity strategies allows us to improve ASSR performance when the BOF approaches based on GMMs fails with reference to an early integration scheme. Those results advocate for a hierarchical model of the scene, where small time scale structure  (below a second) shall be decorelated using convolutional network such as the ones of the scattering transforms and larger time scale (over a second) structure shall be modeled as adaptive aggregates that can be identified in the time domain in an unsupervised setting and in the features domain in the supervised case (provided that the dimensionality is sufficiently high). 
 
