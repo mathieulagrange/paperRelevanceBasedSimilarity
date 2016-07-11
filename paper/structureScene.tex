@@ -175,6 +175,8 @@ Rouen dataset \cite{rakotomamonjy2015histogram} and the dCase2016 \cite{Mesaros2
 
 As studied in \cite{lagrange:hal-01082501}, the DCASE2013 dataset has interesting intra class diversity while remaining manageable in terms of size, making it suitable for extensive evaluation of algorithmic design choices. Also, it is still challenging as state-of-the-art systems based on features design and support vector machines (SVMs) achieves 76 \% \cite{roma2013} (winner of the 2013 challenge RQA+SVM). For the sake of comparison the HOG+SVM approach \cite{rakotomamonjy2015histogram} achieves 75 \% and 92 \% on the dcase2013 and the Rouen datasets respectively. On the former, recent advances using hierarchical classifiers architectures reports 84 to 87 \% of accuracy depending on the prior knowledge considered for building the classifier architecture \cite{phan2016label}. On the latter, the state-of-the-art is currently 95 \% \cite{bisot2016acoustic}. 
 
+\vl{missing transition}
+
 \section{Scattering representations \label{sec:scattering}}
 
 Scattering transforms are translation-invariant representations of audio signals which cascade an auditory filterbank and a modulation filterbank, interspersed with complex modulus nonlinearities.
@@ -280,8 +282,10 @@ $\boldsymbol{\psi_{\gamma_1}}(t)$ and $\boldsymbol{\psi_{\gamma_2}}(t)$ are desi
 wavelets with one vanishing moment \cite{Venkitaraman2014} \ml{missing ref}, as shown in Figure \ref{fig:gammatones}.
 In the context of auditory scene analysis, the asymmetric envelope of Gammatone wavelets is more biologically plausible than the symmetric, Gaussian-like envelope of the widespread Morlet wavelets.
 Indeed, it allows to reproduce two important psychoacoustic effects in the mammalian cochlea: the asymmetry of temporal masking and the asymmetry of spectral masking \cite{Fastl2007}.
-Moreover, it should be noted that Gammatone wavelets follow the typical amplitude profile of natural sounds, beginning with a relatively sharp attack and ending with a slower decay. \ml{tu peux citer le travail publié a Nature de lewicki, qui montrent que ces formes se retrouvent par ICA de sons naturels http://www.cs.cmu.edu/~learning/talks-2002/02-10-21.lewicki.pdf}
+Moreover, it should be noted that Gammatone wavelets follow the typical amplitude profile of natural sounds, beginning with a relatively sharp attack and ending with a slower decay.
+As such, they can be discovered by unsupervised encoding of natural sounds \cite{Smith2006}.
 
+The next section introduces some techniques in feature design to improve auditory scene classification with scattering coefficients.
 
 \section{Feature design}
 Before supervised or unsupervised classification, it is beneficial to process scattering coefficients with feature transformations that improve invariance, normality, or generalization power. 
