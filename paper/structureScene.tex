@@ -410,11 +410,7 @@ The next section discusses adaptive methods for the temporal integration of scat
 
 %From a data processing point of view, a holistic scheme, such as the bag-of-frame approach \cite{aucouturier2007bag}, has a simplicity, but clearly face poor performance on realistic conditions \cite{lagrange:hal-01082501}. 
 
-\ml{gregoire: une figure avec un clustering et une annotation ?}
-
 \gl{vincent, un petit mot pour motiver le fait que le scattering est un bon outil pour separer les evenements peuplant une scène sonore ?}. 
-
-\ml{detail: put in experimental part using an enhanced version of the popular K-means algorithm known as $K$-means$++$ \cite{arthur2007k}, which differs from k-means method in terms of selection of starting points. }
 
 As discussed in Section \ref{sec:motivations}, several outcomes in sound perception encourage us to evaluate the validity of an object-based representation of the scene for predicting high-level properties. Though, a perfect knowledge of which event occurred at a given time is not feasible. In this paper, we thus focus on a simple quantization scheme in order to favor genericity, implemented using a clustering approach where coherent regions of the scene are identified.
 
@@ -471,7 +467,7 @@ K_{uv}^s = exp\left( - \dfrac{\widehat{EMD}(S_u,S_v)}{A} \right) \\
 
 with $A$ a scaling parameter, set to the mean value of the $\widehat{EMD}$ between all the scenes. The resulting kernel $K^s$ is called an EMD kernel, and it has to be noted that there is no proof that such kernel is positive definite. \\
 
-\ml{Grégoire : if the matrix is not psd, then this is NOT a kernel, reformulate}
+%\ml{Grégoire : if the matrix is not psd, then this is NOT a kernel, reformulate}
 
 \section{Experiments}
 \label{sec:experiments}
@@ -488,7 +484,7 @@ The influence of the temporal-scattering transform and the \emph{ob} approaches 
 
 For the ASSR setting, evaluation is performed on the private dataset of the DCASE 2013 challenge. The metric used is the precision at rank $k$ ($p@k$), which is the  average  number  of  items  of  the  same  class among the $k$ closest items averaged for all possible seed items. The $p@k$ is computed for $k=[1,\ldots,9]$, $9$ being the number of elements that are of the same class than the seed item. Note that a $p@1$ is equivalent to an accuracy computed based on the labels of the 1st nearest neighbors of the items to classify. For each experimental setting, we only report the results obtained with the sets of parameters, \emph{i.e.} the number of clusters $m$ for the \emph{ob} approaches and the scaling parameter $N$ of the RBF kernels (see Eq. \ref{eq:kc}) leading to the best $p@9$.
  
-For the ASC setting, the systems are evaluated  with five-fold  stratified cross validation on the private dataset of the DCASE 2013 challenge. The folds are identical to those used in the original challenge. Optimal parameters (see above) are this time learned on the public dataset of the DCASE 2013 challenge, using five-fold  stratified cross validation as well. 
+For the ASC setting, the systems are evaluated  with five-fold  stratified cross validation on the private dataset of the DCASE 2013 challenge. The folds are identical to those used in the original challenge. Optimal parameters (see above) are this time learned on the public dataset of the DCASE 2013 challenge, using five-fold  stratified cross validation as well. Clustering is done using an enhanced version of the popular K-means algorithm known as $K$-means$++$ \cite{arthur2007k}, which differs from k-means method in terms of selection of starting points. 
 
 The \emph{ob} approaches are compared to commonly used approaches using an early integration strategy (\emph{ei}) for the ASSR setting, and both an early and a late integration (\emph{li}) strategy for the ASC setting (see Section \ref{sec:eili}). In thsi context early integration refers to an averaging of the features and late integration refers to a majority voting of the predictions.
 
