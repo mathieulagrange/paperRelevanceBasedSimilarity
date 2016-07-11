@@ -483,7 +483,7 @@ with $A$ a scaling parameter, set to the mean value of the $\widehat{EMD}$ betwe
 
 \subsection{Features}
 
-Experiments are carried out using temporal-scattering coefficients as well as Mel Frequency Cesptral Coefficients (MFCCs) as features. For the temporal-scattering, each scene is described by 128 vectors of scattering coefficients \gl{vincent: windows and hops ?}. Experiments are conducted with and without the log compression (see Section \ref{sec:logcomp}).
+Experiments are carried out using temporal-scattering coefficients as well as Mel Frequency Cesptral Coefficients (MFCCs) as features. For the temporal-scattering, each scene is described by 128 vectors of scattering coefficients \gl{vincent: windows and hops ?}. Experiments are conducted with and without the logarithmic compression (see Section \ref{sec:logcomp}).
 
 Different sets of parameters were tested to compute the MFFCs. We here report only the results for the best setting, which is similar to the one used by the winners of the previous DCASE 2013 challenge \cite{roma2013}. 40 MFCCs (including the first energy coefficient) are computed for windows of 50ms and hops of 25ms, with a limited frequency range going from $27.5$Hz to $1000$Hz. This setting gives us 600 feature vectors per scenes. It has been reported that classifying the full set of frames directly may not be the best approach \cite{rakotomamonjy2015histogram}. In order to reduce the data dimensionality, a pooling step is performed on the MFCCs vectors: each set of MFCCs vectors is dividing into $n$ non-overlapping $t$-seconds long slices. Each $n$ MFCC slices is then averaged over time. As the \emph{ob} approaches involve a clustering step, it is desirable to ensure that each scene is described by circa the same number of vectors prior to running the clustering, for both the temporal-scattering and the MFCCs. Thus, $t$ is set to 250ms, which gives us 120 MFCCs vectors per scenes. 
 
@@ -510,7 +510,7 @@ For the \emph{ob} approaches, we use the precomputed kernels described in Sectio
 \begin{figure}
 \begin{center}
 \includegraphics[width=\columnwidth]{gfx/unsupervised_test3.eps}
-\caption{ASS: $p@k$ obtained for the MFCC and the time-scattering with log compression}
+\caption{ASS: $p@k$ obtained for the MFCC and the time-scattering with logarithmic compression}
 \label{fig:ASS_1}
 \end{center}
 \end{figure}
@@ -518,7 +518,7 @@ For the \emph{ob} approaches, we use the precomputed kernels described in Sectio
 \begin{figure}
 \begin{center}
 \includegraphics[width=\columnwidth]{gfx/unsupervised_test2.eps}
-\caption{ASS: $p@k$ obtained for the time-scattering with and without log compression (w/o log)}
+\caption{ASS: $p@k$ obtained for the time-scattering with and without logarithmic compression (w/o log)}
 \label{fig:ASS_2}
 \end{center}
 \end{figure}
@@ -527,7 +527,7 @@ This section present evaluation results for the ASS settings. The $p@k$ for diff
 
 \subsection{MFCC \vs Time scattering}
 
-Irrespective of the rank $k$ considered, best result is achieved for the time-scattering with log compression using the \emph{ob-c} approach. Overall, the time scattering with the log compression outperform the MFCCs systematically.
+Irrespective of the rank $k$ considered, best result is achieved for the time-scattering with logarithmic compression using the \emph{ob-c} approach. Overall, the time scattering with the logarithmic compression outperform the MFCCs systematically.
 
 \subsection{Object-based \vs early integration}
 
@@ -537,7 +537,7 @@ Lastly, we see that while \emph{ob-c} and \emph{ob-w} perform equivalently for t
 
 \subsection{Role of logarithmic compression}
 
-Outcomes for the time-scattering with and without log compression are showed in Figure~\ref{fig:ASS_2}. It can be seen that the log compression strongly improves the results, specially for the \emph{ob} approaches, which perform lesser than \emph{ei} without the log compression. \gl{une idée du pourquoi ?}
+Outcomes for the time-scattering with and without logarithmic compression are showed in Figure~\ref{fig:ASS_2}. It can be seen that the logarithmic compression strongly improves the results, specially for the \emph{ob} approaches, which perform lesser than \emph{ei} without the logarithmic compression. \gl{une idée du pourquoi ?}
 
 \section{Results: Acoustic Scene Classification}
 
