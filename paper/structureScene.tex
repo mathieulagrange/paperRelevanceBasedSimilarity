@@ -480,7 +480,7 @@ with $A$ a scaling parameter, set to the mean value of the $\widehat{EMD}$ betwe
 
 Experiments are carried out using temporal-scattering coefficients as well as Mel Frequency Cesptral Coefficients (MFCCs) as features. For the temporal-scattering, each scene is described by 128 vectors of scattering coefficients, with half-overlapping windows $\boldsymbol{\phi}(t)$ of duration $T=188\,\mathrm{ms}$. Experiments are conducted with and without the logarithmic compression (see Section \ref{sec:logcomp}).
 
-Different sets of parameters were tested to compute the MFCCs. Results here are only reported for the best setting, which is similar to the one used by the winners of the previous DCASE 2013 challenge \cite{roma2013}. 40 MFCCs (including the first energy coefficient) are computed for windows of 50ms and hops of 25ms, with a limited frequency range going from $27.5$Hz to $1000$Hz. This setting gives us 600 feature vectors per scenes. It has been reported that classifying the full set of frames directly may not be the best approach \cite{rakotomamonjy2015histogram}. In order to reduce the data dimensionality, a pooling step is performed on the MFCCs vectors: each set of MFCCs vectors is divided into $n$ non-overlapping $t$-seconds long "texture" windows. Each $n$ texture windows are then averaged over time. As the \emph{ob} approaches involve a clustering step, it is desirable to ensure that each scene is described by circa the same number of vectors prior to the clustering step, for both the temporal-scattering and the MFCCs. Thus, $t$ is set to 250ms, resulting in 120 MFCCs texture windows per scene. 
+Different sets of parameters were tested to compute the MFCCs. Results here are only reported for the best setting. 40 MFCCs (including the first energy coefficient) are computed for windows of 50ms and hops of 25ms, with a full frequency range. This setting gives us 600 feature vectors per scenes. It has been reported that classifying the full set of frames directly may not be the best approach \cite{rakotomamonjy2015histogram}. In order to reduce the data dimensionality, a pooling step is performed on the MFCCs vectors: each set of MFCCs vectors is divided into $n$ non-overlapping $t$-seconds long "texture" windows. Each $n$ texture windows are then averaged over time. As the \emph{ob} approaches involve a clustering step, it is desirable to ensure that each scene is described by circa the same number of vectors prior to the clustering step, for both the temporal-scattering and the MFCCs. Thus, $t$ is set to 250ms, resulting in 120 MFCCs texture windows per scene. 
 
 \subsection{Methods}
 
@@ -537,7 +537,7 @@ Outcomes for the scattering with and without logarithmic compression are showed 
 
 \begin{figure}
 \begin{center}
-\includegraphics[width=\columnwidth]{gfx/supervised_linear_test3.eps}
+\includegraphics[width=\columnwidth]{gfx/supervised_rbf_test3.eps}
 \caption{...}
 \end{center}
 \end{figure}
