@@ -509,7 +509,7 @@ For the \emph{ob} approaches, we use the precomputed kernels described in Sectio
 
 \begin{figure}
 \begin{center}
-\includegraphics[width=\columnwidth]{gfx/unsupervised_test1.eps}
+\includegraphics[width=\columnwidth]{gfx/unsupervised_test3.eps}
 \caption{ASS: $p@k$ obtained for the MFCC and the time-scattering with log compression}
 \label{fig:ASS_1}
 \end{center}
@@ -519,18 +519,25 @@ For the \emph{ob} approaches, we use the precomputed kernels described in Sectio
 \begin{center}
 \includegraphics[width=\columnwidth]{gfx/unsupervised_test2.eps}
 \caption{ASS: $p@k$ obtained for the time-scattering with and without log compression (w/o log)}
-\label{fig:ASS_1}
+\label{fig:ASS_2}
 \end{center}
 \end{figure}
 
+This section present evaluation results for the ASS settings. $p@k$ for different settings are showed in the Figures \ref{fig:ASS_1} and \ref{fig:ASS_2}.
 
 \subsection{MFCC \vs Time scattering}
 
-What
+Irrespective of the rank $k$ considered, best result is achieved for the time-scattering with log compression using the \emph{ob-c} approach. Overall, the time scattering with the log compression outperform the MFCCs systematically.
+
 \subsection{Object-based \vs early integration}
+
+For both the MFCCs and the time-scattering, \emph{ob-c} and \emph{ob-w} outperform \emph{ei}, thus confirming the benefits of using an object-based representation to refine the similarity measures between the scenes. However, it is worth noticing that \emph{ob-a} perform equivalently to \emph{ei}, which shows that the discriminant information is not carried by all the centroids. To take advantage of an object-based representation, a selection step has to be run on the representatives of the scenes.
+
+Lastly, we see that while \emph{ob-c} and \emph{ob-w} perform equivalently for the MFCCs, \emph{ob-c} seems to be able to better characterized the classes than \emph{ob-w} for the time scattering. This last observation suggests that weighted a centroid according to the number of frames belonging to it may prove to be a limited solution. Indeed, nothing a priori indicates that the discriminant information between two scenes lays within the majority of their frames. On the contrary, two similar environments  \gl{find examples} may shared a lot of similar sound sources \gl{reformulate}.
 
 \subsection{Role of logarithmic compression}
 
+Outcomes for time-scattering with and without log compression are showed in Figure~\ref{fig:ASS_2}. It can be seen that the log compression strongly improves the results, specially for the \emph{ob} approaches, which perform lesser than \emph{ei} without the log compression. \gl{une idée du pourquoi ?}
 
 \section{Results: Acoustic Scene Classification}
 
