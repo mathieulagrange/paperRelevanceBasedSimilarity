@@ -424,6 +424,7 @@ One should note that this quantization approach differs from unsupervised learni
 
 The similarity between two centroids $c_i$ and $c_j$ is computed using a radial basis function (RBF) kernel $K^c$ combined with the local scaling method proposed in \cite{selfTuneManor2004}:
 \begin{equation}
+\label{eq:kc}
 K^c_{ij} = exp\left( - \dfrac{\Vert c_i - c_j \Vert^2}{\Vert c_i - c_N \Vert \Vert c_j - c_N \Vert} \right) 
 \end{equation}
 
