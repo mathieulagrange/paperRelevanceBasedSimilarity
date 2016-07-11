@@ -438,7 +438,7 @@ K^c_{ij} & =exp\left( - \dfrac{\parallel c_i - c_j \parallel^2}{\sigma_{i}\sigma
 \end{split}
 \end{equation}
 
-with $c_N$ the $N$'th nearest neihgbor of the centroid $c_i$, and $\parallel \bullet \parallel$ the euclidean norm. 
+where $c_N$ is defined as the $N^{\textrm{th}}$ nearest neighbor of the centroid $c_i$, and $\parallel \cdot \parallel$ denotes the Euclidean norm. 
 
 Compared to the closest or averaged approach, the  weighted similarity between two scenes takes into account both the centroids similarities and the clusters weights. Each scene $s_u$ is described by a signature $S_u$ of $m$ clusters ($S_u=\lbrace(c_1^u,w_1^u),\ldots,(c_m^u,w_m^u)\rbrace$), with $c_i^u$ and $w_i^u$ being the centroid and the weight of the $i$th cluster of the scene $s_u$ respectively. 
 
