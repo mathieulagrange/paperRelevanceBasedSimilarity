@@ -100,15 +100,13 @@ Despite the differences, the following question is valid both for the aforementi
 
 The research described in this paper attempt to provide answers to this question by demonstrating the usefulness of two main contributions: 1) the use of the scattering transform allows us to extract discriminative features with few parameter optimization and 2) object-based modeling of the acoustic scene based on unsupervised clustering of each acoustic scene allows to effectively focus the description of the scene on areas of interest.
 
-The proposed approach is motivated in Section \ref{sec:motivations} and a brief review the state of the art in the field of acoustic scene modeling is given in Section \ref{sec:soa}. Then, the contributions are extensively described in Section \ref{sec:scattering} and \ref{sec:object}, respectively. Experiments carried out in an unsupervised setting, \ie acoustic scene similarity (ASS) and in a supervised setting, \ie acoustic scene classification (ASC) are subsequently reported in Section \ref{sec:ExpEval}.
-
-\ml{blurb about results}
+The proposed approach is motivated in Section \ref{sec:motivations} and a brief review the state of the art in the field of acoustic scene modeling is given in Section \ref{sec:soa}. Then, the contributions are extensively described in Section \ref{sec:scattering} and \ref{sec:object}, respectively. Experiments carried out in an unsupervised setting, \ie acoustic scene similarity retrieval (ASSR) and in a supervised setting, \ie acoustic scene classification (ASC) are described in \ref{sec:experiments}. Results are subsequently reported in Section \ref{sec:results}.
 
 \section{Motivations} \label{sec:motivations}
 
 As stated in the introduction, the field of ecoacoustics is relatively young, but significant works are worth mentioning.
 One avenue of research, originated in bioacoustics, intends to retrieve the species that produced a given sonic event of relatively short duration, in order to link animal vocalization with behavior\cite{au2008principles, stowell2014large}.
-A more recent paradigm processes the audio stream at hand in a holistic way, as it describes the auditory environment over larger temporal scales, without assuming that one single species is present throughout the recording. Automated systems belonging to this paradigm aim at inferring global properties of bioacoustic scenes, including biodiversity indices \vl{ref}, migration patterns \vl{ref}, as well as regions of particular interest before human inspection \cite{rosenstock2002landbird,diefenbach2007incorporating}.
+A more recent paradigm processes the audio stream at hand in a holistic way, as it describes the auditory environment over larger temporal scales, without assuming that one single species is present throughout the recording. Automated systems belonging to this paradigm aim at inferring global properties of bioacoustic scenes, including biodiversity indices \cite{Bardeli2010}, migration patterns \cite{Obrist2010}, as well as regions of particular interest before human inspection \cite{rosenstock2002landbird,diefenbach2007incorporating}.
 
 The same dichotomy applies to the field of auditory scene analysis, wherein the interest may either be 1) to isolate and identify precise events, \ie acoustic event detection (AED), or 2) to predict global attributes assigned to large time spans of audio, \ie acoustic scene classification (ASC).
 In the latter, most state-of-the-art systems roughly follow the bag of frame approach (BOF) initiated in \cite{aucouturier2007bag}, which consists in modeling audio by high-level summary statistics computed from a set of local features.
@@ -175,7 +173,7 @@ Rouen dataset \cite{rakotomamonjy2015histogram} and the dCase2016 \cite{Mesaros2
 
 As studied in \cite{lagrange:hal-01082501}, the DCASE2013 dataset has interesting intra class diversity while remaining manageable in terms of size, making it suitable for extensive evaluation of algorithmic design choices. Also, it is still challenging as state-of-the-art systems based on features design and support vector machines (SVMs) achieves 76 \% \cite{roma2013} (winner of the 2013 challenge RQA+SVM). For the sake of comparison the HOG+SVM approach \cite{rakotomamonjy2015histogram} achieves 75 \% and 92 \% on the dcase2013 and the Rouen datasets respectively. On the former, recent advances using hierarchical classifiers architectures reports 84 to 87 \% of accuracy depending on the prior knowledge considered for building the classifier architecture \cite{phan2016label}. On the latter, the state-of-the-art is currently 95 \% \cite{bisot2016acoustic}. 
 
-\vl{missing transition}
+In this paper, we shall demonstrate that the use of features based on the wavelet scattering together with object-based representation of the acoustic scene allows us to achieve interesting performance both in the ASSR and ASC paradigms.
 
 \section{Scattering representations \label{sec:scattering}}
 
@@ -493,11 +491,9 @@ with $A$ a scaling parameter, set to the mean value of the $\widehat{EMD}$ betwe
 \ml{Grégoire : if the matrix is not psd, then this is NOT a kernel, reformulate}
 
 \section{Experiments}
-\label{sec:ExpEval}
+\label{sec:experiments}
 
-blurb
-
-\subsection{Features}
+\subsection{Feature design}
 
 Experiments are carried out using temporal-scattering coefficients as well as Mel Frequency Cesptral Coefficients (MFCCs) as features. For the temporal-scattering, each scene is described by 128 vectors of scattering coefficients, with half-overlapping windows $\boldsymbol{\phi}(t)$ of duration $T=188\,\mathrm{ms}$. Experiments are conducted with and without the logarithmic compression (see Section \ref{sec:logcomp}).
 
@@ -517,12 +513,12 @@ As most of the 2013 DCASE challenge participants did, a Support Vector Machine (
 
 For the \emph{ob} approaches, we use the precomputed kernels described in Section \ref{sec:object}. For both the \emph{ei} and \emph{li} approaches, a linear kernel as well as a RBF kernel are used. As for the \emph{ob} approaches, the RBF kernel is scaled locally using the method proposed in \cite{selfTuneManor2004}. All feature vectors, being frames, texture windows or centroids are standardized prior to be given to the classifier. The standardization is computed with respect to the train/test set splits of the cross validation scheme (see Section \ref{sec:stand}).
 
-\section{Results}
+\section{Results \label{sec:results}}
 
 \begin{figure}
 \begin{center}
 \includegraphics[width=8cm]{gfx/unsupervised_test3.eps}
-\caption{ASS: $p@k$ obtained for MFCCs and scattering with logarithmic compression}
+\caption{ASSR: $p@k$ obtained for MFCCs and scattering with logarithmic compression}
 \label{fig:ASS_1}
 \end{center}
 \end{figure}
@@ -530,14 +526,14 @@ For the \emph{ob} approaches, we use the precomputed kernels described in Sectio
 \begin{figure}
 \begin{center}
 \includegraphics[width=8cm]{gfx/unsupervised_test2.eps}
-\caption{ASS: $p@k$ obtained for scattering with and without logarithmic compression (w/o log)}
+\caption{ASSR: $p@k$ obtained for scattering with and without logarithmic compression (w/o log)}
 \label{fig:ASS_2}
 \end{center}
 \end{figure}
 
 \subsection{Acoustic Scene Similarity Retrieval}
 
-This section present evaluation results for the ASS settings. The $p@k$ for different settings are showed in the Figures~\ref{fig:ASS_1} and \ref{fig:ASS_2}.
+This section present evaluation results for the ASSR settings. The $p@k$ for different settings are showed in the Figures~\ref{fig:ASS_1} and \ref{fig:ASS_2}.
 
 \subsection*{MFCC \vs scattering transform}
 
