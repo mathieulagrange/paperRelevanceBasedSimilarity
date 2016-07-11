@@ -522,7 +522,7 @@ For the \emph{ob} approaches, we use the precomputed kernels described in Sectio
 \begin{figure}
 \begin{center}
 \includegraphics[width=8cm]{gfx/unsupervised_test3.eps}
-\caption{ASS: $p@k$ obtained for the MFCC and the time-scattering with logarithmic compression}
+\caption{ASS: $p@k$ obtained for MFCCs and scattering with logarithmic compression}
 \label{fig:ASS_1}
 \end{center}
 \end{figure}
@@ -530,7 +530,7 @@ For the \emph{ob} approaches, we use the precomputed kernels described in Sectio
 \begin{figure}
 \begin{center}
 \includegraphics[width=8cm]{gfx/unsupervised_test2.eps}
-\caption{ASS: $p@k$ obtained for the time-scattering with and without logarithmic compression (w/o log)}
+\caption{ASS: $p@k$ obtained for scattering with and without logarithmic compression (w/o log)}
 \label{fig:ASS_2}
 \end{center}
 \end{figure}
@@ -549,7 +549,7 @@ Lastly, we see that while \emph{ob-c} and \emph{ob-w} perform equivalently for t
 
 \subsection{Role of logarithmic compression}
 
-Outcomes for the time-scattering with and without logarithmic compression are showed in Figure~\ref{fig:ASS_2}. It can be seen that the logarithmic compression strongly improves the results, specially for the \emph{ob} approaches, which perform lesser than \emph{ei} without the logarithmic compression. \gl{une idée du pourquoi ?}
+Outcomes for the scattering with and without logarithmic compression are showed in Figure~\ref{fig:ASS_2}. It can be seen that the logarithmic compression strongly improves the results, specially for the \emph{ob} approaches, which perform lesser than \emph{ei} without the logarithmic compression. \gl{une idée du pourquoi ?}
 
 \section{Acoustic Scene Classification}
 
@@ -571,7 +571,7 @@ Outcomes for the time-scattering with and without logarithmic compression are sh
 \begin{table}
 \begin{center}
 \begin{tabular}{llll}
-                    & time-scattering & time-scattering & mfcc \\
+                    & scattering & scattering & MFCCs \\
                     & w/ log comp.    & w/o log comp.   &      \\
              \hline
 ei (linear)  & 66 (11)        & 62 (6)  & 46 (8)    \\
@@ -586,7 +586,7 @@ ob-w         & 54 (11)        & 43 (10) & 51 (15)   \\
 \end{center}
 \end{table}
 
-\subsection{MFCC \vs Time scattering}
+\subsection{MFCC \vs scattering}
 
 \subsection{Object-based \vs early/late integration}
 
