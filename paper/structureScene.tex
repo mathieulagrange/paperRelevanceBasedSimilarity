@@ -108,7 +108,7 @@ The proposed approach is motivated in Section \ref{sec:motivations} and a brief 
 
 As stated in the introduction, the field of ecoacoustics is relatively young, but significant works are worth mentioning.
 One avenue of research, originated in bioacoustics, intends to retrieve the species that produced a given sonic event of relatively short duration, in order to link animal vocalization with behavior\cite{au2008principles, stowell2014large}.
-A more recent paradigm processes the audio stream at hand in a holistic way, as it describes the auditory environment over larger temporal scales, without assuming that one single species is present throughout the recording. Automated systems belonging to this paradigm aim at inferring global properties of bioacoustic scenes, including biodiversity indices \cite{Obrist2010}, trends in population sizes \cite{Bardeli2010}, as well as regions of particular interest before human inspection \cite{rosenstock2002landbird,diefenbach2007incorporating}.
+A more recent paradigm processes the audio stream at hand in a holistic way, as it describes the auditory environment over larger temporal scales, without assuming that one single species is present throughout the recording. Automated systems belonging to this paradigm aim at inferring global properties of bioacoustic scenes, including biodiversity indices \vl{ref}, migration patterns \vl{ref}, as well as regions of particular interest before human inspection \cite{rosenstock2002landbird,diefenbach2007incorporating}.
 
 The same dichotomy applies to the field of auditory scene analysis, wherein the interest may either be 1) to isolate and identify precise events, \ie acoustic event detection (AED), or 2) to predict global attributes assigned to large time spans of audio, \ie acoustic scene classification (ASC).
 In the latter, most state-of-the-art systems roughly follow the bag of frame approach (BOF) initiated in \cite{aucouturier2007bag}, which consists in modeling audio by high-level summary statistics computed from a set of local features.
@@ -129,7 +129,8 @@ For example, the presence of a few bird calls in a smooth traffic hub is likely 
 
 \section{Background} \label{sec:soa}
 
-Aside from \cite{aucouturier2007bag} and \cite{lagrange:hal-01082501} that consider the task of ASSR \vl{acronym ?}, much of the work dedicated to acoustic scene modeling is applied to ASC tasks.
+Aside from \cite{aucouturier2007bag} and \cite{lagrange:hal-01082501} that consider the task of ASSR, much of the work dedicated to acoustic scene modeling is applied to the ASC tasks.
+
 Thus, studying the first DCASE challenge \cite{barchiesi2015acoustic} in 2013 is convenient as it concentrates much of the effort for this latter task. The table \ref{tab:dcase} summarizes the different algorithmic choices taken by the teams. Unless otherwise stated, scene predictions are achieved by majority voting of predictions \ml{gregoire ?}.
 
 \begin{table}
@@ -153,26 +154,26 @@ Thus, studying the first DCASE challenge \cite{barchiesi2015acoustic} in 2013 is
 \end{table}
 
 
-In this paper, we are interested in evaluating different algorithmic designs leading to different scene models, we therefore resort to straightforward ranking performance measures for the ASSR task. Also, we resort to the use of support vector machines (SVMs) with default parameters ($C=1$) for computing classification accuracy for the ASC task, as SVMs are widely used in the community and allows us to better root our work and focus our performance analysis on the earlier processing stages. Moreover, since MFCCs are well established features and perform well in this task, they will be thoroughly used as baselines features in the experiments described in this paper.
+
+In this paper, we are interested in evaluating different algorithmic designs leading to different scene models, we therefore resort to straightforward ranking performance measures for the ASSR task. Also, we resort to the use of SVMs with default parameters (C=1) for computing classification accuracy for the ASC task, as SVMs are widely used in the community and allows us to better root our work and focus our performance analysis on the earlier processing stages. Moreover, since the MFCCs are well established features and perform well in this task, they will be thoroughly used as baselines features in the experiments described in this paper.
+
  
 %\gl{Othe this r paper:} \cite{jiang2005svm, kalinli2009saliency, su2011environmental, ye2015acoustic, bisot2015hog, chakrabarty2015exploring, xue2015auditory}
 
 %\subsection{Datasets}
 
-Most of the experiments reported in this paper rely on the DCASE2013 \cite{giannoulis2013database, 7100934}. To build this dataset, three different recordists visited a wide variety of locations in Greater London over
+For most of the experiments reported in this paper, the DCASE2013 datatset is considered \cite{giannoulis2013database, 7100934}. To build this dataset, three different recordists visited a wide variety of locations in Greater London over
 a period of months and in each
 scene recorded a few minutes of audio for each scene type. No
 systematic variations in the recordings covaried with scene
-type: all recordings were made in moderate weather conditions, and varying times of day and week, and each recordist
-recorded each scene type. The dataset is split into a public dataset that can used for optimizing the ASC system and a private dataset used for computing the resulting accuracy using a $5$-fold cross validation scheme. The folds used throughout this paper are the same as the ones used during the challenge.
+type: all recordings were made in moderate weather condi-
+tions, and varying times of day and week, and each recordist
+recorded each scene type. The dataset is split into a public dataset that can used for optimizing the ASC system and a private dataset used for computing the resulting accuracy using a 5 fold cross validation scheme. The folds used in this paper are the same as the ones used during the challenge.
 
-As of today, there exist some larger publicly available datasets, namely the
-Rouen dataset \cite{rakotomamonjy2015histogram} and the public part of dCase2016 \cite{Mesaros2016_EUSIPCO}. The latter is also considered in this paper as a validation of the proposed approach.
+As of today, there exist larger publicly available dataset, the
+Rouen dataset \cite{rakotomamonjy2015histogram} and the dCase2016 \cite{Mesaros2016_EUSIPCO} (only the public part). The latter is also considered in this paper as a validation of the proposed approach.
 
-As studied in \cite{lagrange:hal-01082501}, the DCASE2013 dataset has interesting intra-class diversity while remaining manageable in terms of size, making it suitable for extensive evaluation of algorithmic design choices.
-Moreover, is still highly challenging, because state-of-the-art systems based on feature design and support vector machines (SVMs) achieve 76 \% \cite{roma2013} (winner of the 2013 challenge RQA+SVM). For the sake of comparison, the HOG+SVM approach \cite{rakotomamonjy2015histogram} achieves an accuracy of 75 \% on DCASE 2013 while topping at 92 \% on the Rouen dataset.
-On the former, recent advances using hierarchical classifiers architectures reports 84 to 87 \% of accuracy depending on the prior knowledge considered for building the classifier architecture \cite{phan2016label}.
-On the latter, the state-of-the-art is currently 95 \% \cite{bisot2016acoustic}. 
+As studied in \cite{lagrange:hal-01082501}, the DCASE2013 dataset has interesting intra class diversity while remaining manageable in terms of size, making it suitable for extensive evaluation of algorithmic design choices. Also, it is still challenging as state-of-the-art systems based on features design and support vector machines (SVMs) achieves 76 \% \cite{roma2013} (winner of the 2013 challenge RQA+SVM). For the sake of comparison the HOG+SVM approach \cite{rakotomamonjy2015histogram} achieves 75 \% and 92 \% on the dcase2013 and the Rouen datasets respectively. On the former, recent advances using hierarchical classifiers architectures reports 84 to 87 \% of accuracy depending on the prior knowledge considered for building the classifier architecture \cite{phan2016label}. On the latter, the state-of-the-art is currently 95 \% \cite{bisot2016acoustic}. 
 
 \section{Scattering representations \label{sec:scattering}}
 
@@ -445,7 +446,7 @@ K^c_{ij} & =exp\left( - \dfrac{\parallel c_i - c_j \parallel^2}{\sigma_{i}\sigma
 \end{split}
 \end{equation}
 
-where $c_N$ is defined as the $N^{\textrm{th}}$ nearest neighbor of the centroid $c_i$, and $\parallel \cdot \parallel$ denotes the Euclidean norm. 
+with $c_N$ the $N$'th nearest neihgbor of the centroid $c_i$, and $\parallel \bullet \parallel$ the euclidean norm. 
 
 Compared to the closest or averaged approach, the  weighted similarity between two scenes takes into account both the centroids similarities and the clusters weights. Each scene $s_u$ is described by a signature $S_u$ of $m$ clusters ($S_u=\lbrace(c_1^u,w_1^u),\ldots,(c_m^u,w_m^u)\rbrace$), with $c_i^u$ and $w_i^u$ being the centroid and the weight of the $i$th cluster of the scene $s_u$ respectively. 
 
@@ -496,27 +497,23 @@ blurb
 
 Experiments are carried out using temporal-scattering coefficients as well as Mel Frequency Cesptral Coefficients (MFCCs) as features. For the temporal-scattering, each scene is described by 128 vectors of scattering coefficients \gl{vincent: windows and hops ?}. Experiments are conducted with and without the logarithmic compression (see Section \ref{sec:logcomp}).
 
-Different sets of parameters were tested to compute the MFFCs. We here report only the results for the best setting, which is similar to the one used by the winners of the previous DCASE 2013 challenge \cite{roma2013}. 40 MFCCs (including the first energy coefficient) are computed for windows of 50ms and hops of 25ms, with a limited frequency range going from $27.5$Hz to $1000$Hz. This setting gives us 600 feature vectors per scenes. It has been reported that classifying the full set of frames directly may not be the best approach \cite{rakotomamonjy2015histogram}. In order to reduce the data dimensionality, a pooling step is performed on the MFCCs vectors: each set of MFCCs vectors is dividing into $n$ non-overlapping $t$-seconds long slices. Each $n$ MFCC slices is then averaged over time. As the \emph{ob} approaches involve a clustering step, it is desirable to ensure that each scene is described by circa the same number of vectors prior to running the clustering, for both the temporal-scattering and the MFCCs. Thus, $t$ is set to 250ms, which gives us 120 MFCCs vectors per scenes. 
+Different sets of parameters were tested to compute the MFCCs. Results here are only reported for the best setting, which is similar to the one used by the winners of the previous DCASE 2013 challenge \cite{roma2013}. 40 MFCCs (including the first energy coefficient) are computed for windows of 50ms and hops of 25ms, with a limited frequency range going from $27.5$Hz to $1000$Hz. This setting gives us 600 feature vectors per scenes. It has been reported that classifying the full set of frames directly may not be the best approach \cite{rakotomamonjy2015histogram}. In order to reduce the data dimensionality, a pooling step is performed on the MFCCs vectors: each set of MFCCs vectors is divided into $n$ non-overlapping $t$-seconds long "texture" windows. Each $n$ texture windows are then averaged over time. As the \emph{ob} approaches involve a clustering step, it is desirable to ensure that each scene is described by circa the same number of vectors prior to the clustering step, for both the temporal-scattering and the MFCCs. Thus, $t$ is set to 250ms, resulting in 120 MFCCs texture windows per scene. 
 
+\subsection{Methods}
 
-\subsection{Acoustic Scene Similarity and Classification}
+The influence of the temporal-scattering transform and the \emph{ob} approaches are assessed in an unsupervised setting (\emph{i.e.} ASSR) and in a supervised setting (\emph{i.e.} ASC). 
 
-The influence of the temporal-scattering transform and the \emph{ob} approaches are assessed in an unsupervised setting (\emph{i.e.} ASS) and in a supervised setting (\emph{i.e.} ASC). 
-
-For the ASS setting, evaluation is performed on the private dataset of the DCASE 2013 challenge. The metric used is the precision at rank $k$ ($p@k$), which is the  average  number  of  items  of  the  same  class among the $k$ closest items averaged for all possible seed items. The $p@k$ is computed for $k=[1,\ldots,9]$. Note that a $p@1$ is equivalent to an accuracy computed based on the labels of the 1st nearest neighbors of the items to classify. For each experimental setting, we only report the results obtained with the sets of parameters, \emph{i.e.} the number of clusters $m$ for the \emph{ob} approaches and the scaling parameter $N$ of the RBF kernels (see Eq. \ref{eq:kc}) leading to the best $p@9$.
+For the ASSR setting, evaluation is performed on the private dataset of the DCASE 2013 challenge. The metric used is the precision at rank $k$ ($p@k$), which is the  average  number  of  items  of  the  same  class among the $k$ closest items averaged for all possible seed items. The $p@k$ is computed for $k=[1,\ldots,9]$, $9$ being the number of elements that are of the same class than the seed item. Note that a $p@1$ is equivalent to an accuracy computed based on the labels of the 1st nearest neighbors of the items to classify. For each experimental setting, we only report the results obtained with the sets of parameters, \emph{i.e.} the number of clusters $m$ for the \emph{ob} approaches and the scaling parameter $N$ of the RBF kernels (see Eq. \ref{eq:kc}) leading to the best $p@9$.
  
 For the ASC setting, the systems are evaluated  with five-fold  stratified cross validation on the private dataset of the DCASE 2013 challenge. The folds are identical to those used in the original challenge. Optimal parameters (see above) are this time learned on the public dataset of the DCASE 2013 challenge, using five-fold  stratified cross validation as well. 
 
-The \emph{ob} approaches are compared to commonly used approaches using an early integration strategy (\emph{ei}) for the ASS setting, and both an early and a late integration (\emph{li}) strategy for the ASC setting (see Section \ref{sec:eili}). 
-
-
-\subsection{Classifier}
+The \emph{ob} approaches are compared to commonly used approaches using an early integration strategy (\emph{ei}) for the ASSR setting, and both an early and a late integration (\emph{li}) strategy for the ASC setting (see Section \ref{sec:eili}). In thsi context early integration refers to an averaging of the features and late integration refers to a majority voting of the predictions.
 
 As most of the 2013 DCASE challenge participants did, a Support Vector Machine (SVM), which is a large-margin binary discriminators with tunable regularization of misclassified examples, is used as classifier for the ASC setting. The parameter $C$ is here set to one.
 
-For the \emph{ob} approaches, we use the precomputed kernels described in Section \ref{sec:object}. For both the \emph{ei} and \emph{li} approaches, a linear kernel as well as a RBF kernel are used. As for the \emph{ob} approaches, the RBF kernel is scaled locally using the method proposed in \cite{selfTuneManor2004}. All feature vectors, being frames, pooled frames or centroids, depending on the approach considered, are standardized prior to be filled into the classifier. The standardization is computed with respect to the train/test set splits of the cross validation scheme (see Section \ref{sec:stand}).
+For the \emph{ob} approaches, we use the precomputed kernels described in Section \ref{sec:object}. For both the \emph{ei} and \emph{li} approaches, a linear kernel as well as a RBF kernel are used. As for the \emph{ob} approaches, the RBF kernel is scaled locally using the method proposed in \cite{selfTuneManor2004}. All feature vectors, being frames, texture windows or centroids are standardized prior to be given to the classifier. The standardization is computed with respect to the train/test set splits of the cross validation scheme (see Section \ref{sec:stand}).
 
-\section{Results: Acoustic Scene Similarity}
+\section{Acoustic Scene Similarity Retrieval}
 
 \begin{figure}
 \begin{center}
@@ -550,7 +547,7 @@ Lastly, we see that while \emph{ob-c} and \emph{ob-w} perform equivalently for t
 
 Outcomes for the time-scattering with and without logarithmic compression are showed in Figure~\ref{fig:ASS_2}. It can be seen that the logarithmic compression strongly improves the results, specially for the \emph{ob} approaches, which perform lesser than \emph{ei} without the logarithmic compression. \gl{une idée du pourquoi ?}
 
-\section{Results: Acoustic Scene Classification}
+\section{Acoustic Scene Classification}
 
 
 \begin{figure}
