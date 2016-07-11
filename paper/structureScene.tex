@@ -63,7 +63,7 @@
 
 This paper introduces a generic hierarchical modeling of acoustic scenes using the wavelet scattering features for time spans below the second and object-based segmentation for larger time spans that effectively model the scene. 
 
-Application of the proposed approach to the acoustic scene similarity retrieval and acoustic scene classification tasks on publicly available datasets and state-of-the-art classifier demonstrates its potential. More precisely, features derived from the scattering transform consistently outperform Mel-frequency cepstral coefficients (MFCC) for both tasks. 
+Application of the proposed approach to the acoustic scene similarity retrieval and acoustic scene classification tasks on publicly available datasets and state-of-the-art classifier demonstrates its potential. More precisely, features derived from the scattering transform consistently outperform Mel-frequency cepstral coefficients (MFCCs) for both tasks. 
 
 Representing the scene at larger time scale as a set of examplars of coherent segments is an effective approach for similarity retrieval as it allows the retrieval system to focus on discriminative features. This benefit is reduced in supervised settings, probably because much of the discriminability potential of the approach is already learned by the classifier.
 
@@ -111,7 +111,7 @@ A more recent paradigm processes the audio stream at hand in a holistic way, as 
 The same dichotomy applies to the field of auditory scene analysis, wherein the interest may either be 1) to isolate and identify precise events, \ie acoustic event detection (AED), or 2) to predict global attributes assigned to large time spans of audio, \ie acoustic scene classification (ASC).
 In the latter, most state-of-the-art systems roughly follow the bag of frame approach (BOF) initiated in \cite{aucouturier2007bag}, which consists in modeling audio by high-level summary statistics computed from a set of local features.
 As it enjoys a high genericity, this approach is found in many audio classification tasks besides ASC.
-Yet, the specific implementation with gaussian mixture models (GMM) of Mel-frequency cepstral coefficients (MFCC) it is demonstrated to be perform equivalently compared to a mere averaging of the features  \cite{lagrange:hal-01082501}.
+Yet, the specific implementation with gaussian mixture models (GMMs) of Mel-frequency cepstral coefficients (MFCCs) it is demonstrated to be perform equivalently compared to a mere averaging of the features  \cite{lagrange:hal-01082501}.
 Indeed, the typical morphology of acoustic scenes is of a "skeleton of events on a bed of textures" \cite{nelken_ear_2013}, \ie few impulsive sounds superimposed upon a stationary background.
 Therefore, it is arguably more beneficial to focus on the temporal evolution of auditory scenes rather on the joint probability distribution of short-term features.
 Interestingly, this statement is validated by auditory psychology as well as sound synthesis based  on summary statistics \cite{mcdermott2013summary}.
@@ -153,7 +153,7 @@ Thus, studying the first DCASE challenge \cite{barchiesi2015acoustic} in 2013 is
 
 
 
-In this paper, we are interested in evaluating different algorithmic designs leading to different scene models, we therefore resort to straightforward ranking performance measures for the ASSR task. Also, we resort to the use of SVMs with default parameters (C=1) for computing classification accuracy for the ASC task, as SVMs are widely used in the community and allows us to better root our work and focus our performance analysis on the earlier processing stages. Moreover, since the MFCCs are well established features and perform well in this task, they will be thoroughly used as baselines features in the experiments described in this paper.
+In this paper, we are interested in evaluating different algorithmic designs leading to different scene models, we therefore resort to straightforward ranking performance measures for the ASSR task. Also, we resort to the use of SVMs with default parameters ($C=1$) for computing classification accuracy for the ASC task, as SVMs are widely used in the community and allows us to better root our work and focus our performance analysis on the earlier processing stages. Moreover, since the MFCCs are well established features and perform well in this task, they will be thoroughly used as baselines features in the experiments described in this paper.
 
  
 %\gl{Othe this r paper:} \cite{jiang2005svm, kalinli2009saliency, su2011environmental, ye2015acoustic, bisot2015hog, chakrabarty2015exploring, xue2015auditory}
@@ -164,9 +164,8 @@ For most of the experiments reported in this paper, the DCASE2013 datatset is co
 a period of months and in each
 scene recorded a few minutes of audio for each scene type. No
 systematic variations in the recordings covaried with scene
-type: all recordings were made in moderate weather condi-
-tions, and varying times of day and week, and each recordist
-recorded each scene type. The dataset is split into a public dataset that can used for optimizing the ASC system and a private dataset used for computing the resulting accuracy using a 5 fold cross validation scheme. The folds used in this paper are the same as the ones used during the challenge.
+type: all recordings were made under moderate weather conditions, at varying times of day and week, and each recordist recorded each scene type.
+The dataset is split into a public dataset that can used for optimizing the ASC system and a private dataset used for computing the resulting accuracy using a 5 fold cross validation scheme. The folds used in this paper are the same as the ones used during the challenge.
 
 As of today, there exist larger publicly available dataset, the
 Rouen dataset \cite{rakotomamonjy2015histogram} and the dCase2016 \cite{Mesaros2016_EUSIPCO} (only the public part). The latter is also considered in this paper as a validation of the proposed approach.
@@ -427,7 +426,7 @@ The next section discusses adaptive methods for the temporal integration of scat
 
 \gl{vincent, un petit mot pour motiver le fait que le scattering est un bon outil pour separer les evenements peuplant une scène sonore ?}. 
 
-\ml{detail: put in experimental part using an enhanced version of the popular K-means algorithm known as K-means$++$ \cite{arthur2007k}, which differs from k-means method in terms of selection of starting points. }
+\ml{detail: put in experimental part using an enhanced version of the popular K-means algorithm known as $K$-means$++$ \cite{arthur2007k}, which differs from k-means method in terms of selection of starting points. }
 
 As discussed in Section \ref{sec:motivations}, several outcomes in sound perception encourage us to evaluate the validity of an object-based representation of the scene for predicting high-level properties. Though, a perfect knowledge of which event occurred at a given time is not feasible. In this paper, we thus focus on a simple quantization scheme in order to favor genericity, implemented using a clustering approach where coherent regions of the scene are identified.
 
@@ -439,16 +438,12 @@ One should note that this quantization approach differs from unsupervised learni
 \item \emph{ob-weighted} (ob-w): for each scene, each centroid is weighted according to the number of frames belonging to its cluster.
 \end{itemize}
 
-The similarity between two centroids $c_i$ and $c_j$ is computed using a radial basis function (RBF) kernel $K^c$ combined with the local scaling method proposed in \cite{selfTuneManor2004}: \\
+The similarity between two centroids $c_i$ and $c_j$ is computed using a radial basis function (RBF) kernel $K^c$ combined with the local scaling method proposed in \cite{selfTuneManor2004}:
 \begin{equation}
-\label{eq:kc}
-\begin{split}
-K^c_{ij} & =exp\left( - \dfrac{\parallel c_i - c_j \parallel^2}{\sigma_{i}\sigma_{j}} \right) \\
-\sigma_{i} & =\parallel c_i - c_N \parallel
-\end{split}
+K^c_{ij} = exp\left( - \dfrac{\Vert c_i - c_j \Vert^2}{\Vert c_i - c_N \Vert \Vert c_i - c_N \Vert}
 \end{equation}
 
-with $c_N$ the $N$'th nearest neihgbor of the centroid $c_i$, and $\parallel \bullet \parallel$ the euclidean norm. 
+where $c_N$ is the $N^{\mathrm{th}}$ nearest neihgbor of the centroid $c_i$, and $\Vert \cdot \Vert$ denotes the Euclidean norm. 
 
 Compared to the closest or averaged approach, the  weighted similarity between two scenes takes into account both the centroids similarities and the clusters weights. Each scene $s_u$ is described by a signature $S_u$ of $m$ clusters ($S_u=\lbrace(c_1^u,w_1^u),\ldots,(c_m^u,w_m^u)\rbrace$), with $c_i^u$ and $w_i^u$ being the centroid and the weight of the $i$th cluster of the scene $s_u$ respectively. 
 
@@ -569,8 +564,7 @@ Outcomes for the scattering with and without logarithmic compression are showed 
 \begin{table}
 \begin{center}
 \begin{tabular}{llll}
-                    & scattering & scattering & MFCCs \\
-                    & w/ log comp.    & w/o log comp.   &      \\
+                    & log-scattering & scattering & MFCCs \\
              \hline
 ei (linear)  & 66 (11)        & 62 (6)  & 46 (8)    \\
 ei (RBF)     & 60 (7)         & 57 (8)  & 60 (8)    \\
@@ -590,7 +584,7 @@ Object-based \vs early/late integration
 
 Role of logarithmic compression
 
-Results: DCASE 2016
+\vl{Results: DCASE 2016}
 
 \section{Conclusion}
 
