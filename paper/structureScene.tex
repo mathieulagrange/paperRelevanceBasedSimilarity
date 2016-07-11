@@ -23,7 +23,7 @@
 \usepackage{pgf}
 \usepackage{tikz}
 \usetikzlibrary{arrows,positioning}
-\usetikzlibrary{arrows.meta}
+%\usetikzlibrary{arrows.meta}
 \usepackage{url}
 \usepackage{color}
 \usepackage{graphicx}
@@ -119,8 +119,13 @@ Therefore, it is arguably more beneficial to focus on the temporal evolution of 
 Interestingly, this statement is validated by auditory psychology as well as sound synthesis based  on summary statistics \cite{mcdermott2013summary}.
 
 Although the precise set of events occuring within a given auditory stream may not be discernable, even for trained humans, research shows that the focus on a few events, so called markers,  sufficed to reliably predict many high-level attributes \cite{lafayPartI}.
-For example, the presence of a few bird calls in a smooth traffic hub is likely to be tagged by humans as a park scene in urban areas \gl{citations ?}.
+For example, the presence of a few bird calls in a smooth traffic hub is likely to be tagged by humans as a park scene in urban areas \ml{Gregoire : citations ?}.
 \vl{Missing transition}
+
+
+\ml{Gregoire, ce paragraph est a merger avec la section motivation: Studies in cognitive psychology investigating urban sound environment quality pointed out that low level features such as (perceived or measured) global sound level, are not sufficient to fully characterized an acoustic scene \cite{guyot2005urban,kang2006urban}. Instead several papers have reported that some cognitive processes such as sound environment quality perception \cite{dubois2006cognitive} or loudness judgment \cite{kuwano_memory_2003}  relies upon high level cognitive attributes such as the identification and assessment of the sound source which compose the scene. It has been showed that, if available, the complete description of the scene in terms of event occurrences is powerful enough to reliably predict high level cognitive classes, \textit{i.e.} the presence of birds are strong pleasantness indicators and very likely to be heard in parks in urban areas \cite{lafay:hal-01111782}. As a consequence, research in sound perception now focus on the study of the contribution of specific sound sources in the assessment of a sound environment \cite{ricciardi2015sound,lavandier2006contribution}, viewing an acoustic scene as ``\,skeleton of events on a bed of texture\,''  \cite{nelken_ear_2013}. \gl{debate about the kind of process underlying perception: holistic / event based perception ?}. 
+
+
 
 \section{Background} \label{sec:soa}
 
@@ -251,19 +256,19 @@ The scattering transform consists of the concatenation of first-order coefficien
 
 \begin{figure}
 \begin{center}
-\begin{tikzpicture}
-\useasboundingbox[red] (-0.25, -0.5) rectangle (8.25, 2);
-\node (omlabel1) at (3.5, 1) {$t$};
-\draw[-{Latex[length=2mm]}] (0, 1) -- (omlabel1);
-\draw[-{Latex[length=2mm]}] (0, 1) -- (0, 2);
-\node[anchor=south west,inner sep=0] at (0, 0) {\includegraphics[height=2cm,width=3cm]{gammatone_Q8.png}};
-\node at (2, -0.25) {(a)};
-\node (omlabel2) at (8, 1) {$t$};
-\draw[-{Latex[length=2mm]}] (4.5, 1) -- (omlabel2);
-\draw[-{Latex[length=2mm]}] (4.5, 1) -- (4.5, 2);
-\node[anchor=south west,inner sep=0] at (4.5, 0) {\includegraphics[height=2cm,width=3cm]{gammatone_Q1.png}};
-\node at (6.5, -0.25) {(b)};
-\end{tikzpicture}
+%\begin{tikzpicture}
+%\useasboundingbox[red] (-0.25, -0.5) rectangle (8.25, 2);
+%\node (omlabel1) at (3.5, 1) {$t$};
+%\draw[-{Latex[length=2mm]}] (0, 1) -- (omlabel1);
+%\draw[-{Latex[length=2mm]}] (0, 1) -- (0, 2);
+%\node[anchor=south west,inner sep=0] at (0, 0) {\includegraphics[height=2cm,width=3cm]{gammatone_Q8.png}};
+%\node at (2, -0.25) {(a)};
+%\node (omlabel2) at (8, 1) {$t$};
+%\draw[-{Latex[length=2mm]}] (4.5, 1) -- (omlabel2);
+%\draw[-{Latex[length=2mm]}] (4.5, 1) -- (4.5, 2);
+%\node[anchor=south west,inner sep=0] at (4.5, 0) {\includegraphics[height=2cm,width=3cm]{gammatone_Q1.png}};
+%\node at (6.5, -0.25) {(b)};
+%\end{tikzpicture}
 \caption{
 \label{fig:gammatones}
 Gammatone wavelets $\psi(t)$ in the time domain with quality factors (a) $Q = 4$ and (b) $Q = 1$. Blue and red oscillations represent the real and imaginary parts. The orange envelope represents the complex modulus.}
@@ -272,7 +277,7 @@ Gammatone wavelets $\psi(t)$ in the time domain with quality factors (a) $Q = 4$
 
 Wavelets
 $\boldsymbol{\psi_{\gamma_1}}(t)$ and $\boldsymbol{\psi_{\gamma_2}}(t)$ are designed as fourth-order Gammatone
-wavelets with one vanishing moment \cite{Venkitaraman2014}, as shown in Figure \ref{fig:gammatones}.
+wavelets with one vanishing moment \cite{Venkitaraman2014} \ml{missing ref}, as shown in Figure \ref{fig:gammatones}.
 In the context of auditory scene analysis, the asymmetric envelope of Gammatone wavelets is more biologically plausible than the symmetric, Gaussian-like envelope of the widespread Morlet wavelets.
 Indeed, it allows to reproduce two important psychoacoustic effects in the mammalian cochlea: the asymmetry of temporal masking and the asymmetry of spectral masking \cite{Fastl2007}.
 Moreover, it should be noted that Gammatone wavelets follow the typical amplitude profile of natural sounds, beginning with a relatively sharp attack and ending with a slower decay. \ml{tu peux citer le travail publié a Nature de lewicki, qui montrent que ces formes se retrouvent par ICA de sons naturels http://www.cs.cmu.edu/~learning/talks-2002/02-10-21.lewicki.pdf}
@@ -318,19 +323,19 @@ Figure \ref{fig:histograms} shows the distribution of an arbitrarily chosen scat
 
 \begin{figure}
 \begin{center}
-\begin{tikzpicture}
-\useasboundingbox[red] (-0.25, -0.5) rectangle (8.25, 2);
-\node[anchor=south west,inner sep=0] at (-0.36, 0) {\includegraphics[height=2cm,width=5cm]{feature_histogram.png}};
-\node (histlabel1) at (2.3, 0.01) {$\mathbf{S}\boldsymbol{x}(\gamma)$};
-\draw[-{Latex[length=2mm]}] (-0.3, 0.01) -- (histlabel1);
-\draw[-{Latex[length=2mm]}] (-0.3, 0.01) -- (-0.3, 2.5);
-\node at (0.8, -0.35) {(a)};
-\node (histlabel2) at (7.6, 0.01) {$\log \mathbf{S}\boldsymbol{x}(\gamma)$};
-\node[anchor=south west,inner sep=0] at (3.45, 0) {\includegraphics[height=2cm,width=3cm]{feature_histogram_logcompressed.png}};
-\draw[-{Latex[length=2mm]}] (3.2, 0.01) -- (histlabel2);
-\draw[-{Latex[length=2mm]}] (4.9, 0.01) -- (4.9, 2.5);
-\node at (4.9, -0.35) {(b)};
-\end{tikzpicture}
+%\begin{tikzpicture}
+%\useasboundingbox[red] (-0.25, -0.5) rectangle (8.25, 2);
+%\node[anchor=south west,inner sep=0] at (-0.36, 0) {\includegraphics[height=2cm,width=5cm]{feature_histogram.png}};
+%\node (histlabel1) at (2.3, 0.01) {$\mathbf{S}\boldsymbol{x}(\gamma)$};
+%\draw[-{Latex[length=2mm]}] (-0.3, 0.01) -- (histlabel1);
+%\draw[-{Latex[length=2mm]}] (-0.3, 0.01) -- (-0.3, 2.5);
+%\node at (0.8, -0.35) {(a)};
+%\node (histlabel2) at (7.6, 0.01) {$\log \mathbf{S}\boldsymbol{x}(\gamma)$};
+%\node[anchor=south west,inner sep=0] at (3.45, 0) {\includegraphics[height=2cm,width=3cm]{feature_histogram_logcompressed.png}};
+%\draw[-{Latex[length=2mm]}] (3.2, 0.01) -- (histlabel2);
+%\draw[-{Latex[length=2mm]}] (4.9, 0.01) -- (4.9, 2.5);
+%\node at (4.9, -0.35) {(b)};
+%\end{tikzpicture}
 \caption{
 \label{fig:histograms}
 Histogram of values taken by the first-order scattering coefficient $\mathbf{S}\boldsymbol{x}(\gamma)$, corresponding to a center acoustic frequency of $302\,\mathrm{Hz}$,
@@ -414,14 +419,17 @@ The next section discusses adaptive methods for the temporal integration of scat
 
 %As part of the aforementioned research areas and applications, the emerging field of \emph{Acoustic Scene Analysis} (also called \emph{Sound Scene Analysis}) \cite{Stowell15} aims to develop approaches and systems for the automatic analysis of environmental sounds and soundscapes (originating both from urban or nature environments). While research methodologies in related fields such as Automatic Speech Recognition (ASR) \cite{Rabiner93} and Music Information Retrieval (MIR) \cite{Muller07} are now well established, research addressing Acoustic Scene Analysis remains relatively young. 
 
-Studies in cognitive psychology investigating urban sound environment quality pointed out that low level holistic descriptors (perceived or measured) such as global sound level, are not sufficient to fully characterized an acoustic scene \cite{guyot2005urban,kang2006urban}. Instead several papers have reported that some cognitive processes such as sound environment quality perception \cite{dubois2006cognitive} or loudness jugdment \cite{kuwano_memory_2003}  relies upon high level attributes such as the identification and assessment of the sound source which composed the scene. It has been showed that, if available, the complete description of the scene in terms of event occurrences is powerful enough to reliably predict high level cognitive classes, \textit{i.e.} the presence of birds are strong pleasantness indicators and very likely to be heard in parks in urban areas \cite{lafayPartI}. Thus recent researches in sound perception now focus on the study of the contribution of specific sound sources in the assessment of a sound environment \cite{ricciardi2015sound,lavandier2006contribution}, viewing an acoustic scene as ``\,skeleton of events on a bed of texture\,''  \cite{nelken_ear_2013}. \gl{debate about the kind of process underlying perception: holistic / event based perception ?}. 
+%From a data processing point of view, a holistic scheme, such as the bag-of-frame approach \cite{aucouturier2007bag}, has a simplicity, but clearly face poor performance on realistic conditions \cite{lagrange:hal-01082501}. 
 
+\ml{gregoire: une figure avec un clustering et une annotation ?}
 
-From a numerical data processing point of view, a holistic scheme, such as the bag-of-frame approach \cite{aucouturier2007bag}, has a simplicity, but clearly face poor performance on realistic conditions \cite{lagrange:hal-01082501}. Instead the outcomes in sound perception cited above encourage us to adopt an object-based  representation of the scene. \gl{vincent, un petit mot pour motiver le fait que le scattering est un bon outil pour separer les evenements peuplant une scène sonore ?}. 
+\gl{vincent, un petit mot pour motiver le fait que le scattering est un bon outil pour separer les evenements peuplant une scène sonore ?}. 
 
-In a first attempt to make use of an object-based (\emph{ob}) representation of the scene, we propose the follow a clustering approach. After a features extraction step,  a clustering is performed on each scene features using an enhanced version of the popular K-means algorithm known as K-means$++$ \cite{arthur2007k}, which differs from k-means method in terms of selection of starting points. 
+\ml{detail: put in experimental part using an enhanced version of the popular K-means algorithm known as K-means$++$ \cite{arthur2007k}, which differs from k-means method in terms of selection of starting points. }
 
-Each scene is then described with a set of centroids. To compute the similarities between the scene based on their extracted centroids, we propose three strategies:
+As discussed in Section \ref{sec:motivations}, several outcomes in sound perception encourage us to evaluate the validity of an object-based representation of the scene for predicting high-level properties. Though, a perfect knowledge of which event occurred at a given time is not feasible. In this paper, we thus focus on a simple quantization scheme in order to favor genericity, implemented using a clustering approach where coherent regions of the scene are identified.
+
+One should note that this quantization approach differs from unsupervised learning schemes such as the ones studied in \cite{bisot2016acoustic} that performs some variances estimates over the whole dataset and not solely on each scene, and reproject each scene in the resulting enhanced features space. Here, the aim of this process is to better balance the impact of salient events and texture like sounds on final decision by considering several ways of computing the similarity between scenes based on their centroids :
 
 \begin{itemize}
 \item \emph{ob-closest} (ob-c): the similarity between two scenes is equal to the largest similarity between their centroids.
@@ -429,7 +437,7 @@ Each scene is then described with a set of centroids. To compute the similaritie
 \item \emph{ob-weighted} (ob-w): for each scene, each centroid is weighted according to the number of frames belonging to its cluster.
 \end{itemize}
 
-The similarity between two centroids $c_i$ and $c_j$ is computed using a radial basis function kernel $K^c$ combined with the local scaling method proposed in \cite{selfTuneManor2004}: \\
+The similarity between two centroids $c_i$ and $c_j$ is computed using a radial basis function (RBF) kernel $K^c$ combined with the local scaling method proposed in \cite{selfTuneManor2004}: \\
 \begin{equation}
 \label{eq:kc}
 \begin{split}
@@ -478,8 +486,12 @@ K_{uv}^s = exp\left( - \dfrac{\widehat{EMD}(S_u,S_v)}{A} \right) \\
 
 with $A$ a scaling parameter, set to the mean value of the $\widehat{EMD}$ between all the scenes. The resulting kernel $K^s$ is called an EMD kernel, and it has to be noted that there is no proof that such kernel is positive definite. \\
 
-\section{Experimental Evaluation}
+\ml{Grégoire : if the matrix is not psd, then this is NOT a kernel, reformulate}
+
+\section{Experiments}
 \label{sec:ExpEval}
+
+blurb
 
 \subsection{Features}
 
@@ -588,7 +600,7 @@ In this paper, the benefit of considering 1) the scattering transform for buildi
 
 Abstracting the scene as a reduced set of exemplars with adapted similarity strategies allows us to improve ASSR performance when the BOF approaches based on GMMs fails with reference to an early integration scheme. Those results advocate for a hierarchical model of the scene, where small time scale structure  (below a second) shall be decorelated using convolutional network such as the ones of the scattering transforms and larger time scale (over a second) structure shall be modeled as adaptive aggregates that can be identified in the time domain in an unsupervised setting and in the features domain in the supervised case (provided that the dimensionality is sufficiently high). 
 
-This assertion shall be challenged in future work by considering larger databases and more diverse application scenarios, such as pleasantness prediction \cite{acta} or ecoacoustics tasks.
+This assertion shall be studied further in future work by considering more complex convolutional networks, larger databases and more diverse application scenarios, such as pleasantness prediction \cite{lafaySoundscapePilot, lafay:hal-01111782} or ecoacoustics tasks.
 
 \bibliographystyle{unsrt}
 \bibliography{biblio}
