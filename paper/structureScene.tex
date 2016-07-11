@@ -401,7 +401,8 @@ The next section discusses adaptive methods for the temporal integration of scat
 
 As discussed in Section \ref{sec:motivations}, several outcomes in sound perception encourage us to evaluate the validity of an object-based representation of the scene for predicting high-level properties. Though, a perfect knowledge of which event occurred at a given time is not feasible. In this paper, we thus focus on a simple quantization scheme in order to favor genericity, implemented using a clustering approach where coherent regions of the scene are identified.
 
-One should note that this quantization approach differs from unsupervised learning schemes such as the ones studied in \cite{bisot2016acoustic} that performs some variances estimates over the whole dataset and not solely on each scene, and reproject each scene in the resulting enhanced features space. Here, the aim of this process is to better balance the impact of salient events and texture like sounds on final decision by considering several ways of computing the similarity between scenes based on their centroids :
+One should note that this quantization approach differs from unsupervised learning schemes such as the ones studied in \cite{bisot2016acoustic}, which performs some multivariate estimates over the whole dataset and not solely on each scene, and re-projects each scene in the resulting enhanced feature space.
+Here, with the aim of balancing better the influence of salient events and texture-like sounds on the final decision, we consider several centroid-based similarity metrics between centroids:
 
 \begin{itemize}
 \item \emph{ob-closest} (ob-c): the similarity between two scenes is equal to the largest similarity between their centroids.
@@ -414,8 +415,7 @@ The similarity between two centroids $c_i$ and $c_j$ is computed using a radial 
 \label{eq:kc}
 K^c_{ij} = exp\left( - \dfrac{\Vert c_i - c_j \Vert^2}{\Vert c_i - c_N \Vert \Vert c_j - c_N \Vert} \right) 
 \end{equation}
-
-where $c_N$ is the $N^{\mathrm{th}}$ nearest neihgbor of the centroid $c_i$, and $\Vert \cdot \Vert$ denotes the Euclidean norm. 
+where $c_N$ is the $N^{\textrm{th}}$ nearest neighbor to the centroid $c_i$, and $\Vert \cdot \Vert$ denotes the Euclidean norm. 
 
 Compared to the closest or averaged approach, the  weighted similarity between two scenes takes into account both the centroids similarities and the clusters weights. Each scene $s_u$ is described by a signature $S_u$ of $m$ clusters ($S_u=\lbrace(c_1^u,w_1^u),\ldots,(c_m^u,w_m^u)\rbrace$), with $c_i^u$ and $w_i^u$ being the centroid and the weight of the $i$th cluster of the scene $s_u$ respectively. 
 
