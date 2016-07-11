@@ -117,8 +117,7 @@ Therefore, it is arguably more beneficial to focus on the temporal evolution of 
 Interestingly, this statement is validated by auditory psychology as well as sound synthesis based  on summary statistics \cite{mcdermott2013summary}.
 
 Although the precise set of events occuring within a given auditory stream may not be discernable, even for trained humans, research shows that the focus on a few events, so called markers,  sufficed to reliably predict many high-level attributes \cite{lafayPartI}.
-For example, the presence of a few bird calls in a smooth traffic hub is likely to be tagged by humans as a park scene in urban areas \ml{Gregoire : citations ?}.
-\vl{Missing transition}
+For example, the presence of a few bird calls in a smooth traffic hub is likely to be tagged by humans as a park scene in urban areas.
 
 
 \ml{Gregoire, ce paragraph est a merger avec la section motivation: Studies in cognitive psychology investigating urban sound environment quality pointed out that low level features such as (perceived or measured) global sound level, are not sufficient to fully characterized an acoustic scene \cite{guyot2005urban,kang2006urban}. Instead several papers have reported that some cognitive processes such as sound environment quality perception \cite{dubois2006cognitive} or loudness judgment \cite{kuwano_memory_2003}  relies upon high level cognitive attributes such as the identification and assessment of the sound source which compose the scene. It has been showed that, if available, the complete description of the scene in terms of event occurrences is powerful enough to reliably predict high level cognitive classes, \textit{i.e.} the presence of birds are strong pleasantness indicators and very likely to be heard in parks in urban areas \cite{lafay:hal-01111782}. As a consequence, research in sound perception now focus on the study of the contribution of specific sound sources in the assessment of a sound environment \cite{ricciardi2015sound,lavandier2006contribution}, viewing an acoustic scene as ``\,skeleton of events on a bed of texture\,''  \cite{nelken_ear_2013}. \gl{debate about the kind of process underlying perception: holistic / event based perception ?}}. 
@@ -129,7 +128,7 @@ For example, the presence of a few bird calls in a smooth traffic hub is likely 
 
 Aside from \cite{aucouturier2007bag} and \cite{lagrange:hal-01082501} that consider the task of ASSR, much of the work dedicated to acoustic scene modeling is applied to the ASC tasks.
 
-Thus, studying the first DCASE challenge \cite{barchiesi2015acoustic} in 2013 is convenient as it concentrates much of the effort for this latter task. The table \ref{tab:dcase} summarizes the different algorithmic choices taken by the teams. Unless otherwise stated, scene predictions are achieved by majority voting of predictions \ml{gregoire ?}.
+Thus, studying the first DCASE challenge \cite{barchiesi2015acoustic} in 2013 is convenient as it concentrates much of the effort for this latter task. The table \ref{tab:dcase} summarizes the different algorithmic choices taken by the teams where most of scene predictions are achieved by majority voting of predictions over features.
 
 \begin{table}
 \begin{center}
@@ -137,12 +136,12 @@ Thus, studying the first DCASE challenge \cite{barchiesi2015acoustic} in 2013 is
 \begin{tabular}{lcl}
 & Acc. \%  &  \multicolumn{1}{c}{Design}  \\
 \cite{olivetti2013wonder} OE & 17 & compression distance, Random Forests \\
-\cite{elizalde2013vector} ELF & 55 & I vector approach, LDA \\
+\cite{elizalde2013vector} ELF & 55 & I vector, LDA \\
 \cite{krijnders2013tone} KH & 55 & cochleogram, SVMs \\
 \cite{patil2013multiresolution} PE & 58 & 2D Gabor filters, SVMs \\
 \cite{lee2013acoustic} NHL & 60 & UL of Mel spectra, SVMs \\
 \cite{nogueira2013sound} NR1 & 60 & MFCCs and ILD features, SVMs \\
-\cite{chum2013ieee} CHR & 65 & \ml{gregoire ?}, HMMs  \\
+\cite{chum2013ieee} CHR & 65 & sparsity features, HMMs  \\
 \cite{geiger2013large} GSR & 69 & Mel and MFCCs, SVMs \\
 \cite{rakotomamonjy2015histogram} RG & 69  & histogram of gradient (HOG), SVMs \\
 \cite{li2013auditory} LTT & 72 & MFCCs, Tree baggers \\
