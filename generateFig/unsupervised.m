@@ -7,7 +7,7 @@ addpath(genpath('functions'))
 dataset='test'; 
 
 
-linewidth=2;
+linewidth=1.6;
 markersize=10;
 
 %% load data
@@ -104,7 +104,7 @@ plot(pak_ei_scat_log,'d-','markersize',markersize,'linewidth',linewidth)
 plot(pak_emd_scat_log,'^-','markersize',markersize,'linewidth',linewidth)
 plot(pak_closest_scat_log,'v-','markersize',markersize,'linewidth',linewidth)
 hold off
-legend({'ei, mfcc','emd, mfcc','closest, mfcc','ei, time-scattering','emd, time-scattering','closest, time-scattering'},'interpreter','none')
+legend({'ei, mfcc','ob-w, mfcc','ob-c, mfcc','ei, time-scattering','ob-w, time-scattering','ob-c, time-scattering'},'interpreter','none')
 legend('boxoff')
 xlabel('k')
 ylabel('p@k')
@@ -115,13 +115,13 @@ figure(2)
 clf
 plot(pak_ei_scat,'o--','markersize',markersize,'linewidth',linewidth)
 hold on
-plot(pak_emd_scat,'x--','markersize',markersize,'linewidth',linewidth)
-plot(pak_closest_scat,'*--','markersize',markersize,'linewidth',linewidth)
+plot(pak_emd_scat,'*--','markersize',markersize,'linewidth',linewidth)
+plot(pak_closest_scat,'x--','markersize',markersize,'linewidth',linewidth)
 plot(pak_ei_scat_log,'d-','markersize',markersize,'linewidth',linewidth)
-plot(pak_emd_scat_log,'v-','markersize',markersize,'linewidth',linewidth)
-plot(pak_closest_scat_log,'^-','markersize',markersize,'linewidth',linewidth)
+plot(pak_emd_scat_log,'^-','markersize',markersize,'linewidth',linewidth)
+plot(pak_closest_scat_log,'v-','markersize',markersize,'linewidth',linewidth)
 hold off
-legend({'ei, w/o log','emd, w/o log','closest, w/o log','ei, w/ log','emd, w/ log','closest, w/ log'},'interpreter','none')
+legend({'ei, w/o log','ob-w, w/o log','ob-c, w/o log','ei','ob-w','ob-c'},'interpreter','none')
 legend('boxoff')
 xlabel('k')
 ylabel('p@k')
@@ -130,7 +130,7 @@ disp('')
 
 %% print
 figOpt.fontsize=16;
-figOpt.height=15;
+figOpt.height=12;
 figOpt.width=20;
 
 printFigures([1 2],['~/papers/paperStructureScene16/paper/gfx/unsupervised_' dataset],figOpt)

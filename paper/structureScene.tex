@@ -424,9 +424,9 @@ In a first attempt to make use of an object-based (\emph{ob}) representation of 
 Each scene is then described with a set of centroids. To compute the similarities between the scene based on their extracted centroids, we propose three strategies:
 
 \begin{itemize}
-\item \emph{ob-closest}: the similarity between two scenes is equal to the largest similarity between their centroids.
-\item \emph{ob-averaged}: the similarity between two scenes is equal to the average of their centroids similarities.
-\item \emph{ob-weighted}: for each scene, each centroid is weighted according to the number of frames belonging to its cluster.
+\item \emph{ob-closest} (ob-c): the similarity between two scenes is equal to the largest similarity between their centroids.
+\item \emph{ob-averaged} (ob-a): the similarity between two scenes is equal to the average of their centroids similarities.
+\item \emph{ob-weighted} (ob-w): for each scene, each centroid is weighted according to the number of frames belonging to its cluster.
 \end{itemize}
 
 The similarity between two centroids $c_i$ and $c_j$ is computed using a radial basis function kernel $K^c$ combined with the local scaling method proposed in \cite{selfTuneManor2004}: \\
@@ -503,26 +503,30 @@ The \emph{ob} approaches are compared to commonly used approaches using an early
 
 As most of the 2013 DCASE challenge participants did, a Support Vector Machine (SVM), which is a large-margin binary discriminators with tunable regularization of misclassified examples, is used as classifier for the ASC setting. The parameter $C$ is here set to one.
 
-For the \emph{ob} approaches (\emph{weighted}, \emph{closest} and \emph{average}), we use the precomputed kernels described in Section \ref{sec:object}. For both the \emph{ei} and \emph{li} approaches, a linear kernel as well as a RBF kernel are used. As for the \emph{ob} approaches, the RBF kernel is scaled locally using the method proposed in \cite{selfTuneManor2004}. All feature vectors, being frames, pooled frames or centroids, depending on the approach considered, are standardized prior to be filled into the classifier. The standardization is computed with respect to the train/test set splits of the cross validation scheme (see Section \ref{sec:stand}).
+For the \emph{ob} approaches, we use the precomputed kernels described in Section \ref{sec:object}. For both the \emph{ei} and \emph{li} approaches, a linear kernel as well as a RBF kernel are used. As for the \emph{ob} approaches, the RBF kernel is scaled locally using the method proposed in \cite{selfTuneManor2004}. All feature vectors, being frames, pooled frames or centroids, depending on the approach considered, are standardized prior to be filled into the classifier. The standardization is computed with respect to the train/test set splits of the cross validation scheme (see Section \ref{sec:stand}).
 
 \section{Results: Acoustic Scene Similarity}
 
 \begin{figure}
 \begin{center}
 \includegraphics[width=\columnwidth]{gfx/unsupervised_test1.eps}
-\caption{... \ml{super, c'est propre}}
+\caption{ASS: $p@k$ obtained for the MFCC and the time-scattering with log compression}
+\label{fig:ASS_1}
 \end{center}
 \end{figure}
 
 \begin{figure}
 \begin{center}
 \includegraphics[width=\columnwidth]{gfx/unsupervised_test2.eps}
-\caption{...}
+\caption{ASS: $p@k$ obtained for the time-scattering with and without log compression (w/o log)}
+\label{fig:ASS_1}
 \end{center}
 \end{figure}
 
+
 \subsection{MFCC \vs Time scattering}
 
+What
 \subsection{Object-based \vs early integration}
 
 \subsection{Role of logarithmic compression}
@@ -547,17 +551,17 @@ For the \emph{ob} approaches (\emph{weighted}, \emph{closest} and \emph{average}
 
 \begin{table}
 \begin{center}
-\begin{tabular}{cccc}
+\begin{tabular}{llll}
                     & time-scattering & time-scattering & mfcc \\
                     & w/ log comp.    & w/o log comp.   &      \\
              \hline
-early int. (linear)  & 66 (11)        & 62 (6)  & 46 (8)    \\
-early int. (RBF)     & 60 (7)         & 57 (8)  & 60 (8)    \\
-late int.  (linear)  & 75 (5)         & 70 (8)  & 63 (8)   \\
-late int.  (RBF)     & 78 (6)         & 73 (8)  & 72 (10)   \\
-ob-closest.          & 66 (7)         & 58 (6)  & 56 (9)   \\
-ob-averaged.         & 61 (7)         & 54 (8)  & 61 (9)   \\
-ob-weighted.         & 54 (11)        & 43 (10) & 51 (15)   \\
+ei (linear)  & 66 (11)        & 62 (6)  & 46 (8)    \\
+ei (RBF)     & 60 (7)         & 57 (8)  & 60 (8)    \\
+li (linear)  & 75 (5)         & 70 (8)  & 63 (8)   \\
+li (RBF)     & 78 (6)         & 73 (8)  & 72 (10)   \\
+ob-c         & 66 (7)         & 58 (6)  & 56 (9)   \\
+ob-a         & 61 (7)         & 54 (8)  & 61 (9)   \\
+ob-w         & 54 (11)        & 43 (10) & 51 (15)   \\
 \end{tabular}
 \caption{...}
 \end{center}
