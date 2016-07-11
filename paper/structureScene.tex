@@ -100,7 +100,7 @@ Despite the differences, the following question is valid both for the aforementi
 
 The research described in this paper attempt to provide answers to this question by demonstrating the usefulness of two main contributions: 1) the use of the scattering transform allows us to extract discriminative features with few parameter optimization and 2) object-based modeling of the acoustic scene based on unsupervised clustering of each acoustic scene allows to effectively focus the description of the scene on areas of interest.
 
-The proposed approach is motivated in Section \ref{sec:motivations} and a brief review the state of the art in the field of acoustic scene modeling is given in Section \ref{sec:soa}. Then, the contributions are extensively described in Section \ref{sec:scattering} and \ref{sec:object}, respectively. Experiments carried out in an unsupervised setting, \ie acoustic scene similarity (ASS) and in a supervised setting, \ie acoustic scene classification (ASC) are subsequently reported in Section \ref{sec:ExpEval}.
+The proposed approach is motivated in Section \ref{sec:motivations} and a brief review the state of the art in the field of acoustic scene modeling is given in Section \ref{sec:soa}. Then, the contributions are extensively described in Section \ref{sec:scattering} and \ref{sec:object}, respectively. Experiments carried out in an unsupervised setting, \ie acoustic scene similarity retrieval (ASSR) and in a supervised setting, \ie acoustic scene classification (ASC) are subsequently reported in Section \ref{sec:ExpEval}.
 
 \ml{blurb about results}
 
@@ -113,7 +113,7 @@ A more recent paradigm processes the audio stream at hand in a holistic way, as 
 The same dichotomy applies to the field of auditory scene analysis, wherein the interest may either be 1) to isolate and identify precise events, \ie acoustic event detection (AED), or 2) to predict global attributes assigned to large time spans of audio, \ie acoustic scene classification (ASC).
 In the latter, most state-of-the-art systems roughly follow the bag of frame approach (BOF) initiated in \cite{aucouturier2007bag}, which consists in modeling audio by high-level summary statistics computed from a set of local features.
 As it enjoys a high genericity, this approach is found in many audio classification tasks besides ASC.
-Yet, the specific implementation with gaussian mixture models (GMM) of Mel-frequency cepstral coefficients (MFCC) it is demonstrated to be perform equivalently compared to a mere averaging of the features  \cite{lagrange:hal-01082501}.
+Yet, the specific implementation with gaussian mixture models (GMMs) of Mel-frequency cepstral coefficients (MFCCs) it is demonstrated to be perform equivalently compared to a mere averaging of the features  \cite{lagrange:hal-01082501}.
 Indeed, the typical morphology of acoustic scenes is of a "skeleton of events on a bed of textures" \cite{nelken_ear_2013}, \ie few impulsive sounds superimposed upon a stationary background.
 Therefore, it is arguably more beneficial to focus on the temporal evolution of auditory scenes rather on the joint probability distribution of short-term features.
 Interestingly, this statement is validated by auditory psychology as well as sound synthesis based  on summary statistics \cite{mcdermott2013summary}.
@@ -573,8 +573,7 @@ Outcomes for the scattering with and without logarithmic compression are showed 
 \begin{table}
 \begin{center}
 \begin{tabular}{llll}
-                    & scattering & scattering & MFCCs \\
-                    & w/ log comp.    & w/o log comp.   &      \\
+                    & log-scattering & scattering & MFCCs \\
              \hline
 ei (linear)  & 66 (11)        & 62 (6)  & 46 (8)    \\
 ei (RBF)     & 60 (7)         & 57 (8)  & 60 (8)    \\
@@ -594,7 +593,7 @@ Object-based \vs early/late integration
 
 Role of logarithmic compression
 
-Results: DCASE 2016
+\vl{Results: DCASE 2016}
 
 \section{Conclusion}
 
