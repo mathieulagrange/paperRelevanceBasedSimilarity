@@ -63,7 +63,7 @@
 
 This paper introduces a generic hierarchical modeling of acoustic scenes using the wavelet scattering features for time spans below the second and object-based segmentation for larger time spans that effectively model the scene. 
 
-Application of the proposed approach to the acoustic scene similarity retrieval and acoustic scene classification tasks on publicly available datasets and state-of-the-art classifier demonstrates its potential. More precisely, features derived from the scattering transform consistently outperform Mel-frequency cepstral coefficients (MFCC) for both tasks. 
+Application of the proposed approach to the acoustic scene similarity retrieval and acoustic scene classification tasks on publicly available datasets and state-of-the-art classifier demonstrates its potential. More precisely, features derived from the scattering transform consistently outperform Mel-frequency cepstral coefficients (MFCCs) for both tasks. 
 
 Representing the scene at larger time scale as a set of examplars of coherent segments is an effective approach for similarity retrieval as it allows the retrieval system to focus on discriminative features. This benefit is reduced in supervised settings, probably because much of the discriminability potential of the approach is already learned by the classifier.
 
@@ -155,7 +155,7 @@ Thus, studying the first DCASE challenge \cite{barchiesi2015acoustic} in 2013 is
 
 
 
-In this paper, we are interested in evaluating different algorithmic designs leading to different scene models, we therefore resort to straightforward ranking performance measures for the ASSR task. Also, we resort to the use of SVMs with default parameters (C=1) for computing classification accuracy for the ASC task, as SVMs are widely used in the community and allows us to better root our work and focus our performance analysis on the earlier processing stages. Moreover, since the MFCCs are well established features and perform well in this task, they will be thoroughly used as baselines features in the experiments described in this paper.
+In this paper, we are interested in evaluating different algorithmic designs leading to different scene models, we therefore resort to straightforward ranking performance measures for the ASSR task. Also, we resort to the use of SVMs with default parameters ($C=1$) for computing classification accuracy for the ASC task, as SVMs are widely used in the community and allows us to better root our work and focus our performance analysis on the earlier processing stages. Moreover, since the MFCCs are well established features and perform well in this task, they will be thoroughly used as baselines features in the experiments described in this paper.
 
  
 %\gl{Othe this r paper:} \cite{jiang2005svm, kalinli2009saliency, su2011environmental, ye2015acoustic, bisot2015hog, chakrabarty2015exploring, xue2015auditory}
@@ -429,7 +429,7 @@ The next section discusses adaptive methods for the temporal integration of scat
 
 \gl{vincent, un petit mot pour motiver le fait que le scattering est un bon outil pour separer les evenements peuplant une scène sonore ?}. 
 
-\ml{detail: put in experimental part using an enhanced version of the popular K-means algorithm known as K-means$++$ \cite{arthur2007k}, which differs from k-means method in terms of selection of starting points. }
+\ml{detail: put in experimental part using an enhanced version of the popular K-means algorithm known as $K$-means$++$ \cite{arthur2007k}, which differs from k-means method in terms of selection of starting points. }
 
 As discussed in Section \ref{sec:motivations}, several outcomes in sound perception encourage us to evaluate the validity of an object-based representation of the scene for predicting high-level properties. Though, a perfect knowledge of which event occurred at a given time is not feasible. In this paper, we thus focus on a simple quantization scheme in order to favor genericity, implemented using a clustering approach where coherent regions of the scene are identified.
 
