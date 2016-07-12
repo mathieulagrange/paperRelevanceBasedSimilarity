@@ -355,7 +355,7 @@ The vectors $\mu[\mathbf{S}\boldsymbol{X}(\gamma)]$ and $\sigma[\mathbf{S}\bolds
 
 As discussed in Section \ref{sec:soa}, results in sound perception suggest the appropriateness of an object-based representation of auditory scenes for predicting high-level properties. As the detection of events is still an open problem \cite{7100934},  we consider in this paper a simple quantization scheme that is as generic as possible, implemented using a clustering approach where coherent regions of the scene are identified. The clustering is done using the centroid-based clustering algorithm KMeans.
 
-Given a set a $d$-dimensional feature vectors $x_l^u\in X_u$, $l=[1,2,\ldots,L]$, extracted from the scene $s_u$, $u=[1,2,\ldots,U]$, the goal of KMeans is to partition $X_u$ into $M$ clusters $c^u_m\in C_u$, $m=[1,2,\ldots,M]$. The partitioning is done by minimizing for each $m$ cluster the squared error between its empirical mean (centroid) and the points it contains. Given $\mu_m^u$ the centroid of the cluster $c_m^u$, KMeans minimizes the following objective function:
+Given a set of $d$-dimensional feature vectors $x_l^u\in X_u$, $l=[1,2,\ldots,L]$, extracted from the scene $s_u$, $u=[1,2,\ldots,U]$, the goal of KMeans is to partition $X_u$ into $M$ clusters $c^u_m\in C_u$, $m=[1,2,\ldots,M]$. The partitioning is done by minimizing for each $m$ cluster the squared error between its empirical mean (centroid) and the points it contains. Given $\mu_m^u$ the centroid of the cluster $c_m^u$, KMeans minimizes the following objective function:
 
 \begin{equation}
 J(C_u)=\sum\limits_{m} \sum_{x^u_l\in c^u_m} \vert \vert x_l^u - \mu_m^u \vert \vert^2
