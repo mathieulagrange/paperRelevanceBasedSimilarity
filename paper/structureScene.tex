@@ -61,17 +61,14 @@
 % in the abstract or keywords.
 \begin{abstract}
 
-This paper introduces a generic hierarchical modeling of acoustic scenes using the wavelet scattering features for time spans below the second and object-based segmentation for larger time spans that effectively model the scene. 
+This paper introduces a generic hierarchical modeling scheme for acoustic scenes using the wavelet scattering transform at sub-second timescales with object-based segmentation at larger timescales. Application of the proposed approach to the acoustic scene similarity retrieval and acoustic scene classification tasks on publicly available datasets using a state-of-the-art classifier demonstrates its potential, consistently outperforming baseline mel-frequency cepstral coefficients (MFCCs).
 
-Application of the proposed approach to the acoustic scene similarity retrieval and acoustic scene classification tasks on publicly available datasets and state-of-the-art classifier demonstrates its potential. More precisely, features derived from the scattering transform consistently outperform Mel-frequency cepstral coefficients (MFCCs) for both tasks. 
-
-Representing the scene at larger time scale as a set of examplars of coherent segments is an effective approach for similarity retrieval as it allows the retrieval system to focus on discriminative features. This benefit is reduced in supervised settings, probably because much of the discriminability potential of the approach is already learned by the classifier.
-
+Representing the scene at larger time scale as a set of examplars of coherent segments is an effective approach for scene similarity retrieval as it allows the retrieval system to focus on discriminative features. This benefit is reduced in the supervised scene classification, probably because much of the discriminability potential of the approach is already learned by the classifier. \ja{This last part is very vague and hard for me to understand. Why is this the case?}
 \end{abstract}
 
 % Note that keywords are not normally used for peerreview paper.
 \begin{IEEEkeywords}
-Acoustic scene classification, acoustic scene segmentation.
+acoustic scene classification, acoustic scene segmentation, scattering, wavelets, earth mover's distance
 \end{IEEEkeywords}
 
 % For peer review papers, you can put extra information on the cover
