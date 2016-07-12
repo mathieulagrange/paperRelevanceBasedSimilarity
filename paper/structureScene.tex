@@ -500,15 +500,16 @@ Outcomes for the scattering with and without logarithmic compression are shown i
 \subsection{Acoustic Scene Classification}
 
 \subsubsection*{MFCCs \vs scattering}
-As shown in Figure, log-scattering coefficients consistently outperform $MFCCs$ over all folds of the DCASE 2013 private dataset.
-The average accuracy 
+As shown in Figure, scattering coefficients outperform MFCCs over all but one fold of the DCASE 2013 private dataset when applying early integration, and over all folds when applying late integration.
+Not only the average accuracy is improved, but the variance between fold-wise accuracies is also reduced, \eg from $16\%$ to $7\%$ in the case of early integration.
+This is in accordance with the previous results on similarity retrieval, as well as with other papers comparing mel-frequency coefficients with scattering coefficients on a variety of tasks, ranging from musical genre recognition \cite{Anden2014} to environmental sound classification \cite{Salamon2015}.
 
 \subsubsection*{Early \vs late integration}
 
 \subsubsection*{Role of logarithmic compression}
 
 \subsubsection*{Participation to the DCASE 2016 challenge}
-In order to evaluate how general these results are, we have taken part in the acoustic scene classification task 2016 edition of the DCASE challenge.
+In order to evaluate how general our findings are, we have taken part in the acoustic scene classification task 2016 edition of the DCASE challenge.
 
 
 \begin{figure}
