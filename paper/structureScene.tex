@@ -127,6 +127,7 @@ An overview of the efforts for the latter task is provided by the DCASE2013 chal
 
 \begin{table}
 \begin{center}
+\caption{Algorithms evaluated on the DCASE2013 ASC DCASE2013 dataset. RQA stands for recurrence quantification analysis and ILD for inter-aural differences. Algorithms above the horizontal line participated to the DCASE challenge. Others used the datasets afterward and the last used only the public dataset ($^*$).  \label{tab:dcase}}
 \begin{tabular}{lcl}
 & Acc. \%  &  \multicolumn{1}{c}{Design}  \\
 \cite{olivetti2013wonder} OE & 17 & compression distance, random forests \\
@@ -145,7 +146,6 @@ An overview of the efforts for the latter task is provided by the DCASE2013 chal
 \cite{7362846} & 85$^*$ & amplitude modulated spectra, LDA \\
 \end{tabular}
 \end{center}
-\caption{Algorithms evaluated on the DCASE2013 ASC DCASE2013 dataset. RQA stands for recurrence quantification analysis and ILD for inter-aural differences. Algorithms above the horizontal line participated to the DCASE challenge. Others used the datasets afterward and the last used only the public dataset ($^*$).  \label{tab:dcase}}
 \end{table}
 
 %\gl{Othe this r paper:} \cite{jiang2005svm, kalinli2009saliency, su2011environmental, ye2015acoustic, bisot2015hog, chakrabarty2015exploring, xue2015auditory}
@@ -440,15 +440,19 @@ The dataset is split into a public dataset that can used for optimizing the ASC 
 
 Experiments are carried out using temporal scattering coefficients as well as mel-frequency cepstral coefficients (MFCCs) as features. For the temporal scattering, each scene is described by $128$ vectors of scattering coefficients computed with half-overlapping windows $\boldsymbol{\phi}(t)$ of duration $T=372\,\mathrm{ms}$. Experiments are conducted with and without the logarithmic compression (see Section \ref{sec:logcomp}).
 
-MFCCs are computed for windows of $50\,\mathrm{ms}$ and hops of $25\,\mathrm{ms}$, with full frequency range. Different ranks of coefficients were tested to compute the MFCCs, results here are only reported for the best setting, which consisted of $40$ MFCCs, including the first coefficient related to the average energy. This setting gives us $600$ feature vectors per scene. To get a more robust representation of lower dimensionality a pooling step is performed on the MFCCs: each recording is divided into $n$ non-overlapping $t$-seconds long ``texture'' windows. The MFCC vectors within each texture window are then averaged in time. As the \emph{ob} approaches involve a clustering step, we need to ensure that both MFCCs and scattering coefficients have a comparable number of vectors per recording. \ja{Why do we need to do this?} Thus, $t$ is set to $250\,\mathrm{ms}$, resulting in $120$ MFCCs texture windows per scene.
+MFCCs are computed for windows of $50\,\mathrm{ms}$ and hops of $25\,\mathrm{ms}$, with full frequency range. Different ranks of coefficients were tested to compute the MFCCs, results here are only reported for the best setting, which consisted of $40$ MFCCs, including the first coefficient related to the average energy. This setting gives us $600$ feature vectors per scene. To get a more robust representation of lower dimensionality a pooling step is performed on the MFCCs: each recording is divided into $n$ non-overlapping 250 seconds long ``texture'' windows \cite{1021072}, achieved a comparable number of vectors than while using the scattering ones.
 
-\ja{We've tested the impact of the logarithm here, but not of the feature selection or standardization. Should we do this as well? For the feature selection, we did say earlier that we would test its impact.}
+%. The MFCC vectors within each texture window are then averaged in time. As the \emph{ob} approaches involve a clustering step, we need to ensure that both MFCCs and scattering coefficients have a comparable number of vectors per recording. Thus, $t$ is set to $250\,\mathrm{ms}$, resulting in $120$ MFCCs texture windows per scene.
+
+%\ja{We've tested the impact of the logarithm here, but not of the feature selection or standardization. Should we do this as well? For the feature selection, we did say earlier that we would test its impact.}
 
 \subsection{Methods}
 
 The influence of the temporal scattering transform and the \emph{ob} approaches are assessed in an unsupervised setting (ASSR) and in a supervised setting (ASC).
 
-For ASSR, evaluation is performed on the private part of the DCASE2013 dataset. The metric used is the precision at rank $k$ ($p@k$), which is computed by taking a query item and counting the number of items of the same class within the $k$ closest neighbors, and then averaging over all query items. The $p@k$ is computed for $k=\{1,\ldots,9\}$, since each class only has $10$ items \ja{?}. Note that a $p@1$ is equivalent to the classification accuracy obtained by choosing the label of the closest neighbor for a given item. For each experimental setting, we only report the results obtained with the sets of parameters, \emph{i.e.} the number of clusters $m$ for the \emph{ob} approaches and the scaling parameter $N$ of the RBF kernels (see Eq. \ref{eq:kc}) leading to the best $p@9$. \ja{I'm not sure what this means. Do we fix $m$ and $N$ here for all experiments or do we optimize them over the test data each time? If so, this will bias the results, no?}
+For ASSR, evaluation is performed on the private part of the DCASE2013 dataset. The metric used is the precision at rank $k$ ($p@k$), which is computed by taking a query item and counting the number of items of the same class within the $k$ closest neighbors, and then averaging over all query items. The $p@k$ is computed for $k=\{1,\ldots,9\}$, since each class only has $10$ items. Note that a $p@1$ is equivalent to the classification accuracy obtained by choosing the label of the closest neighbor for a given item. For each experimental setting, we only report the results obtained with the sets of parameters, \emph{i.e.} the number of clusters $m$ for the \emph{ob} approaches and the scaling parameter $N$ of the RBF kernels (see Eq. \ref{eq:kc}) leading to the best $p@9$. 
+
+%\ja{I'm not sure what this means. Do we fix $m$ and $N$ here for all experiments or do we optimize them over the test data each time? If so, this will bias the results, no?}
  
 For ASC, the systems are again evaluated on the private part of DCASE2013, but here with five-fold stratified cross validation. The folds are identical to those used in the original challenge. Optimal parameters (see above) are this time learned on the public part of the DCASE2013 dataset, also using five-fold stratified cross validation.
 
@@ -489,7 +493,7 @@ Irrespective of the rank $k$ considered, best result is achieved for the scatter
 
 For the scattering transform, \emph{ob-c} and \emph{ob-w} outperform \emph{early}, thus confirming the benefits of using an object-based representation to refine the similarity measures between the scenes. However, it is worth noticing that \emph{ob-a} perform equivalently to \emph{early}, which shows that the discriminant information is destroyed by averaging the contributions from all centroids. To take advantage of an object-based representation, we need to select certain representative centroids when comparing objects. Furthermore, it appears that \emph{ob-c} is be able to better characterize the classes than \emph{ob-w}. This last observation suggests that weighting a centroid according to the number of frames it contains may prove to be a limited solution. Indeed, nothing a priori indicates that the discriminant information between two scenes lays within the majority of their frames. On the contrary, two similar environments may shared a lot of similar sound sources with only a few sources discriminating between them.
 
-For the MFCCs, there is no clear evidence that the \emph{ob} approaches improve the results. \ja{Why?}
+%For the MFCCs, there is no clear evidence that the \emph{ob} approaches improve the results. \ja{Why?}
 
 \subsubsection*{Role of logarithmic compression}
 
@@ -532,6 +536,7 @@ The mean accuracies and fold-wise standard deviations of each experiment are rep
 
 \begin{table}
 \begin{center}
+\caption{Classification accuracies on the DCASE 2013 dataset with various settings of features, temporal integration strategies, and support vector machine kernels.}
 \begin{tabular}{llll}
              & MFCCs         & scattering & log-scattering  \\
              \hline
@@ -540,7 +545,6 @@ early, RBF     & $47\pm16$  & $56\pm\phantom{0}7$  & $63\pm\phantom{0}6$   \\
 late, linear  & $60\pm\phantom{0}9$ & $70\pm\phantom{0}8$  & $75\pm\phantom{0}5$   \\
 late, RBF     & $68\pm10$ & $73\pm\phantom{0}8$  & $\mathbf{78}\pm\phantom{0}6$   \\
 \end{tabular}
-\caption{Classification accuracies on the DCASE 2013 dataset with various settings of features, temporal integration strategies, and support vector machine kernels.}
 \end{center}
 \label{table:dcase2013}
 \end{table}
@@ -556,9 +560,9 @@ Our results on the development dataset are reported in Table \ref{table:dcase201
 The average accuracy across classes is brought from $70.8\%$ to $79.4\%$.
 The results on the evaluation dataset are awaiting publication by the DCASE organizing committee, and will be disclosed in August 2016.
 
-
 \begin{table}
 \begin{center}
+\caption{Class-wise accuracies on the DCASE 2016 dataset for two pipelines: a baseline of mel-frequency cepstral coefficients (MFCCs), Gaussian mixture models (GMMs), and late temporal integration by product of likelihoods ; and our proposed algorithm of log-scattering coefficients, support vector machines (SVMs) with a linear kernel, and late temporal integration by majority voting.}
 \begin{tabular}{lcc}
 Features & MFCCs & log-scattering \\
 Classifier  & GMMs    & linear SVMs \\
@@ -584,7 +588,6 @@ Average & $70.8 \pm \phantom{0}2.6$ & $79.4 \pm \phantom{0}3.0$
 \end{tabular}
 \end{center}
 \label{table:dcase2016}
-\caption{Class-wise accuracies on the DCASE 2016 dataset for two pipelines: a baseline of mel-frequency cepstral coefficients (MFCCs), Gaussian mixture models (GMMs), and late temporal integration by product of likelihoods ; and our proposed algorithm of log-scattering coefficients, support vector machines (SVMs) with a linear kernel, and late temporal integration by majority voting.}
 \end{table}
 
 \section{Conclusion}
