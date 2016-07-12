@@ -499,13 +499,28 @@ Outcomes for the scattering with and without logarithmic compression are shown i
 
 \subsection{Acoustic Scene Classification}
 
+\subsubsection*{MFCCs \vs scattering}
+As shown in Figure, log-scattering coefficients consistently outperform $MFCCs$ over all folds of the DCASE 2013 private dataset.
+The average accuracy 
+
+\subsubsection*{Early \vs late integration}
+
+\subsubsection*{Role of logarithmic compression}
+
+\subsubsection*{Participation to the DCASE 2016 challenge}
+In order to evaluate how general these results are, we have taken part in the acoustic scene classification task 2016 edition of the DCASE challenge.
+
 
 \begin{figure}
 \begin{center}
-\includegraphics[width=\columnwidth]{gfx/supervised_rbf_test3.eps}
-\caption{... \ja{What is this?}}
+\includegraphics[width=\columnwidth]{folds.png}
+\caption{Classification accuracies over the five folds of the DCASE 2013 private dataset, for various acoustic descriptors and temporal integration strategies. 
+The chosen classifier is a support vector machine (SVM) with a Gaussian radial kernel.
+See text for details.}
 \end{center}
+\ref{fig:folds}
 \end{figure}
+
 
 \begin{table}
 \begin{center}
@@ -521,20 +536,12 @@ late, RBF     & $68\pm10$ & $73\pm\phantom{0}8$  & $\mathbf{78}\pm\phantom{0}6$ 
 \end{center}
 \end{table}
 
-MFCC \vs scattering
-
-Object-based \vs early/late integration
-
-Role of logarithmic compression
-
-\vl{Results: DCASE 2016}
-
 \section{Conclusion}
 
 In this paper we consider the benefit of 1) the scattering transform for building discriminant features and 2) unsupervised clustering for the modeling of large-scale environmental acoustic scenes.
 This leads to improvements in both the ASSR and ASC tasks.
 
-Representign a scene using a reduced set of exemplars, in the form of centroids, with adapted similarity strategies allows us to improve ASSR performance compared to the insufficient BOF approaches based on GMMs. These results advocate for a hierarchical model of the scene, where short-time structure -- \ie below a second -- are represented using a convolutional network such as the scattering transform, whereas larger time scales -- \ie over a second -- are modeled as adaptive aggregates, identified in the time domain in the unsupervised setting and in the features domain in the supervised case, provided that the dimensionality is sufficiently high. \ja{I'm not sure what this last part means.}
+Representing a scene using a reduced set of exemplars, in the form of centroids, with adapted similarity strategies allows us to improve ASSR performance compared to the insufficient BOF approaches based on GMMs. These results advocate for a hierarchical model of the scene, where short-time structure -- \ie below a second -- are represented using a convolutional network such as the scattering transform, whereas larger time scales -- \ie over a second -- are modeled as adaptive aggregates, identified in the time domain in the unsupervised setting and in the features domain in the supervised case, provided that the dimensionality is sufficiently high. \ja{I'm not sure what this last part means.}
 
 This assertion will be studied further in future work by considering more complex convolutional networks, larger databases and more diverse applications, such as pleasantness prediction \cite{lafaySoundscapePilot, lafay:hal-01111782} and other ecoacoustics tasks.
 
