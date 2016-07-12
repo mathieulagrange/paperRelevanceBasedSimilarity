@@ -218,10 +218,11 @@ axis into constant-Q subbands of center frequencies $2^{-\gamma_1/Q_1}\xi_1$.
 Indeed, both time-frequency representations are indexed by time $t$ and log-frequency $\gamma_1$.
 However, contrary to the CQT, the wavelet scalogram reaches the Heisenberg
 theoretical limit of optimal time-frequency localization across the whole
-frequency range, whereas the temporal resolution of the CQT is fixed by the support of the STFT analyzing window. \ja{This is not true. See for example Sch\"orkhuber and Klapuri 2010.}
+frequency range, whereas the temporal resolution of the CQT, at least in its original implementation \cite{Brown1992}, is fixed by the support of the STFT analyzing window.
 Therefore, the wavelet scalogram has a better temporal localization at high
-frequencies than the CQT, at the expense of a greater computational cost. \ja{Why is the cost greater?}
-This property allows us to observe amplitude modulations at fine temporal scales in the scalogram, down to the minimum scale $2Q_1/\xi_1$ for $\gamma_1 = 0$, of the order of $1\,\textrm{ms}$ given the aforementioned values of $Q_1$ and $\xi_1$.
+frequencies than the CQT.
+This increase in time-frequency localization comes at the expense of a greater computational cost, the inverse fast Fourier transform (IFFT) routine must be called for each wavelet $\boldsymbol{\psi_{\gamma_1}}$ in the filter bank.
+Yet, it allows us to observe amplitude modulations at fine temporal scales in the scalogram, down to the minimum scale $2Q_1/\xi_1$ for $\gamma_1 = 0$, of the order of $1\,\textrm{ms}$ given the aforementioned values of $Q_1$ and $\xi_1$.
 
 Among auditory scenes, amplitude modulations may be caused by a broad variety of mechanical interactions, including collision, friction, and turbulent flow.
 At a longer scale, they also account for some higher-level attributes of sound, \eg prosody in speech or rhythm in music.
