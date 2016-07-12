@@ -421,11 +421,11 @@ with $A$ a scaling parameter, set to the mean value of the $\widehat{\EMD}$ betw
 %For most of the experiments reported in this paper, we will consider the DCASE2013 dataset \cite{giannoulis2013database, 7100934}. Larger datasets exists: the
 %Rouen dataset \cite{rakotomamonjy2015histogram} and the public part of the DCASE2016 challenge.%
 
-In the experiments reported in this paper, the DCASE2013 \cite{giannoulis2013database, 7100934} and the public part of the DCASE2016 datasets  \cite{Mesaros2016_EUSIPCO} are considered. To build the DCASE2013 dataset, three different recordists visited a wide variety of locations in Greater London over
-a period of several months and in each
-scene recorded a few minutes of audio. No
+In the experiments reported in this paper, the DCASE2013 \cite{giannoulis2013database, 7100934} and the public part of the DCASE2016 datasets  \cite{Mesaros2016_EUSIPCO} are considered. 
+
+The DCASE2013  dataset consist of 2 parts, namely public and private, each made up of 100 30sec recordings of various acoustic scenes. The 100 recordings are equally divided into 10 acoustic scene classes. To build the DCASE2013 dataset, three different recordists visited a wide variety of locations in Greater London over a period of several months and in each scene recorded a few minutes of audio. No
 systematic variations in the recordings covaried with scene
-type: all recordings were made under moderate weather conditions, at varying times of day and week, and each recordist recorded each scene type. As a consequence, DCASE2013 dataset has interesting intra-class diversity while remaining manageable in terms of size, making it suitable for extensive evaluation of algorithmic design choices \cite{lagrange:hal-01082501}.
+type: all recordings were made under moderate weather conditions, at varying times of day and week, and each recordist recorded each scene type. As a consequence, DCASE2013 dataset has interesting intra-class diversity while remaining manageable in terms of size, making it suitable for extensive evaluation of algorithmic design choices \cite{lagrange:hal-01082501}. 
 
 In addition, it is still a challenging dataset, with a state-of-the-art system based on feature design and SVMs achieving $76\%$ \cite{roma2013} (winner of the DCASE2013 challenge), while recent approaches based on label tree embedding achieves  between $84\%$ and $87\%$ on DCASE2013 depending on the prior knowledge used during training \cite{phan2016label}. 
 
@@ -461,7 +461,8 @@ In the same way as the majority of the DCASE2013 participants, we use an SVM for
 
 For the \emph{ob} approaches, we use the precomputed kernels described in Section \ref{sec:object}. For both the \emph{early} and \emph{late} approaches, a linear kernel as well as a RBF kernel are used. As in the RBF kernels used in the \emph{ob} approaches, the RBF kernel in the SVM is scaled locally using the method proposed in \cite{selfTuneManor2004}. All feature vectors, be they frames, texture windows or centroids, are standardized prior to be given to the classifier. The standardization is computed with respect to the train/test splits of the cross validation scheme (see Section \ref{sec:stand}).
 
-Clustering is done using KMeans$++$ \cite{arthur2007k}, an augmented version of K-means with a robust initialization procedure.
+Clustering is done using KMeans$++$ \cite{arthur2007k}, an augmented version of K-means with a robust initialization procedure. Three numbers of clusters are tested: 8, 16 and 32.
+
 \section{Results \label{sec:results}}
 
 \begin{figure}
