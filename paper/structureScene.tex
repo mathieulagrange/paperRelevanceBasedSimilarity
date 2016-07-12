@@ -500,7 +500,7 @@ Outcomes for the scattering with and without logarithmic compression are shown i
 \subsection{Acoustic Scene Classification}
 
 \subsubsection*{MFCCs \vs scattering}
-As shown in Figure, scattering coefficients outperform MFCCs over all but one fold of the DCASE 2013 private dataset when applying early integration, and over all folds when applying late integration.
+As shown in Figure \cite{folds}, scattering coefficients outperform MFCCs over all but one fold of the DCASE 2013 private dataset when applying early integration, and over all folds when applying late integration.
 Not only the average accuracy is improved, but the variance between fold-wise accuracies is also reduced, \eg from $16\%$ to $7\%$ in the case of early integration.
 This is in accordance with the previous results on similarity retrieval, as well as with other papers comparing mel-frequency coefficients with scattering coefficients on a variety of tasks, ranging from musical genre recognition \cite{Anden2014} to environmental sound classification \cite{Salamon2015}.
 
@@ -516,7 +516,8 @@ In order to evaluate how general our findings are, we have taken part in the aco
 \begin{center}
 \includegraphics[width=\columnwidth]{folds.png}
 \caption{Classification accuracies over the five folds of the DCASE 2013 private dataset, for various acoustic descriptors and temporal integration strategies. 
-The chosen classifier is a support vector machine (SVM) with a Gaussian radial kernel.
+The chosen classifier is a support vector machine (SVM) whose kernel is a Gaussian radial basis function (RBF).
+The mean accuracies and fold-wise standard deviations of each experiment are reported in Table \ref{table:dcase2013}.
 See text for details.}
 \end{center}
 \ref{fig:folds}
@@ -535,6 +536,7 @@ late, RBF     & $68\pm10$ & $73\pm\phantom{0}8$  & $\mathbf{78}\pm\phantom{0}6$ 
 \end{tabular}
 \caption{Classification accuracies on the DCASE 2013 dataset with various settings of features, temporal integration strategies, and support vector machine kernels.}
 \end{center}
+\ref{table:dcase2013}
 \end{table}
 
 \section{Conclusion}
