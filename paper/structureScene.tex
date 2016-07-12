@@ -548,8 +548,11 @@ late, RBF     & $68\pm10$ & $73\pm\phantom{0}8$  & $\mathbf{78}\pm\phantom{0}6$ 
 \subsubsection*{Participation to the DCASE 2016 challenge}
 In order to evaluate how general our findings are, we have taken part in the acoustic scene classification task 2016 edition of the DCASE challenge.
 
-The results on the evaluation dataset are awaiting publication by the DCASE organizing committee.
-Our results on the development dataset are reported in Table \ref{table:dcase2016}
+Our results on the development dataset are reported in Table \ref{table:dcase2016}, in comparison with a baseline of $MFCCs$ coefficients and a generative classifier, namely Gaussian mixture models with $16$ Gaussians per model.
+The average accuracy across classes is brought from $70.8\%$ to $79.4\%$.
+It appears that log-scattering features compare favorably to 
+The results on the evaluation dataset are awaiting publication by the DCASE organizing committee, and will be disclosed in August 2016.
+
 
 \begin{table}
 \begin{center}
@@ -591,7 +594,7 @@ Representing a scene using a reduced set of representatives, with adapted simila
 \ml{Vincent: un par pour resumer la partie classif}
 %, identified in the time domain in the unsupervised setting and in the features domain in the supervised case, provided that the dimensionality is sufficiently high. \ja{I'm not sure what this last part means.}
 
-This assertion shall be studied further in future work by considering more complex convolutional networks, larger databases and more diverse applications, such as pleasantness prediction \cite{lafaySoundscapePilot, lafayPartI} and other ecoacoustics tasks.
+This assertion shall be studied further in future work by considering data-driven convolutional networks, larger databases and more diverse applications, such as pleasantness prediction \cite{lafaySoundscapePilot, lafayPartI} as well as other tasks in ecoacoustics.
 
 \bibliographystyle{unsrt}
 \bibliography{biblio}
