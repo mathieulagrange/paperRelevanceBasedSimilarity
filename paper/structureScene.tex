@@ -448,6 +448,15 @@ The influence of the temporal scattering transform and the \emph{ob} approaches 
 For ASSR, evaluation is performed on the private part of the DCASE 2013 dataset. The metric used is the precision at rank $k$ ($p@k$), which is computed by taking a query item and counting the number of items of the same class within the $k$ closest neighbors, and then averaging over all query items. The $p@k$ is computed for $k=\lbrace 1,\ldots,9\rbrace$, since each class only has $10$ items. Note that a $p@1$ is equivalent to the classification accuracy obtained by the classifier which chooeses the label of the closest neighbor for a given item. For each experimental setting, we only report the results obtained with the sets of parameters, \emph{i.e.} the number of clusters $M$ for the \emph{ob} approaches and the scaling parameter $k$ of the RBF kernels (see Eq. \ref{eq:kc}) leading to the best $p@9$.
 
 %\ja{I'm not sure what this means. Do we fix $m$ and $N$ here for all experiments or do we optimize them over the test data each time? If so, this will bias the results, no?}
+
+
+\begin{figure}[t]
+\begin{center}
+\includegraphics[width=.45\textwidth]{gfx/unsupervised_test2}
+\caption{ASSR: $p@k$ obtained for MFCCs and scattering with logarithmic compression.}
+\label{fig:ASS_1}
+\end{center}
+\end{figure}
  
 For ASC, the systems are again evaluated on the private part of DCASE 2013, but here with five-fold stratified cross validation. The folds are identical to those used in the original challenge. Optimal parameters (see above) are this time learned on the public part of the DCASE 2013 dataset, also using five-fold stratified cross validation.
 
@@ -461,21 +470,7 @@ Clustering is done using $k$-means$++$ \cite{arthur2007k}, an augmented version 
 
 \section{Results \label{sec:results}}
 
-\begin{figure}
-\begin{center}
-\includegraphics[width=8cm]{gfx/unsupervised_test2}
-\caption{ASSR: $p@k$ obtained for MFCCs and scattering with logarithmic compression.}
-\label{fig:ASS_1}
-\end{center}
-\end{figure}
 
-\begin{figure}
-\begin{center}
-\includegraphics[width=8cm]{gfx/unsupervised_test1}
-\caption{ASSR: $p@k$ obtained for scattering with and without logarithmic compression.}
-\label{fig:ASS_2}
-\end{center}
-\end{figure}
 
 \subsection{Acoustic Scene Similarity Retrieval}
 
@@ -494,6 +489,15 @@ The same observations are made for the MFCCs for $k\leq5$. However for a rank $k
 \subsubsection*{Role of logarithmic compression}
 
 Outcomes for the scattering with and without logarithmic compression are shown in Figure \ref{fig:ASS_2}. It can be seen that the logarithmic compression strongly improves the results, especially for the \emph{ob} approaches, which perform worse than \emph{early} without the logarithmic compression.
+
+
+\begin{figure}[t]
+\begin{center}
+\includegraphics[width=.45\textwidth]{gfx/unsupervised_test1}
+\caption{ASSR: $p@k$ obtained for scattering with and without logarithmic compression.}
+\label{fig:ASS_2}
+\end{center}
+\end{figure}
 
 \subsection{Acoustic Scene Classification}
 We report experiments on acoustic scene classification (ASC), following the original methodology of the DCASE 2013 challenge, and extend our approach to the its 2016 edition.
