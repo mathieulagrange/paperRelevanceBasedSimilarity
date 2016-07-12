@@ -259,7 +259,6 @@ This suggests that, despite being hand-crafted and not learned, Gammatone wavele
 
 \section{Feature design}
 \label{sec:design}
-\ja{It seems that what we are doing in this section is more post-processing than feature design, which would be the scattering transform itself.}
 
 Before supervised or unsupervised classification, it is beneficial to process scattering coefficients with feature transformations that improve invariance, normality, or generalization power.
 In this section, we review three ways of achieving these properties, namely logarithmic compression, and temporal integration, and standardization.
@@ -334,7 +333,7 @@ In the context of this paper, early integration refers to an averaging of the fe
 \label{sec:stand}
 
 Let $\mathbf{S}\boldsymbol{X}(\gamma,n)$ be a dataset, where the indices $\gamma$ and $n$ respectively denotes features and examples.
-It is commonly acknowledged that SVMs should be trained on scaled features with null mean and unit variance, so as to avoid mismatch in numeric ranges. \ja{Again, it would be really good if we could cite something for this.}
+It is commonly acknowledged that SVMs should be trained on scaled features with null mean and unit variance, so as to avoid mismatch in numeric ranges \cite{Hsu2003}.
 This operation may also help making the dataset linearly separable in feature space. \ja{Why?}
 To standardize $\mathbf{S}\boldsymbol{X}(\gamma,n)$, we apply the affine transformation
 \begin{equation}
