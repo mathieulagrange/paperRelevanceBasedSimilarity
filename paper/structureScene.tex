@@ -500,6 +500,19 @@ Outcomes for the scattering with and without logarithmic compression are shown i
 \end{figure}
 
 \subsection{Acoustic Scene Classification}
+
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=\columnwidth]{folds.png}
+\caption{Classification accuracies over the five folds of the DCASE 2013 private dataset, for various acoustic descriptors and temporal integration strategies. 
+The chosen classifier is a support vector machine (SVM) whose kernel is a Gaussian radial basis function (RBF).
+The mean accuracies and fold-wise standard deviations of each experiment are reported in Table \ref{table:dcase2013}}
+\end{center}
+\label{fig:folds}
+\end{figure}
+
+
 We report experiments on acoustic scene classification (ASC), following the original methodology of the DCASE 2013 challenge, and extend our approach to the its 2016 edition.
 
 \subsubsection*{MFCCs \vs scattering}
@@ -521,16 +534,6 @@ Logarithmic compression provides a small, albeit consistent boost to acoustic sc
 Indeed, as discussed in subsection \ref{sec:logcomp}, and observed in Figure \ref{fig:compression}, the statistical assumption of normality for scattering coefficients is only approximately satisfied once mapped to a logarithmic, decibel-like scale.
 This transformation improves the discriminative power of the SVMs trained on scattering coefficients, regardless of the chosen temporal integration strategy (early or late) and the inner product kernel (linear or Gaussian RBF).
 Again, this is in accordance with our previous findings on acoustic scene similarity retrieval, which are reported in Figure \ref{fig:ASS_2}.
-
-\begin{figure}
-\begin{center}
-\includegraphics[width=\columnwidth]{folds.png}
-\caption{Classification accuracies over the five folds of the DCASE 2013 private dataset, for various acoustic descriptors and temporal integration strategies. 
-The chosen classifier is a support vector machine (SVM) whose kernel is a Gaussian radial basis function (RBF).
-The mean accuracies and fold-wise standard deviations of each experiment are reported in Table \ref{table:dcase2013}}
-\end{center}
-\label{fig:folds}
-\end{figure}
 
 
 \begin{table}
