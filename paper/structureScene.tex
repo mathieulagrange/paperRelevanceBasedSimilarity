@@ -259,6 +259,7 @@ This suggests that, despite being hand-crafted and not learned, Gammatone wavele
 
 \section{Feature design}
 \label{sec:design}
+\ja{It seems that what we are doing in this section is more post-processing than feature design, which would be the scattering transform itself.}
 
 Before supervised or unsupervised classification, it is beneficial to process scattering coefficients with feature transformations that improve invariance, normality, or generalization power.
 In this section, we review three ways of achieving these properties, namely logarithmic compression, and temporal integration, and standardization.
@@ -333,7 +334,7 @@ In the context of this paper, early integration refers to an averaging of the fe
 \label{sec:stand}
 
 Let $\mathbf{S}\boldsymbol{X}(\gamma,n)$ be a dataset, where the indices $\gamma$ and $n$ respectively denotes features and examples.
-It is commonly acknowledged that SVMs should be trained on scaled features with null mean and unit variance, so as to avoid mismatch in numeric ranges \cite{Hsu2003}.
+It is commonly acknowledged that SVMs should be trained on scaled features with null mean and unit variance, so as to avoid mismatch in numeric ranges. \ja{Again, it would be really good if we could cite something for this.}
 This operation may also help making the dataset linearly separable in feature space. \ja{Why?}
 To standardize $\mathbf{S}\boldsymbol{X}(\gamma,n)$, we apply the affine transformation
 \begin{equation}
@@ -505,13 +506,16 @@ Not only the average accuracy is improved, but the variance between fold-wise ac
 This is in accordance with the previous results on similarity retrieval, as well as with other papers comparing mel-frequency coefficients with scattering coefficients on a variety of tasks, ranging from musical genre recognition \cite{Anden2014} to environmental sound classification \cite{Salamon2015}.
 
 \subsubsection*{Early \vs late integration}
-late integration, \ie building a prediction by majority voting over $128$ local windows of duration $T=372\,\mathrm{ms}$, outperforms early integration, \ie classifying the acoustic scene with a global window of duration $T=24\,\mathrm{s}$.
+Late integration, \ie building a prediction by majority voting over $128$ local windows of duration $T=372\,\mathrm{ms}$, outperforms early integration, \ie classifying the acoustic scene with a global window of duration $T=24\,\mathrm{s}$.
 This result suggests that, despite its discriminative power at fine scales, the scattering transform is unable to segregate distinct acoustic events beyond the scale of about one second.
 Therefore, it is beneficial to regard the scattering transform as a mid-level descriptor of acoustic content, not as a high-level descriptor, and adopt a data-driven strategy for the temporal integration of acoustic events within one scene.
 Surprisingly, although we ran an extensive number of experiments to formulate object-based clustering into a supervised setting for acoustic scene classification, none of them managed to outperform the baseline strategy in temporal integration, namely majority voting.
 
+\ml{explain why ?}
+
 \subsubsection*{Role of logarithmic compression}
-logarithmic compression provides a small, albeit consistent boost to acoustic scene classification over all folds in the DCASE 2013 private dataset.
+
+Logarithmic compression provides a small, albeit consistent boost to acoustic scene classification over all folds in the DCASE 2013 private dataset.
 Indeed, as discussed in subsection \ref{sec:logcomp}, and observed in Figure \ref{fig:compression}, the statistical assumption of normality for scattering coefficients is only approximately satisfied once mapped to a logarithmic, decibel-like scale.
 This transformation improves the discriminative power of support vector machines (SVM) trained on scattering coefficients, whatever be the chosen temporal integration strategy (early or late) or the inner product kernel (linear or Gaussian RBF).
 Again, this is in accordance with our previous findings on acoustic scene similarity retrieval, which are reported in Figure \ref{fig:ASS_2}.
