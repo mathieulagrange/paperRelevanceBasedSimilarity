@@ -210,10 +210,11 @@ axis into constant-Q subbands of center frequencies $2^{-\gamma_1/Q_1}\xi_1$.
 Indeed, both time-frequency representations are indexed by time $t$ and log-frequency $\gamma_1$.
 However, contrary to the CQT, the wavelet scalogram reaches the Heisenberg
 theoretical limit of optimal time-frequency localization across the whole
-frequency range, whereas the temporal resolution of the CQT is fixed by the support of the STFT analyzing window. \ja{This is not true. See for example Sch\"orkhuber and Klapuri 2010.}
+frequency range, whereas the temporal resolution of the CQT, at least in its original implementation \cite{Brown1992}, is fixed by the support of the STFT analyzing window.
 Therefore, the wavelet scalogram has a better temporal localization at high
-frequencies than the CQT, at the expense of a greater computational cost. \ja{Why is the cost greater?}
-This property allows us to observe amplitude modulations at fine temporal scales in the scalogram, down to the minimum scale $2Q_1/\xi_1$ for $\gamma_1 = 0$, of the order of $1\,\textrm{ms}$ given the aforementioned values of $Q_1$ and $\xi_1$.
+frequencies than the CQT, at the expense of a greater computational cost.
+This increase in time-frequency localization comes at the expense of a greater computational cost, the inverse fast Fourier transform (IFFT) routine must be called for each wavelet $\boldsymbol{\psi_{\gamma_1}}$ in the filter bank.
+Yet, it allows us to observe amplitude modulations at fine temporal scales in the scalogram, down to the minimum scale $2Q_1/\xi_1$ for $\gamma_1 = 0$, of the order of $1\,\textrm{ms}$ given the aforementioned values of $Q_1$ and $\xi_1$.
 
 Among auditory scenes, amplitude modulations may be caused by a broad variety of mechanical interactions, including collision, friction, and turbulent flow.
 At a longer scale, they also account for some higher-level attributes of sound, \eg prosody in speech or rhythm in music.
@@ -298,7 +299,7 @@ Histogram of values taken by the first-order scattering coefficient $\mathbf{S}\
 
 
 Taking the logarithm of a magnitude spectrum is ubiquitous in audio signal processing.
-Indeed, it is corroborated by the Weber-Fechner law in psychoacoustics, which states that the sensation of loudness is roughly proportional to the logarithm of the acoustic pressure. \ja{Cite?}
+Indeed, it is corroborated by the Weber-Fechner law in psychoacoustics, which states that the sensation of loudness is roughly proportional to the logarithm of the acoustic pressure. 
 We must also recall that the measured amplitude of sound sources often decays polynomially with the distance to the microphone, a source of spurious variability in scene classification.
 Logarithmic compression can linearize this dependency, facilitating the construction of a powerful invariant at the classifier stage.
 
@@ -455,7 +456,7 @@ The DCASE2013 dataset has significant intra-class diversity while remaining mana
 
 Experiments are carried out using temporal scattering coefficients as well as mel-frequency cepstral coefficients (MFCCs) as features. For the temporal scattering, each scene is described by $128$ vectors of scattering coefficients computed with half-overlapping windows $\boldsymbol{\phi}(t)$ of duration $T=372\,\mathrm{ms}$. Experiments are conducted with and without the logarithmic compression (see Section \ref{sec:logcomp}).
 
-Different sets of parameters were tested to compute the MFCCs. Results here are only reported for the best setting, which consisted of $40$ MFCCs (including the first energy coefficient) computed for windows of $50\,\mathrm{ms}$ and hops of $25\,\mathrm{ms}$, with full frequency range. This setting gives us $600$ feature vectors per scene. It has been reported that classifying the each individual frame directly may not be the best approach \cite{rakotomamonjy2015histogram}. \ja{Why?} In order to reduce the amount of data, a pooling step is performed on the MFCCs: each recording is divided into $n$ non-overlapping $t$-seconds long ``texture'' windows. The MFCC vectors within each texture window are then averaged in time. As the \emph{ob} approaches involve a clustering step, we need to ensure that both MFCCs and scattering coefficients have a comparable number of vectors per recording. \ja{Why do we need to do this?} Thus, $t$ is set to $250\,\mathrm{ms}$, resulting in $120$ MFCCs texture windows per scene.
+Different sets of parameters were tested to compute the MFCCs. Results here are only reported for the best setting, which consisted of $40$ MFCCs (including the first energy coefficient) computed for windows of $50\,\mathrm{ms}$ and hops of $25\,\mathrm{ms}$, with full frequency range. This setting gives us $600$ feature vectors per scene. To get a more robust representation of lower dimensionality a pooling step is performed on the MFCCs: each recording is divided into $n$ non-overlapping $t$-seconds long ``texture'' windows. The MFCC vectors within each texture window are then averaged in time. As the \emph{ob} approaches involve a clustering step, we need to ensure that both MFCCs and scattering coefficients have a comparable number of vectors per recording. \ja{Why do we need to do this?} Thus, $t$ is set to $250\,\mathrm{ms}$, resulting in $120$ MFCCs texture windows per scene.
 
 \ja{We've tested the impact of the logarithm here, but not of the feature selection or standardization. Should we do this as well? For the feature selection, we did say earlier that we would test its impact.}
 
@@ -518,7 +519,9 @@ This is in accordance with the previous results on similarity retrieval, as well
 
 \subsubsection*{Early \vs late integration}
 late integration, \ie building a prediction by majority voting over $128$ local windows of duration $T=372\,\mathrm{ms}$, outperforms early integration, \ie classifying the acoustic scene with a global window of duration $T=24\,\mathrm{s}$.
-
+This result suggests that, despite its discriminative power at fine scales, the scattering transform is unable to segregate distinct acoustic events beyond the scale of about one second.
+Therefore, it is beneficial to regard the scattering transform as a mid-level descriptor of acoustic content, not as a high-level descriptor, and adopt a data-driven strategy for the temporal integration of acoustic events within one scene.
+Surprisingly, although we ran an extensive number of experiments to formulate object-based clustering into a supervised setting for acoustic scene classification, none of them managed to outperform the baseline strategy in temporal integration, namely majority voting.
 
 \subsubsection*{Role of logarithmic compression}
 logarithmic compression provides a small, albeit consistent boost to acoustic scene classification over all folds in the DCASE 2013 private dataset.
@@ -553,11 +556,14 @@ late, RBF     & $68\pm10$ & $73\pm\phantom{0}8$  & $\mathbf{78}\pm\phantom{0}6$ 
 \end{table}
 
 \subsubsection*{Participation to the DCASE 2016 challenge}
-In order to evaluate how general our findings are, we have taken part in the acoustic scene classification task 2016 edition of the DCASE challenge.
+In order to evaluate how general our findings are, we have taken part in the acoustic scene classification task 2016 edition of the DCASE challenge, whose results are forthcoming.
+This edition relies on the TUT 2016 acoustic scenes dataset, which contains $15$ classes of acoustic scenes, and is larger than the DCASE 2013 private dataset by one order of magnitude \cite{Mesaros2016_EUSIPCO}.
+Training support vector machines with a Gaussian RBF kernel is computationally demanding for a dataset of such size, especially under a late integration scheme, wherein the number of training instances exceeds $10^5$.
+Since the LIBLINEAR package enables faster training than LIBSVM, we have used a linear kernel.
+Our experiments on the DCASE 2013 dataset, as reported in table \ref{table:dcase2013}, show that the linear kernel gives comparable, albeit slightly worse, classification results than the Gaussian RBF kernel.
 
 Our results on the development dataset are reported in Table \ref{table:dcase2016}, in comparison with a baseline of $MFCCs$ coefficients and a generative classifier, namely Gaussian mixture models with $16$ Gaussians per model.
 The average accuracy across classes is brought from $70.8\%$ to $79.4\%$.
-It appears that log-scattering features compare favorably to 
 The results on the evaluation dataset are awaiting publication by the DCASE organizing committee, and will be disclosed in August 2016.
 
 
