@@ -257,25 +257,25 @@ As such, they can be discovered automatically by unsupervised encoding of natura
 
 \section{Feature design}
 \label{sec:design}
+\ja{It seems that what we are doing in this section is more post-processing than feature design, which would be the scattering transform itself.}
 
-Before supervised or unsupervised classification, it is beneficial to process scattering coefficients with feature transformations that improve invariance, normality, or generalization power. 
-In this section, we review several ways of achieving these properties, namely binaural data augmentation, feature selection, logarithmic compression, standardization, and temporal integration.
-The former has, to the best of our knowledge, not being considered for ASC and is specific to multichannel recordings, whereas the next ones would also apply to many other kinds of data.
+Before supervised or unsupervised classification, it is beneficial to process scattering coefficients with feature transformations that improve invariance, normality, or generalization power.
+In this section, we review several ways of achieving these properties, namely feature selection, logarithmic compression, standardization, and temporal integration.
 
 \subsection{Feature selection by restricting the frequency range}
 In a multivariate time series of descriptors $\mathbf{S}\boldsymbol{x}(t,\gamma)$, some coefficients $\gamma$ may consistently bear negligible information for the task of interest.
 This fact may cause the classifier to overfit the training set, especially when the number of features is large and the number of training instances is small, as is the case here.
-Selecting features appropriately before the training stage may circumvent this problem.
+Appropriately selecting features before the training stage may circumvent this problem.
 However, the parameters of the chosen feature selection algorithm are themselves prone to overfitting.
-Instead, we adopt the more conservative approach of retaining all coefficients within a certain range of subband indices $\gamma_1$ and $\gamma_2$.
-In comparison with adaptive algorithms, the subset of selected features $\gamma$ has a suboptimal statistical relevance, but it is easily interpretable in the realm of audio signal processing, as it is equivalent to a coarse band-pass filtering of $\boldsymbol{x}(t)$ and $\boldsymbol{x_1}(t,\gamma_1)$ over the time dimension $t$.
+Instead, we adopt the more conservative approach of retaining all coefficients within a certain range of subband indices $\gamma_1$ and $\gamma_2$. \ja{These indices are already used to determine the first- and second-order log-frequency indices, respectively. Perhaps $\gamma_\mathrm{min}$ and $\gamma_\mathrm{max}$ would be better?}
+In comparison with adaptive algorithms, the subset of selected features $\gamma$ has a suboptimal statistical relevance, but it is easily interpretable in the realm of audio signal processing, as it is equivalent to a coarse band-pass filtering of $\boldsymbol{x}(t)$ and $\boldsymbol{x_1}(t,\gamma_1)$ over the time dimension $t$. \ja{Are we filering $x_1$ too? The selection is only in $\gamma_1$, correct?}
 
 The conservation equations underlying the physics of sound production constrain the waveform $\boldsymbol{x}(t)$ to be regular in the time domain, that is, to have a polynomial decay in the Fourier domain.
 This decay is only made sharper by the specific properties of acoustic environments, especially indoor.
 Consequently, the amount of energy in the wavelet subband $\gamma_1$ is roughly inversely proportional to the center frequency $2^{-\gamma_1/Q_1}$.
-In the topmost frequencies, this amount is so faint that the corresponding coefficients $\boldsymbol{x_1}(t,\gamma_1)$ and $\boldsymbol{x_2}(t,\gamma_1,\gamma_2)$ no longer bear discriminative information for the classification task at hand.
+In the topmost frequencies, this amount is so faint that the corresponding coefficients $\boldsymbol{x_1}(t,\gamma_1)$ and $\boldsymbol{x_2}(t,\gamma_1,\gamma_2)$ no longer bear discriminative information for the classification task at hand. \ja{The problem is that we will magnify these using a logarithm in the next section, so this argument is not as strong as that. Is there some other reason we would like to discard the high frequencies?}
 
-In the sequel, we evaluate the impact of discarding the scattering coefficients above a certain acoustic frequency $\xi_{1,\max}$, which corresponds to discarding subbands $\gamma_1$ below a certain scale
+In the sequel, we evaluate the impact of discarding the scattering coefficients above a certain acoustic frequency $\xi_{1,\max}$, which corresponds to discarding subbands $\gamma_1$ below a certain scale \ja{It can be a little confusing for the reader to switch between log-frequency and scale, especially since we use both words to refer to $\gamma_1$ in some sense. Technically, there is a lower bound on the scale, which turns into a lower bound of $\gamma_1$, but it's not clear from first glance.}
 \begin{equation}
 \gamma_{1,\min} =
 \left\lfloor Q_1 \log_2 \frac{\xi_1}{\xi_{1,\max}} \right\rceil,
@@ -283,17 +283,14 @@ In the sequel, we evaluate the impact of discarding the scattering coefficients 
 where $\lfloor \cdot \rceil$ denotes a rounding to the nearest integer.
 
 Reducing the frequency range is an effective way to enhance invariance, widely used in the literature.
-For instance, \cite{roma2013} achieved the best performance in the 2013 edition of the DCASE challenge, rely on cepstral descriptors computed up to a cutoff frequency as small as $\xi_{1,\max}  = 900\,\mathrm{Hz}$ instead of the more conventional value of $16\,\mathrm{kHz}$.
- 
+For instance, \cite{roma2013} achieved the best performance in the DCASE2013 challenge and relied on cepstral descriptors computed up to a cutoff frequency as small as $\xi_{1,\max} = 900\,\mathrm{Hz}$ instead of including all frequencies up to the Nyquist rate.
+
 \subsection{Logarithmic compression}
 \label{sec:logcomp}
 
-Many algorithms in pattern recognition, including nearest neighbor classifiers and support vector machines, tend to work best when all features follow a standard normal distribution across all training instances.
-Yet, because of the complex modulus nonlinearity, scattering coefficients are nonnegative by design.
-It appears empirically that their distribution is skewed towards the right, which means that the tail towards greater values is longer than the tail towards lower values.
-However, skewness can be reduced by applying to all coefficients a pointwise concave transformation, \eg logarithmic.
-Figure \ref{fig:histograms} shows the distribution of an arbitrarily chosen scattering coefficient over the DCASE 2013 dataset, before and after logarithmic compression.
-
+Many algorithms in pattern recognition, including nearest neighbor classifiers and support vector machines, tend to work best when all features follow a standard normal distribution across all training instances \ja{Do we have a reference for this?}.
+Yet the distribution of the scattering coefficients is skewed towards larger values. We can reduce this skewness by applying a pointwise concave transformation, like a logarithm, to all coefficients.
+Figure \ref{fig:histograms} shows the distribution of an arbitrarily chosen scattering coefficient over the DCASE2013 dataset, before and after logarithmic compression.
 
 \begin{figure}
 \begin{center}
@@ -306,20 +303,20 @@ Histogram of values taken by the first-order scattering coefficient $\mathbf{S}\
 \end{figure}
 
 
-The application of the pointwise logarithm to magnitude spectra is ubiquitous in audio signal processing.
-Indeed, it is corroborated by the Weber-Fechner law in psychoacoustics, which states that the sensation of loudness is roughly proportional to the logarithm of the acoustic pressure.
-We must also recall that the measured amplitude of sound sources often decays polynomially with the distance to the binaural microphone, which is a spurious factor of variability to the task of auditory scene classification.
-Logarithmic compression can linearize this dependency, which arguably facilitates the construction of a powerful invariant at the classifier stage.
+Taking the logarithm of a magnitude spectrum is ubiquitous in audio signal processing.
+Indeed, it is corroborated by the Weber-Fechner law in psychoacoustics, which states that the sensation of loudness is roughly proportional to the logarithm of the acoustic pressure. \ja{Cite?}
+We must also recall that the measured amplitude of sound sources often decays polynomially with the distance to the microphone, a source of spurious variability in scene classification.
+Logarithmic compression can linearize this dependency, facilitating the construction of a powerful invariant at the classifier stage.
 
-Given a task of musical genre recognition, \cite{Anden2014} has advocated for the renormalization of second-order scattering coefficients $\mathbf{S_2}\boldsymbol{x}(t,\gamma_1,\gamma_2)$ by the corresponding first-order scattering coefficients $\mathbf{S_1}\boldsymbol{x}(t,\gamma_1)$, as it provably decorrelates the amplitudes of their activations.
-Interestingly, taking the logarithm of renormalized coefficients would yield
+For the task of musical genre recognition, second-order scattering coefficients $\mathbf{S_2}\boldsymbol{x}(t,\gamma_1,\gamma_2)$ are sometimes normalized by the corresponding first-order scattering coefficients $\mathbf{S_1}\boldsymbol{x}(t,\gamma_1)$, since this decorrelates them from one another \cite{Anden2014}.
+We note that taking the logarithm of such renormalized coefficients yields
 \begin{equation}
 \log \dfrac{\mathbf{S_2}\boldsymbol{x}(t,\gamma_1,\gamma_2)}{\mathbf{S_1}\boldsymbol{x}(t,\gamma_1)} =
 \log \mathbf{S_2}\boldsymbol{x}(t, \gamma_1, \gamma_2) -
 \log \mathbf{S_1}\boldsymbol{x}(t, \gamma_1),
 \end{equation}
 \ie a linear combination of the logarithms of first- and second-order coefficients.
-Therefore, the theoretical insight brought by \cite{Anden2014} in favor of renormalized scattering also applies to log-scattering up to a linear transformation in feature space, to which affine classifiers are not sensitive.
+As such, a non-linear renormalization becomes a linear transformation, which can be learned by a linearly discriminative classifier.
 
 \subsection{Early \vs late temporal integration}
 \label{sec:eili}
@@ -327,54 +324,52 @@ Therefore, the theoretical insight brought by \cite{Anden2014} in favor of renor
 Owing to the scarcity of salient events in many natural scenes,
 fine-grained classification is only made
 possible by integrating signal information over a long temporal context.
-Indeed, whereas a few seconds are often sufficient to recognize a speaker,
-a musical instrument, or a genre, it may require up to 30 seconds
-to disambiguate two classes auditory scenes which share part of their semantic content, \eg a train from a subway station or a quiet street from a park.
+Indeed, whereas a few seconds is often sufficient to recognize a speaker,
+a musical instrument, or a genre, up to $30$ seconds may be required
+to disambiguate two classes of auditory scenes with overlapping semantic content, \eg a train from a subway station or a quiet street from a park.
 Depending on whether aggregation is performed in feature space or in decision space, the corresponding method is referred to as early or late integration.
 
 A straightforward application of early integration consists in summarizing the multivariate time series of scattering coefficients over the full duration of the auditory scene, by retaining their average values only.
-Going back to the definition of the scattering transform given in section \ref{sec:scattering}, this is equivalent to increasing the support $T$ of the low-pass filter $\boldsymbol{\phi}(t)$ up to infinity. With a slight abuse of notation, we denote by
+Going back to the definition of the scattering transform given in Section \ref{sec:scattering}, this is equivalent to increasing the support $T$ of the low-pass filter $\boldsymbol{\phi}(t)$ up to infinity. With a slight abuse of notation, we denote by
 \begin{equation}
 \mathbf{S}\boldsymbol{x}(\gamma) =
 \int_{-\infty}^{+\infty} \mathbf{S}\boldsymbol{x}(t,\gamma)\;\mathrm{d}t
 \end{equation}
 the summarized features.
 
-Conversely, a late integration scheme relies on probabilistic estimates over short-term windows of length $T$, which are subsequently aggregated to produce a final decision
+Conversely, a late integration scheme relies on probabilistic assignments $\mathbb{P}\left[y \,\vert\, \mathbf{S}\boldsymbol{x}(t,\gamma) \right]$ over short-term windows of length $T$, which are subsequently aggregated to produce a final decision
 \begin{equation}
-\hat{y} = \arg \max_{y} \rho\Big(\big\{ \mathbb{P}\left[y \,\vert\, \mathbf{S}\boldsymbol{x}(t,\gamma) \right] \big\}_{t} \Big),
+\hat{y} = \arg \max_{y} \rho\Big(\big\{ \mathbb{P}\left[y \,\vert\, \mathbf{S}\boldsymbol{x}(t,\gamma) \right] \big\}_{t} \Big)\mbox{,}
 \end{equation}
 where $\hat{y}$ is the estimated class label and $\rho$ is a reduction function, such as sum, product, or majority vote \cite{Kittler1998}.
 
-The principal drawback of early integration is that it drastically reduces the number of training instances at the classifier stage, down to one per auditory scene -- if data augmentation is not considered.
-In the context of the DCASE 2013 dataset, this corresponds to merely $8$ training instances per class, and $80$ instances overall, hence an increase in variance in statistical estimation and a risk of overfitting.
-On the contrary, a late integration scheme for $T=188\textrm{ ms}$ would yield $128$ instances per auditory scene, resulting in $10240$ instances overall.
+A drawback of early integration is that it drastically reduces the number of training instances at the classifier stage, down to one per auditory scene.
+In the context of the DCASE 2013 dataset, this corresponds to merely $8$ training instances per class, and $80$ instances overall, hence an increase in variance in statistical estimation and a risk of overfitting. \ja{That may be, but by averaging, we also reduce the variability of our data, which may be a good thing. If we're dealing with Gaussian processes, this is in fact a very good thing to do.}
+On the contrary, a late integration scheme for $T=188\textrm{ ms}$ would yield $128$ instances per auditory scene \ja{How long is each recording? Should we specify this somewhere?}, resulting in $10240$ instances overall.
 However, many of these instances may be silent or lack any salient properties of the class they are assigned to, hence an increase in bias and a risk of underfitting.
-In short, early and late integration methods lie at opposite ends of the bias-versus-variance statistical tradeoff. We refer to \cite{Joder2009} for a comprehensive review of this problematic in the context of musical instrument recognition.
+In short, early and late integration methods lie at opposite ends of the bias-versus-variance statistical tradeoff. We refer to \cite{Joder2009} for a comprehensive review of this problematic in the context of musical instrument recognition. \ja{Another important difference is that early integration makes the classifier objective more appropriate, since the SVM will maximize the final classification error on the training data, as opposed to some intermediate frame-level label.}
 
 \subsection{Standardization}
 \label{sec:stand}
 
 Let $\mathbf{S}\boldsymbol{X}(\gamma,n)$ be a dataset, where the indices $\gamma$ and $n$ respectively denotes features and examples.
-It is commonly acknowledged that support vector machines should be trained on scaled features with null mean and unit variance, so as to avoid mismatch in numeric ranges.
-This operation may also help making the dataset linearly separable in feature space.
+It is commonly acknowledged that SVMs should be trained on scaled features with null mean and unit variance, so as to avoid mismatch in numeric ranges. \ja{Again, it would be really good if we could cite something for this.}
+This operation may also help making the dataset linearly separable in feature space. \ja{Why?}
 To standardize $\mathbf{S}\boldsymbol{X}(\gamma,n)$, we apply the affine transformation
 \begin{equation}
 \widetilde{\mathbf{S}}\boldsymbol{X}(\gamma, n) =
 \dfrac{ \mathbf{S}\boldsymbol{X}(\gamma, n) -
-\mathbb{E}[ \mathbf{S}\boldsymbol{X}](\gamma)}{\sigma[ \mathbf{S}\boldsymbol{X}](\gamma)}
+\mu[ \mathbf{S}\boldsymbol{X}](\gamma)}{\sigma[ \mathbf{S}\boldsymbol{X}](\gamma)}
 \end{equation}
-where $\mathbb{E}[ \mathbf{S}\boldsymbol{X}](\gamma) = \frac{1}{N} \sum_{n=1}^{N} \mathbf{S}\boldsymbol{X}(\gamma,n)$ is the expected value of $\mathbf{S}\boldsymbol{X}(\gamma,n)$ and
+where $\mu[ \mathbf{S}\boldsymbol{X}](\gamma) = \frac{1}{N} \sum_{n=1}^{N} \mathbf{S}\boldsymbol{X}(\gamma,n)$ is the sample mean of $\mathbf{S}\boldsymbol{X}(\gamma,n)$ and
 \begin{equation}
 \sigma[\mathbf{S}\boldsymbol{X}] (\gamma) =
 \sqrt{\frac{1}{N-1} \sum_{n=1}^{N}
-\left( \mathbf{S}\boldsymbol{X}(\gamma,n) - \mathbb{E}[\mathbf{S}\boldsymbol{X}] \right)^2}
+\left( \mathbf{S}\boldsymbol{X}(\gamma,n) - \mu[\mathbf{S}\boldsymbol{X}] \right)^2}
 \end{equation}
- is the sample standard deviation.
- 
- The vectors $\mathbb{E}[\mathbf{S}\boldsymbol{X}(\gamma)]$ and $\sigma[\mathbf{S}\boldsymbol{X}](\gamma)$ are estimated from the training set only, and the same affine transformation is subsequently applied to all samples in the training set and the test set.
- 
-The next section discusses adaptive methods for the temporal integration of scattering coefficients in an unsupervised setting.
+is the sample standard deviation.
+
+The vectors $\mu[\mathbf{S}\boldsymbol{X}(\gamma)]$ and $\sigma[\mathbf{S}\boldsymbol{X}](\gamma)$ are estimated from the training set only, and the same affine transformation is subsequently applied to all samples in the training set and the test set.
 
 \section{Object-based modeling of the scene}
 \label{sec:object}
