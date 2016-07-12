@@ -518,7 +518,7 @@ In order to evaluate how general our findings are, we have taken part in the aco
 \caption{Classification accuracies over the five folds of the DCASE 2013 private dataset, for various acoustic descriptors and temporal integration strategies. 
 The chosen classifier is a support vector machine (SVM) whose kernel is a Gaussian radial basis function (RBF).
 The mean accuracies and fold-wise standard deviations of each experiment are reported in Table \ref{table:dcase2013}.
-See text for details.}
+See text for details.\ml{je mettrai des lignes fines entre les points 1 et 3, et 4 et 6, je zoomerai un peu et l'axe des y n'est pas numerote ni labelise }}
 \end{center}
 \ref{fig:folds}
 \end{figure}
@@ -542,11 +542,14 @@ late, RBF     & $68\pm10$ & $73\pm\phantom{0}8$  & $\mathbf{78}\pm\phantom{0}6$ 
 \section{Conclusion}
 
 In this paper we consider the benefit of 1) the scattering transform for building discriminant features and 2) unsupervised clustering for the modeling of large-scale environmental acoustic scenes.
-This leads to improvements in both the ASSR and ASC tasks.
+%This leads to improvements in both the ASSR and ASC tasks.
 
-Representing a scene using a reduced set of exemplars, in the form of centroids, with adapted similarity strategies allows us to improve ASSR performance compared to the insufficient BOF approaches based on GMMs. These results advocate for a hierarchical model of the scene, where short-time structure -- \ie below a second -- are represented using a convolutional network such as the scattering transform, whereas larger time scales -- \ie over a second -- are modeled as adaptive aggregates, identified in the time domain in the unsupervised setting and in the features domain in the supervised case, provided that the dimensionality is sufficiently high. \ja{I'm not sure what this last part means.}
+Representing a scene using a reduced set of representatives, with adapted similarity strategies allows us to improve ASSR performance compared to the BOF approaches based on GMMs. These results advocate for a hierarchical model of the scene, where short-time structure -- \ie below a second -- are represented using a convolutional network such as the scattering transform, whereas larger time scales -- \ie over a second -- are modeled as adaptive aggregates.
 
-This assertion will be studied further in future work by considering more complex convolutional networks, larger databases and more diverse applications, such as pleasantness prediction \cite{lafaySoundscapePilot, lafay:hal-01111782} and other ecoacoustics tasks.
+\ml{Vincent: un par pour resumer la partie classif}
+%, identified in the time domain in the unsupervised setting and in the features domain in the supervised case, provided that the dimensionality is sufficiently high. \ja{I'm not sure what this last part means.}
+
+This assertion shall be studied further in future work by considering more complex convolutional networks, larger databases and more diverse applications, such as pleasantness prediction \cite{lafaySoundscapePilot, lafayPartI} and other ecoacoustics tasks.
 
 \bibliographystyle{unsrt}
 \bibliography{biblio}
