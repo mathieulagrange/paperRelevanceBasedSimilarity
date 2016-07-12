@@ -257,13 +257,14 @@ This suggests that, despite being hand-crafted and not learned, Gammatone wavele
 
 Before supervised or unsupervised classification, it is beneficial to process scattering coefficients with feature transformations that improve invariance, normality, or generalization power.
 In this section, we review three ways of achieving these properties, namely logarithmic compression, and temporal integration, and standardization.
-Whether we adopt a time-frequency perspective or a machine learning perspective on the problem of acoustic scene classification, such operations would either be qualifies as post-processing or pre-processing.
+Whether we adopt a time-frequency perspective or a machine learning perspective on the problem of acoustic scene classification, such operations would either qualify as pre- or post-processing.
+
 \subsection{Logarithmic compression}
 \label{sec:logcomp}
 
-Many algorithms in pattern recognition, including nearest neighbor classifiers and support vector machines, tend to work best when all features follow a standard normal distribution across all training instances \cite{Hsu2003}.
-Yet the distribution of the scattering coefficients is skewed towards larger values. We can reduce this skewness by applying a pointwise concave transformation, like a logarithm, to all coefficients.
-Figure \ref{fig:histograms} shows the distribution of an arbitrarily chosen scattering coefficient over the DCASE2013 dataset, before and after logarithmic compression.
+Many algorithms in pattern recognition, including nearest-neighbor classifiers and SVMs, tend to work best when all features follow a standard normal distribution across all training instances \cite{Hsu2003}.
+Yet the distribution of the scattering coefficients is skewed towards larger values. We can reduce this skewness by applying a pointwise concave transformation, such as a logarithm, to all coefficients.
+Figure \ref{fig:histograms} shows the distribution of an arbitrarily chosen scattering coefficient over the DCASE 2013 dataset, before and after logarithmic compression.
 
 \begin{figure}
 \begin{center}
@@ -279,7 +280,7 @@ Histogram of values taken by the first-order scattering coefficient $\mathbf{S}\
 
 Taking the logarithm of a magnitude spectrum is ubiquitous in audio signal processing.
 Indeed, it is corroborated by the Weber-Fechner law in psychoacoustics, which states that the sensation of loudness is roughly proportional to the logarithm of the acoustic pressure. 
-We must also recall that the measured amplitude of sound sources often decays polynomially with the distance to the microphone, a source of spurious variability in scene classification.
+We must also recall that the measured amplitude of sound sources often decays polynomially with the distance to the microphone -- a source of spurious variability in scene classification.
 Logarithmic compression can linearize this dependency, facilitating the construction of a powerful invariant at the classifier stage.
 
 For the task of musical genre recognition, second-order scattering coefficients $\mathbf{S_2}\boldsymbol{x}(t,\gamma_1,\gamma_2)$ are sometimes normalized by the corresponding first-order scattering coefficients $\mathbf{S_1}\boldsymbol{x}(t,\gamma_1)$, since this decorrelates them from one another \cite{Anden2014}.
@@ -303,13 +304,12 @@ a musical instrument, or a genre, up to $30$ seconds may be required
 to disambiguate two classes of auditory scenes with overlapping semantic content, \eg a train from a subway station or a quiet street from a park.
 Depending on whether aggregation is performed in feature space or in decision space, the corresponding method is referred to as early or late integration.
 
-A straightforward application of early integration consists in summarizing the multivariate time series of scattering coefficients over the full duration of the auditory scene, by retaining their average values only.
-Going back to the definition of the scattering transform given in Section \ref{sec:scattering}, this is equivalent to increasing the support $T$ of the low-pass filter $\boldsymbol{\phi}(t)$ up to infinity. With a slight abuse of notation, we denote by
+A straightforward application of early integration consists in summarizing the multivariate time series of scattering coefficients over the full duration of the auditory scene by only storing their average values.
+Going back to the definition of the scattering transform given in Section \ref{sec:scattering}, this is equivalent to increasing the support $T$ of the low-pass filter $\boldsymbol{\phi}(t)$ up to infinity. With a slight abuse of notation, we denote the summarized features by
 \begin{equation}
 \mathbf{S}\boldsymbol{x}(\gamma) =
-\int_{-\infty}^{+\infty} \mathbf{S}\boldsymbol{x}(t,\gamma)\;\mathrm{d}t
+\int_{-\infty}^{+\infty} \mathbf{S}\boldsymbol{x}(t,\gamma)\;\mathrm{d}t\mbox{.}
 \end{equation}
-the summarized features.
 
 Conversely, a late integration scheme relies on probabilistic assignments $\mathbb{P}\left[y \,\vert\, \mathbf{S}\boldsymbol{x}(t,\gamma) \right]$ over short-term windows of length $T$, which are subsequently aggregated to produce a final decision
 \begin{equation}
@@ -325,7 +325,7 @@ Moreover, when applying late integration, the classifier optimizes accuracy at t
 In short, early and late integration methods lie at opposite ends of the bias-versus-variance statistical tradeoff.
 We refer to \cite{Joder2009} for a comprehensive review of this problematic in the context of musical instrument recognition.
 In the context of this paper, early integration refers to an averaging of the features and late integration refers to a majority voting of the predictions. 
-%\ja{We should perhaps mention this in that particular section instead of over here.}
+
 \subsection{Standardization}
 \label{sec:stand}
 
