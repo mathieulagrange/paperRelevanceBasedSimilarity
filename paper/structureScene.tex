@@ -107,37 +107,38 @@ Motivations of the proposed approach and a brief review of the state of the art 
 
 %One avenue of ecoacoustics research, originating in bioacoustics, attempts to identify species properties of vocalizations, for example to link animal vocalization with behavior\cite{au2008principles, stowell2014large}.
 
-A recent paradigm in computational bioacoustics processes the audio stream in a holistic way over larger time scales, without assuming that a single species is present throughout the recording. Automated systems belonging to this paradigm aim to infer global properties of bioacoustic scenes, including biodiversity indices \cite{Bardeli2010}, migration patterns \cite{Obrist2010}, as well as to detect time regions of particular interest requesting detailed human inspection \cite{rosenstock2002landbird,diefenbach2007incorporating}.
+A recent paradigm in computational bioacoustics processes the audio stream in a holistic way over larger time scales, without assuming that a single species is present throughout the recording. Automated systems belonging to this paradigm attempt to infer global properties of bioacoustic scenes, including biodiversity indices \cite{Bardeli2010}, migration patterns \cite{Obrist2010}, as well as to detect time intervals of particular interest for detailed human inspection \cite{rosenstock2002landbird,diefenbach2007incorporating}.
 
 %The same division is found in the field of auditory scene analysis, wherein the interest may either be 1) to isolate and identify precise events, \ie acoustic event detection (AED), or 2) to predict global attributes assigned to large time spans of audio, \ie acoustic scene classification (ASC).
-In the latter, most state-of-the-art systems more or less follow the bag-of-frames (BOF) approach introduced by Acouturier et al. \cite{aucouturier2007bag}, where a scene is modeled by high-level summary statistics computed from local features.
+Most state-of-the-art systems more or less follow the bag-of-frames (BOF) approach introduced by Aucouturier et al. \cite{aucouturier2007bag}, where a scene is modeled by high-level summary statistics computed from local features.
 Being a very generic method, this approach has been applied to many audio classification tasks besides ASC.
-Yet the proposed implementation using Gaussian mixture models (GMMs) of mel-frequency cepstral coefficients (MFCCs) has been demonstrated comparably to a mere averaging of the features \cite{lagrange:hal-01082501}.
+Yet the proposed implementation using Gaussian mixture models (GMMs) of mel-frequency cepstral coefficients (MFCCs) has been demonstrated to perform comparably to a mere averaging of the features \cite{lagrange:hal-01082501}.
 Indeed, the typical morphology of acoustic scenes is of a ``skeleton of events on a bed of textures'' \cite{nelken2013}, with a few discrete sound events superimposed upon a stationary acoustic background.
 Therefore, it is arguably more beneficial to focus on the large-scale temporal evolution of auditory scenes rather on the joint probability distribution of short-term features.
 
-This statement has some support in auditory psychology as well as sound synthesis based on summary statistics \cite{mcdermott2013summary}. Indeed, studies in cognitive psychology investigating urban sound environment quality pointed out that (perceived or measured) global sound level, are not sufficient to fully characterize an acoustic scene \cite{guyot2005urban,kang2006urban}. Rather, it seems that cognitive processes such as sound environment quality perception \cite{dubois2006cognitive} or loudness judgment \cite{kuwano_memory_2003} rely upon higher-level cognitive attributes such as the identities of sound sources which compose the scene. It has been showed that, if available, the complete description of the scene in terms of event occurrences is powerful enough to reliably predict high-level cognitive classes, \eg the presence of birds are very likely to be heard in parks in urban areas and so are strong pleasantness indicators \cite{lafayPartI}. Consequently, research in sound perception is now strongly focused the contribution of specific sound sources in the assessment of a sound environment \cite{ricciardi2015sound,lavandier2006contribution}. Although the complete set of events occuring within a given auditory stream may not be discernable, even to human expects, research has shown that a small set of events, so-called markers, suffice to reliably predict many high-level attributes.
+This statement has some support in auditory psychology as well as sound synthesis based on summary statistics \cite{mcdermott2013summary}. Indeed, studies in cognitive psychology investigating urban sound environment quality pointed out that global sound level (perceived or measured) is not sufficient to fully characterize an acoustic scene \cite{guyot2005urban,kang2006urban}. Rather, it seems that cognitive processes such as sound environment quality perception \cite{dubois2006cognitive} or loudness judgment \cite{kuwano_memory_2003} rely upon higher-level cognitive attributes such as the identities of the sound sources which compose the scene. It has been showed that, if available, the complete description of the scene in terms of event occurrences is powerful enough to reliably predict high-level cognitive classes, \eg the presence of birds are very likely to be heard in parks in urban areas and so are strong pleasantness indicators \cite{lafayPartI}. Consequently, research in sound perception is now strongly focused the contribution of specific sound sources in the assessment of a sound environment \cite{ricciardi2015sound,lavandier2006contribution}. Although the complete set of events occuring within a given auditory stream may not be discernable, even to human expects, research has shown that a small set of events, so-called markers, suffice to reliably predict many high-level attributes.
 
-BOF approaches treats each observations equally, whereas the above cited results show that only a few events scarcely occurring may have be more important than events or texture present throughout the whole scene duration, thus advocating for a more selective approach such as the one presented in Section \ref{sec:object} for the ASSR task.
+The BOF approaches treat each observations equally, whereas the results cited above show that only a few distinct events may be more important than events or texture present throughout the whole scene duration, thus advocating for a more selective approach such as the one presented in Section \ref{sec:object} for the ASSR task.
 
 %\section{Background} \label{sec:soa}
 
-Aside from \cite{aucouturier2007bag} and \cite{lagrange:hal-01082501} that consider the task of ASSR, much of the work dedicated to acoustic scene modeling is applied to the ASC task. 
-An overview of the efforts for the latter task is provided by the DCASE 2013 challenge \cite{barchiesi2015acoustic}, held in 2013 to compare different approaches to scene classification. Table \ref{tab:dcase} summarizes the results of the submitted algorithms as well as newer systems that considered the private dataset for their experiments. Most of scene predictions are achieved by majority voting of predictions over features. \ja{What about the other algorithms? Why are we excluding them here?}
+Aside from \cite{aucouturier2007bag} and \cite{lagrange:hal-01082501} that consider the task of ASSR, much of the work dedicated to acoustic scene modeling is applied to the ASC task.
+An overview of the efforts for the latter task is provided by the DCASE 2013 challenge \cite{barchiesi2015acoustic}, held in 2013 to compare different approaches to scene classification. Table \ref{tab:dcase} summarizes the results of the submitted algorithms as well as newer systems that use the private part of the dataset for their experiments. Most of the scene prediction results are achieved by majority voting of predictions over features.
 
 \begin{table}
 \begin{center}
 \caption{Algorithms evaluated on the DCASE 2013 private dataset of acoustic scene classification. RQA stands for recurrence quantification analysis and ILD for inter-aural differences. Algorithms above the horizontal line participated to the DCASE challenge. Others used the datasets afterward and the last used only the public dataset ($^*$).  \label{tab:dcase}}
 \begin{tabular}{lcl}
 & Acc. \%  &  \multicolumn{1}{c}{Design}  \\
+\hline
 \cite{olivetti2013wonder} OE & 17 & compression distance, random forests \\
 \cite{elizalde2013vector} ELF & 55 & i-vector, LDA \\
 \cite{krijnders2013tone} KH & 55 & cochleogram, SVMs \\
 \cite{patil2013multiresolution} PE & 58 & 2D Gabor filters, SVMs \\
-\cite{lee2013acoustic} NHL & 60 & unsupervised learning over Mel spectra, SVMs \\
+\cite{lee2013acoustic} NHL & 60 & unsupervised learning over mel spectra, SVMs \\
 \cite{nogueira2013sound} NR1 & 60 & MFCCs and ILD features, SVMs \\
 \cite{chum2013ieee} CHR & 65 & sparsity features, HMMs  \\
-\cite{geiger2013large} GSR & 69 & Mel-frequency Spectra and MFCCs, SVMs \\
+\cite{geiger2013large} GSR & 69 & mel spectra and MFCCs, SVMs \\
 \cite{rakotomamonjy2015histogram} RG & 69 & histogram of gradient (HOG), SVMs \\
 \cite{li2013auditory} LTT & 72 & MFCCs, tree baggers \\
 \cite{roma2013recurrence} RNH & 76 & RQA features stacked with MFCCs, SVMs \\
