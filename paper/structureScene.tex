@@ -399,7 +399,8 @@ The $\widehat{\EMD}$ variant of $\EMD$ is adapted for non-normalized histograms.
 
 \begin{equation*}
 \sum\limits_{n,m}f_{nm} = \min\left( \sum\limits_{n} w_n^u ,\sum\limits_{m} w_m^v \right)
-\end{equation*} \ja{Can we provide some interpretation for the different terms and constraints here?}
+\end{equation*} 
+%\ja{Can we provide some interpretation for the different terms and constraints here?}
 where $\lbrace f_{nm} \rbrace$ is the flow between the cluster weights $w_n^u$ and $w_m^v$, that is, the amount transported from the $n$th bin to ``supply the demand'' of the $m$th bin. We denote by $D^{uv}$ the ground distance, a matrix containing the pairwise distances between the centroids sets $\mu^u$ and $\mu^v$. $D^{uv}$ is computed from the kernel $K$:
 \begin{equation*}
 D^{uv}=1-K^{(uv)}
@@ -467,7 +468,7 @@ Clustering is done using KMeans$++$ \cite{arthur2007k}, an augmented version of 
 
 \begin{figure}
 \begin{center}
-\includegraphics[width=8cm]{gfx/unsupervised_test3.eps}
+\includegraphics[width=8cm]{gfx/unsupervised_test2.eps}
 \caption{ASSR: $p@k$ obtained for MFCCs and scattering with logarithmic compression.}
 \label{fig:ASS_1}
 \end{center}
@@ -475,7 +476,7 @@ Clustering is done using KMeans$++$ \cite{arthur2007k}, an augmented version of 
 
 \begin{figure}
 \begin{center}
-\includegraphics[width=8cm]{gfx/unsupervised_test2.eps}
+\includegraphics[width=8cm]{gfx/unsupervised_test1.eps}
 \caption{ASSR: $p@k$ obtained for scattering with and without logarithmic compression.}
 \label{fig:ASS_2}
 \end{center}
