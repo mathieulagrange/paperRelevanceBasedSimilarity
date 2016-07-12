@@ -317,10 +317,12 @@ Conversely, a late integration scheme relies on probabilistic assignments $\math
 where $\hat{y}$ is the estimated class label and $\rho$ is a reduction function, such as sum, product, or majority vote \cite{Kittler1998}.
 
 A drawback of early integration is that it drastically reduces the number of training instances at the classifier stage, down to one per auditory scene.
-In the context of the DCASE 2013 private dataset, this corresponds to merely $8$ training instances per class, and $80$ instances overall, hence an increase in variance in statistical estimation and a risk of overfitting. \ja{That may be, but by averaging, we also reduce the variability of our data, which may be a good thing. If we're dealing with Gaussian processes, this is in fact a very good thing to do.}
-On the contrary, a late integration scheme for $T=372\textrm{ ms}$ would yield $128$ instances per auditory scene \ja{How long is each recording? Should we specify this somewhere?}, resulting in $10240$ instances overall.
+In the context of the DCASE 2013 private dataset, this corresponds to merely $8$ training instances per class, and $80$ instances overall, hence an increase in variance in statistical estimation and a risk of overfitting.
+On the contrary, once the scattering representation $\mathbf{S}\boldsymbol{x}(t,\gamma)$ has been unpadded of any boundary artifacts, a late integration scheme for $T=372\textrm{ ms}$ would yield $128$ instances per $30$-second auditory scene, resulting in $10240$ instances overall.
 However, many of these instances may be silent or lack any salient properties of the class they are assigned to, hence an increase in bias and a risk of underfitting.
-In short, early and late integration methods lie at opposite ends of the bias-versus-variance statistical tradeoff. We refer to \cite{Joder2009} for a comprehensive review of this problematic in the context of musical instrument recognition. \ja{Another important difference is that early integration makes the classifier objective more appropriate, since the SVM will maximize the final classification error on the training data, as opposed to some intermediate frame-level label.}
+Moreover, when applying late integration, the classifier optimizes accuracy at the frame level, not at the scene level, so its prediction might not yield optimal training error under the final evaluation metric.
+In short, early and late integration methods lie at opposite ends of the bias-versus-variance statistical tradeoff.
+We refer to \cite{Joder2009} for a comprehensive review of this problematic in the context of musical instrument recognition.
 In the context of this paper, early integration refers to an averaging of the features and late integration refers to a majority voting of the predictions. 
 %\ja{We should perhaps mention this in that particular section instead of over here.}
 \subsection{Standardization}
@@ -561,6 +563,7 @@ Our experiments on the DCASE 2013 dataset, as reported in table \ref{table:dcase
 
 Our results on the development dataset are reported in Table \ref{table:dcase2016}, in comparison with a baseline of MFCCs coefficients and a generative classifier, namely Gaussian mixture models with $16$ Gaussians per model. The baseline relies on a late integration scheme, wherein the reduction function $\rho$ is a product of likelihoods.
 The average accuracy across classes is brought from $70.8\%$ to $79.4\%$.
+Furthermore, our cross-validation analyses confirmed that the value $T=372\,\mathrm{ms}$ for the support of the low-pass filter $\boldsymbol{\phi}(t)$ is optimal when applying late integration by majority voting.
 The results on the evaluation dataset are awaiting publication by the DCASE organizing committee, and will be disclosed in August 2016.
 
 \begin{table}
