@@ -512,7 +512,9 @@ This is in accordance with the previous results on similarity retrieval, as well
 
 \subsubsection*{Early \vs late integration}
 late integration, \ie building a prediction by majority voting over $128$ local windows of duration $T=372\,\mathrm{ms}$, outperforms early integration, \ie classifying the acoustic scene with a global window of duration $T=24\,\mathrm{s}$.
-This means that, despite its discriminative power at fine scales, the scattering transform is unable to segregate distinct acoustic events beyond the scale of about one second.
+This result suggests that, despite its discriminative power at fine scales, the scattering transform is unable to segregate distinct acoustic events beyond the scale of about one second.
+Therefore, it is beneficial to regard the scattering transform as a mid-level descriptor of acoustic content, not as a high-level descriptor, and adopt a data-driven strategy for the temporal integration of acoustic events within one scene.
+Surprisingly, although we ran an extensive number of experiments to formulate object-based clustering into a supervised setting for acoustic scene classification, none of them managed to outperform the baseline strategy in temporal integration, namely majority voting.
 
 \subsubsection*{Role of logarithmic compression}
 logarithmic compression provides a small, albeit consistent boost to acoustic scene classification over all folds in the DCASE 2013 private dataset.
