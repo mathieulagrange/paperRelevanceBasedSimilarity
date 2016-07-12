@@ -171,10 +171,7 @@ Scattering transforms are time-shift invariant representations of audio signals 
 The notion of invariance to time shifts plays an essential role in auditory scene classification.
 Indeed, recordings may be shifted locally without affecting their perception and therefore such shifts do not convey any information about the class.
 To discard this superfluous source of variability, signals can be mapped to a time-shift invariant feature space before training the classifier, eliminating the need for the classifier to explicitly learn this invariance.
-From any set of descriptors -- \eg the time-frequency representation $\boldsymbol{x_1}(t,\gamma_1)$ \ja{$x_1$, $\gamma_1$, etc have not been introduced yet.} of a signal $\boldsymbol{x}(t)$ --
-a representation invariant to time shifts shorter in duration than $T$ can be obtained
-by convolving $\boldsymbol{x_1}$ with a low-pass filter $\boldsymbol{\phi}(t)$ of cutoff frequency
-set to $1/T$ \ja{How are we defining frequency here, as $\omega$ or $2\pi\omega$? In the former case, we should have $2\pi/T$. Probably we should define our Fourier transform somewhere to nail this down}:
+From any set of descriptors $\boldsymbol{x_1}(t,\gamma)$, where $\gamma$ denotes a descriptor index, a representation invariant to time shifts shorter in duration than $T$ can be obtained by convolving $\boldsymbol{x_1}$ with a low-pass filter $\boldsymbol{\phi}(t)$ of cutoff frequency set to $1/T$, as measured in Hertz:
 \begin{equation}
 \mathbf{S_1}\boldsymbol{x}(t, \gamma_1) = (\boldsymbol{x_1} \ast \boldsymbol{\phi}) (t).
 \end{equation}
@@ -183,7 +180,7 @@ To address this issue, the temporal scattering transform recovers this informati
 
 By resorting to wavelet transform modulus, as opposed to Fourier transform modulus, the resulting features are provably stable to time-warping deformation,
 in the sense of Lipschitz regularity with respect to diffeomorphisms \cite{Mallat2012}.
-In addition time-shift invariance, this stability property is crucial to signal classification, since it guarantees robustness to small variations in pitch, reverberation, and rhythmic organization of events, which make up an important part of the intra-class variability among natural sounds.
+In addition to invariance, this stability property is crucial to signal classification, since it guarantees robustness to small variations in pitch, reverberation, and rhythmic organization of events, which make up an important part of the intra-class variability among natural sounds.
 
 The scattering transform is defined as an infinite cascade of wavelet transform and modulus operators.
 However, to achieve invariance to translation up to $T = 372\,\mathrm{ms}$, \ie the approximately minimal duration between non-overlapping acoustic events, two layers of scattering transform of the audio signal $\boldsymbol{x}(t)$ often suffice.
@@ -193,14 +190,16 @@ The next subsection describes the operations involved in temporal scattering.
 \ja{I'm not sure that this whole section makes sense right here. It can be a bit daunting to jump right in and talk about spectrograms $x_1$ and wavelelets, etc. before we've defined them. Could we put this after the next subsection, explaining all the nice properties of the scattering transform and why we need them after we've defined it fully?}
 
 \subsection{Temporal scattering}
+Our convention for the Fourier transform of a continuous-time signal $\boldsymbol{x}(t)$ is $\boldsymbol{\hat{x}}(\omega) = \int x(t) \exp(\mathrm{i} 2\pi t \omega) \; \mathrm{d}\omega$. Note that the frequency variable $\omega$ is expressed in Hertz, not in radians per second.
+
 Let $\boldsymbol{\psi}(t)$ a complex-valued band-pass filter of
-center frequency $\xi_1$ and bandwidth $\xi_1/Q_1$. \ja{I mentioned this already, but it would be good to define the Fourier transform so that we can make these statements more specific}
+center frequency $\xi_1$ and bandwidth $\xi_1/Q_1$.
 A filter bank of wavelets is built by dilating $\boldsymbol{\psi}(t)$
 according to a geometric sequence of scales $2^{\gamma_1/Q_1}$, obtaining
 \begin{equation}
 \boldsymbol{\psi_{\gamma_1}}(t) = 2^{-\gamma_1/Q_1} \boldsymbol{\psi}(2^{-\gamma_1/Q_1} t)\mbox{.}
 \end{equation}
-The variable $\gamma_1$ is an inverted log-frequency, taking integer values between $0$ and $(J_1 \times Q_1 - 1)$.
+The variable $\gamma_1$ is the opposite number of a log-frequency, taking integer values between $0$ and $(J_1 \times Q_1 - 1)$.
 In the sequel, we set $\xi_1$ to $20~\mathrm{kHz}$ (close to the Nyquist frequency of the audio recordings) the number of octaves $J_1$ to $10$ (the lower end of human hearing range) and the number of wavelets per octave $Q_1$ to $8$.
 For each $\gamma_1$, the wavelet $\boldsymbol{\psi_{\gamma_1}}(t)$
 has a center frequency of $2^{-\gamma_1/Q_1}\xi_1$, a bandwidth of $2^{-\gamma_1/Q_1}\xi_1/Q_1$, and a quality factor of $Q_1$.
