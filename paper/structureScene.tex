@@ -549,10 +549,12 @@ late, RBF     & $68\pm10$ & $73\pm\phantom{0}8$  & $\mathbf{78}\pm\phantom{0}6$ 
 \subsubsection*{Participation to the DCASE 2016 challenge}
 In order to evaluate how general our findings are, we have taken part in the acoustic scene classification task 2016 edition of the DCASE challenge, whose results are forthcoming.
 This edition relies on the TUT 2016 acoustic scenes dataset, which contains $15$ classes of acoustic scenes, and is larger than the DCASE 2013 private dataset by one order of magnitude \cite{Mesaros2016_EUSIPCO}.
+Training support vector machines with a Gaussian RBF kernel is computationally demanding for a dataset of such size, especially under a late integration scheme, wherein the number of training instances exceeds $10^5$.
+Since the LIBLINEAR package enables faster training than LIBSVM, we have used a linear kernel.
+Our experiments on the DCASE 2013 dataset, as reported in table \ref{table:dcase2013}, show that the linear kernel gives comparable, albeit slightly worse, classification results than the Gaussian RBF kernel.
 
 Our results on the development dataset are reported in Table \ref{table:dcase2016}, in comparison with a baseline of $MFCCs$ coefficients and a generative classifier, namely Gaussian mixture models with $16$ Gaussians per model.
 The average accuracy across classes is brought from $70.8\%$ to $79.4\%$.
-It appears that log-scattering features compare favorably to 
 The results on the evaluation dataset are awaiting publication by the DCASE organizing committee, and will be disclosed in August 2016.
 
 
