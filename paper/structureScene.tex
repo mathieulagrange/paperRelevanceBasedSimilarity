@@ -587,7 +587,7 @@ Since the LIBLINEAR package enables faster training than LIBSVM, we have used a 
 Our experiments on the DCASE 2013 dataset, as reported in table \ref{table:dcase2013}, show that the linear kernel gives comparable, albeit slightly worse, classification results than the Gaussian RBF kernel.
 
 Our results on the public part of the DCASE 2016 dataset are reported in Table \ref{table:dcase2016}, compared with a baseline using MFCCs and a generative classifier, namely Gaussian mixture models with $16$ Gaussians per model. This baseline relies on a late integration scheme, wherein the reduction function $\rho$ is a product of likelihoods.
-The average accuracy across classes on the public part is brought from $70.8\%$ to $79.4\%$\footnote{Challenge results on the private part of the dataset are expected to be published in August 2016}.
+The average accuracy across classes on the public part is brought from $70.8\%$ to $79.4\%$\footnote{Challenge results on the private part of the dataset are expected to be published in August 2016.}.
 Furthermore, our cross-validation analyses confirmed that the value $T=372\,\mathrm{ms}$ for the support of the low-pass filter $\boldsymbol{\phi}(t)$ is optimal when applying late integration by majority voting.
 
 \section{Conclusion}
