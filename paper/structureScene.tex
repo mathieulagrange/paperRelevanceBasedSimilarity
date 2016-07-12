@@ -186,7 +186,7 @@ in the sense of Lipschitz regularity with respect to diffeomorphisms \cite{Malla
 In addition time-shift invariance, this stability property is crucial to signal classification, since it guarantees robustness to small variations in pitch, reverberation, and rhythmic organization of events, which make up an important part of the intra-class variability among natural sounds.
 
 The scattering transform is defined as an infinite cascade of wavelet transform and modulus operators.
-However, to achieve invariance to translation up to $T = 186\,\mathrm{ms}$, \ie the approximately minimal duration between non-overlapping acoustic events, two layers of scattering transform of the audio signal $\boldsymbol{x}(t)$ often suffice.
+However, to achieve invariance to translation up to $T = 372\,\mathrm{ms}$, \ie the approximately minimal duration between non-overlapping acoustic events, two layers of scattering transform of the audio signal $\boldsymbol{x}(t)$ often suffice.
 
 The next subsection describes the operations involved in temporal scattering.
 
@@ -301,6 +301,7 @@ Figure \ref{fig:histograms} shows the distribution of an arbitrarily chosen scat
 \label{fig:histograms}
 Histogram of values taken by the first-order scattering coefficient $\mathbf{S}\boldsymbol{x}(\gamma)$, corresponding to a center acoustic frequency of $302\,\mathrm{Hz}$,
 (a) before and (b) after logarithmic compression.}
+\label{fig:compression}
 \end{center}
 \end{figure}
 
@@ -347,7 +348,7 @@ where $\hat{y}$ is the estimated class label and $\rho$ is a reduction function,
 
 A drawback of early integration is that it drastically reduces the number of training instances at the classifier stage, down to one per auditory scene.
 In the context of the DCASE 2013 dataset, this corresponds to merely $8$ training instances per class, and $80$ instances overall, hence an increase in variance in statistical estimation and a risk of overfitting. \ja{That may be, but by averaging, we also reduce the variability of our data, which may be a good thing. If we're dealing with Gaussian processes, this is in fact a very good thing to do.}
-On the contrary, a late integration scheme for $T=188\textrm{ ms}$ would yield $128$ instances per auditory scene \ja{How long is each recording? Should we specify this somewhere?}, resulting in $10240$ instances overall.
+On the contrary, a late integration scheme for $T=372\textrm{ ms}$ would yield $128$ instances per auditory scene \ja{How long is each recording? Should we specify this somewhere?}, resulting in $10240$ instances overall.
 However, many of these instances may be silent or lack any salient properties of the class they are assigned to, hence an increase in bias and a risk of underfitting.
 In short, early and late integration methods lie at opposite ends of the bias-versus-variance statistical tradeoff. We refer to \cite{Joder2009} for a comprehensive review of this problematic in the context of musical instrument recognition. \ja{Another important difference is that early integration makes the classifier objective more appropriate, since the SVM will maximize the final classification error on the training data, as opposed to some intermediate frame-level label.}
 
@@ -441,7 +442,7 @@ with $A$ a scaling parameter, set to the mean value of the $\widehat{\EMD}$ betw
 
 \subsection{Feature design}
 
-Experiments are carried out using temporal scattering coefficients as well as mel-frequency cepstral coefficients (MFCCs) as features. For the temporal scattering, each scene is described by $128$ vectors of scattering coefficients computed with half-overlapping windows $\boldsymbol{\phi}(t)$ of duration $T=188\,\mathrm{ms}$. Experiments are conducted with and without the logarithmic compression (see Section \ref{sec:logcomp}).
+Experiments are carried out using temporal scattering coefficients as well as mel-frequency cepstral coefficients (MFCCs) as features. For the temporal scattering, each scene is described by $128$ vectors of scattering coefficients computed with half-overlapping windows $\boldsymbol{\phi}(t)$ of duration $T=372\,\mathrm{ms}$. Experiments are conducted with and without the logarithmic compression (see Section \ref{sec:logcomp}).
 
 Different sets of parameters were tested to compute the MFCCs. Results here are only reported for the best setting, which consisted of $40$ MFCCs (including the first energy coefficient) computed for windows of $50\,\mathrm{ms}$ and hops of $25\,\mathrm{ms}$, with full frequency range. This setting gives us $600$ feature vectors per scene. It has been reported that classifying the each individual frame directly may not be the best approach \cite{rakotomamonjy2015histogram}. \ja{Why?} In order to reduce the amount of data, a pooling step is performed on the MFCCs: each recording is divided into $n$ non-overlapping $t$-seconds long ``texture'' windows. The MFCC vectors within each texture window are then averaged in time. As the \emph{ob} approaches involve a clustering step, we need to ensure that both MFCCs and scattering coefficients have a comparable number of vectors per recording. \ja{Why do we need to do this?} Thus, $t$ is set to $250\,\mathrm{ms}$, resulting in $120$ MFCCs texture windows per scene.
 
@@ -500,13 +501,18 @@ Outcomes for the scattering with and without logarithmic compression are shown i
 \subsection{Acoustic Scene Classification}
 
 \subsubsection*{MFCCs \vs scattering}
-As shown in Figure \cite{folds}, scattering coefficients outperform MFCCs over all but one fold of the DCASE 2013 private dataset when applying early integration, and over all folds when applying late integration.
+as shown in Figure \cite{folds}, scattering coefficients outperform MFCCs over all but one fold of the DCASE 2013 private dataset when applying early integration, and over all folds when applying late integration.
 Not only the average accuracy is improved, but the variance between fold-wise accuracies is also reduced, \eg from $16\%$ to $7\%$ in the case of early integration.
 This is in accordance with the previous results on similarity retrieval, as well as with other papers comparing mel-frequency coefficients with scattering coefficients on a variety of tasks, ranging from musical genre recognition \cite{Anden2014} to environmental sound classification \cite{Salamon2015}.
 
 \subsubsection*{Early \vs late integration}
+late integration, \ie building a prediction by majority voting over $128$ local windows of duration $T=372\,\mathrm{ms}$, outperforms early integration, \ie classifying the acoustic scene with a global window of duration $T=24\,\mathrm{s}$.
 
 \subsubsection*{Role of logarithmic compression}
+logarithmic compression provides a small, albeit consistent boost to acoustic scene classification over all folds in the DCASE 2013 private dataset.
+Indeed, as discussed in subsection \ref{sec:logcomp}, and observed in Figure \ref{fig:compression}, the statistical assumption of normality for scattering coefficients is only approximately satisfied once mapped to a logarithmic, decibel-like scale.
+This transformation improves the discriminative power of support vector machines (SVM) trained on scattering coefficients, whatever be the chosen temporal integration strategy (early or late) or the inner product kernel (linear or Gaussian RBF).
+Again, this is in accordance with our previous findings on acoustic scene similarity retrieval, which are reported in Figure \ref{fig:ASS_2}.
 
 \subsubsection*{Participation to the DCASE 2016 challenge}
 In order to evaluate how general our findings are, we have taken part in the acoustic scene classification task 2016 edition of the DCASE challenge.
