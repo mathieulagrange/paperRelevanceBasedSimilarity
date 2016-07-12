@@ -352,40 +352,35 @@ The vectors $\mu[\mathbf{S}\boldsymbol{X}(\gamma)]$ and $\sigma[\mathbf{S}\bolds
 
 %From a data processing point of view, a holistic scheme, such as the bag-of-frame approach \cite{aucouturier2007bag}, has a simplicity, but clearly face poor performance on realistic conditions \cite{lagrange:hal-01082501}. 
 
-As discussed in Section \ref{sec:soa}, results in sound perception suggest the appropriateness of an object-based representation of auditory scenes for predicting high-level properties. As the detection of events is still an open problem \cite{7100934},  we consider in this paper a simple quantization scheme that is as generic as possible, implemented using a clustering approach where coherent regions of the scene are identified. The clustering is done using the centroid-based clustering algorithm KMeans.
+As discussed in Section \ref{sec:soa}, results in sound perception suggest the appropriateness of an object-based representation of auditory scenes for predicting high-level properties. As the detection of events is still an open problem \cite{7100934},  we consider in this paper a simple quantization scheme that is as generic as possible, implemented using a clustering approach where coherent regions of the scene are identified. The clustering is done using the centroid-based $k$-means clustering algorithm.
 
-Given a set of $d$-dimensional feature vectors $x_l^u\in X_u$, $l=\lbrace 1,2,\ldots,L\rbrace$, extracted from the scene $s_u$, $u=\lbrace1,2,\ldots,U\rbrace$, the goal of KMeans is to partition $X_u$ into $M$ clusters $c^u_m\in C_u$, $m=\lbrace 1,2,\ldots,M\rbrace$. The partitioning is done by minimizing for each $m$ cluster the squared error between its empirical mean (centroid) and the points it contains. Given $\mu_m^u$ the centroid of the cluster $c_m^u$, KMeans minimizes the following objective function:
-
+Given a set of $d$-dimensional feature vectors $x_l^u\in X_u$, $l=\lbrace 1,2,\ldots,L\rbrace$, extracted from the scene $s_u$, $u=\lbrace 1,2,\ldots,U\rbrace$, the goal of $k$-means is to partition $X_u$ into $M$ clusters $c^u_m\in C_u$, $m=\lbrace 1,2,\ldots,M\rbrace$. The partitioning is done by minimizing for each cluster the squared error between its empirical mean (centroid) and the contained points. Given $\mu_m^u$ the centroid of the cluster $c_m^u$, $k$-means attempts to minimize the following objective function:
 \begin{equation}
-J(C_u)=\sum\limits_{m} \sum_{x^u_l\in c^u_m} \vert \vert x_l^u - \mu_m^u \vert \vert^2
+J(C_u)=\sum\limits_{m} \sum_{x^u_l\in c^u_m} \Vert x_l^u - \mu_m^u \Vert^2\mbox{.}
 \end{equation}
-
-At the end, each scene $s_u$ is described by a set of clusters $C_u$. One should note that this quantization approach differs from unsupervised learning schemes such as the ones studied in \cite{bisot2016acoustic}, where the scene features are projected in a dictionary learned from the entire dataset.
+Each scene $s_u$ is then described by a set of clusters $C_u$. One should note that this quantization approach differs from unsupervised learning schemes such as the ones studied in \cite{bisot2016acoustic}, where the scene features are projected in a dictionary learned from the entire dataset.
 
 %which clusters not over a single scene, but over the whole dataset, and re-projects each scene in the resulting enhanced feature space. \ja{This sentence is also a big unclear.}
 
-Here, with the aim of better balancing the influence of salient sound events and texture-like sounds on the final decision, the similarity between two scenes is computed based on their centroids similarities.
+Here, with the aim of better balancing the influence of salient sound events and texture-like sounds on the final decision, the similarity between two scenes is computed based on the similarity of their centroid.
 
 The similarity between all the scene centroids $\mu_i$, $i=\lbrace1,2,\ldots,I \rbrace$ with $I=UM$, is computed using a radial basis function (RBF) kernel $K$ combined with the local scaling method proposed in \cite{selfTuneManor2004}:
 \begin{equation}
 \label{eq:kc}
 K_{ij} = \exp\left( - \dfrac{\Vert \mu_i - \mu_j \Vert^2}{\Vert \mu_i - \mu_{k,i} \Vert \Vert \mu_j - \mu_{k,j} \Vert} \right) 
 \end{equation} 
-
-where $\mu_{k,i}$ and $\mu_{k,j}$ are the $k^{\textrm{th}}$ nearest neighbor to the centroids $\mu_i$ and $\mu_j$ respectively, and $\Vert \cdot \Vert$ denotes the Euclidean norm.
+where $\mu_{k,i}$ and $\mu_{k,j}$ are the $k^{\textrm{th}}$ nearest neighbor to the centroids $\mu_i$ and $\mu_j$, respectively, and $\Vert \cdot \Vert$ denotes the Euclidean norm.
 
 To compute the similarity between two scenes, we then consider several centroid-based similarity metrics:
-
 \begin{itemize}
 \item \emph{ob-closest} (ob-c): the similarity between two scenes is equal to the largest similarity between their centroids,
-\item \emph{ob-averaged} (ob-a): the similarity between two scenes is equal to the average of their centroids similarities, and
-\item \emph{ob-weighted} (ob-w): for each scene, each centroid is weighted according to the number of frames belonging to its cluster. Each scene $s_u$ is thus described by a signature $p_u$ of $M$ clusters ($p_u=\lbrace(\mu_1^u,w_1^u),(\mu_2^u,w_2^u),\ldots,(\mu_M^u,w_M^u)\rbrace$), with $\mu_m^u$ and $w_m^u$ being the centroid and the weight of the $m$th cluster respectively. A cross-bin histogram distance, taking into account both the clusters weights of the scenes and the distances between their cluster centroids is then used. 
+\item \emph{ob-averaged} (ob-a): the similarity between two scenes is equal to the average of their centroid similarities, and
+\item \emph{ob-weighted} (ob-w): for each scene, each centroid is weighted according to the number of frames belonging to its cluster. Each scene $s_u$ is thus described by a signature $p_u$ of $M$ clusters ($p_u=\lbrace(\mu_1^u,w_1^u),(\mu_2^u,w_2^u),\ldots,(\mu_M^u,w_M^u)\rbrace$), with $\mu_m^u$ and $w_m^u$ being the centroid and the weight of the $m$th cluster respectively. The similarity between scenes is then given by a cross-bin histogram distance, taking into account both the cluster weights and the distances between their centroids.
 \end{itemize}
 
-For \emph{ob-w}, the cross-bin histogram distance used is a variant of the earth mover's distance ($\EMD$), known as $\widehat{\EMD}$ and introduced in \cite{pele2008linear}. $\EMD$ computes the distance between two histograms by finding the minimal cost to be paid to transform one histogram into the other. An advantage of $\EMD$ is that it automatically aligns the histogram bins by using a ``ground distance'' which is the distance between the bin centers in the two histograms. In our case, the histograms are the clusters weights $w^u$ defined over the bins formed by clusters centroids $\mu^u$.
+For \emph{ob-w}, the cross-bin histogram distance used is a variant of the earth mover's distance ($\EMD$), known as $\widehat{\EMD}$ and introduced in \cite{pele2008linear}. The $\EMD$ computes the distance between two histograms by finding the minimal cost to be paid to transform one histogram into the other. An advantage of $\EMD$ is that it automatically aligns the histogram bins by using a ``ground distance'' which is the distance between the bin centers in the two histograms. In our case, the histograms are the clusters weights $w^u$ defined over the bins formed by clusters centroids $\mu^u$.
 
-The $\widehat{\EMD}$ variant of $\EMD$ is adapted for non-normalized histograms. To compute the $\widehat{\EMD}$, we use the implementation proposed in \cite{pele2009fast}. Given two signatures $p_u$ and $p_v$ made of $n$ and $m$ clusters respectively, the $\widehat{EMD}$ is computed by solving the following linear programming problem:
-
+The $\widehat{\EMD}$ variant of $\EMD$ is adapted for non-normalized histograms. To compute the $\widehat{\EMD}$, we use the implementation proposed in \cite{pele2009fast}. Given two signatures $p_u$ and $p_v$ made of $n$ and $m$ clusters respectively, the $\widehat{\EMD}$ is computed by solving the following linear programming problem:
 \begin{equation}
 \begin{split}
 \widehat{\EMD}(p_u,p_v) &=\left( \min\limits_{\lbrace f_{nm}\rbrace} \sum\limits_{n,m} f_{nm}D_{nm}^{uv} \right) \\
@@ -403,16 +398,16 @@ The $\widehat{\EMD}$ variant of $\EMD$ is adapted for non-normalized histograms.
 %\ja{Can we provide some interpretation for the different terms and constraints here?}
 where $\lbrace f_{nm} \rbrace$ is the flow between the cluster weights $w_n^u$ and $w_m^v$, that is, the amount transported from the $n$th bin to ``supply the demand'' of the $m$th bin. We denote by $D^{uv}$ the ground distance, a matrix containing the pairwise distances between the centroids sets $\mu^u$ and $\mu^v$. $D^{uv}$ is computed from the kernel $K$:
 \begin{equation*}
-D^{uv}=1-K^{(uv)}
+D^{uv}=\boldsymbol{1}-K^{(uv)}
 \end{equation*}
-with $K^{(uv)}$ being the slice of $K$ containing the pairwise similarities between the centroids sets $\mu^u$ and $\mu^v$ of the scenes $s_u$ and $s_v$ respectively. As suggested in \cite{pele2009fast}, we set the tradeoff parameter $\alpha$ to $1$.
+with $K^{(uv)}$ being the slice of $K$ containing the pairwise similarities between the centroids sets $\mu^u$ and $\mu^v$ of the scenes $s_u$ and $s_v$, respectively. As suggested in \cite{pele2009fast}, we set the tradeoff parameter $\alpha$ to $1$.
 
-To get the final similarity measure between the scenes $s_u$ and $s_v$, an extended Gaussian kernels $K^s$ \cite{chapelle1999support,jing2003support} is computed:
+To get the final similarity measure between the scenes $s_u$ and $s_v$, an extended Gaussian kernel $K^s$ \cite{chapelle1999support,jing2003support} is computed:
 \begin{equation}
 \label{eq:ks}
 K_{uv}^s = \exp\left( - \dfrac{\widehat{\EMD}(p_u,p_v)}{A} \right) \\
 \end{equation}
-with $A$ a scaling parameter, set to the mean value of the $\widehat{\EMD}$ between all the scenes. The resulting kernel $K^s$ is known as an EMD kernel, and it should be noted that there is no guarantee that this kernel is positive definite.
+with $A$ a scaling parameter, set to the mean value of the $\widehat{\EMD}$ between all the scenes. The resulting kernel $K^s$ is known as an $\EMD$ kernel, and it should be noted that there is no guarantee that this kernel is positive definite.
 
 \section{Experiments}
 \label{sec:experiments}
