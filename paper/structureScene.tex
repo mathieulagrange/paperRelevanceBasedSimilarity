@@ -123,7 +123,7 @@ BOF approaches treats each observations equally, whereas the above cited results
 %\section{Background} \label{sec:soa}
 
 Aside from \cite{aucouturier2007bag} and \cite{lagrange:hal-01082501} that consider the task of ASSR, much of the work dedicated to acoustic scene modeling is applied to the ASC task. 
-An overview of the efforts for the latter task is provided by the DCASE2013 challenge \cite{barchiesi2015acoustic}, held in 2013 to compare different approaches to scene classification. Table \ref{tab:dcase} summarizes the results of the submitted algorithms where most \ja{?} of scene predictions are achieved by majority voting of predictions over features. \ja{What about the other algorithms? Why are we excluding them here?}
+An overview of the efforts for the latter task is provided by the DCASE2013 challenge \cite{barchiesi2015acoustic}, held in 2013 to compare different approaches to scene classification. Table \ref{tab:dcase} summarizes the results of the submitted algorithms as well as newer systems that considered the private datset for their experiments. % where most \ja{?} of scene predictions are achieved by majority voting of predictions over features. \ja{What about the other algorithms? Why are we excluding them here?}
 
 \begin{table}
 \begin{center}
@@ -141,12 +141,18 @@ An overview of the efforts for the latter task is provided by the DCASE2013 chal
 \cite{li2013auditory} LTT & 72 & MFCCs, tree baggers \\
 \cite{roma2013recurrence} RNH & 76 & RQA features stacked with MFCCs, SVMs \\
 \hline
+\cite{phan2016label} & 84 to 87 & Label Tree Embedding of Gammatone, SVMs \\
+\cite{7362846} & 85$^*$ & AMS, LDA \\
 \end{tabular}
 \end{center}
-\caption{Algorithms evaluated on the DCASE2013 ASC private DCASE2013 dataset. RQA stands for recurrence quantification analysis, ILD for inter-aural differences and UL for unsupervised learning. Algorithms above the horizontal line participated to the DCASE challenge. Others used the private dataset afterward.  \label{tab:dcase}}
+\caption{Algorithms evaluated on the DCASE2013 ASC DCASE2013 dataset. RQA stands for recurrence quantification analysis, ILD for inter-aural differences, AMS for amplitude Modulated Spectrum and UL for unsupervised learning. Algorithms above the horizontal line participated to the DCASE challenge. Others used the private dataset afterward and the last used the public dataset.  \label{tab:dcase}}
 \end{table}
 
-In this paper, we are interested in evaluating different algorithmic designs leading to different scene models, we therefore resort to straightforward ranking performance measures for the ASSR task. \ja{It's not clear to me how the first part implies the second part here} Similarly, we have picked SVMs as our classifier for the ASC task, since these are a standard tool in the community and allows for us to focus our analysis on the earlier processing stages. Moreover, since MFCCs are well-established features which perform well for these task, we shall include them baseline features in all experiments described in this paper.
+
+In addition, it is still challenging, with a state-of-the-art system based on feature design \ja{?} and SVMs achieving $76\%$ \cite{roma2013} (winner of the DCASE2013 challenge). Another system, using a HOG+SVM approach \cite{rakotomamonjy2015histogram}, achieves $75\%$ and $92\%$ on the DCASE2013 and Rouen datasets, respectively. Recent advances using hierarchical classifier architectures obtain between $84\%$ and $87\%$ on DCASE2013 depending on the prior knowledge used during training \cite{phan2016label}. On the Rouen dataset, the state-of-the-art is currently $95\%$ \cite{bisot2016acoustic}.
+
+
+
 
 %\gl{Othe this r paper:} \cite{jiang2005svm, kalinli2009saliency, su2011environmental, ye2015acoustic, bisot2015hog, chakrabarty2015exploring, xue2015auditory}
 
@@ -426,11 +432,10 @@ In the experiments reported in this paper, the DCASE2013 \cite{giannoulis2013dat
 a period of several months and in each
 scene recorded a few minutes of audio. No
 systematic variations in the recordings covaried with scene
-type: all recordings were made under moderate weather conditions, at varying times of day and week, and each recordist recorded each scene type.
+type: all recordings were made under moderate weather conditions, at varying times of day and week, and each recordist recorded each scene type. As a consequence, DCASE2013 dataset has interesting intra-class diversity while remaining manageable in terms of size, making it suitable for extensive evaluation of algorithmic design choices \cite{lagrange:hal-01082501}. 
 The dataset is split into a public dataset that can used for optimizing the ASC system and a private dataset used for computing the resulting accuracy using a fivefold cross validation scheme. The folds used in this paper are the same as the ones used during the challenge. 
 
-The DCASE2013 dataset has significant intra-class diversity while remaining manageable in terms of size, making it suitable for extensive evaluation of algorithmic design choices \cite{lagrange:hal-01082501}. In addition, it is still challenging, with a state-of-the-art system based on feature design \ja{?} and SVMs achieving $76\%$ \cite{roma2013} (winner of the DCASE2013 challenge). Another system, using a HOG+SVM approach \cite{rakotomamonjy2015histogram}, achieves $75\%$ and $92\%$ on the DCASE2013 and Rouen datasets, respectively. Recent advances using hierarchical classifier architectures obtain between $84\%$ and $87\%$ on DCASE2013 depending on the prior knowledge used during training \cite{phan2016label}. On the Rouen dataset, the state-of-the-art is currently $95\%$ \cite{bisot2016acoustic}.
-
+%In this paper, we are interested in evaluating different algorithmic designs leading to different scene models, we therefore resort to straightforward ranking performance measures for the ASSR task. \ja{It's not clear to me how the first part implies the second part here} Similarly, we have picked SVMs as our classifier for the ASC task, since these are a standard tool in the community and allows for us to focus our analysis on the earlier processing stages. Moreover, since MFCCs are well-established features which perform well for these task, we shall include them baseline features in all experiments described in this paper.
 
 \subsection{Feature design}
 
