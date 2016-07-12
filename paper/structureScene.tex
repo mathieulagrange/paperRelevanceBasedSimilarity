@@ -512,7 +512,7 @@ This is in accordance with the previous results on similarity retrieval, as well
 
 \subsubsection*{Early \vs late integration}
 late integration, \ie building a prediction by majority voting over $128$ local windows of duration $T=372\,\mathrm{ms}$, outperforms early integration, \ie classifying the acoustic scene with a global window of duration $T=24\,\mathrm{s}$.
-
+This means that, despite its discriminative power at fine scales, the scattering transform is unable to segregate distinct acoustic events beyond the scale of about one second.
 
 \subsubsection*{Role of logarithmic compression}
 logarithmic compression provides a small, albeit consistent boost to acoustic scene classification over all folds in the DCASE 2013 private dataset.
@@ -547,7 +547,8 @@ late, RBF     & $68\pm10$ & $73\pm\phantom{0}8$  & $\mathbf{78}\pm\phantom{0}6$ 
 \end{table}
 
 \subsubsection*{Participation to the DCASE 2016 challenge}
-In order to evaluate how general our findings are, we have taken part in the acoustic scene classification task 2016 edition of the DCASE challenge.
+In order to evaluate how general our findings are, we have taken part in the acoustic scene classification task 2016 edition of the DCASE challenge, whose results are forthcoming.
+This edition relies on the TUT 2016 acoustic scenes dataset, which contains $15$ classes of acoustic scenes, and is larger than the DCASE 2013 private dataset by one order of magnitude
 
 Our results on the development dataset are reported in Table \ref{table:dcase2016}, in comparison with a baseline of $MFCCs$ coefficients and a generative classifier, namely Gaussian mixture models with $16$ Gaussians per model.
 The average accuracy across classes is brought from $70.8\%$ to $79.4\%$.
