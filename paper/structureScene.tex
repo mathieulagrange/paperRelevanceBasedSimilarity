@@ -409,7 +409,7 @@ To compute the similarity between two scenes, we then consider several centroid-
 \item \emph{ob-weighted} (ob-w): for each scene, each centroid is weighted according to the number of frames belonging to its cluster. Each scene $s_u$ is thus described by a signature $p_u$ of $M$ clusters ($p_u=\lbrace(\mu_1^u,w_1^u),(\mu_2^u,w_2^u),\ldots,(\mu_M^u,w_M^u)\rbrace$), with $\mu_m^u$ and $w_m^u$ being the centroid and the weight of the $m$th cluster respectively. A cross-bin histogram distance, taking into account both the clusters weights of the scenes and the distances between their cluster centroids is then used. 
 \end{itemize}
 
-For \emph{ob-w}, the cross-bin histogram distance used is a variant of the earth mover's distance ($\EMD$), known as $\widehat{\EMD}$ and introduced in \cite{pele2008linear}. $\EMD$ computes the distance between two histograms by finding the minimal cost to be paid to transform one histogram into the other. An advantage of $\EMD$ is that it automatically aligns the histogram bins by using a ``ground distance'' which is the distance between the bin centers in the two histograms. In our case, the histograms are the cluster weights $w^u$ defined over the bins formed by cluster centroids $\mu^u$.
+For \emph{ob-w}, the cross-bin histogram distance used is a variant of the earth mover's distance ($\EMD$), known as $\widehat{\EMD}$ and introduced in \cite{pele2008linear}. $\EMD$ computes the distance between two histograms by finding the minimal cost to be paid to transform one histogram into the other. An advantage of $\EMD$ is that it automatically aligns the histogram bins by using a ``ground distance'' which is the distance between the bin centers in the two histograms. In our case, the histograms are the clusters weights $w^u$ defined over the bins formed by clusters centroids $\mu^u$.
 
 The $\widehat{\EMD}$ variant of $\EMD$ is adapted for non-normalized histograms. To compute the $\widehat{\EMD}$, we use the implementation proposed in \cite{pele2009fast}. Given two signatures $p_u$ and $p_v$ made of $n$ and $m$ clusters respectively, the $\widehat{EMD}$ is computed by solving the following linear programming problem:
 
@@ -427,7 +427,7 @@ The $\widehat{\EMD}$ variant of $\EMD$ is adapted for non-normalized histograms.
 \begin{equation*}
 \sum\limits_{n,m}f_{nm} = \min\left( \sum\limits_{n} w_n^u ,\sum\limits_{m} w_m^v \right)
 \end{equation*} \ja{Can we provide some interpretation for the different terms and constraints here?}
-where $\lbrace f_{nm} \rbrace$ is the flow between the cluster weights $w_n^u$ and $w_m^v$, that is, the amount transported from the $n$th bin to ``supply the demand'' of the $m$th bin. We denote by $D^{uv}$ the ground distance, a matrix containing the pairwise distances between the centroid sets $\mu^u$ and $\mu^v$. $D^{uv}$ is computed from the kernel $K$:
+where $\lbrace f_{nm} \rbrace$ is the flow between the cluster weights $w_n^u$ and $w_m^v$, that is, the amount transported from the $n$th bin to ``supply the demand'' of the $m$th bin. We denote by $D^{uv}$ the ground distance, a matrix containing the pairwise distances between the centroids sets $\mu^u$ and $\mu^v$. $D^{uv}$ is computed from the kernel $K$:
 \begin{equation*}
 D^{uv}=1-K^{(uv)}
 \end{equation*}
@@ -514,8 +514,12 @@ late integration, \ie building a prediction by majority voting over $128$ local 
 \subsubsection*{Role of logarithmic compression}
 logarithmic compression provides a small, albeit consistent boost to acoustic scene classification over all folds in the DCASE 2013 private dataset.
 Indeed, as discussed in subsection \ref{sec:logcomp}, and observed in Figure \ref{fig:compression}, the statistical assumption of normality for scattering coefficients is only approximately satisfied once mapped to a logarithmic, decibel-like scale.
-This transformation improves the discriminative power of support vector machines (SVM) trained on scattering coefficients, whatever be the chosen temporal integration strategy -- \ie early or late -- or the inner product kernel -- \ie linear or Gaussian RBF.
+This transformation improves the discriminative power of support vector machines (SVM) trained on scattering coefficients, whatever be the chosen temporal integration strategy (early or late) or the inner product kernel (linear or Gaussian RBF).
 Again, this is in accordance with our previous findings on acoustic scene similarity retrieval, which are reported in Figure \ref{fig:ASS_2}.
+
+\subsubsection*{Participation to the DCASE 2016 challenge}
+In order to evaluate how general our findings are, we have taken part in the acoustic scene classification task 2016 edition of the DCASE challenge.
+
 
 \begin{figure}
 \begin{center}
@@ -523,10 +527,11 @@ Again, this is in accordance with our previous findings on acoustic scene simila
 \caption{Classification accuracies over the five folds of the DCASE 2013 private dataset, for various acoustic descriptors and temporal integration strategies. 
 The chosen classifier is a support vector machine (SVM) whose kernel is a Gaussian radial basis function (RBF).
 The mean accuracies and fold-wise standard deviations of each experiment are reported in Table \ref{table:dcase2013}.
-See text for details.}
+See text for details}
 \end{center}
-\label{fig:folds}
+\ref{fig:folds}
 \end{figure}
+
 
 \begin{table}
 \begin{center}
@@ -538,43 +543,9 @@ early, RBF     & $47\pm16$  & $56\pm\phantom{0}7$  & $63\pm\phantom{0}6$   \\
 late, linear  & $60\pm\phantom{0}9$ & $70\pm\phantom{0}8$  & $75\pm\phantom{0}5$   \\
 late, RBF     & $68\pm10$ & $73\pm\phantom{0}8$  & $\mathbf{78}\pm\phantom{0}6$   \\
 \end{tabular}
-\caption{Classification accuracies on the DCASE 2013 dataset with various settings of features, temporal integration strategies, and support vector machine kernels.
-See text for details.}
+\caption{Classification accuracies on the DCASE 2013 dataset with various settings of features, temporal integration strategies, and support vector machine kernels.}
 \end{center}
-\label{table:dcase2013}
-\end{table}
-
-\subsubsection*{Participation to the DCASE 2016 challenge}
-In order to evaluate how general our findings are, we have taken part in the acoustic scene classification task 2016 edition of the DCASE challenge.
-
-\begin{table}
-\begin{center}
-\begin{tabular}{lcc}
-Features & MFCCs & log-scattering \\
-Classifier  & GMMs    & linear SVMs \\
-Temporal integration & late (product rule) & late (majority voting) \\
-\midrule
-beach & $74.6 \pm 18.9$ & $83.5 \pm \phantom{0}7.1$ \\
-bus & $58.2 \pm 18.3$ & $88.8 \pm 11.4$ \\
-caf\'{e} / restaurant & $85.1 \pm 10.8$ & $64.5 \pm \phantom{0}8.3$ \\
-car & $69.1 \pm 20.8$ & $94.9 \pm \phantom{0}6.1$ \\
-city center & $89.6 \pm \phantom{0}9.2$ & $91.7 \pm \phantom{0}9.4$ \\
-forest path & $72.4 \pm 23.8$ & $93.8 \pm \phantom{0}7.8$ \\
-grocery store & $74.1 \pm 13.7$ & $90.9 \pm \phantom{0}6.9$ \\
-home & $78.1 \pm 17.7$ & $56.2 \pm 23.9$ \\
-library & $65.1 \pm 23.3$ & $82.0 \pm 13.0$ \\
-metro station & $85.2 \pm 15.6$ & $96.0 \pm \phantom{0}2.3$ \\
-office & $90.8 \pm 16.0$ & $87.5 \pm 21.7$ \\
-park & $25.6 \pm 11.0$ & $75.4 \pm \phantom{0}7.4$ \\
-residential area & $75.1 \pm 19.4$ & $44.2 \pm 15.0$ \\
-train & $34.1 \pm \phantom{0}7.2$ & $58.3 \pm 10.0$ \\
-tram & $85.4 \pm 13.9$ & $83.7 \pm 12.2$ \\
-\bottomrule
-Average & $70.8 \pm \phantom{0}2.6$ & $79.4 \pm \phantom{0}3.0$
-\end{tabular}
-\end{center}
-\label{table:dcase2016}
-\caption{Class-wise accuracies on the DCASE 2016 dataset for two pipelines: a baseline of mel-frequency cepstral coefficients (MFCCs), Gaussian mixture models (GMMs), and late temporal integration by product of likelihoods ; and our proposed algorithm of log-scattering coefficients, support vector machines (SVMs) with a linear kernel, and late temporal integration by majority voting. See text for details.}
+\ref{table:dcase2013}
 \end{table}
 
 \section{Conclusion}
