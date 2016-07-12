@@ -245,7 +245,7 @@ Wavelets
 $\boldsymbol{\psi_{\gamma_1}}(t)$ and $\boldsymbol{\psi_{\gamma_2}}(t)$ are designed as fourth-order Gammatone
 wavelets with one vanishing moment \cite{Venkitaraman2014}, as shown in Figure \ref{fig:gammatones}.
 In the context of auditory scene analysis, the asymmetric envelope of Gammatone wavelets is more biologically plausible than the symmetric, Gaussian-like envelope of the more widely used Morlet wavelets.
-Indeed, it allows to reproduce two important psychoacoustic effects in the mammalian cochlea: the asymmetry of temporal masking and the asymmetry of spectral masking \ja{What does this mean?} \cite{Fastl2007}.
+Indeed, it allows to reproduce two important psychoacoustic effects in the mammalian cochlea: the asymmetry of temporal masking and the asymmetry of spectral masking  \cite{Fastl2007}.
 Moreover, it should be noted that Gammatone wavelets follow the typical amplitude profile of natural sounds, beginning with a relatively sharp attack and ending with a slower decay. \ja{Why is this relevant for our classification task? Sparsity?}
 As such, they can be discovered automatically by unsupervised encoding of natural sounds \cite{Smith2006}.
 
@@ -254,35 +254,12 @@ As such, they can be discovered automatically by unsupervised encoding of natura
 \ja{It seems that what we are doing in this section is more post-processing than feature design, which would be the scattering transform itself.}
 
 Before supervised or unsupervised classification, it is beneficial to process scattering coefficients with feature transformations that improve invariance, normality, or generalization power.
-In this section, we review several ways of achieving these properties, namely feature selection, logarithmic compression, standardization, and temporal integration.
-
-\subsection{Feature selection by restricting the frequency range}
-In a multivariate time series of descriptors $\mathbf{S}\boldsymbol{x}(t,\gamma)$, some coefficients $\gamma$ may consistently bear negligible information for the task of interest.
-This fact may cause the classifier to overfit the training set, especially when the number of features is large and the number of training instances is small, as is the case here.
-Appropriately selecting features before the training stage may circumvent this problem.
-However, the parameters of the chosen feature selection algorithm are themselves prone to overfitting.
-Instead, we adopt the more conservative approach of retaining all coefficients within a certain range of subband indices $\gamma_1$ and $\gamma_2$. \ja{These indices are already used to determine the first- and second-order log-frequency indices, respectively. Perhaps $\gamma_\mathrm{min}$ and $\gamma_\mathrm{max}$ would be better?}
-In comparison with adaptive algorithms, the subset of selected features $\gamma$ has a suboptimal statistical relevance, but it is easily interpretable in the realm of audio signal processing, as it is equivalent to a coarse band-pass filtering of $\boldsymbol{x}(t)$ and $\boldsymbol{x_1}(t,\gamma_1)$ over the time dimension $t$. \ja{Are we filering $x_1$ too? The selection is only in $\gamma_1$, correct?}
-
-The conservation equations underlying the physics of sound production constrain the waveform $\boldsymbol{x}(t)$ to be regular in the time domain, that is, to have a polynomial decay in the Fourier domain.
-This decay is only made sharper by the specific properties of acoustic environments, especially indoor.
-Consequently, the amount of energy in the wavelet subband $\gamma_1$ is roughly inversely proportional to the center frequency $2^{-\gamma_1/Q_1}$.
-In the topmost frequencies, this amount is so faint that the corresponding coefficients $\boldsymbol{x_1}(t,\gamma_1)$ and $\boldsymbol{x_2}(t,\gamma_1,\gamma_2)$ no longer bear discriminative information for the classification task at hand. \ja{The problem is that we will magnify these using a logarithm in the next section, so this argument is not as strong as that. Is there some other reason we would like to discard the high frequencies?}
-
-In the sequel, we evaluate the impact of discarding the scattering coefficients above a certain acoustic frequency $\xi_{1,\max}$, which corresponds to discarding subbands $\gamma_1$ below a certain scale \ja{It can be a little confusing for the reader to switch between log-frequency and scale, especially since we use both words to refer to $\gamma_1$ in some sense. Technically, there is a lower bound on the scale, which turns into a lower bound of $\gamma_1$, but it's not clear from first glance.}
-\begin{equation}
-\gamma_{1,\min} =
-\left\lfloor Q_1 \log_2 \frac{\xi_1}{\xi_{1,\max}} \right\rceil,
-\end{equation}
-where $\lfloor \cdot \rceil$ denotes a rounding to the nearest integer.
-
-Reducing the frequency range is an effective way to enhance invariance, widely used in the literature.
-For instance, \cite{roma2013} achieved the best performance in the DCASE2013 challenge and relied on cepstral descriptors computed up to a cutoff frequency as small as $\xi_{1,\max} = 900\,\mathrm{Hz}$ instead of including all frequencies up to the Nyquist rate.
+In this section, we review three ways of achieving these properties, namely logarithmic compression, and temporal integration, and standardization.
 
 \subsection{Logarithmic compression}
 \label{sec:logcomp}
 
-Many algorithms in pattern recognition, including nearest neighbor classifiers and support vector machines, tend to work best when all features follow a standard normal distribution across all training instances \ja{Do we have a reference for this?}.
+Many algorithms in pattern recognition, including nearest neighbor classifiers and support vector machines, tend to work best when all features follow a standard normal distribution across all training instances \cite{Hsu2003}.
 Yet the distribution of the scattering coefficients is skewed towards larger values. We can reduce this skewness by applying a pointwise concave transformation, like a logarithm, to all coefficients.
 Figure \ref{fig:histograms} shows the distribution of an arbitrarily chosen scattering coefficient over the DCASE2013 dataset, before and after logarithmic compression.
 
@@ -511,6 +488,7 @@ For the MFCCs, there is no clear evidence that the \emph{ob} approaches improve 
 Outcomes for the scattering with and without logarithmic compression are shown in Figure \ref{fig:ASS_2}. It can be seen that the logarithmic compression strongly improves the results, especially for the \emph{ob} approaches, which perform worse than \emph{early} without the logarithmic compression. \gl{une idée du pourquoi ?}
 
 \subsection{Acoustic Scene Classification}
+We report experiments on acoustic scene classification (ASC), following the original methodology of the DCASE 2013 challenge, and extend our approach to the its 2016 edition.
 
 \subsubsection*{MFCCs \vs scattering}
 as shown in Figure \cite{folds}, scattering coefficients outperform MFCCs over all but one fold of the DCASE 2013 private dataset when applying early integration, and over all folds when applying late integration.
@@ -559,7 +537,7 @@ late, RBF     & $68\pm10$ & $73\pm\phantom{0}8$  & $\mathbf{78}\pm\phantom{0}6$ 
 In order to evaluate how general our findings are, we have taken part in the acoustic scene classification task 2016 edition of the DCASE challenge, whose results are forthcoming.
 This edition relies on the TUT 2016 acoustic scenes dataset, which contains $15$ classes of acoustic scenes, and is larger than the DCASE 2013 private dataset by one order of magnitude \cite{Mesaros2016_EUSIPCO}.
 Training support vector machines with a Gaussian RBF kernel is computationally demanding for a dataset of such size, especially under a late integration scheme, wherein the number of training instances exceeds $10^5$.
-Since the LIBLINEAR package enables faster training than LIBSVM, we have used a linear kernel.
+Since the LIBLINEAR package enables faster training than LIBSVM, we have used a linear kernel \cite{Hsu2003}.
 Our experiments on the DCASE 2013 dataset, as reported in table \ref{table:dcase2013}, show that the linear kernel gives comparable, albeit slightly worse, classification results than the Gaussian RBF kernel.
 
 Our results on the development dataset are reported in Table \ref{table:dcase2016}, in comparison with a baseline of $MFCCs$ coefficients and a generative classifier, namely Gaussian mixture models with $16$ Gaussians per model.
