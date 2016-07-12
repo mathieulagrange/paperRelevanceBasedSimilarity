@@ -531,12 +531,12 @@ Role of logarithmic compression
 
 \section{Conclusion}
 
-In this paper, the benefit of considering 1) the scattering transform for building discriminant features and 2) unsupervised clustering for the modeling of large time span environmental acoustic scenes.
-This leads to improvement both for the ASSR and ASC tasks.
+In this paper we consider the benefit of 1) the scattering transform for building discriminant features and 2) unsupervised clustering for the modeling of large-scale environmental acoustic scenes.
+This leads to improvements in both the ASSR and ASC tasks.
 
-Abstracting the scene as a reduced set of exemplars with adapted similarity strategies allows us to improve ASSR performance when the BOF approaches based on GMMs fails with reference to an early integration scheme. Those results advocate for a hierarchical model of the scene, where small time scale structure -- \ie below a second -- shall be decorrelated using ca onvolutional network such as in the scattering transform, whereas larger time scales -- \ie over a second -- structure shall be modeled as adaptive aggregates that can be identified in the time domain in an unsupervised setting and in the features domain in the supervised case, provided that the dimensionality is sufficiently high.
+Representign a scene using a reduced set of exemplars, in the form of centroids, with adapted similarity strategies allows us to improve ASSR performance compared to the insufficient BOF approaches based on GMMs. These results advocate for a hierarchical model of the scene, where short-time structure -- \ie below a second -- are represented using a convolutional network such as the scattering transform, whereas larger time scales -- \ie over a second -- are modeled as adaptive aggregates, identified in the time domain in the unsupervised setting and in the features domain in the supervised case, provided that the dimensionality is sufficiently high. \ja{I'm not sure what this last part means.}
 
-This assertion shall be studied further in future work by considering more complex convolutional networks, larger databases and more diverse application scenarios, such as pleasantness prediction \cite{lafaySoundscapePilot, lafay:hal-01111782} or ecoacoustics tasks.
+This assertion will be studied further in future work by considering more complex convolutional networks, larger databases and more diverse applications, such as pleasantness prediction \cite{lafaySoundscapePilot, lafay:hal-01111782} and other ecoacoustics tasks.
 
 \bibliographystyle{unsrt}
 \bibliography{biblio}
