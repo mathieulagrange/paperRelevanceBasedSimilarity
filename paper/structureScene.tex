@@ -354,7 +354,7 @@ The vectors $\mu[\mathbf{S}\boldsymbol{X}(\gamma)]$ and $\sigma[\mathbf{S}\bolds
 
 As discussed in Section \ref{sec:soa}, results in sound perception suggest the appropriateness of an object-based representation of auditory scenes for predicting high-level properties. As the detection of events is still an open problem \cite{7100934},  we consider in this paper a simple quantization scheme that is as generic as possible, implemented using a clustering approach where coherent regions of the scene are identified. The clustering is done using the centroid-based clustering algorithm KMeans.
 
-Given a set of $d$-dimensional feature vectors $x_l^u\in X_u$, $l=[1,2,\ldots,L]$, extracted from the scene $s_u$, $u=[1,2,\ldots,U]$, the goal of KMeans is to partition $X_u$ into $M$ clusters $c^u_m\in C_u$, $m=[1,2,\ldots,M]$. The partitioning is done by minimizing for each $m$ cluster the squared error between its empirical mean (centroid) and the points it contains. Given $\mu_m^u$ the centroid of the cluster $c_m^u$, KMeans minimizes the following objective function:
+Given a set of $d$-dimensional feature vectors $x_l^u\in X_u$, $l=\lbrace 1,2,\ldots,L\rbrace$, extracted from the scene $s_u$, $u=\lbrace1,2,\ldots,U\rbrace$, the goal of KMeans is to partition $X_u$ into $M$ clusters $c^u_m\in C_u$, $m=\lbrace 1,2,\ldots,M\rbrace$. The partitioning is done by minimizing for each $m$ cluster the squared error between its empirical mean (centroid) and the points it contains. Given $\mu_m^u$ the centroid of the cluster $c_m^u$, KMeans minimizes the following objective function:
 
 \begin{equation}
 J(C_u)=\sum\limits_{m} \sum_{x^u_l\in c^u_m} \vert \vert x_l^u - \mu_m^u \vert \vert^2
@@ -366,7 +366,7 @@ At the end, each scene $s_u$ is described by a set of clusters $C_u$. One should
 
 Here, with the aim of better balancing the influence of salient sound events and texture-like sounds on the final decision, the similarity between two scenes is computed based on their centroids similarities.
 
-The similarity between all the scene centroids $\mu_i$, $i=[1,2,\ldots,I]$ with $I=UM$, is computed using a radial basis function (RBF) kernel $K$ combined with the local scaling method proposed in \cite{selfTuneManor2004}:
+The similarity between all the scene centroids $\mu_i$, $i=\lbrace1,2,\ldots,I \rbrace$ with $I=UM$, is computed using a radial basis function (RBF) kernel $K$ combined with the local scaling method proposed in \cite{selfTuneManor2004}:
 \begin{equation}
 \label{eq:kc}
 K_{ij} = \exp\left( - \dfrac{\Vert \mu_i - \mu_j \Vert^2}{\Vert \mu_i - \mu_{k,i} \Vert \Vert \mu_j - \mu_{k,j} \Vert} \right) 
@@ -496,7 +496,7 @@ For the scattering transform, \emph{ob-c} and \emph{ob-w} outperform \emph{early
 
 The same observations are made for the MFCCs for a $k\leq5$. However for a rank $k$ greater than 5, there is no clear evidence that \emph{ob-c} and \emph{ob-w} approaches improve the results compared to \emph{early}. The latter even outperform \emph{ob-a} for $k\geq5$. 
 
-From this it appears that, although the \emph{ob} approaches are able to better retrieve the similarities between close scenes compared to \emph{early}, they are of no help when considering distant scenes of the same class. This is may due to the fact that, at some point, the MFCCs fail to capture the discriminant information contained in the larger-scale modulations, thus making a centroids-based description useless, or even counterproductive when the centroids are not weighted.
+From this it appears that, although the \emph{ob} approaches are able to better retrieve the similarities between close scenes compared to \emph{early}, they are of no help when considering distant scenes of the same class. This may be due to the fact that, at some point, the MFCCs fail to dissociate the discriminative events of a scene from the non-informative ones, thus making a centroid-based description useless, or even counterproductive when the centroids are not weighted/selected.
 
 \subsubsection*{Role of logarithmic compression}
 
@@ -515,7 +515,7 @@ This is in accordance with the previous results on similarity retrieval, as well
 Late integration, \ie building a prediction by majority voting over $128$ local windows of duration $T=372\,\mathrm{ms}$, outperforms early integration, \ie classifying the acoustic scene with a global window of duration $T=24\,\mathrm{s}$.
 This result suggests that, despite its discriminative power at fine scales, the scattering transform is unable to segregate distinct acoustic events beyond the scale of about one second.
 Therefore, it is beneficial to regard the scattering transform as a mid-level descriptor of acoustic content, not as a high-level descriptor, and adopt a data-driven strategy for the temporal integration of acoustic events within one scene.
-Surprisingly, although we ran an extensive number of experiments to formulate object-based clustering into a supervised setting for acoustic scene classification, none of them managed to outperform the baseline strategy in temporal integration, namely majority voting.
+Surprisingly, although we ran an extensive number of experiments to formulate object-based clustering into a supervised setting for acoustic scene classification, none of them managed to outperform the baseline strategy in temporal integration, namely majority voting. The best result was achieved by the \emph{ob-a} approach using log-compressed scattering, and was of 66\% (0.7). 
 
 \ml{explain why ?}
 
