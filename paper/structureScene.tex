@@ -517,7 +517,7 @@ This is in accordance with the previous results on similarity retrieval, as well
 Late integration, \ie building a prediction by majority voting over $128$ local windows of duration $T=372\,\mathrm{ms}$, outperforms early integration, \ie classifying the acoustic scene with a global window of duration $T=24\,\mathrm{s}$.
 This result suggests that, despite its discriminative power at fine scales, the scattering transform is unable to segregate distinct acoustic events beyond the scale of about one second.
 Therefore, it is beneficial to regard the scattering transform as a mid-level descriptor of acoustic content, not as a high-level descriptor, and adopt a data-driven strategy for the temporal integration of acoustic events within one scene.
-Surprisingly, although we ran an extensive number of experiments to formulate object-based clustering into a supervised setting for acoustic scene classification, none of them managed to outperform the baseline strategy in temporal integration, namely majority voting. The best result was achieved by the \emph{ob-c} approach using log-compressed scattering, and was of 66\% (0.7). 
+Surprisingly, although we ran an extensive number of experiments to formulate object-based clustering into a supervised setting for acoustic scene classification, none of them managed to outperform the baseline strategy in temporal integration, namely majority voting. Among object-based methods, the best result is achieved by the \emph{ob-c} approach with log-compressed scattering coefficients, and reaches a accuracy of $66\% \pm0.7$. 
 
 \ml{explain why ?}
 
