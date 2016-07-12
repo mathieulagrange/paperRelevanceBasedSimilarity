@@ -165,7 +165,7 @@ In this paper, we shall demonstrate that the use of features based on the wavele
 
 \section{Scattering representations \label{sec:scattering}}
 
-Scattering transforms are time-shift invariant representations of audio signals consisting of auditory and modulation filterbanks interspersed with complex modulus nonlinearities. In this section, we present the standard temporal scattering transform.
+Scattering transforms are time-shift invariant representations of audio signals consisting of auditory and modulation filter banks interspersed with complex modulus nonlinearities. In this section, we present the standard temporal scattering transform.
 
 \subsection{Invariance and stability in acoustic scene classification}
 The notion of invariance to time shifts plays an essential role in auditory scene classification.
@@ -173,7 +173,7 @@ Indeed, recordings may be shifted locally without affecting their perception and
 To discard this superfluous source of variability, signals can be mapped to a time-shift invariant feature space before training the classifier, eliminating the need for the classifier to explicitly learn this invariance.
 From any set of descriptors $\boldsymbol{x_1}(t,\gamma)$, where $\gamma$ denotes a descriptor index, a representation invariant to time shifts shorter in duration than $T$ can be obtained by convolving $\boldsymbol{x_1}$ with a low-pass filter $\boldsymbol{\phi}(t)$ of cutoff frequency set to $1/T$, as measured in Hertz:
 \begin{equation}
-\mathbf{S_1}\boldsymbol{x}(t, \gamma_1) = (\boldsymbol{x_1} \ast \boldsymbol{\phi}) (t).
+\mathbf{S_1}\boldsymbol{x}(t, \gamma) = (\boldsymbol{x_1} \ast \boldsymbol{\phi}) (t).
 \end{equation}
 A downside is that the transient information in $\boldsymbol{x_1}$ at scales finer than $T$ are lost by this low-pass filtering, reducing discriminability in feature space.
 To address this issue, the temporal scattering transform recovers this information by convolving $\boldsymbol{x_1}$ with wavelets whose center frequencies are above $1/T$ and then applying complex modulus.
@@ -182,12 +182,12 @@ By resorting to wavelet transform modulus, as opposed to Fourier transform modul
 in the sense of Lipschitz regularity with respect to diffeomorphisms \cite{Mallat2012}.
 In addition to invariance, this stability property is crucial to signal classification, since it guarantees robustness to small variations in pitch, reverberation, and rhythmic organization of events, which make up an important part of the intra-class variability among natural sounds.
 
-The scattering transform is defined as an infinite cascade of wavelet transform and modulus operators.
-However, to achieve invariance to translation up to $T = 372\,\mathrm{ms}$, \ie the approximately minimal duration between non-overlapping acoustic events, two layers of scattering transform of the audio signal $\boldsymbol{x}(t)$ often suffice.
+Starting from a monophonic waveform $\boldsymbol{x}(t)$, the scattering transform is defined as an infinite cascade of wavelet transform and modulus operators.
+However, to achieve invariance to translation up to $T = 372\,\mathrm{ms}$, \ie the approximately minimal duration between non-overlapping acoustic events, two layers of scattering transform.
 
-The next subsection describes the operations involved in temporal scattering.
+The next subsection describes the operations involved in temporal scattering, and in particular the construction of wavelet filter banks.
 
-\ja{I'm not sure that this whole section makes sense right here. It can be a bit daunting to jump right in and talk about spectrograms $x_1$ and wavelelets, etc. before we've defined them. Could we put this after the next subsection, explaining all the nice properties of the scattering transform and why we need them after we've defined it fully?}
+\ja{I'm not sure that this whole section makes sense right here. It can be a bit daunting to jump right in and talk about spectrograms $x_1$ and wavelets, etc. before we've defined them. Could we put this after the next subsection, explaining all the nice properties of the scattering transform and why we need them after we've defined it fully?}
 
 \subsection{Temporal scattering}
 Our convention for the Fourier transform of a continuous-time signal $\boldsymbol{x}(t)$ is $\boldsymbol{\hat{x}}(\omega) = \int x(t) \exp(\mathrm{i} 2\pi t \omega) \; \mathrm{d}\omega$. Note that the frequency variable $\omega$ is expressed in Hertz, not in radians per second.
@@ -524,8 +524,7 @@ Again, this is in accordance with our previous findings on acoustic scene simila
 \includegraphics[width=\columnwidth]{folds.png}
 \caption{Classification accuracies over the five folds of the DCASE 2013 private dataset, for various acoustic descriptors and temporal integration strategies. 
 The chosen classifier is a support vector machine (SVM) whose kernel is a Gaussian radial basis function (RBF).
-The mean accuracies and fold-wise standard deviations of each experiment are reported in Table \ref{table:dcase2013}.
-See text for details}
+The mean accuracies and fold-wise standard deviations of each experiment are reported in Table \ref{table:dcase2013}}
 \end{center}
 \label{fig:folds}
 \end{figure}
@@ -579,7 +578,7 @@ Average & $70.8 \pm \phantom{0}2.6$ & $79.4 \pm \phantom{0}3.0$
 \end{tabular}
 \end{center}
 \label{table:dcase2016}
-\caption{Class-wise accuracies on the DCASE 2016 dataset for two pipelines: a baseline of mel-frequency cepstral coefficients (MFCCs), Gaussian mixture models (GMMs), and late temporal integration by product of likelihoods ; and our proposed algorithm of log-scattering coefficients, support vector machines (SVMs) with a linear kernel, and late temporal integration by majority voting. See text for details.}
+\caption{Class-wise accuracies on the DCASE 2016 dataset for two pipelines: a baseline of mel-frequency cepstral coefficients (MFCCs), Gaussian mixture models (GMMs), and late temporal integration by product of likelihoods ; and our proposed algorithm of log-scattering coefficients, support vector machines (SVMs) with a linear kernel, and late temporal integration by majority voting.}
 \end{table}
 
 \section{Conclusion}
