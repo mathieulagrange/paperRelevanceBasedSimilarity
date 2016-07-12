@@ -170,7 +170,7 @@ From any set of descriptors $\boldsymbol{x_1}(t,\gamma)$, where $\gamma$ denotes
 \mathbf{S_1}\boldsymbol{x}(t, \gamma) = (\boldsymbol{x_1} \ast \boldsymbol{\phi}) (t).
 \end{equation}
 A downside is that the transient information in $\boldsymbol{x_1}$ at scales finer than $T$ are lost by this low-pass filtering, reducing discriminability in feature space.
-To address this issue, the temporal scattering transform recovers this information by convolving $\boldsymbol{x_1}$ with wavelets whose center frequencies are above $1/T$ and then applying complex modulus.
+To address this issue, the scattering transform recovers this information by convolving $\boldsymbol{x_1}$ with wavelets whose center frequencies are above $1/T$ and then applying complex modulus.
 
 By resorting to wavelet transform modulus, as opposed to Fourier transform modulus, the resulting features are provably stable to time-warping deformation,
 in the sense of Lipschitz regularity with respect to diffeomorphisms \cite{Mallat2012}.
@@ -179,7 +179,7 @@ In addition to invariance, this stability property is crucial to signal classifi
 Starting from a monophonic waveform $\boldsymbol{x}(t)$, the scattering transform is defined as an infinite cascade of wavelet transform and modulus operators.
 However, to achieve invariance to translation up to $T = 372\,\mathrm{ms}$, \ie the approximately minimal duration between non-overlapping acoustic events, two layers of scattering transform.
 
-The next subsection describes the operations involved in temporal scattering, and in particular the construction of wavelet filter banks.
+The next subsection describes the operations involved in the scattering transform, and in particular the construction of wavelet filter banks.
 
 \subsection{Wavelet scalogram}
 Our convention for the Fourier transform of a continuous-time signal $\boldsymbol{x}(t)$ is $\boldsymbol{\hat{x}}(\omega) = \int x(t) \exp(\mathrm{i} 2\pi t \omega) \; \mathrm{d}\omega$. Note that the frequency variable $\omega$ is expressed in Hertz, not in radians per second.
@@ -318,7 +318,7 @@ Conversely, a late integration scheme relies on probabilistic assignments $\math
 where $\hat{y}$ is the estimated class label and $\rho$ is a reduction function, such as sum, product, or majority vote \cite{Kittler1998}.
 
 A drawback of early integration is that it drastically reduces the number of training instances at the classifier stage, down to one per auditory scene.
-In the context of the DCASE 2013 dataset, this corresponds to merely $8$ training instances per class, and $80$ instances overall, hence an increase in variance in statistical estimation and a risk of overfitting. \ja{That may be, but by averaging, we also reduce the variability of our data, which may be a good thing. If we're dealing with Gaussian processes, this is in fact a very good thing to do.}
+In the context of the DCASE 2013 private dataset, this corresponds to merely $8$ training instances per class, and $80$ instances overall, hence an increase in variance in statistical estimation and a risk of overfitting. \ja{That may be, but by averaging, we also reduce the variability of our data, which may be a good thing. If we're dealing with Gaussian processes, this is in fact a very good thing to do.}
 On the contrary, a late integration scheme for $T=372\textrm{ ms}$ would yield $128$ instances per auditory scene \ja{How long is each recording? Should we specify this somewhere?}, resulting in $10240$ instances overall.
 However, many of these instances may be silent or lack any salient properties of the class they are assigned to, hence an increase in bias and a risk of underfitting.
 In short, early and late integration methods lie at opposite ends of the bias-versus-variance statistical tradeoff. We refer to \cite{Joder2009} for a comprehensive review of this problematic in the context of musical instrument recognition. \ja{Another important difference is that early integration makes the classifier objective more appropriate, since the SVM will maximize the final classification error on the training data, as opposed to some intermediate frame-level label.}
@@ -438,7 +438,7 @@ The dataset is split into a public dataset that can used for optimizing the ASC 
 
 \subsection{Feature design}
 
-Experiments are carried out using temporal scattering coefficients as well as mel-frequency cepstral coefficients (MFCCs) as features. For the temporal scattering, each scene is described by $128$ vectors of scattering coefficients computed with half-overlapping windows $\boldsymbol{\phi}(t)$ of duration $T=372\,\mathrm{ms}$. Experiments are conducted with and without the logarithmic compression (see Section \ref{sec:logcomp}).
+Experiments are carried out using scattering coefficients as well as mel-frequency cepstral coefficients (MFCCs) as features. For the scattering transform, each $30$-second scene is described by $128$ vectors computed with half-overlapping windows $\boldsymbol{\phi}(t)$ of duration $T=372\,\mathrm{ms}$, for a total of $24\,\mathrm{s}$. Indeed, $3$ seconds are discarded at the beginning and at the end of the scene so as to avoid boundary artifacts.  Experiments are conducted with and without the logarithmic compression (see Section \ref{sec:logcomp}).
 
 MFCCs are computed for windows of $50\,\mathrm{ms}$ and hops of $25\,\mathrm{ms}$, with full frequency range. Different ranks of coefficients were tested to compute the MFCCs, results here are only reported for the best setting, which consisted of $40$ MFCCs, including the first coefficient related to the average energy. This setting gives us $600$ feature vectors per scene. To get a more robust representation of lower dimensionality a pooling step is performed on the MFCCs: each recording is divided into $n$ non-overlapping 250 seconds long ``texture'' windows \cite{1021072}, achieved a comparable number of vectors than while using the scattering ones.
 
