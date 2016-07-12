@@ -218,11 +218,10 @@ axis into constant-Q subbands of center frequencies $2^{-\gamma_1/Q_1}\xi_1$.
 Indeed, both time-frequency representations are indexed by time $t$ and log-frequency $\gamma_1$.
 However, contrary to the CQT, the wavelet scalogram reaches the Heisenberg
 theoretical limit of optimal time-frequency localization across the whole
-frequency range, whereas the temporal resolution of the CQT, at least in its original implementation \cite{Brown1992}, is fixed by the support of the STFT analyzing window.
+frequency range, whereas the temporal resolution of the CQT is fixed by the support of the STFT analyzing window. \ja{This is not true. See for example Sch\"orkhuber and Klapuri 2010.}
 Therefore, the wavelet scalogram has a better temporal localization at high
-frequencies than the CQT.
-This increase in time-frequency localization comes at the expense of a greater computational cost, the inverse fast Fourier transform (IFFT) routine must be called for each wavelet $\boldsymbol{\psi_{\gamma_1}}$ in the filter bank.
-Yet, it allows us to observe amplitude modulations at fine temporal scales in the scalogram, down to the minimum scale $2Q_1/\xi_1$ for $\gamma_1 = 0$, of the order of $1\,\textrm{ms}$ given the aforementioned values of $Q_1$ and $\xi_1$.
+frequencies than the CQT, at the expense of a greater computational cost. \ja{Why is the cost greater?}
+This property allows us to observe amplitude modulations at fine temporal scales in the scalogram, down to the minimum scale $2Q_1/\xi_1$ for $\gamma_1 = 0$, of the order of $1\,\textrm{ms}$ given the aforementioned values of $Q_1$ and $\xi_1$.
 
 Among auditory scenes, amplitude modulations may be caused by a broad variety of mechanical interactions, including collision, friction, and turbulent flow.
 At a longer scale, they also account for some higher-level attributes of sound, \eg prosody in speech or rhythm in music.
@@ -307,7 +306,7 @@ Histogram of values taken by the first-order scattering coefficient $\mathbf{S}\
 
 
 Taking the logarithm of a magnitude spectrum is ubiquitous in audio signal processing.
-Indeed, it is corroborated by the Weber-Fechner law in psychoacoustics, which states that the sensation of loudness is roughly proportional to the logarithm of the acoustic pressure.
+Indeed, it is corroborated by the Weber-Fechner law in psychoacoustics, which states that the sensation of loudness is roughly proportional to the logarithm of the acoustic pressure. \ja{Cite?}
 We must also recall that the measured amplitude of sound sources often decays polynomially with the distance to the microphone, a source of spurious variability in scene classification.
 Logarithmic compression can linearize this dependency, facilitating the construction of a powerful invariant at the classifier stage.
 
@@ -383,7 +382,7 @@ The vectors $\mu[\mathbf{S}\boldsymbol{X}(\gamma)]$ and $\sigma[\mathbf{S}\bolds
 
 As discussed in Section \ref{sec:motivations}, results in sound perception suggest the appropriateness of an object-based representation of auditory scenes for predicting high-level properties. That being said, perfect knowledge of which event occurred at a given time is not feasible. \ja{What does this mean?} In this paper, we therefore focus on a simple quantization scheme that is as generic as possible, implemented using a clustering approach where coherent regions of the scene are identified. The clustering is done using the centroid-based clustering algorithm KMeans.
 
-Given a set a $d$-dimensional feature vectors $x_l^u\in X_u$, $l=[1,2,\ldots,L]$, extracted from the scene $s_u$, $u=[1,2,\ldots,U]$, the goal of KMeans is to partition $X_u$ into $M$ clusters $c^u_m\in C_u$, $m=[1,2,\ldots,M]$. The partitioning is done by minimizing for each $m$ cluster the squared error between its empirical means (centroid) and the points it contains. Considering $\mu_m^u$ the centroid of the cluster $c_m^u$, KMeans minimizes the following objective function:
+Given a set a $d$-dimensional feature vectors $x_l^u\in X_u$, $l=[1,2,\ldots,L]$, extracted from the scene $s_u$, $u=[1,2,\ldots,U]$, the goal of KMeans is to partition $X_u$ into $M$ clusters $c^u_m\in C_u$, $m=[1,2,\ldots,M]$. The partitioning is done by minimizing for each $m$ cluster the squared error between its empirical mean (centroid) and the points it contains. Given $\mu_m^u$ the centroid of the cluster $c_m^u$, KMeans minimizes the following objective function:
 
 \begin{equation}
 J(C_u)=\sum\limits_{m} \sum_{x^u_l\in c^u_m} \vert \vert x_l^u - \mu_m^u \vert \vert^2
