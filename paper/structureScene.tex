@@ -489,9 +489,7 @@ Irrespective of the rank $k$ considered, best result is achieved for the scatter
 
 For the scattering transform, both \emph{ob-c} and \emph{ob-w} outperform \emph{early}, thus confirming the benefits of using an object-based representation to refine the similarity measures between the scenes. However, it is worth noticing that \emph{ob-a} performs comparably to \emph{early}, showing that the discriminant information is destroyed by averaging the contributions from all centroids. To take advantage of an object-based representation, we need to select certain representative centroids when comparing objects. Furthermore, it appears that \emph{ob-c} is better able to characterize the classes than \emph{ob-w}. This last observation suggests that weighting a centroid according to the number of frames it contains may prove to be a limited solution. Indeed, nothing a priori indicates that the discriminant information between two scenes lays within the majority of their frames. On the contrary, two similar environments may shared a lot of similar sound sources with only a few sources discriminating between them.
 
-The same observations are made for the MFCCs for a $k\leq5$. However for a rank $k$ greater than $5$, there is no clear evidence that \emph{ob-c} and \emph{ob-w} approaches improve the results compared to \emph{early}. The latter even outperforms \emph{ob-a} for $k\geq5$.
-
-From this it appears that, although the \emph{ob} approaches are able to better retrieve the similarities between close scenes compared to \emph{early}, they are of no help when considering distant scenes of the same class. This may be due to the fact that, at some point, the MFCCs fail to dissociate the discriminative events of a scene from the non-informative ones, thus making a centroid-based description useless, or even counterproductive when the centroids are not weighted/selected.
+The same observations are made for the MFCCs for $k\leq5$. However for a rank $k$ greater than $5$, there is no clear evidence that \emph{ob-c} and \emph{ob-w} approaches improve the results compared to \emph{early}. The latter even outperforms \emph{ob-a} for $k\geq5$. From this it appears that, although the \emph{ob} approaches are able to better retrieve the similarities between close scenes compared to \emph{early}, they are of no help when considering distant scenes of the same class. This may be due to the fact that, at some point, the MFCCs fail to dissociate the discriminative events of a scene from the non-informative ones, thus making a centroid-based description useless, or even counterproductive when the centroids are not weighted/selected.
 
 \subsubsection*{Role of logarithmic compression}
 
@@ -510,9 +508,8 @@ This is in accordance with the previous results on similarity retrieval, as well
 Late integration, \ie building a prediction by majority voting over $128$ local windows of duration $T=372\,\mathrm{ms}$, outperforms early integration, \ie classifying the acoustic scene with a global window of duration $T=24\,\mathrm{s}$.
 This result suggests that, despite its discriminative power at fine scales, the scattering transform is unable to separately characterize distinct acoustic events beyond the scale of about one second.
 Therefore, it is beneficial to regard the scattering transform as a mid-level descriptor of acoustic content, not as a high-level descriptor, and adopt a data-driven strategy for the temporal integration of acoustic events within one scene.
-Surprisingly, although we ran an extensive number of experiments to formulate object-based clustering into a supervised setting for acoustic scene classification, none managed to outperform the baseline strategy in temporal integration, namely majority voting. Among object-based methods, the best result is achieved by the \emph{ob-c} approach with log-compressed scattering coefficients, reaching an accuracy of $66\% \pm0.7$.
 
-%\ml{explain why ?}
+Surprisingly, although we ran a large number of experiments to formulate object-based clustering into a supervised setting for acoustic scene classification, none managed to outperform the baseline strategy in temporal integration, namely majority voting. Among object-based methods, the best result is achieved by the \emph{ob-c} approach with log-compressed scattering coefficients, reaching an accuracy of $66\% \pm0.7$. This might be due to the fact that the discriminability gained by the object-based approach is already gained by the classifiers during the training and the fact the object-based approach is equivalent to an early fusion approach, which in the case of the DCASE 2013 has not been identified as beneficial due to the dataset size (see discussion in Section \ref{sec:eili}).
 
 \subsubsection*{Role of logarithmic compression}
 
@@ -594,12 +591,12 @@ Furthermore, our cross-validation analyses confirmed that the value $T=372\,\mat
 In this paper we consider the benefit of 1) the scattering transform for building discriminant features and 2) unsupervised clustering for the modeling of large-scale environmental acoustic scenes.
 %This leads to improvements in both the ASSR and ASC tasks.
 
-Representing a scene using a reduced set of representatives, with adapted similarity strategies allows us to improve ASSR performance compared to the BOF approaches based on GMMs. These results advocate for a hierarchical model of the scene, where short-time structure -- \ie below a second -- is represented using a convolutional network such as the scattering transform, while larger time scales -- \ie over a second -- are modeled as adaptive aggregates.
+Representing a scene using a reduced set of representatives, with adapted similarity strategies, allows us to improve ASSR performance compared to the BOF approaches based on GMMs which have been demonstrated to be equivalent to early integrations scheme on well-balanced datasets \cite{lagrange:hal-01082501}. These results advocate for a hierarchical model of the scene, where short-time structure -- \ie below a second -- is represented using a convolutional network such as the scattering transform, whereas larger time scales -- \ie over a second -- are modeled as adaptive aggregates.
 
 Within a supervised setting of acoustic scene classification (ASC), we have shown the comparative benefits of log-scattering features over MFCCs, of majority voting at a mid-level time scale of $T=372\,\mathrm{ms}$ over prediction at a high-level time scale of $T=24\,\mathrm{s}$, and of an adapted Gaussian kernel over the linear kernel in support vector machine classification.
 %, identified in the time domain in the unsupervised setting and in the features domain in the supervised case, provided that the dimensionality is sufficiently high. \ja{I'm not sure what this last part means.}
 
-This assertion shall be studied further in future work by considering data-driven convolutional networks, larger databases and more diverse applications, such as pleasantness prediction \cite{lafaySoundscapePilot, lafayPartI} as well as other tasks in ecoacoustics.
+Those outcomes shall be studied further in future work by considering larger databases and more diverse applications, such as pleasantness prediction \cite{lafaySoundscapePilot, lafayPartI} as well as emerging tasks in ecoacoustics.
 
 \bibliographystyle{unsrt}
 \bibliography{biblio}
