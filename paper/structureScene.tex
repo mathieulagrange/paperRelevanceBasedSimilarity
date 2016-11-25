@@ -18,12 +18,12 @@
 % LaTeX2e). It also provides a command:
 \fnbelowfloat
 
+\usepackage{booktabs}
 \usepackage{amssymb}
 \usepackage{amsmath}
 \usepackage{pgf}
 \usepackage{tikz}
 \usetikzlibrary{arrows,positioning}
-\usetikzlibrary{arrows.meta}
 \usepackage{url}
 \usepackage{color}
 \usepackage{graphicx}
@@ -31,6 +31,8 @@
 \newcommand*{\eg}{e.g.\@\xspace}
 \newcommand*{\ie}{i.e.\@\xspace}
 \newcommand*{\vs}{vs.\@\xspace}
+
+\newcommand*{\EMD}{\mathrm{EMD}}
 
 % correct bad hyphenation here
 \hyphenation{wave-let}
@@ -41,7 +43,7 @@
 \newcommand{\ja}[1]{\textcolor{magenta}{Joakim : #1}}
 \newcommand{\ml}[1]{\textcolor{blue}{ Mathieu : #1}}
 
-
+%\renewcommand{\baselinestretch}{2}
 
 \begin{document}
 %
@@ -51,7 +53,7 @@
 %\title{An evaluation framework for event detection using a morphological model of acoustic scenes}
 \title{Object-based Auditory Scenes Similarity Retrieval and Classification With Wavelet Scattering}
 
-\author{Vincent Lostanlen, Gr\'egoire Lafay, Joakim And\'en, and Mathieu Lagrange}
+\author{Vincent Lostanlen\thanks{This work is supported by the ERC InvariantClass grant 320959.}, Gr\'egoire Lafay, Joakim And\'en, and Mathieu Lagrange}
 
 
 % make the title area
@@ -61,17 +63,14 @@
 % in the abstract or keywords.
 \begin{abstract}
 
-This paper introduces a generic hierarchical modeling of acoustic scenes using the wavelet scattering features for time spans below the second and object-based segmentation for larger time spans that effectively model the scene. 
+This paper introduces a generic hierarchical modeling scheme for acoustic scenes using the wavelet scattering transform at sub-second timescales with object-based segmentation at larger timescales. Applying the proposed approach to the acoustic scene similarity retrieval and acoustic scene classification tasks on publicly available datasets using a state-of-the-art classifier demonstrates the potential of the features designed using the wavelet scattering transform, consistently outperforming a baseline of mel-frequency cepstral coefficients (MFCCs).
 
-Application of the proposed approach to the acoustic scene similarity retrieval and acoustic scene classification tasks on publicly available datasets and state-of-the-art classifier demonstrates its potential. More precisely, features derived from the scattering transform consistently outperform Mel-frequency cepstral coefficients (MFCC) for both tasks. 
-
-Representing the scene at larger time scale as a set of examplars of coherent segments is an effective approach for similarity retrieval as it allows the retrieval system to focus on discriminative features. This benefit is reduced in supervised settings, probably because much of the discriminability potential of the approach is already learned by the classifier.
-
+In addition, representing the scene at larger time scale as a set of representative features from coherent segments is an effective approach for acoustic scene similarity retrieval, because it allows the retrieval system to focus on discriminative features.
 \end{abstract}
 
 % Note that keywords are not normally used for peerreview paper.
 \begin{IEEEkeywords}
-Acoustic scene classification, acoustic scene segmentation.
+acoustic scene classification, acoustic scene segmentation, scattering, wavelets
 \end{IEEEkeywords}
 
 % For peer review papers, you can put extra information on the cover
@@ -86,278 +85,210 @@ Acoustic scene classification, acoustic scene segmentation.
 
 \section{Introduction}
 
-\IEEEPARstart{T}{he} amount of audio data recorded from our sonic environment has considerably grown over the past decades.
-In order to measure the modification of animal biodiversity due to human activity or climate change, the research field of eco-acoustics \cite{ECOACOUSTICS2014, krause} is recently undertaking the massive deployment of acoustic sensors throughout the world \cite{warren2006urban, NessSST13, stowell13a, stowell13b}.
-In addition, some recent works demonstrate the interest of acoustic monitoring for the characterization of human pleasantness in urban areas \cite{lafayPartI, guyot2005urban, ricciardi2015sound} as well as the prediction of annoyance due to traffic \cite{gloaguen}.
-Because they bear a strong societal impact and raise many scientific challenges, we believe that these case studies are of interest for the signal processing community.
+\IEEEPARstart{T}{he} amount of audio data recorded from our sonic environment has grown considerably over the past decades.
+In order to measure the effect of human activity and climate change on animal biodiversity, researchers in the field of ecoacoustics \cite{ECOACOUSTICS2014, krause} have recently undertaken the massive deployment of acoustic sensors throughout the world \cite{warren2006urban, NessSST13, stowell13a, stowell13b}. 
 
-Unfortunately, the field of signal-based ecoacoustics is still in infancy.
-As a consequence, very few well built datasets are readily available for evaluation purposes.
-A closely related field of investigation, which is relatively more mature, is the classification of acoustic scenes whose aim is to predict labels by processing audio data.
-Despite being narrower in terms of range of applications, it has the advantage of being rooted by numerous works in cognitive psychology on categorization \cite{dubois2006cognitive, maffiolo_caracterisation_1999, guastavino_ideal_2006} and been considered in the data mining community for a while, with availability of a few well-designed datasets. 
+In addition, recent work demonstrates the interest of acoustic monitoring for the characterization of human pleasantness in urban areas \cite{lafayPartI, guyot2005urban, ricciardi2015sound} as well as the prediction of annoyance due to traffic \cite{gloaguen}.
+Because they bear a strong societal impact and raise many scientific challenges, we believe that these case studies are of considerable interest for the signal processing community.
 
-Despite the differences, the following question is valid both for the aforementioned future application and the acoustic scene classification (ASC) task: how can we efficiently and effectively process a large amount of audio data using representations that are compact, generic in their design, and with a large range of potential applications ?  
+Formally, ecoacoustics is the interdisciplinary study of natural and anthropogenic sounds and their relationship with the environment over a wide range of scales at the intersection between ecology, acoustics and computer science. Despite identified needs, the field of signal-based ecoacoustics is still in infancy.
+As a consequence, few well-built datasets are readily available for evaluation purposes.
 
-The research described in this paper attempt to provide answers to this question by demonstrating the usefulness of two main contributions: 1) the use of the scattering transform allows us to extract discriminative features with few parameter optimization and 2) object-based modeling of the acoustic scene based on unsupervised clustering of each acoustic scene allows to effectively focus the description of the scene on areas of interest.
+A closely related, and more mature, field of investigation is the classification of acoustic scenes, where the aim is to predict labels by processing audio data.
+While narrower in its range of applications, it has the advantage of being rooted in cognitive psychology of categorization \cite{dubois2006cognitive, maffiolo_caracterisation_1999, guastavino_ideal_2006} and has received the attention of the data mining community for some time, resulting in the availability of well-designed datasets.
 
-The proposed approach is motivated in Section \ref{sec:motivations} and a brief review the state of the art in the field of acoustic scene modeling is given in Section \ref{sec:soa}. Then, the contributions are extensively described in Section \ref{sec:scattering} and \ref{sec:object}, respectively. Experiments carried out in an unsupervised setting, \ie acoustic scene similarity (ASS) and in a supervised setting, \ie acoustic scene classification (ASC) are subsequently reported in Section \ref{sec:ExpEval}.
+Despite the differences, ecoacoustics and acoustic scene classification (ASC) task both raise the following question: how can we efficiently and effectively process a large amount of audio data using representations that are compact, generic in their design, and flexible in their use?
 
-\ml{blurb about results}
+The work described in this paper attempts to answer this question by demonstrating the usefulness of two concepts: 1) using the wavelet scattering transform to extract discriminative features subject to a small number of parameters and 2) object-based modeling of the acoustic scene based on unsupervised clustering of each acoustic scene, allowing us to focus the scene description on a few salient sound objects that carry most of the semantic information.
 
-\section{Motivations} \label{sec:motivations}
-
-As stated in the introduction, the field of ecoacoustics is relatively young, but significant works are worth mentioning.
-One avenue of research, originated in bioacoustics, intends to retrieve the species that produced a given sonic event of relatively short duration, in order to link animal vocalization with behavior\cite{au2008principles, stowell2014large}.
-A more recent paradigm processes the audio stream at hand in a holistic way, as it describes the auditory environment over larger temporal scales, without assuming that one single species is present throughout the recording. Automated systems belonging to this paradigm aim at inferring global properties of bioacoustic scenes, including biodiversity indices \vl{ref}, migration patterns \vl{ref}, as well as regions of particular interest before human inspection \cite{rosenstock2002landbird,diefenbach2007incorporating}.
-
-The same dichotomy applies to the field of auditory scene analysis, wherein the interest may either be 1) to isolate and identify precise events, \ie acoustic event detection (AED), or 2) to predict global attributes assigned to large time spans of audio, \ie acoustic scene classification (ASC).
-In the latter, most state-of-the-art systems roughly follow the bag of frame approach (BOF) initiated in \cite{aucouturier2007bag}, which consists in modeling audio by high-level summary statistics computed from a set of local features.
-As it enjoys a high genericity, this approach is found in many audio classification tasks besides ASC.
-Yet, the specific implementation with gaussian mixture models (GMM) of Mel-frequency cepstral coefficients (MFCC) it is demonstrated to be perform equivalently compared to a mere averaging of the features  \cite{lagrange:hal-01082501}.
-Indeed, the typical morphology of acoustic scenes is of a "skeleton of events on a bed of textures" \cite{nelken_ear_2013}, \ie few impulsive sounds superimposed upon a stationary background.
-Therefore, it is arguably more beneficial to focus on the temporal evolution of auditory scenes rather on the joint probability distribution of short-term features.
-Interestingly, this statement is validated by auditory psychology as well as sound synthesis based  on summary statistics \cite{mcdermott2013summary}.
-
-Although the precise set of events occuring within a given auditory stream may not be discernable, even for trained humans, research shows that the focus on a few events, so called markers,  sufficed to reliably predict many high-level attributes \cite{lafayPartI}.
-For example, the presence of a few bird calls in a smooth traffic hub is likely to be tagged by humans as a park scene in urban areas \ml{Gregoire : citations ?}.
-\vl{Missing transition}
-
-
-\ml{Gregoire, ce paragraph est a merger avec la section motivation: Studies in cognitive psychology investigating urban sound environment quality pointed out that low level features such as (perceived or measured) global sound level, are not sufficient to fully characterized an acoustic scene \cite{guyot2005urban,kang2006urban}. Instead several papers have reported that some cognitive processes such as sound environment quality perception \cite{dubois2006cognitive} or loudness judgment \cite{kuwano_memory_2003}  relies upon high level cognitive attributes such as the identification and assessment of the sound source which compose the scene. It has been showed that, if available, the complete description of the scene in terms of event occurrences is powerful enough to reliably predict high level cognitive classes, \textit{i.e.} the presence of birds are strong pleasantness indicators and very likely to be heard in parks in urban areas \cite{lafay:hal-01111782}. As a consequence, research in sound perception now focus on the study of the contribution of specific sound sources in the assessment of a sound environment \cite{ricciardi2015sound,lavandier2006contribution}, viewing an acoustic scene as ``\,skeleton of events on a bed of texture\,''  \cite{nelken_ear_2013}. \gl{debate about the kind of process underlying perception: holistic / event based perception ?}}. 
-
-
+Motivations of the proposed approach and a brief review of the state of the art in the field of acoustic scene modeling is given in Section \ref{sec:soa}. We describe the scattering transform in Section \ref{sec:scattering}, discuss transformations of the resulting features in Section \ref{sec:design} and propose a cluster-based scene description in Section \ref{sec:object}. In Section \ref{sec:experiments}, several experiments are proposed for an unsupervised setting, acoustic scene similarity retrieval (ASSR), and for a supervised setting, acoustic scene classification (ASC). Results are subsequently reported in Section \ref{sec:results}.
 
 \section{Background} \label{sec:soa}
 
-Aside from \cite{aucouturier2007bag} and \cite{lagrange:hal-01082501} that consider the task of ASSR, much of the work dedicated to acoustic scene modeling is applied to the ASC tasks.
+%One avenue of ecoacoustics research, originating in bioacoustics, attempts to identify species properties of vocalizations, for example to link animal vocalization with behavior\cite{au2008principles, stowell2014large}.
 
-Thus, studying the first DCASE challenge \cite{barchiesi2015acoustic} in 2013 is convenient as it concentrates much of the effort for this latter task. The table \ref{tab:dcase} summarizes the different algorithmic choices taken by the teams. Unless otherwise stated, scene predictions are achieved by majority voting of predictions \ml{gregoire ?}.
+A recent paradigm in computational bioacoustics processes the audio stream in a holistic way over larger time scales, without assuming that a single species is present throughout the recording. Automated systems belonging to this paradigm attempt to infer global properties of bioacoustic scenes, including biodiversity indices \cite{Bardeli2010}, migration patterns \cite{Obrist2010}, as well as to detect time intervals of particular interest befor detailed human inspection \cite{rosenstock2002landbird,diefenbach2007incorporating}.
+
+%The same division is found in the field of auditory scene analysis, wherein the interest may either be 1) to isolate and identify precise events, \ie acoustic event detection (AED), or 2) to predict global attributes assigned to large time spans of audio, \ie acoustic scene classification (ASC).
+To do so, a popular approach for acoustic scene modeling is the bag-of-frames (BOF) approach introduced by Aucouturier et al. \cite{aucouturier2007bag}, where a scene is modeled by high-level summary statistics computed from local features.
+Being a very generic method, this approach has been applied to many audio classification tasks besides ASC.
+Yet the proposed implementation using Gaussian mixture models (GMMs) of mel-frequency cepstral coefficients (MFCCs) has been demonstrated to perform comparably to a mere averaging of the features \cite{lagrange:hal-01082501}.
+Indeed, the typical morphology of acoustic scenes is of a ``skeleton of events on a bed of textures'' \cite{nelken2013}, with a few discrete sound events superimposed upon a stationary acoustic background.
+Therefore, it is arguably more beneficial to focus on the large-scale temporal evolution of auditory scenes rather on the joint probability distribution of short-term features.
+
+This statement has some support in auditory psychology as well as sound synthesis based on summary statistics \cite{mcdermott2013summary}. Indeed, studies in cognitive psychology investigating urban sound environment quality pointed out that global sound level (perceived or measured) is not sufficient to fully characterize an acoustic scene \cite{guyot2005urban,kang2006urban}. Rather, it seems that cognitive processes such as sound environment quality perception \cite{dubois2006cognitive} or loudness judgment \cite{kuwano_memory_2003} rely upon higher-level cognitive attributes such as the identities of the sound sources which compose the scene. It has been showed that, if available, the complete description of the scene in terms of event occurrences is powerful enough to reliably predict high-level cognitive classes, \eg the presence of birds are very likely to be heard in parks in urban areas and so are strong pleasantness indicators \cite{lafayPartI}. Consequently, research in sound perception is now strongly focused the contribution of specific sound sources in the assessment of a sound environment \cite{ricciardi2015sound,lavandier2006contribution}. Although the complete set of events occuring within a given auditory stream may not be discernable, even to human expects, research has shown that a small set of events, so called markers, suffice to reliably predict many high-level attributes.
+
+The BOF approaches treat each observations equally, whereas the results cited above show that only a few distinct events may be more important than events or texture present throughout the whole scene duration, thus advocating for a more selective approach such as the one presented in Section \ref{sec:object} for the ASSR task. Aside from \cite{aucouturier2007bag} and \cite{lagrange:hal-01082501} that consider the task of ASSR, much of the work dedicated to acoustic scene modeling is applied to the ASC task.
+
+An overview of the efforts for the latter task is provided by the DCASE 2013 challenge \cite{barchiesi2015acoustic}, held in 2013 to compare different approaches to scene classification. Table \ref{tab:dcase} summarizes the results of the submitted algorithms as well as newer systems that use the private part of the DCASE 2013 dataset for their experiments. Most of the scene prediction results are achieved by majority voting of predictions over local features.
 
 \begin{table}
 \begin{center}
-\caption{Designs submitted to the DCASE2013 ASC challenge. RQA stands for recurrence quantification analysis, ILD for inter-aural differences and UL for unsupervised learning.  \label{tab:dcase}}
+\caption{Algorithms evaluated on the DCASE 2013 private dataset of acoustic scene classification. RQA stands for recurrence quantification analysis and ILD for inter-aural differences. Algorithms above the horizontal line participated to the DCASE challenge. Others used the datasets afterward and the last considered only the public dataset ($^*$).  \label{tab:dcase}}
 \begin{tabular}{lcl}
 & Acc. \%  &  \multicolumn{1}{c}{Design}  \\
-\cite{olivetti2013wonder} OE & 17 & compression distance, Random Forests \\
-\cite{elizalde2013vector} ELF & 55 & I vector approach, LDA \\
+\hline
+\cite{olivetti2013wonder} OE & 17 & compression distance, random forests \\
+\cite{elizalde2013vector} ELF & 55 & i-vector, LDA \\
 \cite{krijnders2013tone} KH & 55 & cochleogram, SVMs \\
 \cite{patil2013multiresolution} PE & 58 & 2D Gabor filters, SVMs \\
-\cite{lee2013acoustic} NHL & 60 & UL of Mel spectra, SVMs \\
+\cite{lee2013acoustic} NHL & 60 & unsupervised learning over mel spectra, SVMs \\
 \cite{nogueira2013sound} NR1 & 60 & MFCCs and ILD features, SVMs \\
-\cite{chum2013ieee} CHR & 65 & \ml{gregoire ?}, HMMs  \\
-\cite{geiger2013large} GSR & 69 & Mel and MFCCs, SVMs \\
-\cite{rakotomamonjy2015histogram} RG & 69  & histogram of gradient (HOG), SVMs \\
-\cite{li2013auditory} LTT & 72 & MFCCs, Tree baggers \\
+\cite{chum2013ieee} CHR & 65 & sparsity features, HMMs  \\
+\cite{geiger2013large} GSR & 69 & mel spectra and MFCCs, SVMs \\
+\cite{rakotomamonjy2015histogram} RG & 69 & histogram of gradient (HOG), SVMs \\
+\cite{li2013auditory} LTT & 72 & MFCCs, tree baggers \\
 \cite{roma2013recurrence} RNH & 76 & RQA features stacked with MFCCs, SVMs \\
+\hline
+\cite{phan2016label} & 84/87 & label tree embedding of Gammatone, SVMs \\
+\cite{7362846} & 85$^*$ & amplitude modulated spectra, LDA \\
 \end{tabular}
 \end{center}
 \end{table}
 
-
-
-In this paper, we are interested in evaluating different algorithmic designs leading to different scene models, we therefore resort to straightforward ranking performance measures for the ASSR task. Also, we resort to the use of SVMs with default parameters (C=1) for computing classification accuracy for the ASC task, as SVMs are widely used in the community and allows us to better root our work and focus our performance analysis on the earlier processing stages. Moreover, since the MFCCs are well established features and perform well in this task, they will be thoroughly used as baselines features in the experiments described in this paper.
-
- 
 %\gl{Othe this r paper:} \cite{jiang2005svm, kalinli2009saliency, su2011environmental, ye2015acoustic, bisot2015hog, chakrabarty2015exploring, xue2015auditory}
 
 %\subsection{Datasets}
 
-For most of the experiments reported in this paper, the DCASE2013 datatset is considered \cite{giannoulis2013database, 7100934}. To build this dataset, three different recordists visited a wide variety of locations in Greater London over
-a period of months and in each
-scene recorded a few minutes of audio for each scene type. No
-systematic variations in the recordings covaried with scene
-type: all recordings were made in moderate weather condi-
-tions, and varying times of day and week, and each recordist
-recorded each scene type. The dataset is split into a public dataset that can used for optimizing the ASC system and a private dataset used for computing the resulting accuracy using a 5 fold cross validation scheme. The folds used in this paper are the same as the ones used during the challenge.
+ % The latter is also considered in this paper as a validation of the proposed approach. \ja{What does this last sentence mean?}
 
-As of today, there exist larger publicly available dataset, the
-Rouen dataset \cite{rakotomamonjy2015histogram} and the dCase2016 \cite{Mesaros2016_EUSIPCO} (only the public part). The latter is also considered in this paper as a validation of the proposed approach.
+%In this paper, we shall demonstrate that the use of features based on the wavelet scattering transform together with object-based representation of the acoustic scene allows us to achieve state-of-the-art \ja{?} performance in both the ASSR and ASC paradigms.
 
-As studied in \cite{lagrange:hal-01082501}, the DCASE2013 dataset has interesting intra class diversity while remaining manageable in terms of size, making it suitable for extensive evaluation of algorithmic design choices. Also, it is still challenging as state-of-the-art systems based on features design and support vector machines (SVMs) achieves 76 \% \cite{roma2013} (winner of the 2013 challenge RQA+SVM). For the sake of comparison the HOG+SVM approach \cite{rakotomamonjy2015histogram} achieves 75 \% and 92 \% on the dcase2013 and the Rouen datasets respectively. On the former, recent advances using hierarchical classifiers architectures reports 84 to 87 \% of accuracy depending on the prior knowledge considered for building the classifier architecture \cite{phan2016label}. On the latter, the state-of-the-art is currently 95 \% \cite{bisot2016acoustic}. 
+\section{Wavelet scattering \label{sec:scattering}}
 
-\section{Scattering representations \label{sec:scattering}}
+Scattering transforms are time-shift invariant representations of audio signals consisting of auditory and modulation filter banks interspersed with complex modulus nonlinearities.
+This section highlights the importance of invariance to time-shifts and stability to time-warping in the representation of acoustic scenes, and explains how the scattering transform is designed to satisfy these properties while having a high discriminative power.
 
-Scattering transforms are translation-invariant representations of audio signals which cascade an auditory filterbank and a modulation filterbank, interspersed with complex modulus nonlinearities.
-Depending upon the chosen architecture, the modulation filterbank may either be performed solely over the time variable or on both time and frequency variables.
-In this section, we present both the temporal scattering transform and the time-frequency scattering transform.
-
-\subsection{Invariance and stability in acoustic scene classification}
-The notion of invariance to translation plays an essential role in auditory scene classification.
-Indeed, the starting time of the recordings are chosen arbitrarily, and thus do not convey any information about the class.
-To cancel this superfluous source of variability, signals must be mapped to a translation-invariant feature space before training the classifier.
-From any set of descriptors -- \eg the time-frequency representation $\boldsymbol{x_1}(t,\gamma_1)$ of  a signal $\boldsymbol{x}(t)$ --
-a translation-invariant representation up to time shifts of duration $T$ can be simply obtained
-by convolving $\boldsymbol{x_1}$ with a low-pass filter $\boldsymbol{\phi}(t)$ of cutoff frequency
-set to $1/T$:
+\subsection{Invariance and stability in acoustic scenes}
+The notion of invariance to time shifts plays an essential role in acoustic scene similarity retrieval as well as acoustic scene classification.
+Indeed, recordings may be shifted locally without affecting their perception and therefore such shifts do not convey any information about the class.
+To discard this superfluous source of variability, signals can be mapped to a time-shift invariant feature space before training the classifier, eliminating the need for this classifier to explicitly learn this invariance.
+From any time-varying set of descriptors $\boldsymbol{x_1}(t,\gamma)$, where $\gamma$ denotes a descriptor index, a representation invariant to time-shifts shorter in duration than $T$ can be obtained by convolving $\boldsymbol{x_1}$ with a low-pass filter $\boldsymbol{\phi}(t)$ of cutoff frequency set to $1/T$, as measured in Hertz:
 \begin{equation}
-\mathbf{S_1}\boldsymbol{x}(t, \gamma_1) = (\boldsymbol{x_1} \ast \boldsymbol{\phi}) (t).
+\mathbf{S_1}\boldsymbol{x}(t, \gamma) = (\boldsymbol{x_1} \ast \boldsymbol{\phi}) (t).
 \end{equation}
-As a downside, the transient information in $\boldsymbol{x_1}$ at finer scales than $T$ are lost by this low-pass filtering, hence a lack of discriminability in feature space.
-To address this issue, the temporal scattering transform recovers this information by convolving $\boldsymbol{x_1}$ with wavelets whose center frequencies are above $1/T$, and subsequently applying complex modulus.
+A downside is that the transient information in $\boldsymbol{x_1}$ at scales finer than $T$ are lost by this low-pass filtering, reducing discriminability in feature space.
+To address this issue, the scattering transform recovers this information by convolving $\boldsymbol{x_1}$ with wavelets whose center frequencies are above $1/T$ and then applying complex modulus.
 
-By resorting to wavelet transform modulus, as opposed to Fourier transform modulus, the resulting features are provably stable to small time warps,
+By resorting to wavelet transform modulus, as opposed to Fourier transform modulus, the resulting features are provably stable to time-warping deformation,
 in the sense of Lipschitz regularity with respect to diffeomorphisms \cite{Mallat2012}.
-Besides invariance to translation, this stability property is crucial in signal classification, as it entails a guarantee of robustness to small variations in pitch, reverberation, and rhythmic organization of events, which make up an important part of the intra-class variability among natural sounds.
+In addition to invariance, this stability property is crucial to signal classification, since it guarantees robustness to small variations in pitch, reverberation, and rhythmic organization of events, which make up an important part of the intra-class variability among natural sounds.
 
-The scattering transform is defined mathematically as an infinite cascade of nonlinear layers, each consisting of a wavelet transform modulus operator.
-In practice, to achieve invariance to translation up to $T = 186\,\mathrm{ms}$, \ie of the order of the minimal duration between non-overlapping acoustic events, two layers of scattering transform of the audio signal $\boldsymbol{x}(t)$ suffice.
+Starting from a monophonic waveform $\boldsymbol{x}(t)$, the scattering transform is defined as an infinite cascade of wavelet transform and modulus operators.
+However, to achieve invariance to translation up to $T = 372\,\mathrm{ms}$, \ie the approximate minimal duration between non-overlapping acoustic events, two layers of scattering transform often suffice.
 
-The next subsection describes the operations involved in temporal scattering.
+The next subsection describes the operations involved in the scattering transform, and in particular the construction of wavelet filter banks.
 
-\subsection{Temporal scattering}
+\subsection{Wavelet scalogram}
+Our convention for the Fourier transform of a continuous-time signal $\boldsymbol{x}(t)$ is $\boldsymbol{\hat{x}}(\omega) = \int x(t) \exp(\mathrm{i} 2\pi t \omega) \; \mathrm{d}\omega$. Note that the frequency variable $\omega$ is expressed in Hertz, not in radians per second.
+
 Let $\boldsymbol{\psi}(t)$ a complex-valued band-pass filter of
 center frequency $\xi_1$ and bandwidth $\xi_1/Q_1$.
 A filter bank of wavelets is built by dilating $\boldsymbol{\psi}(t)$
-according to a geometric sequence of scales $2^{\gamma_1/Q_1}$.
-The variable $\gamma_1$, akin to a log-frequency, takes integer values between $0$ and $(J_1 \times Q_1 - 1)$.
-In the sequel, we set $\xi_1$ to 20 kHz, \ie close to the Nyquist frequency of audio recordings ; the number of octaves $J_1$ to $10$, \ie the maximum range of human hearing ; and the number of wavelets per octave $Q_1$ to $8$.
-We denote by
+according to a geometric sequence of scales $2^{\gamma_1/Q_1}$, obtaining
 \begin{equation}
-\boldsymbol{\psi_{\gamma_1}}(t) = 2^{-\gamma_1/Q_1} \boldsymbol{\psi}(2^{-\gamma_1/Q_1} t)
+\boldsymbol{\psi_{\gamma_1}}(t) = 2^{-\gamma_1/Q_1} \boldsymbol{\psi}(2^{-\gamma_1/Q_1} t)\mbox{.}
 \end{equation}
-the wavelets resulting from the dilation of $\boldsymbol{\psi}$(t).
+The variable $\gamma_1$ is a scale, or an inverse log-frequency, taking integer values between $0$ and $(J_1 \times Q_1 - 1)$.
+In the sequel, we set $\xi_1$ to $20~\mathrm{kHz}$ (close to the Nyquist frequency of the audio recordings), the number of octaves $J_1$ to $10$ (the lower end of human hearing range), and the number of wavelets per octave $Q_1$ to $8$.
 For each $\gamma_1$, the wavelet $\boldsymbol{\psi_{\gamma_1}}(t)$
 has a center frequency of $2^{-\gamma_1/Q_1}\xi_1$, a bandwidth of $2^{-\gamma_1/Q_1}\xi_1/Q_1$, and a quality factor of $Q_1$.
 
-The wavelet transform $\boldsymbol{}$ of an audio signal
+The wavelet transform of an audio signal
 $\boldsymbol{x}(t)$ is obtained by convolution with all wavelets.
-Applying pointwise complex modulus to $\boldsymbol{y_1}$ yields
+Applying pointwise complex modulus the transform yields
 the wavelet scalogram
 \begin{equation}
 \boldsymbol{x_1}(t, \gamma_1)
-= \vert \boldsymbol{x} \ast \boldsymbol{\psi_{\gamma_1}} \vert (t).
+= \vert \boldsymbol{x} \ast \boldsymbol{\psi_{\gamma_1}} \vert (t)\mbox{.}
 \end{equation}
 The wavelet scalogram bears resemblance to the constant-Q transform (CQT),
 which is derived from the short-term Fourier transform (STFT) by averaging the frequency
-axis into constant-Q subbands of center frequencies $2^{-\gamma_1/Q}\xi_1$.
+axis into constant-Q subbands of center frequencies $2^{-\gamma_1/Q_1}\xi_1$.
 Indeed, both time-frequency representations are indexed by time $t$ and log-frequency $\gamma_1$.
 However, contrary to the CQT, the wavelet scalogram reaches the Heisenberg
 theoretical limit of optimal time-frequency localization across the whole
-frequency range, whereas the temporal resolution of the CQT is fixed by the support of the STFT analyzing window.
+frequency range, whereas the temporal resolution of the traditional CQT is fixed by the support of the STFT analyzing window \cite{Brown1992}.
 Therefore, the wavelet scalogram has a better temporal localization at high
-frequencies than the CQT, at the expense of a greater computational cost.
-This property allows us to observe amplitude modulations at fine temporal scales in the scalogram, down to the minimum scale $2Q_1/\xi_1$ for $\gamma_1 = 0$, of the order of $1\,\textrm{ms}$ given the aforementioned values of $Q_1$ and $\xi_1$.
+frequencies than the CQT, at the expense of a greater computational cost
+since the inverse fast Fourier transform (IFFT) routine must be called for each wavelet $\boldsymbol{\psi_{\gamma_1}}$ in the filter bank.
+However, this allows us to observe amplitude modulations at fine temporal scales in the scalogram, down to the minimum scale $2Q_1/\xi_1$ for $\gamma_1 = 0$, of the order of $1\,\textrm{ms}$ given the aforementioned values of $Q_1$ and $\xi_1$.
 
+\subsection{Extracting modulations with second-order scattering}
 Among auditory scenes, amplitude modulations may be caused by a broad variety of mechanical interactions, including collision, friction, and turbulent flow.
-At a longer scale, they also account for some higher-level attributes of sound, \eg prosody in speech or rhythm in music.
-Although they are discarded while filtering $\boldsymbol{x_1}(t,\gamma_1)$ into a translation-invariant representation $\mathbf{S_1}\boldsymbol{x}(t,\gamma_1)$, they can be recovered by a second wavelet transform modulus operator.
+At longer scales, they also account for higher-level attributes of sound, such as prosody in speech or rhythm in music.
+Although they are discarded while filtering $\boldsymbol{x_1}(t,\gamma_1)$ into a time-shift invariant representation $\mathbf{S_1}\boldsymbol{x}(t,\gamma_1)$, they can be recovered by a second wavelet transform modulus operator.
 The amplitude modulation spectrum resulting from this operator is
 \begin{equation}
 \boldsymbol{x_2}(t,\gamma_1,\gamma_2) =
 \vert \boldsymbol{x_1} \ast \boldsymbol{\psi_{\gamma_2}} \vert(t,\gamma_1),
 \end{equation}
-where the center frequencies of the wavelets $\boldsymbol{\psi_{\gamma_2}}(t)$ are of the form $2^{-\gamma_2/Q_2} \xi_2$, and the second-order log-frequency index $\gamma_2$ takes integer values between $0$ and $(J_2 \times Q_2 - 1)$.
-In the sequel, we set $\xi_2$ to $2.5\,\mathrm{kHz}$, $Q_2$ to $1$, and $J_2$ to $12$. Lastly, the low-pass filter $\phi(t)$ is applied to $\boldsymbol{x_2}$ to guarantee invariance to translation, yielding
+where the center frequencies of the wavelets $\boldsymbol{\psi_{\gamma_2}}(t)$ are of the form $2^{-\gamma_2/Q_2} \xi_2$, and the second-order scale index $\gamma_2$ takes integer values between $0$ and $(J_2 \times Q_2 - 1)$. Note that these second-order wavelets are dilated versions of a second mother wavelet $\boldsymbol{\psi}$, with a different center frequency $\xi_2$ and quality factor $Q_2$. The identity of the wavelet will be clear from context.
+In the sequel, we set $\xi_2$ to $2.5\,\mathrm{kHz}$, $Q_2$ to $1$, and $J_2$ to $12$. Lastly, the low-pass filter $\phi(t)$ is applied to $\boldsymbol{x_2}$ to guarantee invariance to time-shifting, which yields
 \begin{equation}
 \mathbf{S_2}\boldsymbol{x}(t,\gamma_1,\gamma_2) =
 (\boldsymbol{x_2} \ast \phi)(t,\gamma_1,\gamma_2).
 \end{equation}
-The scattering transform consists of the concatenation of first-order coefficients $\mathbf{S_1}\boldsymbol{x}(t,\gamma_1)$ and second-order coefficients $\mathbf{S_1}\boldsymbol{x}(t,\gamma_1,\gamma_2)$ into a feature matrix $\mathbf{S}\boldsymbol{x}(t,\gamma)$, where $\gamma$ is a shorthand for either $\gamma_1$ or $(\gamma_1,\gamma_2)$.
+The scattering transform $\mathbf{S}\boldsymbol{x}(t,\gamma)$ consists of the concatenation of first-order coefficients $\mathbf{S_1}\boldsymbol{x}(t,\gamma_1)$ and second-order coefficients $\mathbf{S_1}\boldsymbol{x}(t,\gamma_1,\gamma_2)$ into a feature matrix $\mathbf{S}\boldsymbol{x}(t,\gamma)$, where $\gamma$ is a shorthand for either $\gamma_1$ or $(\gamma_1,\gamma_2)$.
 
+\subsection{Gammatone wavelets}
 \begin{figure}
 \begin{center}
-\begin{tikzpicture}
-\useasboundingbox[red] (-0.25, -0.5) rectangle (8.25, 2);
-\node (omlabel1) at (3.5, 1) {$t$};
-\draw[-{Latex[length=2mm]}] (0, 1) -- (omlabel1);
-\draw[-{Latex[length=2mm]}] (0, 1) -- (0, 2);
-\node[anchor=south west,inner sep=0] at (0, 0) {\includegraphics[height=2cm,width=3cm]{gammatone_Q8.png}};
-\node at (2, -0.25) {(a)};
-\node (omlabel2) at (8, 1) {$t$};
-\draw[-{Latex[length=2mm]}] (4.5, 1) -- (omlabel2);
-\draw[-{Latex[length=2mm]}] (4.5, 1) -- (4.5, 2);
-\node[anchor=south west,inner sep=0] at (4.5, 0) {\includegraphics[height=2cm,width=3cm]{gammatone_Q1.png}};
-\node at (6.5, -0.25) {(b)};
-\end{tikzpicture}
+\includegraphics[width=\columnwidth]{gammatones}
 \caption{
 \label{fig:gammatones}
 Gammatone wavelets $\psi(t)$ in the time domain with quality factors (a) $Q = 4$ and (b) $Q = 1$. Blue and red oscillations represent the real and imaginary parts. The orange envelope represents the complex modulus.}
 \end{center}
 \end{figure}
-
 Wavelets
 $\boldsymbol{\psi_{\gamma_1}}(t)$ and $\boldsymbol{\psi_{\gamma_2}}(t)$ are designed as fourth-order Gammatone
-wavelets with one vanishing moment \cite{Venkitaraman2014} \ml{missing ref}, as shown in Figure \ref{fig:gammatones}.
-In the context of auditory scene analysis, the asymmetric envelope of Gammatone wavelets is more biologically plausible than the symmetric, Gaussian-like envelope of the widespread Morlet wavelets.
-Indeed, it allows to reproduce two important psychoacoustic effects in the mammalian cochlea: the asymmetry of temporal masking and the asymmetry of spectral masking \cite{Fastl2007}.
-Moreover, it should be noted that Gammatone wavelets follow the typical amplitude profile of natural sounds, beginning with a relatively sharp attack and ending with a slower decay. \ml{tu peux citer le travail publié a Nature de lewicki, qui montrent que ces formes se retrouvent par ICA de sons naturels http://www.cs.cmu.edu/~learning/talks-2002/02-10-21.lewicki.pdf}
-
+wavelets with one vanishing moment \cite{Venkitaraman2014}, and are shown in Figure \ref{fig:gammatones}.
+In the context of auditory scene analysis, the asymmetric envelope of Gammatone wavelets is more biologically plausible than the symmetric, Gaussian-like envelope of the more widely used Morlet wavelets.
+Indeed, it allows to reproduce two important psychoacoustic effects in the mammalian cochlea: the asymmetry of temporal masking and the asymmetry of spectral masking  \cite{Fastl2007}.
+Moreover, it should be noted that Gammatone wavelets follow the typical amplitude profile of natural sounds, beginning with a relatively sharp attack and ending with a slower decay.
+As such, they can be discovered automatically by unsupervised encoding of natural sounds \cite{Smith2006}.
+This suggests that, despite being hand-crafted and not learned, Gammatone wavelets provide a sparse time-frequency representation of acoustic scenes.
 
 \section{Feature design}
-Before supervised or unsupervised classification, it is beneficial to process scattering coefficients with feature transformations that improve invariance, normality, or generalization power. 
-In this section, we review several ways of achieving these properties, namely binaural data augmentation, feature selection, logarithmic compression, standardization, and temporal integration.
-The former has, to the best of our knowledge, not being considered for ASC and is specific to multichannel recordings, whereas the next ones would also apply to many other kinds of data.
+\label{sec:design}
 
-\subsection{Feature selection by restricting the frequency range}
-In a multivariate time series of descriptors $\mathbf{S}\boldsymbol{x}(t,\gamma)$, some coefficients $\gamma$ may consistently bear negligible information for the task of interest.
-This fact may cause the classifier to overfit the training set, especially when the number of features is large and the number of training instances is small, as is the case here.
-Selecting features appropriately before the training stage may circumvent this problem.
-However, the parameters of the chosen feature selection algorithm are themselves prone to overfitting.
-Instead, we adopt the more conservative approach of retaining all coefficients within a certain range of subband indices $\gamma_1$ and $\gamma_2$.
-In comparison with adaptive algorithms, the subset of selected features $\gamma$ has a suboptimal statistical relevance, but it is easily interpretable in the realm of audio signal processing, as it is equivalent to a coarse band-pass filtering of $\boldsymbol{x}(t)$ and $\boldsymbol{x_1}(t,\gamma_1)$ over the time dimension $t$.
+Before supervised or unsupervised classification, it is beneficial to process scattering coefficients with feature transformations that improve invariance, normality, or generalization power.
+In this section, we review three ways of achieving these properties, namely logarithmic compression, and temporal integration, and standardization.
+Whether we adopt a time-frequency perspective or a machine learning perspective on the problem of acoustic scene classification, such operations would either qualify as pre- or post-processing.
 
-The conservation equations underlying the physics of sound production constrain the waveform $\boldsymbol{x}(t)$ to be regular in the time domain, that is, to have a polynomial decay in the Fourier domain.
-This decay is only made sharper by the specific properties of acoustic environments, especially indoor.
-Consequently, the amount of energy in the wavelet subband $\gamma_1$ is roughly inversely proportional to the center frequency $2^{-\gamma_1/Q_1}$.
-In the topmost frequencies, this amount is so faint that the corresponding coefficients $\boldsymbol{x_1}(t,\gamma_1)$ and $\boldsymbol{x_2}(t,\gamma_1,\gamma_2)$ no longer bear discriminative information for the classification task at hand.
-
-In the sequel, we evaluate the impact of discarding the scattering coefficients above a certain acoustic frequency $\xi_{1,\max}$, which corresponds to discarding subbands $\gamma_1$ below a certain scale
-\begin{equation}
-\gamma_{1,\min} =
-\left\lfloor Q_1 \log_2 \frac{\xi_1}{\xi_{1,\max}} \right\rceil,
-\end{equation}
-where $\lfloor \cdot \rceil$ denotes a rounding to the nearest integer.
-
-Reducing the frequency range is an effective way to enhance invariance, widely used in the literature.
-For instance, \cite{roma2013} achieved the best performance in the 2013 edition of the DCASE challenge, rely on cepstral descriptors computed up to a cutoff frequency as small as $\xi_{1,\max}  = 900\,\mathrm{Hz}$ instead of the more conventional value of $16\,\mathrm{kHz}$.
- 
 \subsection{Logarithmic compression}
 \label{sec:logcomp}
 
-Many algorithms in pattern recognition, including nearest neighbor classifiers and support vector machines, tend to work best when all features follow a standard normal distribution across all training instances.
-Yet, because of the complex modulus nonlinearity, scattering coefficients are nonnegative by design.
-It appears empirically that their distribution is skewed towards the right, which means that the tail towards greater values is longer than the tail towards lower values.
-However, skewness can be reduced by applying to all coefficients a pointwise concave transformation, \eg logarithmic.
+Many algorithms in pattern recognition, including nearest-neighbor classifiers and SVMs, tend to work best when all features follow a standard normal distribution across all training instances \cite{Hsu2003}.
+Yet the distribution of the scattering coefficients is skewed towards larger values. We can reduce this skewness by applying a pointwise concave transformation, such as a logarithm, to all coefficients.
 Figure \ref{fig:histograms} shows the distribution of an arbitrarily chosen scattering coefficient over the DCASE 2013 dataset, before and after logarithmic compression.
-
 
 \begin{figure}
 \begin{center}
-\begin{tikzpicture}
-\useasboundingbox[red] (-0.25, -0.5) rectangle (8.25, 2);
-\node[anchor=south west,inner sep=0] at (-0.36, 0) {\includegraphics[height=2cm,width=5cm]{feature_histogram.png}};
-\node (histlabel1) at (2.3, 0.01) {$\mathbf{S}\boldsymbol{x}(\gamma)$};
-\draw[-{Latex[length=2mm]}] (-0.3, 0.01) -- (histlabel1);
-\draw[-{Latex[length=2mm]}] (-0.3, 0.01) -- (-0.3, 2.5);
-\node at (0.8, -0.35) {(a)};
-\node (histlabel2) at (7.6, 0.01) {$\log \mathbf{S}\boldsymbol{x}(\gamma)$};
-\node[anchor=south west,inner sep=0] at (3.45, 0) {\includegraphics[height=2cm,width=3cm]{feature_histogram_logcompressed.png}};
-\draw[-{Latex[length=2mm]}] (3.2, 0.01) -- (histlabel2);
-\draw[-{Latex[length=2mm]}] (4.9, 0.01) -- (4.9, 2.5);
-\node at (4.9, -0.35) {(b)};
-\end{tikzpicture}
+\includegraphics[width=\columnwidth]{compression}
 \caption{
 \label{fig:histograms}
 Histogram of values taken by the first-order scattering coefficient $\mathbf{S}\boldsymbol{x}(\gamma)$, corresponding to a center acoustic frequency of $302\,\mathrm{Hz}$,
 (a) before and (b) after logarithmic compression.}
+\label{fig:compression}
 \end{center}
 \end{figure}
 
 
-The application of the pointwise logarithm to magnitude spectra is ubiquitous in audio signal processing.
-Indeed, it is corroborated by the Weber-Fechner law in psychoacoustics, which states that the sensation of loudness is roughly proportional to the logarithm of the acoustic pressure.
-We must also recall that the measured amplitude of sound sources often decays polynomially with the distance to the binaural microphone, which is a spurious factor of variability to the task of auditory scene classification.
-Logarithmic compression can linearize this dependency, which arguably facilitates the construction of a powerful invariant at the classifier stage.
+Taking the logarithm of a magnitude spectrum is ubiquitous in audio signal processing.
+Indeed, it is corroborated by the Weber-Fechner law in psychoacoustics, which states that the sensation of loudness is roughly proportional to the logarithm of the acoustic pressure. 
+We must also recall that the measured amplitude of sound sources often decays polynomially with the distance to the microphone -- a source of spurious variability in scene classification.
+Logarithmic compression can linearize this dependency, facilitating the construction of a powerful invariant at the classifier stage.
 
-Given a task of musical genre recognition, \cite{Anden2014} has advocated for the renormalization of second-order scattering coefficients $\mathbf{S_2}\boldsymbol{x}(t,\gamma_1,\gamma_2)$ by the corresponding first-order scattering coefficients $\mathbf{S_1}\boldsymbol{x}(t,\gamma_1)$, as it provably decorrelates the amplitudes of their activations.
-Interestingly, taking the logarithm of renormalized coefficients would yield
+For the task of musical genre recognition, second-order scattering coefficients $\mathbf{S_2}\boldsymbol{x}(t,\gamma_1,\gamma_2)$ are sometimes normalized by the corresponding first-order scattering coefficients $\mathbf{S_1}\boldsymbol{x}(t,\gamma_1)$, since this decorrelates them from one another \cite{Anden2014}.
+We note that taking the logarithm of such renormalized coefficients yields
 \begin{equation}
 \log \dfrac{\mathbf{S_2}\boldsymbol{x}(t,\gamma_1,\gamma_2)}{\mathbf{S_1}\boldsymbol{x}(t,\gamma_1)} =
 \log \mathbf{S_2}\boldsymbol{x}(t, \gamma_1, \gamma_2) -
 \log \mathbf{S_1}\boldsymbol{x}(t, \gamma_1),
 \end{equation}
 \ie a linear combination of the logarithms of first- and second-order coefficients.
-Therefore, the theoretical insight brought by \cite{Anden2014} in favor of renormalized scattering also applies to log-scattering up to a linear transformation in feature space, to which affine classifiers are not sensitive.
+As such, a non-linear renormalization becomes a linear transformation, which can be learned by a linearly discriminative classifier.
 
 \subsection{Early \vs late temporal integration}
 \label{sec:eili}
@@ -365,54 +296,54 @@ Therefore, the theoretical insight brought by \cite{Anden2014} in favor of renor
 Owing to the scarcity of salient events in many natural scenes,
 fine-grained classification is only made
 possible by integrating signal information over a long temporal context.
-Indeed, whereas a few seconds are often sufficient to recognize a speaker,
-a musical instrument, or a genre, it may require up to 30 seconds
-to disambiguate two classes auditory scenes which share part of their semantic content, \eg a train from a subway station or a quiet street from a park.
+Indeed, whereas a few seconds is often sufficient to recognize a speaker,
+a musical instrument, or a genre, up to $30$ seconds may be required
+to disambiguate two classes of auditory scenes with overlapping semantic content, \eg a train from a subway station or a quiet street from a park.
 Depending on whether aggregation is performed in feature space or in decision space, the corresponding method is referred to as early or late integration.
 
-A straightforward application of early integration consists in summarizing the multivariate time series of scattering coefficients over the full duration of the auditory scene, by retaining their average values only.
-Going back to the definition of the scattering transform given in section \ref{sec:scattering}, this is equivalent to increasing the support $T$ of the low-pass filter $\boldsymbol{\phi}(t)$ up to infinity. With a slight abuse of notation, we denote by
+A straightforward application of early integration consists in summarizing the multivariate time series of scattering coefficients over the full duration of the auditory scene by only storing their average values.
+Going back to the definition of the scattering transform given in Section \ref{sec:scattering}, this is equivalent to increasing the support $T$ of the low-pass filter $\boldsymbol{\phi}(t)$ up to infinity. With a slight abuse of notation, we denote the summarized features by
 \begin{equation}
 \mathbf{S}\boldsymbol{x}(\gamma) =
-\int_{-\infty}^{+\infty} \mathbf{S}\boldsymbol{x}(t,\gamma)\;\mathrm{d}t
+\int_{-\infty}^{+\infty} \mathbf{S}\boldsymbol{x}(t,\gamma)\;\mathrm{d}t\mbox{.}
 \end{equation}
-the summarized features.
 
-Conversely, a late integration scheme relies on probabilistic estimates over short-term windows of length $T$, which are subsequently aggregated to produce a final decision
+Conversely, a late integration scheme relies on probabilistic assignments $\mathbb{P}\left[y \,\vert\, \mathbf{S}\boldsymbol{x}(t,\gamma) \right]$ over short-term windows of length $T$, which are subsequently aggregated to produce a final decision
 \begin{equation}
-\hat{y} = \arg \max_{y} \rho\Big(\big\{ \mathbb{P}\left[y \,\vert\, \mathbf{S}\boldsymbol{x}(t,\gamma) \right] \big\}_{t} \Big),
+\hat{y} = \arg \max_{y} \rho\Big(\big\{ \mathbb{P}\left[y \,\vert\, \mathbf{S}\boldsymbol{x}(t,\gamma) \right] \big\}_{t} \Big)\mbox{,}
 \end{equation}
 where $\hat{y}$ is the estimated class label and $\rho$ is a reduction function, such as sum, product, or majority vote \cite{Kittler1998}.
 
-The principal drawback of early integration is that it drastically reduces the number of training instances at the classifier stage, down to one per auditory scene -- if data augmentation is not considered.
-In the context of the DCASE 2013 dataset, this corresponds to merely $8$ training instances per class, and $80$ instances overall, hence an increase in variance in statistical estimation and a risk of overfitting.
-On the contrary, a late integration scheme for $T=188\textrm{ ms}$ would yield $128$ instances per auditory scene, resulting in $10240$ instances overall.
+A drawback of early integration is that it drastically reduces the number of training instances at the classifier stage, down to one per auditory scene.
+In the context of the DCASE 2013 private dataset, this corresponds to merely $8$ training instances per class, and $80$ instances overall, hence an increase in variance in statistical estimation and a risk of overfitting.
+On the contrary, once the scattering representation $\mathbf{S}\boldsymbol{x}(t,\gamma)$ has been unpadded of any boundary artifacts, a late integration scheme for $T=372\textrm{ ms}$ would yield $128$ instances per $30$-second auditory scene, resulting in $10240$ instances overall.
 However, many of these instances may be silent or lack any salient properties of the class they are assigned to, hence an increase in bias and a risk of underfitting.
-In short, early and late integration methods lie at opposite ends of the bias-versus-variance statistical tradeoff. We refer to \cite{Joder2009} for a comprehensive review of this problematic in the context of musical instrument recognition.
+Moreover, when applying late integration, the classifier optimizes accuracy at the frame level, not at the scene level, so its prediction might not yield optimal training error under the final evaluation metric.
+In short, early and late integration methods lie at opposite ends of the bias-versus-variance statistical tradeoff.
+We refer to \cite{Joder2009} for a comprehensive review of this problematic in the context of musical instrument recognition.
+In the context of this paper, early integration refers to an averaging of the features and late integration refers to a majority voting of the predictions. 
 
 \subsection{Standardization}
 \label{sec:stand}
 
 Let $\mathbf{S}\boldsymbol{X}(\gamma,n)$ be a dataset, where the indices $\gamma$ and $n$ respectively denotes features and examples.
-It is commonly acknowledged that support vector machines should be trained on scaled features with null mean and unit variance, so as to avoid mismatch in numeric ranges.
-This operation may also help making the dataset linearly separable in feature space.
+It is commonly acknowledged that SVMs should be trained on scaled features with null mean and unit variance, so as to avoid mismatch in numeric ranges \cite{Hsu2003}.
+
 To standardize $\mathbf{S}\boldsymbol{X}(\gamma,n)$, we apply the affine transformation
 \begin{equation}
 \widetilde{\mathbf{S}}\boldsymbol{X}(\gamma, n) =
 \dfrac{ \mathbf{S}\boldsymbol{X}(\gamma, n) -
-\mathbb{E}[ \mathbf{S}\boldsymbol{X}](\gamma)}{\sigma[ \mathbf{S}\boldsymbol{X}](\gamma)}
+\mu[ \mathbf{S}\boldsymbol{X}](\gamma)}{\sigma[ \mathbf{S}\boldsymbol{X}](\gamma)}
 \end{equation}
-where $\mathbb{E}[ \mathbf{S}\boldsymbol{X}](\gamma) = \frac{1}{N} \sum_{n=1}^{N} \mathbf{S}\boldsymbol{X}(\gamma,n)$ is the expected value of $\mathbf{S}\boldsymbol{X}(\gamma,n)$ and
+where $\mu[ \mathbf{S}\boldsymbol{X}](\gamma) = \frac{1}{N} \sum_{n=1}^{N} \mathbf{S}\boldsymbol{X}(\gamma,n)$ is the sample mean of $\mathbf{S}\boldsymbol{X}(\gamma,n)$ and
 \begin{equation}
 \sigma[\mathbf{S}\boldsymbol{X}] (\gamma) =
 \sqrt{\frac{1}{N-1} \sum_{n=1}^{N}
-\left( \mathbf{S}\boldsymbol{X}(\gamma,n) - \mathbb{E}[\mathbf{S}\boldsymbol{X}] \right)^2}
+\left( \mathbf{S}\boldsymbol{X}(\gamma,n) - \mu[\mathbf{S}\boldsymbol{X}] \right)^2}
 \end{equation}
- is the sample standard deviation.
- 
- The vectors $\mathbb{E}[\mathbf{S}\boldsymbol{X}(\gamma)]$ and $\sigma[\mathbf{S}\boldsymbol{X}](\gamma)$ are estimated from the training set only, and the same affine transformation is subsequently applied to all samples in the training set and the test set.
- 
-The next section discusses adaptive methods for the temporal integration of scattering coefficients in an unsupervised setting.
+is the sample standard deviation.
+
+The vectors $\mu[\mathbf{S}\boldsymbol{X}(\gamma)]$ and $\sigma[\mathbf{S}\boldsymbol{X}](\gamma)$ are estimated from the training set only, and the same affine transformation is subsequently applied to all samples in the training set and the test set.
 
 \section{Object-based modeling of the scene}
 \label{sec:object}
@@ -421,182 +352,259 @@ The next section discusses adaptive methods for the temporal integration of scat
 
 %From a data processing point of view, a holistic scheme, such as the bag-of-frame approach \cite{aucouturier2007bag}, has a simplicity, but clearly face poor performance on realistic conditions \cite{lagrange:hal-01082501}. 
 
-\ml{gregoire: une figure avec un clustering et une annotation ?}
+As discussed in Section \ref{sec:soa}, results in sound perception suggest the appropriateness of an object-based representation of auditory scenes for predicting high-level properties. As the detection of events is still an open problem \cite{7100934},  we consider in this paper a simple quantization scheme that is as generic as possible, implemented using a clustering approach where coherent regions of the scene are identified. The clustering is done using the centroid-based $k$-means clustering algorithm.
 
-\gl{vincent, un petit mot pour motiver le fait que le scattering est un bon outil pour separer les evenements peuplant une scène sonore ?}. 
+Given a set of $d$-dimensional feature vectors $x_l^u\in X_u$, $l=\lbrace 1,2,\ldots,L\rbrace$, extracted from the scene $s_u$, $u=\lbrace 1,2,\ldots,U\rbrace$, the goal of $k$-means is to partition $X_u$ into $M$ clusters $c^u_m\in C_u$, $m=\lbrace 1,2,\ldots,M\rbrace$. The partitioning is done by minimizing for each cluster the squared error between its empirical mean (centroid) and the contained points. Given $\mu_m^u$ the centroid of the cluster $c_m^u$, $k$-means attempts to minimize the following objective function:
+\begin{equation}
+J(C_u)=\sum\limits_{m} \sum_{x^u_l\in c^u_m} \Vert x_l^u - \mu_m^u \Vert^2\mbox{.}
+\end{equation}
+Each scene $s_u$ is then described by a set of clusters $C_u$. One should note that this quantization approach differs from unsupervised learning schemes such as the ones studied in \cite{bisot2016acoustic}, where the scene features are projected in a dictionary learned from the entire dataset.
 
-\ml{detail: put in experimental part using an enhanced version of the popular K-means algorithm known as K-means$++$ \cite{arthur2007k}, which differs from k-means method in terms of selection of starting points. }
+%which clusters not over a single scene, but over the whole dataset, and re-projects each scene in the resulting enhanced feature space. \ja{This sentence is also a big unclear.}
 
-As discussed in Section \ref{sec:motivations}, several outcomes in sound perception encourage us to evaluate the validity of an object-based representation of the scene for predicting high-level properties. Though, a perfect knowledge of which event occurred at a given time is not feasible. In this paper, we thus focus on a simple quantization scheme in order to favor genericity, implemented using a clustering approach where coherent regions of the scene are identified.
+Here, with the aim of better balancing the influence of salient sound events and texture-like sounds on the final decision, the similarity between two scenes is computed based on the similarity of their centroids.
 
-One should note that this quantization approach differs from unsupervised learning schemes such as the ones studied in \cite{bisot2016acoustic} that performs some variances estimates over the whole dataset and not solely on each scene, and reproject each scene in the resulting enhanced features space. Here, the aim of this process is to better balance the impact of salient events and texture like sounds on final decision by considering several ways of computing the similarity between scenes based on their centroids :
-
-\begin{itemize}
-\item \emph{ob-closest} (ob-c): the similarity between two scenes is equal to the largest similarity between their centroids.
-\item \emph{ob-averaged} (ob-a): the similarity between two scenes is equal to the average of their centroids similarities.
-\item \emph{ob-weighted} (ob-w): for each scene, each centroid is weighted according to the number of frames belonging to its cluster.
-\end{itemize}
-
-The similarity between two centroids $c_i$ and $c_j$ is computed using a radial basis function (RBF) kernel $K^c$ combined with the local scaling method proposed in \cite{selfTuneManor2004}: \\
+The similarity between all the scene centroids $\mu_i$, $i=\lbrace1,2,\ldots,I \rbrace$ with $I=UM$, is computed using a radial basis function (RBF) kernel $K$ combined with the local scaling method proposed in \cite{selfTuneManor2004}:
 \begin{equation}
 \label{eq:kc}
-\begin{split}
-K^c_{ij} & =exp\left( - \dfrac{\parallel c_i - c_j \parallel^2}{\sigma_{i}\sigma_{j}} \right) \\
-\sigma_{i} & =\parallel c_i - c_N \parallel
-\end{split}
-\end{equation}
+K_{ij} = \exp\left( - \dfrac{\Vert \mu_i - \mu_j \Vert^2}{\Vert \mu_i - \mu_{k,i} \Vert \Vert \mu_j - \mu_{k,j} \Vert} \right) 
+\end{equation} 
+where $\mu_{k,i}$ and $\mu_{k,j}$ are the $k^{\textrm{th}}$ nearest neighbor to the centroids $\mu_i$ and $\mu_j$, respectively, and $\Vert \cdot \Vert$ denotes the Euclidean norm.
 
-with $c_N$ the $N$'th nearest neihgbor of the centroid $c_i$, and $\parallel \bullet \parallel$ the euclidean norm. 
+To compute the similarity between two scenes, we then consider several centroid-based similarity metrics:
+\begin{itemize}
+\item \emph{ob-closest} (ob-c): the similarity between two scenes is equal to the largest similarity between their centroids,
+\item \emph{ob-averaged} (ob-a): the similarity between two scenes is equal to the average of their centroid similarities, and
+\item \emph{ob-weighted} (ob-w): for each scene, each centroid is weighted according to the number of frames belonging to its cluster. Each scene $s_u$ is thus described by a signature $p_u$ of $M$ clusters ($p_u=\lbrace(\mu_1^u,w_1^u),(\mu_2^u,w_2^u),\ldots,(\mu_M^u,w_M^u)\rbrace$), with $\mu_m^u$ and $w_m^u$ being the centroid and the weight of the $m$th cluster respectively. The similarity between scenes is then given by a cross-bin histogram distance, taking into account both the cluster weights and the distances between their centroids.
+\end{itemize}
 
-Compared to the closest or averaged approach, the  weighted similarity between two scenes takes into account both the centroids similarities and the clusters weights. Each scene $s_u$ is described by a signature $S_u$ of $m$ clusters ($S_u=\lbrace(c_1^u,w_1^u),\ldots,(c_m^u,w_m^u)\rbrace$), with $c_i^u$ and $w_i^u$ being the centroid and the weight of the $i$th cluster of the scene $s_u$ respectively. 
+For \emph{ob-w}, the cross-bin histogram distance used is a variant of the earth mover's distance ($\EMD$), known as $\widehat{\EMD}$ and introduced in \cite{pele2008linear}. The $\EMD$ computes the distance between two histograms by finding the minimal cost to be paid to transform one histogram into the other. An advantage of $\EMD$ is that it automatically aligns the histogram bins by using a ``ground distance'' which is the distance between the bin centers in the two histograms. In our case, the histograms are the clusters weights $w^u$ defined over the bins formed by clusters centroids $\mu^u$.
 
-To compute the distance between two signatures $S_u$ and $S_v$, we use a variant version of the Earth Moving Distance ($EMD$), known as $\widehat{EMD}$ and introduced in \cite{pele2008linear}. $EMD$ is a cross-bin histogram distance, widely used in computer vision \cite{zhang2007local}, which compute the minimal cost to be paid to transform one histogram into the other. The advantage of using the $EMD$ is that it does not require bins to be aligned. The alignment problem is solved by using a ``\,ground distance\,'', which is the distance between the bins representatives of the two histograms. In our case, the histograms are the cluster weights $w$, and the bins representative the cluster centroids $c$.
-
-$\widehat{EMD}$ is a variant version of the $EMD$ adapted for non-normalized histograms. To compute the $\widehat{EMD}$, we use the implementation proposed in \cite{pele2009fast}. Given two signatures $S_u$ and $S_v$, the $\widehat{EMD}$ is computed by solving the following linear programming problem:
-
+The $\widehat{\EMD}$ variant of $\EMD$ is adapted for non-normalized histograms. To compute the $\widehat{\EMD}$, we use the implementation proposed in \cite{pele2009fast}. Given two signatures $p_u$ and $p_v$ made of $n$ and $m$ clusters respectively, the $\widehat{\EMD}$ is computed by solving the following linear program:
 \begin{equation}
 \begin{split}
-\widehat{EMD}(S_u,S_v) &=( \min\limits_{\lbrace f_{ij}\rbrace} \sum\limits_{i,j} f_{ij}D_{ij} )  \\ 
-&+ \mid \sum\limits_{i} w_i^u - \sum\limits_{j} w_j^v  \mid \alpha \max\limits_{i,j}\lbrace  D_{ij}\rbrace
+\widehat{\EMD}(p_u,p_v) &=\left( \min\limits_{\lbrace f_{nm}\rbrace} \sum\limits_{n,m} f_{nm}D_{nm}^{uv} \right) \\
+&+ \left|\sum\limits_{n} w_n^u - \sum\limits_{m} w_m^v  \right| \alpha \max\limits_{n,m}\lbrace  D_{nm}^{uv}\rbrace.
 \end{split}
 \end{equation}
 
 \begin{equation*}
-s.t. \quad f_{ij}\geq0 \quad \sum\limits_{j} f_{ij} \leq w_i^u \quad \sum\limits_{i} f_{ij} \leq w_j^v 
+\mathrm{s.t.} \quad f_{nm}\geq0 \quad \sum\limits_{m} f_{nm} \leq w_n^u \quad \sum\limits_{n} f_{nm} \leq w_m^v
 \end{equation*}
 
 \begin{equation*}
-\sum\limits_{i,j}f_{ij} = \min( \sum\limits_{i} w_i^u ,\sum\limits_{j} w_j^v )
-\end{equation*}
-
-where $\lbrace f_{ij} \rbrace$ is the optimal flow between the cluster weights $w_i^u$ and $w_j^v$, that is, the amount transported from the $i$th bin to ``\,supply to the demand\,'' of the $j$th bin. $D_{ij}$ is the ground distance between the centroids $c_i^u$ and $c_j^v$, and is computed from the kernel $K^c$:
-
+\sum\limits_{n,m}f_{nm} = \min\left( \sum\limits_{n} w_n^u ,\sum\limits_{m} w_m^v \right)
+\end{equation*} 
+%\ja{Can we provide some interpretation for the different terms and constraints here?}
+where $\lbrace f_{nm} \rbrace$ is the flow between the cluster weights $w_n^u$ and $w_m^v$, that is, the amount transported from the $n^{\textrm{th}}$ bin to ``supply the demand'' of the $m^\textrm{th}$ bin. We denote by $D^{uv}$ the ground distance, a matrix containing the pairwise distances between the centroids sets $\mu^u$ and $\mu^v$. $D^{uv}$ is computed from the kernel $K$:
 \begin{equation*}
-D_{ij}=1-K^{c(uv)}_{ij}
+D^{uv}=\boldsymbol{1}-K^{(uv)}
 \end{equation*}
+with $K^{(uv)}$ being the slice of $K$ containing the pairwise similarities between the centroids sets $\mu^u$ and $\mu^v$ of the scenes $s_u$ and $s_v$, respectively. As suggested in \cite{pele2009fast}, we set the tradeoff parameter $\alpha$ to $1$.
 
-with $K^{c(uv)}$ being the slice of $K^{c}$ containing the pairwise similarities between the centroids sets $c^u$ and $c^v$ of the scenes $s_u$ and $s_v$ respectively. As suggested in \cite{pele2009fast}, we set the $\alpha$ parameter to one.
-
-To get the final similarity measure between the scenes $s_u$ and $s_v$, an extended Gaussian kernels $K^s$ \cite{chapelle1999support,jing2003support} is computed:
-
+To get the final similarity measure between the scenes $s_u$ and $s_v$, an extended Gaussian kernel $K^s$ \cite{chapelle1999support,jing2003support} is computed:
 \begin{equation}
 \label{eq:ks}
-K_{uv}^s = exp\left( - \dfrac{\widehat{EMD}(S_u,S_v)}{A} \right) \\
+K_{uv}^s = \exp\left( - \dfrac{\widehat{\EMD}(p_u,p_v)}{A} \right) \\
 \end{equation}
-
-with $A$ a scaling parameter, set to the mean value of the $\widehat{EMD}$ between all the scenes. The resulting kernel $K^s$ is called an EMD kernel, and it has to be noted that there is no proof that such kernel is positive definite. \\
-
-\ml{Grégoire : if the matrix is not psd, then this is NOT a kernel, reformulate}
+with $A$ a scaling parameter, set to the mean value of the $\widehat{\EMD}$ between all the scenes. The resulting kernel $K^s$ is known as an $\EMD$ kernel, and it should be noted that there is no guarantee that this kernel is positive definite.
 
 \section{Experiments}
-\label{sec:ExpEval}
+\label{sec:experiments}
 
-blurb
+\subsection{Datasets}
 
-\subsection{Features}
+%For most of the experiments reported in this paper, we will consider the DCASE2013 dataset \cite{giannoulis2013database, 7100934}. Larger datasets exists: the
+%Rouen dataset \cite{rakotomamonjy2015histogram} and the public part of the DCASE2016 challenge.%
+The experiments in this paper are carried out on the private part of the DCASE 2013 dataset\cite{giannoulis2013database, 7100934} and the public part of the DCASE 2016 dataset \cite{Mesaros2016_EUSIPCO}.
 
-Experiments are carried out using temporal-scattering coefficients as well as Mel Frequency Cesptral Coefficients (MFCCs) as features. For the temporal-scattering, each scene is described by 128 vectors of scattering coefficients \gl{vincent: windows and hops ?}. Experiments are conducted with and without the logarithmic compression (see Section \ref{sec:logcomp}).
+The DCASE 2013 dataset consists of two parts, namely a public and a private subset, each made up of $100$ $30$-second recordings of various acoustic scenes. The $100$ recordings are evenly divided into $10$ acoustic scene classes. To build the DCASE 2013 dataset, three different recordists visited a wide variety of locations in Greater London over a period of several months and in each scene recorded a few minutes of audio. No
+systematic variations in the recordings covaried with scene
+type: all recordings were made under moderate weather conditions, at varying times of day and week, and each recordist recorded each scene type. As a consequence, DCASE2013 dataset enjoys an interesting intra-class diversity while remaining manageable in terms of size, making it suitable for extensive evaluation of algorithmic design choices \cite{lagrange:hal-01082501}. 
 
-Different sets of parameters were tested to compute the MFCCs. Results here are only reported for the best setting, which is similar to the one used by the winners of the previous DCASE 2013 challenge \cite{roma2013}. 40 MFCCs (including the first energy coefficient) are computed for windows of 50ms and hops of 25ms, with a limited frequency range going from $27.5$Hz to $1000$Hz. This setting gives us 600 feature vectors per scenes. It has been reported that classifying the full set of frames directly may not be the best approach \cite{rakotomamonjy2015histogram}. In order to reduce the data dimensionality, a pooling step is performed on the MFCCs vectors: each set of MFCCs vectors is divided into $n$ non-overlapping $t$-seconds long "texture" windows. Each $n$ texture windows are then averaged over time. As the \emph{ob} approaches involve a clustering step, it is desirable to ensure that each scene is described by circa the same number of vectors prior to the clustering step, for both the temporal-scattering and the MFCCs. Thus, $t$ is set to 250ms, resulting in 120 MFCCs texture windows per scene. 
+In addition, it is still a challenging dataset, with a state-of-the-art system based on feature design and SVMs achieving $76\%$ \cite{roma2013} (winner of the DCASE2013 challenge), while recent approaches based on label tree embedding achieve between $84\%$ and $87\%$ on DCASE 2013 depending on the prior knowledge used during training \cite{phan2016label}.
+
+%Recent advances using hierarchical classifier architectures obtain between $84\%$ and $87\%$ on DCASE2013 depending on the prior knowledge used during training \cite{phan2016label}. On the Rouen dataset, the state-of-the-art is currently $95\%$ \cite{bisot2016acoustic}.
+
+The dataset is split into a public dataset that can used for optimizing the ASC system and a private dataset used for computing the resulting accuracy using a five-fold cross validation scheme. The folds used in this paper are the same as the ones used during the challenge.
+
+%In this paper, we are interested in evaluating different algorithmic designs leading to different scene models, we therefore resort to straightforward ranking performance measures for the ASSR task. \ja{It's not clear to me how the first part implies the second part here} Similarly, we have picked SVMs as our classifier for the ASC task, since these are a standard tool in the community and allows for us to focus our analysis on the earlier processing stages. Moreover, since MFCCs are well-established features which perform well for these task, we shall include them baseline features in all experiments described in this paper.
+
+\subsection{Feature design}
+
+Experiments are carried out using scattering coefficients as well as mel-frequency cepstral coefficients (MFCCs) as features. For the scattering transform, each $30$-second scene is described by $128$ vectors computed with half-overlapping windows $\boldsymbol{\phi}(t)$ of duration $T=372\,\mathrm{ms}$, for a total of $24\,\mathrm{s}$. Indeed, $3$ seconds are discarded at the beginning and end of the scene to avoid boundary artifacts. Experiments are conducted with and without logarithmic compression (see Section \ref{sec:logcomp}).
+
+MFCCs are computed for windows of $50\,\mathrm{ms}$ and hops of $25\,\mathrm{ms}$, with full frequency range. Different ranks of coefficients were tested to compute the MFCCs, results here are only reported for the best setting, which consisted of $40$ MFCCs, including the first coefficient related to the average energy. This setting gives us $600$ feature vectors per scene. To get a more robust representation, a pooling step is performed on the MFCCs: each recording is divided into $250$-second long non-overlapping ``texture'' windows \cite{1021072}, over which the feature vectors are averaged. This yields number of vectors comparable to that of the scattering transform.
+
+%. The MFCC vectors within each texture window are then averaged in time. As the \emph{ob} approaches involve a clustering step, we need to ensure that both MFCCs and scattering coefficients have a comparable number of vectors per recording. Thus, $t$ is set to $250\,\mathrm{ms}$, resulting in $120$ MFCCs texture windows per scene.
+
+%\ja{We've tested the impact of the logarithm here, but not of the feature selection or standardization. Should we do this as well? For the feature selection, we did say earlier that we would test its impact.}
 
 \subsection{Methods}
 
-The influence of the temporal-scattering transform and the \emph{ob} approaches are assessed in an unsupervised setting (\emph{i.e.} ASSR) and in a supervised setting (\emph{i.e.} ASC). 
+The influence of the temporal scattering transform and the \emph{ob} approaches are assessed in an unsupervised setting (ASSR) and in a supervised setting (ASC).
 
-For the ASSR setting, evaluation is performed on the private dataset of the DCASE 2013 challenge. The metric used is the precision at rank $k$ ($p@k$), which is the  average  number  of  items  of  the  same  class among the $k$ closest items averaged for all possible seed items. The $p@k$ is computed for $k=[1,\ldots,9]$, $9$ being the number of elements that are of the same class than the seed item. Note that a $p@1$ is equivalent to an accuracy computed based on the labels of the 1st nearest neighbors of the items to classify. For each experimental setting, we only report the results obtained with the sets of parameters, \emph{i.e.} the number of clusters $m$ for the \emph{ob} approaches and the scaling parameter $N$ of the RBF kernels (see Eq. \ref{eq:kc}) leading to the best $p@9$.
- 
-For the ASC setting, the systems are evaluated  with five-fold  stratified cross validation on the private dataset of the DCASE 2013 challenge. The folds are identical to those used in the original challenge. Optimal parameters (see above) are this time learned on the public dataset of the DCASE 2013 challenge, using five-fold  stratified cross validation as well. 
+For ASSR, evaluation is performed on the private part of the DCASE 2013 dataset. The metric used is the precision at rank $k$ ($p@k$), which is computed by taking a query item and counting the number of items of the same class within the $k$ closest neighbors, and then averaging over all query items. The $p@k$ is computed for $k=\lbrace 1,\ldots,9\rbrace$, since each class only has $10$ items. Note that a $p@1$ is equivalent to the classification accuracy obtained by the classifier which chooeses the label of the closest neighbor for a given item. For each experimental setting, we only report the results obtained with the sets of parameters, \emph{i.e.} the number of clusters $M$ for the \emph{ob} approaches and the scaling parameter $k$ of the RBF kernels (see Eq. \ref{eq:kc}) leading to the best $p@9$.
 
-The \emph{ob} approaches are compared to commonly used approaches using an early integration strategy (\emph{ei}) for the ASSR setting, and both an early and a late integration (\emph{li}) strategy for the ASC setting (see Section \ref{sec:eili}). In thsi context early integration refers to an averaging of the features and late integration refers to a majority voting of the predictions.
+%\ja{I'm not sure what this means. Do we fix $m$ and $N$ here for all experiments or do we optimize them over the test data each time? If so, this will bias the results, no?}
 
-As most of the 2013 DCASE challenge participants did, a Support Vector Machine (SVM), which is a large-margin binary discriminators with tunable regularization of misclassified examples, is used as classifier for the ASC setting. The parameter $C$ is here set to one.
 
-For the \emph{ob} approaches, we use the precomputed kernels described in Section \ref{sec:object}. For both the \emph{ei} and \emph{li} approaches, a linear kernel as well as a RBF kernel are used. As for the \emph{ob} approaches, the RBF kernel is scaled locally using the method proposed in \cite{selfTuneManor2004}. All feature vectors, being frames, texture windows or centroids are standardized prior to be given to the classifier. The standardization is computed with respect to the train/test set splits of the cross validation scheme (see Section \ref{sec:stand}).
-
-\section{Acoustic Scene Similarity Retrieval}
-
-\begin{figure}
+\begin{figure}[t]
 \begin{center}
-\includegraphics[width=\columnwidth]{gfx/unsupervised_test3.eps}
-\caption{ASS: $p@k$ obtained for the MFCC and the time-scattering with logarithmic compression}
+\includegraphics[width=.9\columnwidth]{gfx/unsupervised_test2}
+\caption{Acoustic scene similarity retrieval (ASSR) in the DCASE 2013 private dataset: precisions at rank $k$ ($p@k$) obtained for MFCCs and scattering with logarithmic compression, as a function of the rank $k$.}
 \label{fig:ASS_1}
 \end{center}
 \end{figure}
+ 
+For ASC, the systems are again evaluated on the private part of DCASE 2013, but here with five-fold stratified cross validation. The folds are identical to those used in the original challenge. Optimal parameters (see above) are this time learned on the public part of the DCASE 2013 dataset, also using five-fold stratified cross validation.
 
-\begin{figure}
+The \emph{ob} approaches are compared to commonly used early integration approach (\emph{early}) for ASSR, while both early and late integration (\emph{late}) strategy are evaluated for the ASC setting (see Section \ref{sec:eili}).
+
+In the same way as the majority of the DCASE2013 participants, we use an SVM for the ASC task, which is a large-margin binary discriminator with tunable regularization of misclassified examples. The parameter $C$ is here set to $1$.
+
+For the \emph{ob} approaches, we use the precomputed kernels described in Section \ref{sec:object}. For both the \emph{early} and \emph{late} approaches, a linear kernel as well as an RBF kernel are used. As with the RBF kernels used in the \emph{ob} approaches, the RBF kernel in the SVM is scaled locally using the method proposed in \cite{selfTuneManor2004}. All feature vectors, be they frames, texture windows or centroids, are standardized prior to be given to the classifier. The standardization is computed with respect to the train/test splits of the cross validation scheme (see Section \ref{sec:stand}).
+
+Clustering is done using $k$-means$++$ \cite{arthur2007k}, an augmented version of $k$-means with a more robust initialization procedure. Three numbers of clusters are tested: $8$, $16$ and $32$.
+
+\section{Results \label{sec:results}}
+
+
+
+\subsection{Acoustic Scene Similarity Retrieval}
+
+This section presents evaluation results for the ASSR settings. The $p@k$ for different settings are shown in Figures \ref{fig:ASS_1} and \ref{fig:ASS_2}, illustrating the effect of the different similarity metrics and the influence of the logarithm, respectively.
+
+\subsubsection*{MFCC \vs scattering transform}
+
+Irrespective of the rank $k$ considered, best result is achieved for the scattering transform with logarithmic compression using the \emph{ob-c} approach. Overall, log-compressed scattering coefficients systematically outperform MFCCs. This is to be expected since the scattering coefficients capture larger-scale modulations, as opposed to MFCCs which only describe the short-time spectral envelope.
+
+\subsubsection*{Object-based \vs early integration}
+
+For the scattering transform, both \emph{ob-c} and \emph{ob-w} outperform \emph{early}, thus confirming the benefits of using an object-based representation to refine the similarity measures between the scenes. However, it is worth noticing that \emph{ob-a} performs comparably to \emph{early}, showing that the discriminant information is destroyed by averaging the contributions from all centroids. To take advantage of an object-based representation, we need to select certain representative centroids when comparing objects. Furthermore, it appears that \emph{ob-c} is better able to characterize the classes than \emph{ob-w}. This last observation suggests that weighting a centroid according to the number of frames it contains may prove to be a limited solution. Indeed, nothing a priori indicates that the discriminant information between two scenes lays within the majority of their frames. On the contrary, two similar environments may shared a lot of similar sound sources with only a few sources discriminating between them.
+
+The same observations are made for the MFCCs for $k\leq5$. However for a rank $k$ greater than $5$, all the \emph{ob} approaches perform equivalently. This may be due to the fact that, at some point, the MFCCs fail to dissociate the discriminative events of a scene from the non-informative ones, thus making the cluster selection/weighting step useless.
+	
+%However for a rank $k$ greater than $5$, there is no clear evidence that \emph{ob-c} and \emph{ob-w} approaches improve the results compared to \emph{early}. The latter even outperforms \emph{ob-a} for $k\geq5$. From this it appears that, although the \emph{ob} approaches are able to better retrieve the similarities between close scenes compared to \emph{early}, they are of no help when considering distant scenes of the same class. This may be due to the fact that, at some point, the MFCCs fail to dissociate the discriminative events of a scene from the non-informative ones, thus making a centroid-based description useless, or even counterproductive when the centroids are not weighted/selected.
+
+\subsubsection*{Role of logarithmic compression}
+
+Outcomes for the scattering with and without logarithmic compression are shown in Figure \ref{fig:ASS_2}. It can be seen that the logarithmic compression strongly improves the results, especially for the \emph{ob} approaches, which perform worse than \emph{early} without the logarithmic compression.
+
+
+\begin{figure}[t]
 \begin{center}
-\includegraphics[width=\columnwidth]{gfx/unsupervised_test2.eps}
-\caption{ASS: $p@k$ obtained for the time-scattering with and without logarithmic compression (w/o log)}
+\includegraphics[width=.9\columnwidth]{gfx/unsupervised_test1}
+\caption{Acoustic scene similarity retrieval (ASSR) in the DCASE 2013 private dataset: precisions at rank $k$ ($p@k$) obtained for scattering coefficients, with and without logarithmic compression, as a function of the rank $k$.}
 \label{fig:ASS_2}
 \end{center}
 \end{figure}
 
-This section present evaluation results for the ASS settings. The $p@k$ for different settings are showed in the Figures~\ref{fig:ASS_1} and \ref{fig:ASS_2}.
-
-\subsection{MFCC \vs Time scattering}
-
-Irrespective of the rank $k$ considered, best result is achieved for the time-scattering with logarithmic compression using the \emph{ob-c} approach. Overall, the time scattering with the logarithmic compression outperform the MFCCs systematically.
-
-\subsection{Object-based \vs early integration}
-
-For both MFCCs and time-scattering, \emph{ob-c} and \emph{ob-w} outperform \emph{ei}, thus confirming the benefits of using an object-based representation to refine the similarity measures between the scenes. However, it is worth noticing that \emph{ob-a} perform equivalently to \emph{ei}, which shows that the discriminant information is not carried by all the centroids. To take advantage of an object-based representation, a selection step has to be run on the representatives of the scenes.
-
-Lastly, we see that while \emph{ob-c} and \emph{ob-w} perform equivalently for the MFCCs, \emph{ob-c} seems to be able to better characterized the classes than \emph{ob-w} for the time scattering. This last observation suggests that weighted a centroid according to the number of frames belonging to it may prove to be a limited solution. Indeed, nothing a priori indicates that the discriminant information between two scenes lays within the majority of their frames. On the contrary, two similar environments  \gl{find examples} may shared a lot of similar sound sources \gl{reformulate}.
-
-\subsection{Role of logarithmic compression}
-
-Outcomes for the time-scattering with and without logarithmic compression are showed in Figure~\ref{fig:ASS_2}. It can be seen that the logarithmic compression strongly improves the results, specially for the \emph{ob} approaches, which perform lesser than \emph{ei} without the logarithmic compression. \gl{une idée du pourquoi ?}
-
-\section{Acoustic Scene Classification}
+\subsection{Acoustic Scene Classification}
 
 
 \begin{figure}
 \begin{center}
-\includegraphics[width=\columnwidth]{gfx/supervised_linear_test1.eps}
-\caption{...}
+\includegraphics[width=\columnwidth]{folds.png}
+\caption{Classification accuracies over the five folds of the DCASE 2013 private dataset, for various acoustic descriptors and temporal integration strategies. 
+The chosen classifier is a support vector machine (SVM) whose kernel is a Gaussian radial basis function (RBF).
+The mean accuracies and fold-wise standard deviations of each experiment are reported in Table \ref{table:dcase2013}}
 \end{center}
+\label{fig:folds}
 \end{figure}
 
-\begin{figure}
-\begin{center}
-\includegraphics[width=\columnwidth]{gfx/supervised_rbf_test2.eps}
-\caption{\ml{simplifier les xticklabels en mettant des acronymes expliquer dans la caption}}
-\end{center}
-\end{figure}
+
+We report experiments on acoustic scene classification (ASC), following the original methodology of the DCASE 2013 challenge, and extend our approach to the its 2016 edition.
+
+\subsubsection*{MFCCs \vs scattering}
+
+As shown in Figure \ref{fig:folds}, scattering coefficients outperform MFCCs over all but one fold of the DCASE 2013 private dataset when applying early integration, and over all folds when applying late integration.
+Not only the average accuracy is improved, but the variance between fold-wise accuracies is also reduced, \eg from $16\%$ to $7\%$ in the case of early integration.
+This is in accordance with the previous results on similarity retrieval, as well as with other papers comparing mel-frequency coefficients with scattering coefficients on a variety of tasks, ranging from musical genre recognition \cite{Anden2014} to environmental sound classification \cite{Salamon2015}.
+
+\subsubsection*{Early \vs late integration}
+Late integration, \ie building a prediction by majority voting over $128$ local windows of duration $T=372\,\mathrm{ms}$, outperforms early integration, \ie classifying the acoustic scene with a global window of duration $T=24\,\mathrm{s}$.
+This result suggests that, despite its discriminative power at fine scales, the scattering transform is unable to separately characterize distinct acoustic events beyond the scale of about one second.
+Therefore, it is beneficial to regard the scattering transform as a mid-level descriptor of acoustic content, not as a high-level descriptor, and adopt a data-driven strategy for the temporal integration of acoustic events within one scene.
+
+Surprisingly, although we ran a large number of experiments to formulate object-based clustering into a supervised setting for acoustic scene classification, none managed to outperform the baseline strategy in temporal integration, namely majority voting. Among object-based methods, the best result is achieved by the \emph{ob-c} approach with log-compressed scattering coefficients, reaching an accuracy of $66\% \pm0.7$. This might be due to the fact that the discriminability gained by the object-based approach is already gained by the classifiers during the training and the fact the object-based approach is equivalent to an early fusion approach, which in the case of the DCASE 2013 has not been identified as beneficial due to the dataset size (see discussion in Section \ref{sec:eili}).
+
+\subsubsection*{Role of logarithmic compression}
+
+Logarithmic compression provides a small, albeit consistent boost to acoustic scene classification over all folds in the DCASE 2013 private dataset.
+Indeed, as discussed in subsection \ref{sec:logcomp}, and observed in Figure \ref{fig:compression}, the statistical assumption of normality for scattering coefficients is only approximately satisfied once mapped to a logarithmic, decibel-like scale.
+This transformation improves the discriminative power of the SVMs trained on scattering coefficients, regardless of the chosen temporal integration strategy (early or late) and the inner product kernel (linear or Gaussian RBF).
+Again, this is in accordance with our previous findings on acoustic scene similarity retrieval, which are reported in Figure \ref{fig:ASS_2}.
+
 
 \begin{table}
 \begin{center}
+\caption{Classification accuracies on the DCASE 2013 dataset with various settings of features, temporal integration strategies, and support vector machine kernels.}
 \begin{tabular}{llll}
-                    & time-scattering & time-scattering & mfcc \\
-                    & w/ log comp.    & w/o log comp.   &      \\
+             & MFCCs         & scattering & log-scattering  \\
              \hline
-ei (linear)  & 66 (11)        & 62 (6)  & 46 (8)    \\
-ei (RBF)     & 60 (7)         & 57 (8)  & 60 (8)    \\
-li (linear)  & 75 (5)         & 70 (8)  & 63 (8)   \\
-li (RBF)     & 78 (6)         & 73 (8)  & 72 (10)   \\
-ob-c         & 66 (7)         & 58 (6)  & 56 (9)   \\
-ob-a         & 61 (7)         & 54 (8)  & 61 (9)   \\
-ob-w         & 54 (11)        & 43 (10) & 51 (15)   \\
+early, linear  & $54\pm20$   & $62\pm\phantom{0}6$  & $66\pm11$     \\
+early, RBF     & $47\pm16$  & $56\pm\phantom{0}7$  & $63\pm\phantom{0}6$   \\
+late, linear  & $60\pm\phantom{0}9$ & $70\pm\phantom{0}8$  & $75\pm\phantom{0}5$   \\
+late, RBF     & $68\pm10$ & $73\pm\phantom{0}8$  & $\mathbf{78}\pm\phantom{0}6$   \\
 \end{tabular}
-\caption{FYW: best results for object-based approach with majority vote (on the centroids / on the centroids + on the frames) is circa 75\%}
 \end{center}
+\label{table:dcase2013}
 \end{table}
 
-\subsection{MFCC \vs Time scattering}
+\begin{table}
+\begin{center}
+\caption{Class-wise accuracies on the DCASE 2016 dataset for the baseline algorithm (left) and proposed algorithm (right).}
+\begin{tabular}{lcc}
+Features & MFCCs & log-scattering \\
+Classifier  & GMMs    & linear SVMs \\
+Temporal integration & late (product rule) & late (majority voting) \\
+\midrule
+beach & $74.6 \pm 18.9$ & $83.5 \pm \phantom{0}7.1$ \\
+bus & $58.2 \pm 18.3$ & $88.8 \pm 11.4$ \\
+caf\'{e} / restaurant & $85.1 \pm 10.8$ & $64.5 \pm \phantom{0}8.3$ \\
+car & $69.1 \pm 20.8$ & $94.9 \pm \phantom{0}6.1$ \\
+city center & $89.6 \pm \phantom{0}9.2$ & $91.7 \pm \phantom{0}9.4$ \\
+forest path & $72.4 \pm 23.8$ & $93.8 \pm \phantom{0}7.8$ \\
+grocery store & $74.1 \pm 13.7$ & $90.9 \pm \phantom{0}6.9$ \\
+home & $78.1 \pm 17.7$ & $56.2 \pm 23.9$ \\
+library & $65.1 \pm 23.3$ & $82.0 \pm 13.0$ \\
+metro station & $85.2 \pm 15.6$ & $96.0 \pm \phantom{0}2.3$ \\
+office & $90.8 \pm 16.0$ & $87.5 \pm 21.7$ \\
+park & $25.6 \pm 11.0$ & $75.4 \pm \phantom{0}7.4$ \\
+residential area & $75.1 \pm 19.4$ & $44.2 \pm 15.0$ \\
+train & $34.1 \pm \phantom{0}7.2$ & $58.3 \pm 10.0$ \\
+tram & $85.4 \pm 13.9$ & $83.7 \pm 12.2$ \\
+\bottomrule
+Average & $70.8 \pm \phantom{0}2.6$ & $79.4 \pm \phantom{0}3.0$
+\end{tabular}
+\end{center}
+\label{table:dcase2016}
+\end{table}
 
-\subsection{Object-based \vs early/late integration}
 
-\subsection{Role of logarithmic compression}
+\subsubsection*{Participation to the DCASE 2016 challenge}
+In order to evaluate how general our findings are, we have taken part in the acoustic scene classification task of the 2016 edition of the DCASE challenge.
+This edition relies on the TUT 2016 acoustic scenes dataset, which contains $15$ classes of acoustic scenes, and is larger than the DCASE 2013 private dataset by one order of magnitude \cite{Mesaros2016_EUSIPCO}.
+Training support vector machines with a Gaussian RBF kernel is computationally demanding for a dataset of such size, especially under a late integration scheme, wherein the number of training instances exceeds $10^5$.
+Since the LIBLINEAR package enables faster training than LIBSVM, we have used a linear kernel \cite{Hsu2003}.
+Our experiments on the DCASE 2013 dataset, as reported in table \ref{table:dcase2013}, show that the linear kernel gives comparable, albeit slightly worse, classification results than the Gaussian RBF kernel.
 
-\section{Results: DCASE 2016}
+Our results on the public part of the DCASE 2016 dataset are reported in Table \ref{table:dcase2016}, compared with a baseline using MFCCs and a generative classifier, namely Gaussian mixture models with $16$ Gaussians per model. This baseline relies on a late integration scheme, wherein the reduction function $\rho$ is a product of likelihoods.
+The average accuracy across classes on the public part is brought from $70.8\%$ to $79.4\%$\footnote{Challenge results on the private part of the dataset are expected to be published in August 2016.}.
+Furthermore, our cross-validation analyses confirmed that the value $T=372\,\mathrm{ms}$ for the support of the low-pass filter $\boldsymbol{\phi}(t)$ is optimal when applying late integration by majority voting.
 
 \section{Conclusion}
 
-In this paper, the benefit of considering 1) the scattering transform for building discriminant features and 2) unsupervised clustering for the modeling of large time span environmental acoustic scenes. Experiments shows that the time/frequency scattering achieves better discriminability than the time scattering one or MFCCs as they probably better isolate elements of interest in different information channels, thus allowing an efficient and scalable early integration process. This leads to improvement both for the ASSR and ASC tasks.
+In this paper we consider the benefit of 1) the scattering transform for building discriminant features and 2) unsupervised clustering for the modeling of large-scale environmental acoustic scenes.
+%This leads to improvements in both the ASSR and ASC tasks.
 
-Abstracting the scene as a reduced set of exemplars with adapted similarity strategies allows us to improve ASSR performance when the BOF approaches based on GMMs fails with reference to an early integration scheme. Those results advocate for a hierarchical model of the scene, where small time scale structure  (below a second) shall be decorelated using convolutional network such as the ones of the scattering transforms and larger time scale (over a second) structure shall be modeled as adaptive aggregates that can be identified in the time domain in an unsupervised setting and in the features domain in the supervised case (provided that the dimensionality is sufficiently high). 
+Representing a scene using a reduced set of representatives, with adapted similarity strategies, allows us to improve ASSR performance compared to the BOF approaches based on GMMs which have been demonstrated to be equivalent to early integrations scheme on well-balanced datasets \cite{lagrange:hal-01082501}. These results advocate for a hierarchical model of the scene, where short-time structure -- \ie below a second -- is represented using a convolutional network such as the scattering transform, whereas larger time scales -- \ie over a second -- are modeled as adaptive aggregates.
 
-This assertion shall be studied further in future work by considering more complex convolutional networks, larger databases and more diverse application scenarios, such as pleasantness prediction \cite{lafaySoundscapePilot, lafay:hal-01111782} or ecoacoustics tasks.
+Within a supervised setting of acoustic scene classification (ASC), we have shown the comparative benefits of log-scattering features over MFCCs, of majority voting at a mid-level time scale of $T=372\,\mathrm{ms}$ over prediction at a high-level time scale of $T=24\,\mathrm{s}$, and of an adapted Gaussian kernel over the linear kernel in support vector machine classification.
+%, identified in the time domain in the unsupervised setting and in the features domain in the supervised case, provided that the dimensionality is sufficiently high. \ja{I'm not sure what this last part means.}
+
+Those outcomes shall be studied further in future work by considering larger databases and more diverse applications, such as pleasantness prediction \cite{lafaySoundscapePilot, lafayPartI} as well as emerging tasks in ecoacoustics.
 
 \bibliographystyle{unsrt}
 \bibliography{biblio}

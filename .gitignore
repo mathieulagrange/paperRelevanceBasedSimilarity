@@ -9,4 +9,11 @@ paper/structureScene.pdf
 
 paper/structureScene.dvi
 
+paper/structureScene.bbl
+
+paper/structureScene.blg
+
 paper/biblio.log
+
+*.sw*
+
