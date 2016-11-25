@@ -1,0 +1,108 @@
+\documentclass[10pt]{article}
+
+\title{Response to Reviewers: \\ T-ASL-05872-2016 "Object-based Auditory Scenes Similarity Retrieval and Classification With Wavelet Scattering"}
+
+\usepackage{color}
+\newcommand{\gl}[1]{\textcolor{red}{Gregoire : #1}}
+\newcommand{\eb}[1]{\textcolor{magenta}{Emmanouil : #1}}
+\newcommand{\ml}[1]{\textcolor{blue}{ Mathieu : #1}}
+
+
+\begin{document}
+
+\maketitle
+
+We would like to thank the editor and the reviewers for their comments and suggestions. Following these comments, we made several changes to the article, which are summarized here. The next sections list our answers to each of the reviewer’s comments, with references to the revised manuscript where appropriate.
+
+\section{Responses to the Associate Editor}
+
+\begin{enumerate}
+
+\item \emph{Line 40, alpha may appear in previous equations}
+
+\item \emph{The argumentation toward the log compression is well conducted, and meaningful in this issue. The authors may simply swap the order of fig 3 and 4}
+
+\item \emph{The class accuracy Table III for Home and Residential area are singular. Authors shall discuss that.}
+
+\item \emph{Complete legend fig 5.}
+
+\end{enumerate}
+
+\section{Responses to Reviewer 1}
+
+\begin{enumerate}
+
+\item \emph{Object-based is inappropriate, This paper introduces: no this paper uses the scattering network to try to tackle a specific sound classification task.}
+
+\item \emph{The second paragraph of the abstract is vague.}
+
+\item \emph{No novel technique is presented}
+
+\item \emph{the whole paper architecture is poor}
+
+\item \emph{all the justifications arise from psychoacoustic, bioacoustic,... when the challenge is to classify ambient non natural stationary sounds. For example the whole Gammatone wavelet justification over Morlet is biased}
+
+\item \emph{the classification accuracy is not suited for comparison since the dimension of the feature vectors are not the same for all the techniques }
+
+\item \emph{most importantly the used classifier is not the same (from unsupervised GMM to supervised SVM)}
+
+\item \emph{the paper reads like a recipe for the specific task without justifications, insights or proofs of the different given definitions and statements.}
+
+\item \emph{The dataset is not well presented since the classes seem to represent stationary noises such as car/tram/train}
+
+\item \emph{"recordings may be shifted locally 
+without affecting their perception and therefore such shifts do not convey any information about the class" this is false. Rather say that application of time shift should not change the representation since it doesn't change the class belonging in this context and thus imposing time shift invariance will improve robustness.}
+
+\item \emph{the used descriptors are only locally time shift invariant and not globally which is never pointed out}
+
+\item \emph{The function phi is hardly considered as a low-pass since a low-pass is only used in coordination with a high-pass for quadratic mirror filters. Here phi is a scaling function.}
+
+\item \emph{Line 34: "wavelet transform modulus" is not clear at all.}
+
+\item \emph{It is then explained that the features are stable to time warping yet the justification is for pitch variations which are frequency-warping}
+
+\item \emph{The scattering network is defined with an infinite cascade of transform yet it is enough to compute two layers, why?}
+
+\item \emph{It is never specified what are the signals frequency sampling which we have to deduce to be 44100 Hz from line 9 page 3 "20kHz close to the Nyquist frequency of the audio recordings".}
+
+\item \emph{"wavelet scalogram" is used along all the paper but scalogram is only defined for wavelets since 
+it is a scale-o-gram.}
+
+\item \emph{line 60: auditory and modulation filter – nonsense.}
+
+\item \emph{"unsupervised classification" it is clustering then.}
+
+\item \emph{"time-frequency perspective or a machine learning perspective" is it imposed versus learned representation? }
+
+\item \emph{Equations 9 and 10 are superfluous.}
+
+\end{enumerate}
+
+\section{Responses to Reviewer 2}
+
+\begin{enumerate}
+
+\item \emph{The late versus early integration of the features is well presented and evaluated. But a graphic representation of the whole process would arise the novelty of the model.}
+
+\item \emph{Authors may precise  how the Gammatone wavelets allow
+to reproduce the asymmetry of temporal masking and the asymmetry of spectral masking.}
+
+\item \emph{Setting of Q1 shall be motivated.}
+
+\item \emph{Reproducibility:  data sets are publicly available, the author do not mention if they plan to make their model available.}
+
+\item \emph{In the last experience (Table III) GMM(MFCC) may be compared to SVM(MFCC) (in addition to SVM(logscat)). There is somewhere a high dimension effect that shall be clarified.}
+
+\item \emph{Confusion matrix of the two best methods will be interesting.}
+
+\item \emph{The cross-validation analyses confirmed that the value T = 372 ms for the support of the low-pass filter is optimal when applying late integration by majority voting, but shall it adapted per classes  ?}
+
+\item \emph{A table with the 2016 CASE private results may be added (or replace Tab III).}
+
+\item \emph{The bibliography is huge, it may be reduced by 10 %. Check typos in the references (Museum, Histoire nat...). 
+“befor”
+Bregman shall be cited in the discussion about  binding of acoustic cues.}
+
+\end{enumerate}
+
+\end{document}
