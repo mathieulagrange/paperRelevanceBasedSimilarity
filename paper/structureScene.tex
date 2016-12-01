@@ -329,20 +329,7 @@ In the context of this paper, early integration refers to an averaging of the fe
 Let $\mathbf{S}\boldsymbol{X}(\gamma,n)$ be a dataset, where the indices $\gamma$ and $n$ respectively denotes features and examples.
 It is commonly acknowledged that SVMs should be trained on scaled features with null mean and unit variance, so as to avoid mismatch in numeric ranges \cite{Hsu2003}.
 
-To standardize $\mathbf{S}\boldsymbol{X}(\gamma,n)$, we apply the affine transformation
-\begin{equation}
-\widetilde{\mathbf{S}}\boldsymbol{X}(\gamma, n) =
-\dfrac{ \mathbf{S}\boldsymbol{X}(\gamma, n) -
-\mu[ \mathbf{S}\boldsymbol{X}](\gamma)}{\sigma[ \mathbf{S}\boldsymbol{X}](\gamma)}
-\end{equation}
-where $\mu[ \mathbf{S}\boldsymbol{X}](\gamma) = \frac{1}{N} \sum_{n=1}^{N} \mathbf{S}\boldsymbol{X}(\gamma,n)$ is the sample mean of $\mathbf{S}\boldsymbol{X}(\gamma,n)$ and
-\begin{equation}
-\sigma[\mathbf{S}\boldsymbol{X}] (\gamma) =
-\sqrt{\frac{1}{N-1} \sum_{n=1}^{N}
-\left( \mathbf{S}\boldsymbol{X}(\gamma,n) - \mu[\mathbf{S}\boldsymbol{X}] \right)^2}
-\end{equation}
-is the sample standard deviation.
-
+To standardize $\mathbf{S}\boldsymbol{X}(\gamma,n)$, we substract the sample means $\mu[\mathbf{S}\boldsymbol{X}(\gamma)]$ to $\mathbf{S}\boldsymbol{X}(\gamma,n)$ and divide the result by the sample standard deviations $\sigma[\mathbf{S}\boldsymbol{X}] (\gamma)$.
 The vectors $\mu[\mathbf{S}\boldsymbol{X}(\gamma)]$ and $\sigma[\mathbf{S}\boldsymbol{X}](\gamma)$ are estimated from the training set only, and the same affine transformation is subsequently applied to all samples in the training set and the test set.
 
 \section{Object-based modeling of the scene}
