@@ -180,7 +180,7 @@ However, to achieve invariance to translation up to $T = 372\,\mathrm{ms}$, \ie 
 The next subsection describes the operations involved in the scattering transform, and in particular the construction of wavelet filter banks.
 
 \subsection{Wavelet scalogram}
-Our convention for the Fourier transform of a continuous-time signal $\boldsymbol{x}(t)$ is $\boldsymbol{\hat{x}}(\omega) = \int x(t) \exp(\mathrm{i} 2\pi t \omega) \; \mathrm{d}\omega$. Note that the frequency variable $\omega$ is expressed in Hertz, not in radians per second.
+Our convention for the Fourier transform of a continuous-time signal $\boldsymbol{x}(t)$ is $\boldsymbol{\hat{x}}(\omega) = \int x(t) \exp(- \mathrm{i} 2\pi \omega t) \; \mathrm{d}t$. Note that the frequency variable $\omega$ is expressed in Hertz, not in radians per second.
 
 Let $\boldsymbol{\psi}(t)$ a complex-valued band-pass filter of
 center frequency $\xi_1$ and bandwidth $\xi_1/Q_1$.
