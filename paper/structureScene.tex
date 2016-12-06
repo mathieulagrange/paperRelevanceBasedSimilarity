@@ -234,10 +234,12 @@ The scattering transform $\mathbf{S}\boldsymbol{x}(t,\gamma)$ consists of the co
 \subsection{Gammatone wavelets}
 \begin{figure}
 \begin{center}
-\includegraphics[width=\columnwidth]{gammatones}
+\includegraphics[width=\columnwidth]{bw/gammatones}
 \caption{
 \label{fig:gammatones}
-Gammatone wavelets $\psi(t)$ in the time domain with quality factors (a) $Q = 4$ and (b) $Q = 1$. Blue and red oscillations represent the real and imaginary parts. The orange envelope represents the complex modulus.}
+Gammatone wavelets $\psi(t)$ in the time domain with quality factors (a) $Q = 4$ and (b) $Q = 1$. 
+\vl{If you want to keep this level of detail you have to adapt the figure so that it is readable in greyscale. Blue and red oscillations represent the real and imaginary parts. The orange envelope represents the complex modulus.}
+}
 \end{center}
 \end{figure}
 Wavelets
@@ -265,7 +267,7 @@ Figure \ref{fig:histograms} shows the distribution of an arbitrarily chosen scat
 
 \begin{figure}
 \begin{center}
-\includegraphics[width=\columnwidth]{compression}
+\includegraphics[width=\columnwidth]{bw/compression}
 \caption{
 \label{fig:histograms}
 Histogram of values taken by the first-order scattering coefficient $\mathbf{S}\boldsymbol{x}(\gamma)$, corresponding to a center acoustic frequency of $302\,\mathrm{Hz}$,
@@ -438,7 +440,7 @@ For ASSR, evaluation is performed on the private part of the DCASE 2013 dataset.
 
 \begin{figure}[t]
 \begin{center}
-\includegraphics[width=.9\columnwidth]{gfx/unsupervised_test2}
+\includegraphics[width=.9\columnwidth]{bw/unsupervised_test2}
 \caption{Acoustic scene similarity retrieval (ASSR) in the DCASE 2013 private dataset: precisions at rank $k$ ($p@k$) obtained for MFCCs and scattering with logarithmic compression, as a function of the rank $k$.}
 \label{fig:ASS_1}
 \end{center}
@@ -481,7 +483,7 @@ Outcomes for the scattering with and without logarithmic compression are shown i
 
 \begin{figure}[t]
 \begin{center}
-\includegraphics[width=.9\columnwidth]{gfx/unsupervised_test1}
+\includegraphics[width=.9\columnwidth]{bw/unsupervised_test1}
 \caption{Acoustic scene similarity retrieval (ASSR) in the DCASE 2013 private dataset: precisions at rank $k$ ($p@k$) obtained for scattering coefficients, with and without logarithmic compression, as a function of the rank $k$.}
 \label{fig:ASS_2}
 \end{center}
@@ -492,10 +494,10 @@ Outcomes for the scattering with and without logarithmic compression are shown i
 
 \begin{figure}
 \begin{center}
-\includegraphics[width=\columnwidth]{folds.png}
-\caption{Classification accuracies over the five folds of the DCASE 2013 private dataset, for various acoustic descriptors and temporal integration strategies. 
+\includegraphics[width=\columnwidth]{bw/folds.png}
+\caption{Classification accuracies over the five folds of the DCASE 2013 private dataset, for various acoustic descriptors and temporal integration strategies.  Performance on each fold is depicted using a given symbol.
 The chosen classifier is a support vector machine (SVM) whose kernel is a Gaussian radial basis function (RBF).
-The mean accuracies and fold-wise standard deviations of each experiment are reported in Table \ref{table:dcase2013}}
+The mean accuracies and fold-wise standard deviations of each experiment are reported in Table \ref{table:dcase2013}.}
 \end{center}
 \label{fig:folds}
 \end{figure}
