@@ -86,7 +86,7 @@ acoustic scene classification, acoustic scene segmentation, scattering, wavelets
 \section{Introduction}
 
 \IEEEPARstart{T}{he} amount of audio data recorded from our sonic environment has grown considerably over the past decades.
-In order to measure the effect of human activity and climate change on animal biodiversity, researchers in the field of ecoacoustics \cite{krause} have recently undertaken the massive deployment of acoustic sensors throughout the world \cite{warren2006urban, NessSST13, stowell13a, stowell13b}. 
+In order to measure the effect of human activity and climate change on animal biodiversity, researchers in the field of ecoacoustics \cite{krause} have recently undertaken the massive deployment of acoustic sensors throughout the world \cite{warren2006urban, NessSST13, stowell13b}. 
 
 In addition, recent work demonstrates the interest of acoustic monitoring for the characterization of human pleasantness in urban areas \cite{guyot2005urban, ricciardi2015sound} as well as the prediction of annoyance due to traffic \cite{gloaguen}.
 Because they bear a strong societal impact and raise many scientific challenges, we believe that these case studies are of considerable interest for the signal processing community.
@@ -107,7 +107,7 @@ Motivations of the proposed approach and a brief review of the state of the art 
 
 %One avenue of ecoacoustics research, originating in bioacoustics, attempts to identify species properties of vocalizations, for example to link animal vocalization with behavior\cite{au2008principles, stowell2014large}.
 
-A recent paradigm in computational bioacoustics processes the audio stream in a holistic way over larger time scales, without assuming that a single species is present throughout the recording. Automated systems belonging to this paradigm attempt to infer global properties of bioacoustic scenes, including biodiversity indices \cite{Bardeli2010}, migration patterns \cite{Obrist2010}, as well as to detect time intervals of particular interest before detailed human inspection \cite{rosenstock2002landbird,diefenbach2007incorporating}.
+A recent paradigm in computational bioacoustics processes the audio stream in a holistic way over larger time scales, without assuming that a single species is present throughout the recording. Automated systems belonging to this paradigm attempt to infer global properties of bioacoustic scenes, including biodiversity indices \cite{Bardeli2010}, migration patterns \cite{Obrist2010}, as well as to detect time intervals of particular interest before detailed human inspection \cite{rosenstock2002landbird}.
 
 %The same division is found in the field of auditory scene analysis, wherein the interest may either be 1) to isolate and identify precise events, \ie acoustic event detection (AED), or 2) to predict global attributes assigned to large time spans of audio, \ie acoustic scene classification (ASC).
 To do so, a popular approach for acoustic scene modeling is the bag-of-frames (BOF) approach introduced by Aucouturier et al. \cite{aucouturier2007bag}, where a scene is modeled by high-level summary statistics computed from local features.
@@ -118,13 +118,13 @@ Therefore, it is arguably more beneficial to focus on the large-scale temporal e
 
 This statement has some support in auditory psychology as well as sound synthesis based on summary statistics \cite{mcdermott2013summary}. Indeed, studies in cognitive psychology investigating urban sound environment quality pointed out that global sound level (perceived or measured) is not sufficient to fully characterize an acoustic scene \cite{guyot2005urban,kang2006urban}. Rather, it seems that cognitive processes such as sound environment quality perception \cite{dubois2006cognitive} or loudness judgment \cite{kuwano_memory_2003} rely upon higher-level cognitive attributes such as the identities of the sound sources which compose the scene. It has been showed that, if available, the complete description of the scene in terms of event occurrences is powerful enough to reliably predict high-level cognitive classes, \eg the presence of birds are very likely to be heard in parks in urban areas and so are strong pleasantness indicators. Consequently, research in sound perception is now strongly focused on the contribution of specific sound sources in the assessment of a sound environment \cite{ricciardi2015sound,lavandier2006contribution}. Although the complete set of events occurring within a given auditory stream may not be discernable, even to human expects, research has shown that a small set of events, so called markers, suffice to reliably predict many high-level attributes.
 
-The BOF approaches treat each observations equally, whereas the results cited above show that only a few distinct events may be more important than events or texture present throughout the whole scene duration, thus advocating for a more selective approach such as the one presented in Section \ref{sec:object} for the ASSR task. Aside from \cite{aucouturier2007bag} and \cite{lagrange:hal-01082501} that consider the task of ASSR, much of the work dedicated to acoustic scene modeling is applied to the ASC task.
+The BOF approaches treat each observations equally, whereas the results cited above show that only a few distinct events may be more far important than events or texture present throughout the whole scene duration, thus advocating for a more selective approach such as the one presented in Section \ref{sec:object} for the ASSR task. Aside from \cite{aucouturier2007bag} and \cite{lagrange:hal-01082501} that consider the task of ASSR, much of the work dedicated to acoustic scene modeling is applied to the ASC task.
 
-An overview of the efforts for the latter task is provided by the DCASE 2013 challenge \cite{barchiesi2015acoustic}, held in 2013 to compare different approaches to scene classification. Table \ref{tab:dcase} summarizes the results of the submitted algorithms as well as newer systems that use the private part of the DCASE 2013 dataset for their experiments. Most of the scene prediction results are achieved by majority voting of predictions over local features.
+An overview of the efforts for the latter task is provided by the IEEE ASSP detection and classification of acoustic scenes and events (DCASE) 2013 challenge \cite{barchiesi2015acoustic}, held in 2013 to compare different approaches to scene classification. Table \ref{tab:dcase} summarizes the results of the submitted algorithms as well as newer systems that use the private part of the DCASE 2013 dataset for their experiments. Most of the scene prediction results are achieved by majority voting of predictions over local features.
 
 \begin{table}
 \begin{center}
-\caption{Algorithms evaluated on the DCASE 2013 private dataset of acoustic scene classification. RQA stands for recurrence quantification analysis and ILD for inter-aural differences. Algorithms above the horizontal line participated to the DCASE challenge. Others used the datasets afterward and the last considered only the public dataset ($^*$).  \label{tab:dcase}}
+\caption{Algorithms evaluated on the DCASE 2013 private dataset of acoustic scene classification. RQA stands for recurrence quantification analysis, ILD for inter-aural differences and SVMs for support vector machines. Algorithms above the horizontal line participated to the DCASE challenge. Others used the datasets afterward and the last considered only the public dataset ($^*$).  \label{tab:dcase}}
 \begin{tabular}{lcl}
 & Acc. \%  &  \multicolumn{1}{c}{Design}  \\
 \hline
@@ -208,7 +208,7 @@ axis into constant-Q subbands of center frequencies $2^{-\gamma_1/Q_1}\xi_1$.
 Indeed, both time-frequency representations are indexed by time $t$ and log-frequency $\gamma_1$.
 However, contrary to the CQT, the wavelet scalogram reaches the Heisenberg
 theoretical limit of optimal time-frequency localization across the whole
-frequency range, whereas the temporal resolution of the traditional CQT is fixed by the support of the STFT analyzing window \cite{Brown1992}.
+frequency range, whereas the temporal resolution of the traditional CQT is fixed by the support of the STFT analyzing window. %\cite{Brown1992}
 Therefore, the wavelet scalogram has a better temporal localization at high
 frequencies than the CQT, at the expense of a greater computational cost
 since the inverse fast Fourier transform (IFFT) routine must be called for each wavelet $\boldsymbol{\psi_{\gamma_1}}$ in the filter bank.
@@ -252,14 +252,14 @@ This suggests that, despite being hand-crafted and not learned, Gammatone wavele
 \section{Feature design}
 \label{sec:design}
 
-Before supervised or unsupervised classification, it is beneficial to process scattering coefficients with feature transformations that improve invariance, normality, or generalization power.
+Before classification or clustering, it is beneficial to process scattering coefficients with feature transformations that improve invariance, normality, or generalization power.
 In this section, we review three ways of achieving these properties, namely logarithmic compression, and temporal integration, and standardization.
 Whether we adopt a time-frequency perspective or a machine learning perspective on the problem of acoustic scene classification, such operations would either qualify as pre- or post-processing.
 
 \subsection{Logarithmic compression}
 \label{sec:logcomp}
 
-Many algorithms in pattern recognition, including nearest-neighbor classifiers and SVMs, tend to work best when all features follow a standard normal distribution across all training instances \cite{Hsu2003}.
+Many algorithms in pattern recognition, including nearest-neighbor classifiers and support vector machines (SVM)s, tend to work best when all features follow a standard normal distribution across all training instances \cite{Hsu2003}.
 Yet the distribution of the scattering coefficients is skewed towards larger values. We can reduce this skewness by applying a pointwise concave transformation, such as a logarithm, to all coefficients.
 Figure \ref{fig:histograms} shows the distribution of an arbitrarily chosen scattering coefficient over the DCASE 2013 dataset, before and after logarithmic compression.
 
@@ -339,7 +339,7 @@ The vectors $\mu[\mathbf{S}\boldsymbol{X}(\gamma)]$ and $\sigma[\mathbf{S}\bolds
 
 %From a data processing point of view, a holistic scheme, such as the bag-of-frame approach \cite{aucouturier2007bag}, has a simplicity, but clearly face poor performance on realistic conditions \cite{lagrange:hal-01082501}. 
 
-As discussed in Section \ref{sec:soa}, results in sound perception suggest the appropriateness of an object-based representation of auditory scenes for predicting high-level properties. As the detection of events is still an open problem \cite{7100934},  we consider in this paper a simple quantization scheme that is as generic as possible, implemented using a clustering approach where coherent regions of the scene are identified. The clustering is done using the centroid-based $k$-means clustering algorithm.
+As discussed in Section \ref{sec:soa}, results in sound perception suggest the appropriateness of an object-based representation of auditory scenes for predicting high-level properties. As the detection of events is still an open problem \cite{7100934},  we consider in this paper a quantization scheme that is as generic as possible, implemented using a clustering approach where coherent regions of the scene are identified. The clustering is done using the centroid-based $k$-means clustering algorithm.
 
 Given a set of $d$-dimensional feature vectors $x_l^u\in X_u$, $l=\lbrace 1,2,\ldots,L\rbrace$, extracted from the scene $s_u$, $u=\lbrace 1,2,\ldots,U\rbrace$, the goal of $k$-means is to partition $X_u$ into $M$ clusters $c^u_m\in C_u$, $m=\lbrace 1,2,\ldots,M\rbrace$. The partitioning is done by minimizing for each cluster the squared error between its empirical mean (centroid) and the contained points. Given $\mu_m^u$ the centroid of the cluster $c_m^u$, $k$-means attempts to minimize the following objective function:
 \begin{equation}
@@ -389,7 +389,7 @@ D^{uv}=\boldsymbol{1}-K^{(uv)}
 \end{equation*}
 with $K^{(uv)}$ being the slice of $K$ containing the pairwise similarities between the centroids sets $\mu^u$ and $\mu^v$ of the scenes $s_u$ and $s_v$, respectively. As suggested in \cite{pele2009fast}, we set the tradeoff parameter $\alpha$ to $1$.
 
-To get the final similarity measure between the scenes $s_u$ and $s_v$, an extended Gaussian kernel $K^s$ \cite{chapelle1999support,jing2003support} is computed:
+To get the final similarity measure between the scenes $s_u$ and $s_v$, an extended Gaussian kernel $K^s$ is computed: %\cite{chapelle1999support,jing2003support}
 \begin{equation}
 \label{eq:ks}
 K_{uv}^s = \exp\left( - \dfrac{\widehat{\EMD}(p_u,p_v)}{A} \right) \\
@@ -403,7 +403,7 @@ with $A$ a scaling parameter, set to the mean value of the $\widehat{\EMD}$ betw
 
 %For most of the experiments reported in this paper, we will consider the DCASE2013 dataset \cite{giannoulis2013database, 7100934}. Larger datasets exists: the
 %Rouen dataset \cite{rakotomamonjy2015histogram} and the public part of the DCASE2016 challenge.%
-The experiments in this paper are carried out on the private part of the DCASE 2013 dataset\cite{giannoulis2013database, 7100934} and the public part of the DCASE 2016 dataset \cite{Mesaros2016_EUSIPCO}.
+The experiments in this paper are carried out on the private part of the DCASE 2013 dataset\cite{7100934} and the public part of the DCASE 2016 dataset \cite{Mesaros2016_EUSIPCO}.
 
 The DCASE 2013 dataset consists of two parts, namely a public and a private subset, each made up of $100$ $30$-second recordings of various acoustic scenes. The $100$ recordings are evenly divided into $10$ acoustic scene classes. To build the DCASE 2013 dataset, three different recordists visited a wide variety of locations in Greater London over a period of several months and in each scene recorded a few minutes of audio. No
 systematic variations in the recordings covaried with scene
@@ -452,7 +452,7 @@ In the same way as the majority of the DCASE2013 participants, we use an SVM for
 
 For the \emph{ob} approaches, we use the precomputed kernels described in Section \ref{sec:object}. For both the \emph{early} and \emph{late} approaches, a linear kernel as well as an RBF kernel are used. As with the RBF kernels used in the \emph{ob} approaches, the RBF kernel in the SVM is scaled locally using the method proposed in \cite{selfTuneManor2004}. All feature vectors, be they frames, texture windows or centroids, are standardized prior to be given to the classifier. The standardization is computed with respect to the train/test splits of the cross validation scheme (see Section \ref{sec:stand}).
 
-Clustering is done using $k$-means$++$ \cite{arthur2007k}, an augmented version of $k$-means with a more robust initialization procedure. Three numbers of clusters are tested: $8$, $16$ and $32$.
+Clustering is done using $k$-means$++$ \cite{arthur2007k}, an augmented version of $k$-means with a more robust initialization procedure. Three numbers of clusters are tested: $8$, $16$ and $32$. The implementation of tte presented methods as well as the one of the experimental protocolis available\footnote{\url{https://github.com/mathieulagrange/paperStructureScene16}}. 
 
 \section{Results \label{sec:results}}
 
@@ -595,6 +595,15 @@ Those outcomes shall be studied further in future work by considering larger dat
 
 \bibliographystyle{unsrt}
 \bibliography{biblio}
+
+
+\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{gfx/lafay}}]{Gr\'egoire Lafay} was born in Paris, France, in 1990. He received in 2011 the B.S. degree in Acoustic from the University Pierre and Marie Curie (UPMC), Paris, France, and the B.S. degree in Musicology from the Sorbonne University, Paris, France. He received his M.S. degree in acoustics, signal processing and musical informatics (ATIAM) from the University Pierre and Marie Curie and the IRCAM laboratory, Paris, France, in 2013. Since 2013, he is a Ph.D student at Irccyn, a French laboratory dedicated to cybernetics. His current research interests include acoustic scene similarity and classification, as well as acoustic scene perception. 
+\end{IEEEbiography}
+
+\begin{IEEEbiography}[{\includegraphics[width=1.25in,height=1.25in,clip,keepaspectratio]{gfx/lagrange}}]{Mathieu Lagrange} is a CNRS research scientist at Irccyn, a French laboratory dedicated to cybernetics. He obtained his PhD in computer science at the University of Bordeaux in 2004, and visited several institutions, in Canada (University of Victoria, McGill University) and in France (Orange Labs, Telecom ParisTech, Ircam). His research focuses on machine listening algorithms applied to the analysis of musical and environmental audio.
+\end{IEEEbiography}
+
+
 
 % biography section
 % 
