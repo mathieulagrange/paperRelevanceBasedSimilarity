@@ -86,16 +86,16 @@ acoustic scene classification, acoustic scene segmentation, scattering, wavelets
 \section{Introduction}
 
 \IEEEPARstart{T}{he} amount of audio data recorded from our sonic environment has grown considerably over the past decades.
-In order to measure the effect of human activity and climate change on animal biodiversity, researchers in the field of ecoacoustics \cite{ECOACOUSTICS2014, krause} have recently undertaken the massive deployment of acoustic sensors throughout the world \cite{warren2006urban, NessSST13, stowell13a, stowell13b}. 
+In order to measure the effect of human activity and climate change on animal biodiversity, researchers in the field of ecoacoustics \cite{krause} have recently undertaken the massive deployment of acoustic sensors throughout the world \cite{warren2006urban, NessSST13, stowell13a, stowell13b}. 
 
-In addition, recent work demonstrates the interest of acoustic monitoring for the characterization of human pleasantness in urban areas \cite{lafayPartI, guyot2005urban, ricciardi2015sound} as well as the prediction of annoyance due to traffic \cite{gloaguen}.
+In addition, recent work demonstrates the interest of acoustic monitoring for the characterization of human pleasantness in urban areas \cite{guyot2005urban, ricciardi2015sound} as well as the prediction of annoyance due to traffic \cite{gloaguen}.
 Because they bear a strong societal impact and raise many scientific challenges, we believe that these case studies are of considerable interest for the signal processing community.
 
 Formally, ecoacoustics is the interdisciplinary study of natural and anthropogenic sounds and their relationship with the environment over a wide range of scales at the intersection between ecology, acoustics and computer science. Despite identified needs, the field of signal-based ecoacoustics is still in infancy.
 As a consequence, few well-built datasets are readily available for evaluation purposes.
 
 A closely related, and more mature, field of investigation is the classification of acoustic scenes, where the aim is to predict labels by processing audio data.
-While narrower in its range of applications, it has the advantage of being rooted in cognitive psychology of categorization \cite{dubois2006cognitive, maffiolo_caracterisation_1999, guastavino_ideal_2006} and has received the attention of the data mining community for some time, resulting in the availability of well-designed datasets.
+While narrower in its range of applications, it has the advantage of being rooted in cognitive psychology of categorization \cite{dubois2006cognitive, guastavino_ideal_2006} and has received the attention of the data mining community for some time, resulting in the availability of well-designed datasets.
 
 Despite the differences, ecoacoustics and acoustic scene classification (ASC) task both raise the following question: how can we efficiently and effectively process a large amount of audio data using representations that are compact, generic in their design, and flexible in their use?
 
@@ -116,7 +116,7 @@ Yet the proposed implementation using Gaussian mixture models (GMMs) of mel-freq
 Indeed, the typical morphology of acoustic scenes is of a ``skeleton of events on a bed of textures'' \cite{nelken2013}, with a few discrete sound events superimposed upon a stationary acoustic background.
 Therefore, it is arguably more beneficial to focus on the large-scale temporal evolution of auditory scenes rather than on the joint probability distribution of short-term features.
 
-This statement has some support in auditory psychology as well as sound synthesis based on summary statistics \cite{mcdermott2013summary}. Indeed, studies in cognitive psychology investigating urban sound environment quality pointed out that global sound level (perceived or measured) is not sufficient to fully characterize an acoustic scene \cite{guyot2005urban,kang2006urban}. Rather, it seems that cognitive processes such as sound environment quality perception \cite{dubois2006cognitive} or loudness judgment \cite{kuwano_memory_2003} rely upon higher-level cognitive attributes such as the identities of the sound sources which compose the scene. It has been showed that, if available, the complete description of the scene in terms of event occurrences is powerful enough to reliably predict high-level cognitive classes, \eg the presence of birds are very likely to be heard in parks in urban areas and so are strong pleasantness indicators \cite{lafayPartI}. Consequently, research in sound perception is now strongly focused the contribution of specific sound sources in the assessment of a sound environment \cite{ricciardi2015sound,lavandier2006contribution}. Although the complete set of events occuring within a given auditory stream may not be discernable, even to human expects, research has shown that a small set of events, so called markers, suffice to reliably predict many high-level attributes.
+This statement has some support in auditory psychology as well as sound synthesis based on summary statistics \cite{mcdermott2013summary}. Indeed, studies in cognitive psychology investigating urban sound environment quality pointed out that global sound level (perceived or measured) is not sufficient to fully characterize an acoustic scene \cite{guyot2005urban,kang2006urban}. Rather, it seems that cognitive processes such as sound environment quality perception \cite{dubois2006cognitive} or loudness judgment \cite{kuwano_memory_2003} rely upon higher-level cognitive attributes such as the identities of the sound sources which compose the scene. It has been showed that, if available, the complete description of the scene in terms of event occurrences is powerful enough to reliably predict high-level cognitive classes, \eg the presence of birds are very likely to be heard in parks in urban areas and so are strong pleasantness indicators. Consequently, research in sound perception is now strongly focused on the contribution of specific sound sources in the assessment of a sound environment \cite{ricciardi2015sound,lavandier2006contribution}. Although the complete set of events occurring within a given auditory stream may not be discernable, even to human expects, research has shown that a small set of events, so called markers, suffice to reliably predict many high-level attributes.
 
 The BOF approaches treat each observations equally, whereas the results cited above show that only a few distinct events may be more important than events or texture present throughout the whole scene duration, thus advocating for a more selective approach such as the one presented in Section \ref{sec:object} for the ASSR task. Aside from \cite{aucouturier2007bag} and \cite{lagrange:hal-01082501} that consider the task of ASSR, much of the work dedicated to acoustic scene modeling is applied to the ASC task.
 
@@ -138,7 +138,7 @@ An overview of the efforts for the latter task is provided by the DCASE 2013 cha
 \cite{geiger2013large} GSR & 69 & mel spectra and MFCCs, SVMs \\
 \cite{rakotomamonjy2015histogram} RG & 69 & histogram of gradient (HOG), SVMs \\
 \cite{li2013auditory} LTT & 72 & MFCCs, tree baggers \\
-\cite{roma2013recurrence} RNH & 76 & RQA features stacked with MFCCs, SVMs \\
+\cite{roma2013} RNH & 76 & RQA features stacked with MFCCs, SVMs \\
 \hline
 \cite{phan2016label} & 84/87 & label tree embedding of Gammatone, SVMs \\
 \cite{7362846} & 85$^*$ & amplitude modulated spectra, LDA \\
@@ -591,7 +591,7 @@ Representing a scene using a reduced set of representatives, with adapted simila
 Within a supervised setting of acoustic scene classification (ASC), we have shown the comparative benefits of log-scattering features over MFCCs, of majority voting at a mid-level time scale of $T=372\,\mathrm{ms}$ over prediction at a high-level time scale of $T=24\,\mathrm{s}$, and of an adapted Gaussian kernel over the linear kernel in support vector machine classification.
 %, identified in the time domain in the unsupervised setting and in the features domain in the supervised case, provided that the dimensionality is sufficiently high. \ja{I'm not sure what this last part means.}
 
-Those outcomes shall be studied further in future work by considering larger databases and more diverse applications, such as pleasantness prediction \cite{lafaySoundscapePilot, lafayPartI} as well as emerging tasks in ecoacoustics.
+Those outcomes shall be studied further in future work by considering larger databases and more diverse applications, such as pleasantness prediction \cite{lafaySoundscapePilot} as well as emerging tasks in ecoacoustics.
 
 \bibliographystyle{unsrt}
 \bibliography{biblio}
