@@ -44,17 +44,20 @@ This paragraph has been reworded and worked into the rest of the abstract in a m
 Again, the hierarchical representation proposed is novel and we provide adequate evidence, in our opinion, for its power in the proposed similarity retrieval task.
 
 \item \emph{the whole paper architecture is poor}
-Without any specific points of criticism, it is hard to address this particular statement.
+Without any specific points of criticism, it is hard to address this particular statement. Nonetheless, we have reworked the paper as a whole, trying to clarify the overall message.
 
 \item \emph{all the justifications arise from psychoacoustic, bioacoustic,... when the challenge is to classify ambient non natural stationary sounds. For example the whole Gammatone wavelet justification over Morlet is biased}
 
 \item \emph{the classification accuracy is not suited for comparison since the dimension of the feature vectors are not the same for all the techniques }
+While the dimension of the features vectors are different, this does not necessarily have to impact the performance of the classification. For example, if we were classifiying stationary Gaussian signals, a spectral envelope feature, like the MFCCs, would prove to be just as accurate, if not better, than the richer second-order scattering transform. The important relationship to consider is whether the feature transform provides an accurate description of the relevant information content in the signal. In addition, most of our experiments deal with the feature vectors through an RBF kernel, which is equivalent to considering the features embedded in an infinite-dimensional space, so in this sense the original dimensionality of the feature vectors carries less importance.
 
 \item \emph{most importantly the used classifier is not the same (from unsupervised GMM to supervised SVM)}
+This is an important point and we have included results for MFCCs using a linear SVM. However, we point out that the GMM is also supervised, although it is trained using a generative objective as opposed to a discriminative one, which is the case for the SVM.
 
 \item \emph{the paper reads like a recipe for the specific task without justifications, insights or proofs of the different given definitions and statements.}
 
 \item \emph{The dataset is not well presented since the classes seem to represent stationary noises such as car/tram/train}
+While these scenes definitely have a stationary component, such as for the car, tram, train, metro station, and bus classes. This is not sufficient to classify them, since this stationary signal is very similar for these classes. This is why the cluster-based hierarchical representation that we propose is necessary in that it allows the system to pick out the distinct non-stationary components that discriminate between the classes.
 
 \item \emph{"recordings may be shifted locally 
 without affecting their perception and therefore such shifts do not convey any information about the class" this is false. Rather say that application of time shift should not change the representation since it doesn't change the class belonging in this context and thus imposing time shift invariance will improve robustness.}
@@ -110,6 +113,7 @@ These equations were removed from the paper.
 Experiments have been performed in the Matlab environment using open source libraries an all the authors are committed to comply to the reproducible research statements. Unfortunately, due to time constraints, we will not be able to deliver the code at the time of submission of the revision. Nevertheless, it will be fully available at the time of publication if the revision is accepted for publication.
 
 \item \emph{In the last experience (Table III) GMM(MFCC) may be compared to SVM(MFCC) (in addition to SVM(logscat)). There is somewhere a high dimension effect that shall be clarified.}
+We have added results for SVM on MFCCs. As mentioned in the response to the other reviewer, we believe that the high dimensionality should not have a significant effect on these results. \ja{Although perhaps we should indeed talk about this in the paper.}
 
 \item \emph{Confusion matrix of the two best methods will be interesting.}
 
