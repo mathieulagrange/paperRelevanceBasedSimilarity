@@ -154,53 +154,50 @@ An overview of the efforts for the latter task is provided by the IEEE Audio and
 
 \section{Wavelet scattering \label{sec:scattering}}
 
-Scattering transforms are time-shift invariant representations of audio signals consisting of auditory and modulation filter banks interspersed with complex modulus nonlinearities.
-This section highlights the importance of invariance to time-shifts and stability to time-warping in the representation of acoustic scenes, and explains how the scattering transform is designed to satisfy these properties while having a high discriminative power.
+Scattering transforms are time-shift invariant representations of audio signals consisting of auditory and modulation filter banks alternated with complex modulus non-linearities.
+This section first explains the importance of local invariance to time-shifting and stability to time-warping in the representation of acoustic scenes, then describes how the scattering transform is designed to satisfy these properties while having a high discriminative power.
 
 \subsection{Invariance and stability in acoustic scenes}
-The notion of invariance to time shifts plays an essential role in acoustic scene similarity retrieval as well as acoustic scene classification.
-Indeed, recordings may be shifted locally without affecting their perception and therefore such shifts do not convey any information about the class.
-To discard this superfluous source of variability, signals can be mapped to a time-shift invariant feature space before training the classifier, eliminating the need for this classifier to explicitly learn this invariance.
-From any time-varying set of descriptors $\boldsymbol{x_1}(t,\gamma)$, where $\gamma$ denotes a descriptor index, a representation invariant to time-shifts shorter in duration than $T$ can be obtained by convolving $\boldsymbol{x_1}$ with a low-pass filter $\boldsymbol{\phi}(t)$ of cutoff frequency set to $1/T$, as measured in Hertz:
+The notion of invariance to time-shifting plays an essential role in acoustic scene similarity retrieval as well as acoustic scene classification.
+Indeed, recordings may be shifted locally without affecting their original class memberships.
+To discard this superfluous source of variability, signals can be mapped to a time-shifting invariant feature space before training the classifier, eliminating the need for this classifier to explicitly learn this invariance and increasing the robustness of its predictions.
+From any time-varying set of descriptors $\boldsymbol{x_1}(t,\gamma)$, where $\gamma$ denotes a descriptor index, a representation invariant to time-shifts shorter than $T$ can be obtained by convolving $\boldsymbol{x_1}$ with a low-pass filter $\boldsymbol{\phi}(t)$ of cutoff frequency set to $1/T$, which gives
 \begin{equation}
-\mathbf{S_1}\boldsymbol{x}(t, \gamma) = (\boldsymbol{x_1} \ast \boldsymbol{\phi}) (t).
+\mathbf{S_1}\boldsymbol{x}(t, \gamma) = (\boldsymbol{x_1}(\cdot,\gamma) \ast \boldsymbol{\phi}) (t).
 \end{equation}
 A downside is that the transient information in $\boldsymbol{x_1}$ at scales finer than $T$ are lost by this low-pass filtering, reducing discriminability in feature space.
-To address this issue, the scattering transform recovers this information by convolving $\boldsymbol{x_1}$ with wavelets whose center frequencies are above $1/T$ and then applying complex modulus.
+To address this issue, the scattering transform recovers this information by convolving $\boldsymbol{x_1}$ with wavelets whose center frequencies are above $1/T$ and then applying a complex modulus. \ja{Why are we doing this for a generic set of descriptors $\boldsymbol{x_1}(t, \gamma)$ here? Seems like we're going forward, then backwards in the next section. In addition, many results will not hold unless $\boldsymbol{x_1}$ is a scalogram. We do specify here that higher-order coefficients have to be obtained with wavelets, so why not $\boldsymbol{x_1}$?}
 
 By resorting to wavelet transform modulus, as opposed to Fourier transform modulus, the resulting features are provably stable to time-warping deformation,
-in the sense of Lipschitz regularity with respect to diffeomorphisms \cite{Mallat2012}.
-In addition to invariance, this stability property is crucial to signal classification, since it guarantees robustness to small variations in pitch, reverberation, and rhythmic organization of events, which make up an important part of the intra-class variability among natural sounds.
+in the sense of Lipschitz regularity with respect to diffeomorphisms \cite{Mallat2012}. \ja{This will not be true if $\boldsymbol{x_1}$ is an STFT, for example.}
+This stability property is crucial to signal classification, since it guarantees robustness to small variations in pitch, reverberation, and rhythmic organization of events, which can all be described as small time-warping transformations. These make up an important part of the intra-class variability among natural sounds, so a representation that has some insensitivity to them has an advantage.
 
-Starting from a monophonic waveform $\boldsymbol{x}(t)$, the scattering transform is defined as an infinite cascade of wavelet transform and modulus operators.
-However, to achieve invariance to translation up to $T = 372\,\mathrm{ms}$, \ie the approximate minimal duration between non-overlapping acoustic events, two layers of scattering transform often suffice.
-
-The next subsection describes the operations involved in the scattering transform, and in particular the construction of wavelet filter banks.
+Starting from a monophonic waveform $\boldsymbol{x}(t)$, the scattering transform is defined as an infinite cascade of wavelet transforms alternated with modulus operators.
+However, to achieve invariance to translation up to $T \approx 500\,\mathrm{ms}$, (\ie the approximate minimal duration between non-overlapping acoustic events in our signals), two layers of scattering transform often suffice. Higher layers of scattering coefficients will represent larger-scale structure that is better captured by the cluster-based representation presented below.
 
 \subsection{Wavelet scalogram}
-Our convention for the Fourier transform of a continuous-time signal $\boldsymbol{x}(t)$ is $\boldsymbol{\hat{x}}(\omega) = \int x(t) \exp(- \mathrm{i} 2\pi \omega t) \; \mathrm{d}t$. Note that the frequency variable $\omega$ is expressed in Hertz, not in radians per second.
-
+Our convention for the Fourier transform of a continuous-time signal $\boldsymbol{x}(t)$ is $\boldsymbol{\hat{x}}(\omega) = \int_{-\infty}^{+\infty} x(t) \exp(- \mathrm{i} 2\pi \omega t) \; \mathrm{d}t$.
 Let $\boldsymbol{\psi}(t)$ a complex-valued band-pass filter of
-center frequency $\xi_1$ and bandwidth $\xi_1/Q_1$.
+center frequency $\xi_1$ and bandwidth $\xi_1/Q_1$, where $Q_1$ is the quality factor of the filter.
 A filter bank of wavelets is built by dilating $\boldsymbol{\psi}(t)$
 according to a geometric sequence of scales $2^{\gamma_1/Q_1}$, obtaining
 \begin{equation}
 \boldsymbol{\psi_{\gamma_1}}(t) = 2^{-\gamma_1/Q_1} \boldsymbol{\psi}(2^{-\gamma_1/Q_1} t)\mbox{.}
 \end{equation}
-The variable $\gamma_1$ is a scale, or an inverse log-frequency, taking integer values between $0$ and $(J_1 \times Q_1 - 1)$.
-In the sequel, we set $\xi_1$ to $20~\mathrm{kHz}$ (close to the Nyquist frequency of the audio recordings), the number of octaves $J_1$ to $10$ (the lower end of human hearing range), and the number of wavelets per octave $Q_1$ to $8$.
+The variable $\gamma_1$ is a scale (an inverse log-frequency) taking integer values between $0$ and $(J_1 \times Q_1 - 1)$, where $J_1$ is the number of octaves spanned by the filter bank.
 For each $\gamma_1$, the wavelet $\boldsymbol{\psi_{\gamma_1}}(t)$
-has a center frequency of $2^{-\gamma_1/Q_1}\xi_1$, a bandwidth of $2^{-\gamma_1/Q_1}\xi_1/Q_1$, and a quality factor of $Q_1$.
+has a center frequency of $2^{-\gamma_1/Q_1}\xi_1$ and a bandwidth of $2^{-\gamma_1/Q_1}\xi_1/Q_1$ resulting in the same quality factor $Q_1$ as $\boldsymbol{\psi}$.
+In the sequel, we set $\xi_1$ to $20~\mathrm{kHz}$, $J_1$ to $10$, and the quality factor $Q_1$, which doubles as the number of wavelets per octave, to $8$. This results in the wavelet filters covering the whole range of human hearing, from $20~\mathrm{Hz}$ to $20~\mathrm{kHz}$.
 
 The wavelet transform of an audio signal
-$\boldsymbol{x}(t)$ is obtained by convolution with all wavelets.
+$\boldsymbol{x}(t)$ is obtained by convolution with all wavelet filters
 Applying pointwise complex modulus the transform yields
 the wavelet scalogram
 \begin{equation}
 \boldsymbol{x_1}(t, \gamma_1)
 = \vert \boldsymbol{x} \ast \boldsymbol{\psi_{\gamma_1}} \vert (t)\mbox{.}
 \end{equation}
-The wavelet scalogram bears resemblance to the constant-Q transform (CQT),
+The scalogram bears resemblance to the constant-Q transform (CQT),
 which is derived from the short-term Fourier transform (STFT) by averaging the frequency
 axis into constant-Q subbands of center frequencies $2^{-\gamma_1/Q_1}\xi_1$.
 Indeed, both time-frequency representations are indexed by time $t$ and log-frequency $\gamma_1$.
@@ -209,25 +206,27 @@ theoretical limit of optimal time-frequency localization across the whole
 frequency range, whereas the temporal resolution of the traditional CQT is fixed by the support of the STFT analyzing window. %\cite{Brown1992}
 Therefore, the wavelet scalogram has a better temporal localization at high
 frequencies than the CQT, at the expense of a greater computational cost
-since the inverse fast Fourier transform (IFFT) routine must be called for each wavelet $\boldsymbol{\psi_{\gamma_1}}$ in the filter bank.
-However, this allows us to observe amplitude modulations at fine temporal scales in the scalogram, down to the minimum scale $2Q_1/\xi_1$ for $\gamma_1 = 0$, of the order of $1\,\textrm{ms}$ given the aforementioned values of $Q_1$ and $\xi_1$.
+since the inverse fast Fourier transform (IFFT) routine must be called for each wavelet $\boldsymbol{\psi_{\gamma_1}}$ in the filter bank. \ja{Is the cost really greater?}
+However, this allows us to observe amplitude modulations at fine temporal scales in the scalogram, down to $2Q_1/\xi_1$ for $\gamma_1 = 0$, of the order of $1\,\textrm{ms}$ given the aforementioned values of $Q_1$ and $\xi_1$. \ja{Where does the formula $2Q_1/\xi_1$ come from?}
 
 \subsection{Extracting modulations with second-order scattering}
-Among auditory scenes, amplitude modulations may be caused by a broad variety of mechanical interactions, including collision, friction, and turbulent flow.
-At longer scales, they also account for higher-level attributes of sound, such as prosody in speech or rhythm in music.
+In auditory scenes, amplitude modulations may be caused by a broad variety of rapid mechanical interactions, including collision, friction, turbulent flow, and so on.
+At longer time-scales, they also account for higher-level attributes of sound, such as prosody in speech or rhythm in music.
 Although they are discarded while filtering $\boldsymbol{x_1}(t,\gamma_1)$ into a time-shift invariant representation $\mathbf{S_1}\boldsymbol{x}(t,\gamma_1)$, they can be recovered by a second wavelet transform modulus operator.
-The amplitude modulation spectrum resulting from this operator is
+
+We define second-order wavelets $\boldsymbol{\psi_{\gamma_2}}(t)$ in the same way as the first-order wavelets, but with parameters $\xi_2$, $J_2$, and $Q_2$ and so have center frequencies $2^{-\gamma_2/Q_2}\xi_2$ for $\gamma_2$ taking values between $0$ and $(J_2 \times Q_2 - 1)$. While this abuses notation slightly, the identity of the wavelets should be clear from context.
+The amplitude modulation spectrum resulting from a wavelet modulus decomposition using these second-order wavelets is then
 \begin{equation}
 \boldsymbol{x_2}(t,\gamma_1,\gamma_2) =
-\vert \boldsymbol{x_1} \ast \boldsymbol{\psi_{\gamma_2}} \vert(t,\gamma_1),
+\vert \boldsymbol{x_1} \ast \boldsymbol{\psi_{\gamma_2}} \vert(t,\gamma_1).
 \end{equation}
-where the center frequencies of the wavelets $\boldsymbol{\psi_{\gamma_2}}(t)$ are of the form $2^{-\gamma_2/Q_2} \xi_2$, and the second-order scale index $\gamma_2$ takes integer values between $0$ and $(J_2 \times Q_2 - 1)$. Note that these second-order wavelets are dilated versions of a second mother wavelet $\boldsymbol{\psi}$, with a different center frequency $\xi_2$ and quality factor $Q_2$. The identity of the wavelet will be clear from context.
-In the sequel, we set $\xi_2$ to $2.5\,\mathrm{kHz}$, $Q_2$ to $1$, and $J_2$ to $12$. Lastly, the low-pass filter $\phi(t)$ is applied to $\boldsymbol{x_2}$ to guarantee invariance to time-shifting, which yields
+In the sequel, we set $\xi_2$ to $2.5\,\mathrm{kHz}$, $Q_2$ to $1$, and $J_2$ to $12$. \ja{Why is $\xi_2 \neq \xi_1$?} Lastly, the low-pass filter $\phi(t)$ is applied to $\boldsymbol{x_2}$ to guarantee invariance to time-shifting, which yields
 \begin{equation}
 \mathbf{S_2}\boldsymbol{x}(t,\gamma_1,\gamma_2) =
-(\boldsymbol{x_2} \ast \phi)(t,\gamma_1,\gamma_2).
+(\boldsymbol{x_2}(\cdot,\gamma_1,\gamma_2) \ast \phi)(t).
 \end{equation}
-The scattering transform $\mathbf{S}\boldsymbol{x}(t,\gamma)$ consists of the concatenation of first-order coefficients $\mathbf{S_1}\boldsymbol{x}(t,\gamma_1)$ and second-order coefficients $\mathbf{S_1}\boldsymbol{x}(t,\gamma_1,\gamma_2)$ into a feature matrix $\mathbf{S}\boldsymbol{x}(t,\gamma)$, where $\gamma$ is a shorthand for either $\gamma_1$ or $(\gamma_1,\gamma_2)$.
+
+The scattering transform $\mathbf{S}\boldsymbol{x}(t,\gamma)$ consists of the concatenation of first-order coefficients $\mathbf{S_1}\boldsymbol{x}(t,\gamma_1)$ and second-order coefficients $\mathbf{S_1}\boldsymbol{x}(t,\gamma_1,\gamma_2)$ into a feature matrix $\mathbf{S}\boldsymbol{x}(t,\gamma)$, where $\gamma$ is a shorthand for either $\gamma_1$ or $(\gamma_1,\gamma_2)$. While higher-order scattering coefficients can be calculated, for the purposes of our current, work, the first and second order are sufficient.
 
 \subsection{Gammatone wavelets}
 \begin{figure}
@@ -246,8 +245,8 @@ wavelets with one vanishing moment \cite{Venkitaraman2014}, and are shown in Fig
 In the context of auditory scene analysis, the asymmetric envelope of Gammatone wavelets is more biologically plausible than the symmetric, Gaussian-like envelope of the more widely used Morlet wavelets.
 Indeed, it allows to reproduce two important psychoacoustic effects in the mammalian cochlea: the asymmetry of temporal masking and the asymmetry of spectral masking  \cite{Fastl2007}.
 Moreover, it should be noted that Gammatone wavelets follow the typical amplitude profile of natural sounds, beginning with a relatively sharp attack and ending with a slower decay.
-As such, they can be discovered automatically by unsupervised encoding of natural sounds \cite{Smith2006}.
-This suggests that, despite being hand-crafted and not learned, Gammatone wavelets provide a sparse time-frequency representation of acoustic scenes.
+As such, they are similar to filters discovered automatically by unsupervised encoding of natural sounds \cite{Smith2006}.
+This suggests that, despite being hand-crafted and not learned, Gammatone wavelets provide a sparser time-frequency representation of acoustic scenes compared to other variants.
 
 \section{Feature design}
 \label{sec:design}
