@@ -173,7 +173,7 @@ in the sense of Lipschitz regularity with respect to diffeomorphisms \cite{Malla
 This stability property is crucial to signal classification, since it guarantees robustness to small variations in pitch, reverberation, and rhythmic organization of events, which can all be described as small time-warping transformations. These make up an important part of the intra-class variability among natural sounds, so a representation that has some insensitivity to them has an advantage.
 
 Starting from a monophonic waveform $\boldsymbol{x}(t)$, the scattering transform is defined as an infinite cascade of wavelet transforms alternated with modulus operators.
-However, to achieve invariance to translation up to $T \approx 500\,\mathrm{ms}$, (\ie the approximate minimal duration between non-overlapping acoustic events in our signals), two layers of scattering transform often suffice. Higher layers of scattering coefficients will represent larger-scale structure that is better captured by the cluster-based representation presented below.
+However, to achieve local invariance to translation up to $T \approx 500\,\mathrm{ms}$, (\ie the approximate minimal duration between non-overlapping acoustic events in our signals), two layers of scattering transform often suffice. Higher layers of scattering coefficients will represent larger-scale structure that is better captured by the cluster-based representation presented below.
 
 \subsection{Wavelet scalogram}
 Our convention for the Fourier transform of a continuous-time signal $\boldsymbol{x}(t)$ is $\boldsymbol{\hat{x}}(\omega) = \int_{-\infty}^{+\infty} x(t) \exp(- \mathrm{i} 2\pi \omega t) \; \mathrm{d}t$.
@@ -212,7 +212,7 @@ However, this allows us to observe amplitude modulations at fine temporal scales
 \subsection{Extracting modulations with second-order scattering}
 In auditory scenes, amplitude modulations may be caused by a broad variety of rapid mechanical interactions, including collision, friction, turbulent flow, and so on.
 At longer time-scales, they also account for higher-level attributes of sound, such as prosody in speech or rhythm in music.
-Although they are discarded while filtering $\boldsymbol{x_1}(t,\gamma_1)$ into a time-shift invariant representation $\mathbf{S_1}\boldsymbol{x}(t,\gamma_1)$, they can be recovered by a second wavelet transform modulus operator.
+Although they are discarded while filtering $\boldsymbol{x_1}(t,\gamma_1)$ into a local time-shifting invariant representation $\mathbf{S_1}\boldsymbol{x}(t,\gamma_1)$, they can be recovered by a second wavelet transform followed by a pointwise modulus operator.
 
 We define second-order wavelets $\boldsymbol{\psi_{\gamma_2}}(t)$ in the same way as the first-order wavelets, but with parameters $\xi_2$, $J_2$, and $Q_2$ and so have center frequencies $2^{-\gamma_2/Q_2}\xi_2$ for $\gamma_2$ taking values between $0$ and $(J_2 \times Q_2 - 1)$. While this abuses notation slightly, the identity of the wavelets should be clear from context.
 The amplitude modulation spectrum resulting from a wavelet modulus decomposition using these second-order wavelets is then
@@ -220,7 +220,7 @@ The amplitude modulation spectrum resulting from a wavelet modulus decomposition
 \boldsymbol{x_2}(t,\gamma_1,\gamma_2) =
 \vert \boldsymbol{x_1} \ast \boldsymbol{\psi_{\gamma_2}} \vert(t,\gamma_1).
 \end{equation}
-In the sequel, we set $\xi_2$ to $2.5\,\mathrm{kHz}$, $Q_2$ to $1$, and $J_2$ to $12$. \ja{Why is $\xi_2 \neq \xi_1$?} Lastly, the low-pass filter $\phi(t)$ is applied to $\boldsymbol{x_2}$ to guarantee invariance to time-shifting, which yields
+In the sequel, we set $\xi_2$ to $2.5\,\mathrm{kHz}$, $Q_2$ to $1$, and $J_2$ to $12$. \ja{Why is $\xi_2 \neq \xi_1$?} Lastly, the low-pass filter $\phi(t)$ is applied to $\boldsymbol{x_2}$ to guarantee local invariance to time-shifting, which yields
 \begin{equation}
 \mathbf{S_2}\boldsymbol{x}(t,\gamma_1,\gamma_2) =
 (\boldsymbol{x_2}(\cdot,\gamma_1,\gamma_2) \ast \phi)(t).
