@@ -58,21 +58,28 @@ Without any specific points of criticism, it is hard to address this particular 
 
 \item \emph{"recordings may be shifted locally 
 without affecting their perception and therefore such shifts do not convey any information about the class" this is false. Rather say that application of time shift should not change the representation since it doesn't change the class belonging in this context and thus imposing time shift invariance will improve robustness.}
+The reviewer is correct that this is not true as stated. Our meaning is indeed what he/she describes and the text has been changed to reflect this.
 
 \item \emph{the used descriptors are only locally time shift invariant and not globally which is never pointed out}
+As formulated, the scattering transforms do indeed have only local time-shifting invariance, which has been clarified. However, the processing corresponding to ``early'' integrating achieves more invariance through complete averaging of the scattering transform along time and so does have that global time-shifting invariance.
 
 \item \emph{The function phi is hardly considered as a low-pass since a low-pass is only used in coordination with a high-pass for quadratic mirror filters. Here phi is a scaling function.}
+The function $\phi$ is very much a low-pass filter with a frequency support of approximately $1/T$ and a time bandwidth of $T$, where $T$ is of the order of hundreds of milliseconds. It does not correspond to the traditional scaling function used in quadratic mirror filters.
 
 \item \emph{Line 34: "wavelet transform modulus" is not clear at all.}
+We have updated the text to clarify this expression.
 
 \item \emph{It is then explained that the features are stable to time warping yet the justification is for pitch variations which are frequency-warping}
+The justification of pitch variation is indeed a frequency-warping, but can be written as a time-warping. Indeed, a signal that is slightly compressed or dilated locally will have its pitch transposed up or down.
 
 \item \emph{The scattering network is defined with an infinite cascade of transform yet it is enough to compute two layers, why?}
+For the time scales considered in this paper, the first two orders are sufficient to describe the sound events present in the signals. This has been made clearer in the text.
 
 \item \emph{It is never specified what are the signals frequency sampling which we have to deduce to be 44100 Hz from line 9 page 3 "20kHz close to the Nyquist frequency of the audio recordings".}
 
 \item \emph{"wavelet scalogram" is used along all the paper but scalogram is only defined for wavelets since 
 it is a scale-o-gram.}
+This is true, but for readers less familiar with the terminology, we have opted to use this more redundant expression to express the fact that these derive from wavelet decompositions.
 
 \item \emph{line 60: auditory and modulation filter – nonsense.}
 
