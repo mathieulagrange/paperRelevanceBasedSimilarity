@@ -63,7 +63,7 @@
 % in the abstract or keywords.
 \begin{abstract}
 
-This paper introduces a generic hierarchical modeling scheme for acoustic scenes using the wavelet scattering transform at sub-second time-scales with relevance-based quantization at larger time-scales. Instead of representing a scene using summary statistics, a method popularized by bag-of-features models, each scene is represented by a subset of its most representative features, allowing the retrieval system to focus on particular discriminative features in the scene. We demonstrate the potential of the proposed approach for both acoustic scene similarity retrieval and acoustic scene classification tasks on publicly available datasets, consistently outperforming baseline mel-frequency cepstral coefficient (MFCC) methods.
+This paper introduces a generic hierarchical modeling scheme for acoustic scenes using the wavelet scattering transform at sub-second time-scales with relevance-based quantization at larger time-scales. Instead of representing a scene using summary statistics, a method popularized by bag-of-features models, each scene is represented by a subset of its most representative features, allowing the retrieval system to focus on discriminative features. We demonstrate the potential of the proposed approach for both acoustic scene similarity retrieval and acoustic scene classification tasks on publicly available datasets, consistently outperforming baseline mel-frequency cepstral coefficient (MFCC) methods.
 
 \end{abstract}
 
@@ -86,21 +86,19 @@ acoustic scene classification, acoustic scene segmentation, acoustic scene simil
 
 \IEEEPARstart{T}{he} amount of audio data recorded from our sonic environment has grown considerably over the past decades.
 In order to measure the effect of human activity and climate change on animal biodiversity, researchers in the field of ecoacoustics \cite{krause} have recently undertaken the massive deployment of acoustic sensors throughout the world \cite{warren2006urban, NessSST13, stowell13b}. 
+In addition, recent work has explored acoustic monitoring for characterization of human pleasantness in urban areas \cite{guyot2005urban, ricciardi2015sound}, as well as the prediction of annoyance due to traffic \cite{gloaguen}.
+Because they bear a strong societal impact and raise many scientific challenges, we believe that these applications are of considerable interest for the signal processing community.
 
-In addition, recent work demonstrates the interest of acoustic monitoring for the characterization of human pleasantness in urban areas \cite{guyot2005urban, ricciardi2015sound} as well as the prediction of annoyance due to traffic \cite{gloaguen}.
-Because they bear a strong societal impact and raise many scientific challenges, we believe that these case studies are of considerable interest for the signal processing community.
-
-Formally, ecoacoustics is the interdisciplinary study of natural and anthropogenic sounds and their relationship with the environment over a wide range of scales at the intersection between ecology, acoustics and computer science. Despite identified needs, the field of signal-based ecoacoustics is still in infancy.
-As a consequence, few well-built datasets are readily available for evaluation purposes.
+Ecoacoustics is the interdisciplinary study of relationships between natural or anthropogenic sounds and their environments at the intersection of ecology, acoustics and computer science. Despite identified needs, the field of signal-based ecoacoustics is still in its infancy.
+As a consequence, few well-designed datasets are readily available for evaluation purposes.
 
 A closely related, and more mature, field of investigation is the classification of acoustic scenes, where the aim is to predict labels by processing audio data.
-While narrower in its range of applications, it has the advantage of being rooted in cognitive psychology of categorization \cite{dubois2006cognitive, guastavino_ideal_2006} and has received the attention of the data mining community for some time, resulting in the availability of well-designed datasets.
+While narrower in its range of applications, it has the advantage of being rooted in the cognitive psychology of categorization \cite{dubois2006cognitive, guastavino_ideal_2006} and has received the attention of the data mining community for some time, resulting in the availability of well-designed datasets.
 
 Despite the differences, ecoacoustics and acoustic scene classification (ASC) task both raise the following question: how can we efficiently and effectively process a large amount of audio data using representations that are compact, generic in their design, and flexible in their use?
+The work described in this paper attempts to answer this question by demonstrating the usefulness of two concepts: 1) application of the wavelet scattering transform to extract discriminative features and 2) large time-scale modeling of the acoustic scene based on unsupervised clustering of each acoustic scene, allowing us to focus the scene description on a few salient sound objects that carry most of the semantic information. \ja{Technically, the 1st concept has already been demonstrated in previous papers. Do we really want to claim this here?}
 
-The work described in this paper attempts to answer this question by demonstrating the usefulness of two concepts: 1) using the wavelet scattering transform to extract discriminative features subject to a small number of parameters and 2) large time scale modeling of the acoustic scene based on unsupervised clustering of each acoustic scene, allowing us to hopefully focus the scene description on a few salient sound objects that carry most of the semantic information.
-
-Motivations of the proposed approach and a brief review of the state of the art in the field of acoustic scene modeling is given in Section \ref{sec:soa}. We describe the scattering transform in Section \ref{sec:scattering}, discuss transformations of the resulting features in Section \ref{sec:design} and propose a cluster-based scene description in Section \ref{sec:object}. In Section \ref{sec:experiments}, several experiments are proposed for an unsupervised setting, acoustic scene similarity retrieval (ASSR), and for a supervised setting, acoustic scene classification (ASC). Results are subsequently reported in Section \ref{sec:results}.
+Motivations of the proposed approach and a brief review of the state of the art in the field of acoustic scene modeling is given in Section \ref{sec:soa}. We describe the scattering transform in Section \ref{sec:scattering}, discuss processing of the resulting features in Section \ref{sec:design} and propose a cluster-based scene description in Section \ref{sec:object}. In Section \ref{sec:experiments}, several experiments are proposed for the unsupervised setting of acoustic scene similarity retrieval (ASSR) and for the supervised setting of acoustic scene classification (ASC). Results are subsequently reported in Section \ref{sec:results}.
 
 \section{Background} \label{sec:soa}
 
