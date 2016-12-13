@@ -349,17 +349,24 @@ Each scene $s_u$ is then described by a set of clusters $C_u$. One should note t
 
 Here, with the aim of better balancing the influence of salient sound events and texture-like sounds on the final decision, the similarity between two scenes is computed based on the similarity of their centroids.
 
-The similarity between the scene centroids $\mu_i$ in the entire dataset, where $i=\lbrace1,2,\ldots,I \rbrace$ for $I=U \times M$, is computed using a radial basis function (RBF) kernel $K$ combined with the local scaling method proposed in \cite{selfTuneManor2004}:
+The similarity between the scene centroids $\mu_m^u$ over the entire dataset, is computed using a radial basis function (RBF) kernel $K$ combined with the local scaling method proposed in \cite{selfTuneManor2004}:
 \begin{equation}
 \label{eq:kc}
-K_{ij} = \exp\left( - \dfrac{\Vert \mu_i - \mu_j \Vert^2}{\Vert \mu_i - \mu_{k,i} \Vert \Vert \mu_j - \mu_{k,j} \Vert} \right).
+K_{mn}^{uv} = \exp\left( - \dfrac{\Vert \mu_m^u - \mu_n^v \Vert^2}{\Vert \mu_m^u - \mu_{m,k}^u \Vert \Vert \mu_n^v - \mu_{n,k}^v \Vert} \right).
 \end{equation} 
-Here, $\mu_{k,i}$ and $\mu_{k,j}$ are the $k^{\textrm{th}}$ nearest neighbor to the centroids $\mu_i$ and $\mu_j$, respectively, and $\Vert \cdot \Vert$ denotes the Euclidean norm. \ja{Wouldn't it be clearer to define $K$ using scene indices $u$ and $v$ and feature indices $m$ and $n$?}
+Here, $\mu_{m,k}^u$ and $\mu_{n,k}^v$ are the $k^{\textrm{th}}$ nearest neighbors to the centroids $\mu_m^u$ and $\mu_n^v$, respectively, and $\Vert \cdot \Vert$ denotes the Euclidean norm.
 
 To compute the similarity between two scenes, we then consider several centroid-based similarity metrics:
 \begin{itemize}
-\item \emph{ob-closest} (\emph{ob-c}): the similarity between two scenes is equal to the largest similarity between their centroids,
-\item \emph{ob-averaged} (\emph{ob-a}): the similarity between two scenes is equal to the average of their centroid similarities, and
+\item \emph{ob-closest} (\emph{ob-c}): the similarity between two scenes $s_u$ and $s_v$ is equal to the largest similarity between their centroids, that is
+\begin{equation}
+	\max_{m,n} K_{mn}^{uv},
+\end{equation}
+\item \emph{ob-averaged} (\emph{ob-a}): the similarity between two scenes $s_u$ and $s_v$ is equal to the average of their centroid similarities, that is
+\begin{equation}
+	\frac{1}{M^2} \sum_{m,n} K_{mn}^{uv}
+\end{equation}
+and,
 \item \emph{ob-weighted} (\emph{ob-w}): the similarity between two scenes is computed using a variant of the earth mover's distance applied to the set of centroids weighted by the number of frames assigned to its cluster.
 \end{itemize}
 
@@ -383,9 +390,9 @@ To compute the $\widehat{\EMD}$, we use the implementation proposed in \cite{pel
 %\ja{Can we provide some interpretation for the different terms and constraints here?}
 where $\lbrace f_{nm} \rbrace$ is the flow between the cluster weights $w_n^u$ and $w_m^v$, that is, the amount transported from the $n^{\textrm{th}}$ bin to ``supply the demand'' of the $m^\textrm{th}$ bin, and $\alpha$ is a parameter which trades off between \ja{?}. We denote by $D^{uv}$ the ground distance, a matrix containing the pairwise distances between the centroids sets $\mu^u$ and $\mu^v$. $D^{uv}$ is computed from the kernel $K$:
 \begin{equation*}
-D^{uv}=\boldsymbol{1}-K^{(uv)}
+D_{mn}^{uv}=1-K_{mn}^{uv}.
 \end{equation*}
-with $K^{(uv)}$ being the slice of $K$ containing the pairwise similarities between the centroids sets $\mu^u$ and $\mu^v$ of the scenes $s_u$ and $s_v$, respectively. As suggested in \cite{pele2009fast}, we set the tradeoff parameter $\alpha$ to $1$.
+As suggested in \cite{pele2009fast}, we set the tradeoff parameter $\alpha$ to $1$.
 
 To get the final similarity measure between the scenes $s_u$ and $s_v$, an extended Gaussian kernel $K^s$ is computed: %\cite{chapelle1999support,jing2003support}
 \begin{equation}
