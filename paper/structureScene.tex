@@ -437,15 +437,14 @@ For ASSR, evaluation is performed on the private part of the DCASE 2013 dataset.
 
 %\ja{I'm not sure what this means. Do we fix $m$ and $N$ here for all experiments or do we optimize them over the test data each time? If so, this will bias the results, no?}
 
-
 \begin{figure}[t]
 \begin{center}
-\includegraphics[width=.9\columnwidth]{bw/unsupervised_test2}
-\caption{Acoustic scene similarity retrieval (ASSR) in the DCASE 2013 private dataset: precisions at rank $k$ ($p@k$) obtained for MFCCs and scattering with logarithmic compression, as a function of the rank $k$.}
-\label{fig:ASS_1}
+\includegraphics[width=.9\columnwidth]{bw/unsupervised_test1}
+\caption{Acoustic scene similarity retrieval (ASSR) in the DCASE 2013 private dataset: precisions at rank $k$ ($p@k$) obtained for scattering coefficients, with and without logarithmic compression, as a function of the rank $k$. \ja{Why not \emph{ob-a} here? Also, the relationship between the different approaches for the regular scattering coefficients seems to be inverted with respect to the log-scattering and the previous figure. That is, here we have \emph{early} $>$ \emph{ob-w} $\approx$ \emph{ob-c} instead of \emph{ob-w} $>$ \emph{ob-w} $>$ \emph{early}.}}
+\label{fig:ASS_2}
 \end{center}
 \end{figure}
- 
+
 For ASC, the systems are again evaluated on the private part of DCASE 2013, but here with five-fold stratified cross validation. The folds are identical to those used in the original challenge. In the same way as the majority of the DCASE 2013 participants, we use an SVM for the ASC task, which is a large-margin binary discriminator with tunable regularization of misclassified examples. The slack parameter $C$ is here set to $1$. Optimal parameters (see above) are this time learned on the public part of the DCASE 2013 dataset, also using five-fold stratified cross validation. \ja{Which parameters are these?} For these experiments, both \emph{early} and \emph{late} integration strategies are evaluated (see Section \ref{sec:eili}).
 
 For the \emph{ob} approaches, we use the precomputed kernels described in Section \ref{sec:object}. For both the \emph{early} and \emph{late} methods, a linear kernel as well as an RBF kernel are used. As with the RBF kernels used in the \emph{ob} approaches, the RBF kernel in the SVM is scaled locally using the method proposed in \cite{selfTuneManor2004}. All feature vectors, that is scattering frames, MFCCs and centroids, are standardized prior to be given to the classifier. The standardization is computed with respect to the train/test splits of the cross validation scheme (see Section \ref{sec:stand}).
@@ -455,10 +454,13 @@ The clustering for the \emph{ob} methods is done using $k$-means$++$ \cite{arthu
 \section{Results \label{sec:results}}
 
 
-
 \subsection{Acoustic Scene Similarity Retrieval}
 
-This section presents evaluation results for the ASSR settings. The $p@k$ for different settings are shown in Figures \ref{fig:ASS_1} and \ref{fig:ASS_2}, illustrating the effect of the different similarity metrics and the influence of the logarithm, respectively.
+This section presents evaluation results for the ASSR settings. The $p@k$ for different settings are shown in Figures \ref{fig:ASS_2} and \ref{fig:ASS_1}, illustrating the effect of the different similarity metrics and the influence of the logarithm, respectively.
+
+\subsubsection*{Role of logarithmic compression}
+
+Outcomes for the scattering with and without logarithmic compression are shown in Figure \ref{fig:ASS_2}. It can be seen that the logarithmic compression strongly improves the results, especially for the \emph{ob} approaches, which perform worse than \emph{early} without the logarithmic compression.
 
 \subsubsection*{MFCC \vs scattering transform}
 
@@ -472,16 +474,11 @@ The same observations are made for the MFCCs for $k\leq5$. However for a rank $k
 	
 %However for a rank $k$ greater than $5$, there is no clear evidence that \emph{ob-c} and \emph{ob-w} approaches improve the results compared to \emph{early}. The latter even outperforms \emph{ob-a} for $k\geq5$. From this it appears that, although the \emph{ob} approaches are able to better retrieve the similarities between close scenes compared to \emph{early}, they are of no help when considering distant scenes of the same class. This may be due to the fact that, at some point, the MFCCs fail to dissociate the discriminative events of a scene from the non-informative ones, thus making a centroid-based description useless, or even counterproductive when the centroids are not weighted/selected.
 
-\subsubsection*{Role of logarithmic compression}
-
-Outcomes for the scattering with and without logarithmic compression are shown in Figure \ref{fig:ASS_2}. It can be seen that the logarithmic compression strongly improves the results, especially for the \emph{ob} approaches, which perform worse than \emph{early} without the logarithmic compression.
-
-
 \begin{figure}[t]
 \begin{center}
-\includegraphics[width=.9\columnwidth]{bw/unsupervised_test1}
-\caption{Acoustic scene similarity retrieval (ASSR) in the DCASE 2013 private dataset: precisions at rank $k$ ($p@k$) obtained for scattering coefficients, with and without logarithmic compression, as a function of the rank $k$. \ja{Why not \emph{ob-a} here? Also, the relationship between the different approaches for the regular scattering coefficients seems to be inverted with respect to the log-scattering and the previous figure. That is, here we have \emph{early} $>$ \emph{ob-w} $\approx$ \emph{ob-c} instead of \emph{ob-w} $>$ \emph{ob-w} $>$ \emph{early}.}}
-\label{fig:ASS_2}
+\includegraphics[width=.9\columnwidth]{bw/unsupervised_test2}
+\caption{Acoustic scene similarity retrieval (ASSR) in the DCASE 2013 private dataset: precisions at rank $k$ ($p@k$) obtained for MFCCs and scattering with logarithmic compression, as a function of the rank $k$.}
+\label{fig:ASS_1}
 \end{center}
 \end{figure}
 
