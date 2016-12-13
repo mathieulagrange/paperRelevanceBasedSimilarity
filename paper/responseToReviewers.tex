@@ -111,8 +111,10 @@ These equations were removed from the paper.
 \item \emph{The late versus early integration of the features is well presented and evaluated. But a graphic representation of the whole process would arise the novelty of the model.}
 
 \item \emph{Authors may precise  how the Gammatone wavelets allow to reproduce the asymmetry of temporal masking and the asymmetry of spectral masking.}
+\ja{Vincent, you explained this much better than I can. Would you mind adding this part?}
 
 \item \emph{Setting of Q1 shall be motivated.}
+This has been added to the text.
 
 \item \emph{Reproducibility:  data sets are publicly available, the author do not mention if they plan to make their model available.}
 
@@ -124,6 +126,7 @@ We have added results for SVM on MFCCs. As mentioned in the response to the othe
 \item \emph{Confusion matrix of the two best methods will be interesting.}
 
 \item \emph{The cross-validation analyses confirmed that the value T = 372 ms for the support of the low-pass filter is optimal when applying late integration by majority voting, but shall it adapted per classes  ?}
+While it is true that different values of $T$ could be appropriate for different classes (that is, the different sound objects present could be of different scale), we do not expect results to change significantly. This is because the sounds are of a similar nature (ambient, non-directed) and so any distinct object shouldn't be much longer or shorter in duration in one class compared to another. In addtion, $T = 372\,\mathrm{ms}$ is at the longer end of the useful range of window sizes for which the scattering transform is useful, so it is unlikely that larger sizes would improve.
 
 \item \emph{A table with the 2016 CASE private results may be added (or replace Tab III).}
 
@@ -138,6 +141,7 @@ The references have been carefully curated.
 \item \emph{Bregman shall be cited in the discussion about  binding of acoustic cues.}
 
 \ja{can you spot where we speak about binding acoustic cues ?, I can't ;(}
+\ja{Can't find it...}
 
 \end{enumerate}
 
