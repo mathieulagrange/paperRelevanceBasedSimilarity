@@ -50,6 +50,7 @@ Again, the hierarchical representation proposed is novel and we provide adequate
 Without any specific points of criticism, it is hard to address this particular statement. Nonetheless, we have reworked the paper as a whole, trying to clarify the overall message.
 
 \item \emph{all the justifications arise from psychoacoustic, bioacoustic,... when the challenge is to classify ambient non natural stationary sounds. For example the whole Gammatone wavelet justification over Morlet is biased}
+While some of the sounds are ``non-natural'', that is human-caused, that does not make differentiating between them an impossible task for a biological system evolved under exposure to other, more ``natural'' sounds. In addition, the psychoacoustic results cited have been obtained by conducting experiments where subjects listened to the same type of ``non-natural'' sounds. As such, we feel that the justifications are well-adapted to our method and tasks.
 
 \item \emph{the classification accuracy is not suited for comparison since the dimension of the feature vectors are not the same for all the techniques }
 While the dimension of the features vectors are different, this does not necessarily have to impact the performance of the classification. For example, if we were classifiying stationary Gaussian signals, a spectral envelope feature, like the MFCCs, would prove to be just as accurate, if not better, than the richer second-order scattering transform. The important relationship to consider is whether the feature transform provides an accurate description of the relevant information content in the signal. In addition, most of our experiments deal with the feature vectors through an RBF kernel, which is equivalent to considering the features embedded in an infinite-dimensional space, so in this sense the original dimensionality of the feature vectors carries less importance.
@@ -58,6 +59,7 @@ While the dimension of the features vectors are different, this does not necessa
 This is an important point and we have included results for MFCCs using a linear SVM. However, we point out that the GMM is also supervised, although it is trained using a generative objective as opposed to a discriminative one, which is the case for the SVM.
 
 \item \emph{the paper reads like a recipe for the specific task without justifications, insights or proofs of the different given definitions and statements.}
+We justify the cluster-based representation with results from cognitive psychology. The use of the scattering transform is justified with invariance conditions of the tasks. Where necessary, the proofs and evidence are provided in references. Again, the lack of specificity of this point makes it hard to address, but as stated above, we have reworked the whole paper to hopefully make our argument clearer.
 
 \item \emph{The dataset is not well presented since the classes seem to represent stationary noises such as car/tram/train}
 While these scenes definitely have a stationary component, such as for the car, tram, train, metro station, and bus classes. This is not sufficient to classify them, since this stationary signal is very similar for these classes. This is why the cluster-based hierarchical representation that we propose is necessary in that it allows the system to pick out the distinct non-stationary components that discriminate between the classes.
@@ -88,6 +90,7 @@ it is a scale-o-gram.}
 This is true, but for readers less familiar with the terminology, we have opted to use this more redundant expression to express the fact that these derive from wavelet decompositions.
 
 \item \emph{line 60: auditory and modulation filter – nonsense.}
+While we are not certain what the intent of the reviewer is here, we have modified the sentence to clarify our meaning.
 
 \item \emph{"unsupervised classification" it is clustering then.}
 
