@@ -43,22 +43,22 @@ The title has been changed to remove the "object-based" formulation. The particu
 \item \emph{The second paragraph of the abstract is vague.}
 This paragraph has been reworded and worked into the rest of the abstract in a more fluid manner.
 
-\item \emph{No novel technique is presented}
+\item \emph{No novel technique is presented.}
 Again, the hierarchical representation proposed is novel and we provide adequate evidence, in our opinion, for its power in the proposed similarity retrieval task.
 
-\item \emph{the whole paper architecture is poor}
+\item \emph{The whole paper architecture is poor.}
 Without any specific points of criticism, it is hard to address this particular statement. Nonetheless, we have reworked the paper as a whole, trying to clarify the overall message.
 
-\item \emph{all the justifications arise from psychoacoustic, bioacoustic,... when the challenge is to classify ambient non natural stationary sounds. For example the whole Gammatone wavelet justification over Morlet is biased}
+\item \emph{All the justifications arise from psychoacoustics, bioacoustics ... when the challenge is to classify ambient non natural stationary sounds. For example, the whole Gammatone wavelet justification over Morlet is biased.}
 While some of the sounds are ``non-natural'', that is human-caused, that does not make differentiating between them an impossible task for a biological system evolved under exposure to other, more ``natural'' sounds. In addition, the psychoacoustic results cited have been obtained by conducting experiments where subjects listened to the same type of ``non-natural'' sounds. As such, we feel that the justifications are well-adapted to our method and tasks.
 
-\item \emph{the classification accuracy is not suited for comparison since the dimension of the feature vectors are not the same for all the techniques }
+\item \emph{The classification accuracy is not suited for comparison since the dimension of the feature vectors are not the same for all the techniques.}
 While the dimension of the features vectors are different, this does not necessarily have to impact the performance of the classification. For example, if we were classifiying stationary Gaussian signals, a spectral envelope feature, like the MFCCs, would prove to be just as accurate, if not better, than the richer second-order scattering transform. The important relationship to consider is whether the feature transform provides an accurate description of the relevant information content in the signal. In addition, most of our experiments deal with the feature vectors through an RBF kernel, which is equivalent to considering the features embedded in an infinite-dimensional space, so in this sense the original dimensionality of the feature vectors carries less importance.
 
-\item \emph{most importantly the used classifier is not the same (from unsupervised GMM to supervised SVM)}
+\item \emph{The used classifier is not the same (from unsupervised GMM to supervised SVM)}
 This is an important point and we have included results for MFCCs using a linear SVM. However, we point out that the GMM is also supervised, although it is trained using a generative objective as opposed to a discriminative one, which is the case for the SVM.
 
-\item \emph{the paper reads like a recipe for the specific task without justifications, insights or proofs of the different given definitions and statements.}
+\item \emph{The paper reads like a recipe for the specific task without justifications, insights or proofs of the different given definitions and statements.}
 We justify the cluster-based representation with results from cognitive psychology. The use of the scattering transform is justified with invariance conditions of the tasks. Where necessary, the proofs and evidence are provided in references. Again, the lack of specificity of this point makes it hard to address, but as stated above, we have reworked the whole paper to hopefully make our argument clearer.
 
 \item \emph{The dataset is not well presented since the classes seem to represent stationary noises such as car/tram/train}
@@ -68,10 +68,10 @@ While these scenes definitely have a stationary component, such as for the car, 
 without affecting their perception and therefore such shifts do not convey any information about the class" this is false. Rather say that application of time shift should not change the representation since it doesn't change the class belonging in this context and thus imposing time shift invariance will improve robustness.}
 The reviewer is correct that this is not true as stated. Our meaning is indeed what he/she describes and the text has been changed to reflect this.
 
-\item \emph{the used descriptors are only locally time shift invariant and not globally which is never pointed out}
+\item \emph{The used descriptors are only locally time shift invariant and not globally which is never pointed out.}
 As formulated, the scattering transforms do indeed have only local time-shifting invariance, which has been clarified. However, the processing corresponding to ``early'' integrating achieves more invariance through complete averaging of the scattering transform along time and so does have that global time-shifting invariance.
 
-\item \emph{The function phi is hardly considered as a low-pass since a low-pass is only used in coordination with a high-pass for quadratic mirror filters. Here phi is a scaling function.}
+\item \emph{The function $\phi$ is hardly considered as a low-pass since a low-pass is only used in coordination with a high-pass for quadratic mirror filters. Here $\phi$ is a scaling function.}
 The function $\phi$ is very much a low-pass filter with a frequency support of approximately $1/T$ and a time bandwidth of $T$, where $T$ is of the order of hundreds of milliseconds. It does not correspond to the traditional scaling function used in quadratic mirror filters.
 
 \item \emph{Line 34: "wavelet transform modulus" is not clear at all.}
@@ -93,7 +93,6 @@ This is true, but for readers less familiar with the terminology, we have opted 
 While we are not certain what the intent of the reviewer is here, we have modified the sentence to clarify our meaning.
 
 \item \emph{"unsupervised classification" it is clustering then.}
-
 The sentence have been rewritten to be more explicit.
 
 \item \emph{"time-frequency perspective or a machine learning perspective" is it imposed versus learned representation? }
@@ -126,15 +125,15 @@ We have added results for SVM on MFCCs. As mentioned in the response to the othe
 \item \emph{Confusion matrix of the two best methods will be interesting.}
 
 \item \emph{The cross-validation analyses confirmed that the value T = 372 ms for the support of the low-pass filter is optimal when applying late integration by majority voting, but shall it adapted per classes  ?}
-While it is true that different values of $T$ could be appropriate for different classes (that is, the different sound objects present could be of different scale), we do not expect results to change significantly. This is because the sounds are of a similar nature (ambient, non-directed) and so any distinct object shouldn't be much longer or shorter in duration in one class compared to another. In addtion, $T = 372\,\mathrm{ms}$ is at the longer end of the useful range of window sizes for which the scattering transform is useful, so it is unlikely that larger sizes would improve.
+Although it is true that different values of $T$ could be appropriate for different classes (that is, the different sound objects present could be of different scale), we do not expect results to change significantly. This is because the sounds are of a similar nature (ambient, non-directed) and so any distinct object shouldn't be much longer or shorter in duration in one class compared to another. In addtion, $T = 372\,\mathrm{ms}$ is at the longer end of the useful range of window sizes for which the scattering transform is useful, so it is unlikely that larger sizes would improve.
 
 \item \emph{A table with the 2016 CASE private results may be added (or replace Tab III).}
 
 \item \emph{The bibliography is huge, it may be reduced by 10 \%.}
 
-The bibliography section is now more tight. 
+The bibliography section has been made shorter. 
 
-\item \emph{Check typos in the references (Museum, Histoire nat...). “befor”}
+\item \emph{Check typos in the references}
 
 The references have been carefully curated.
 
