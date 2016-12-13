@@ -161,19 +161,10 @@ This section first explains the importance of local invariance to time-shifting 
 The notion of invariance to time-shifting plays an essential role in acoustic scene similarity retrieval as well as acoustic scene classification.
 Indeed, recordings may be shifted locally without affecting their original class memberships.
 To discard this superfluous source of variability, signals can be mapped to a time-shifting invariant feature space before training the classifier, eliminating the need for this classifier to explicitly learn this invariance and increasing the robustness of its predictions.
-From any time-varying set of descriptors $\boldsymbol{x_1}(t,\gamma)$, where $\gamma$ denotes a descriptor index, a representation invariant to time-shifts shorter than $T$ can be obtained by convolving $\boldsymbol{x_1}$ with a low-pass filter $\boldsymbol{\phi}(t)$ of cutoff frequency set to $1/T$, which gives
-\begin{equation}
-\mathbf{S_1}\boldsymbol{x}(t, \gamma) = (\boldsymbol{x_1}(\cdot,\gamma) \ast \boldsymbol{\phi}) (t).
-\end{equation}
-A downside is that the transient information in $\boldsymbol{x_1}$ at scales finer than $T$ are lost by this low-pass filtering, reducing discriminability in feature space.
-To address this issue, the scattering transform recovers this information by convolving $\boldsymbol{x_1}$ with wavelets whose center frequencies are above $1/T$ and then applying a complex modulus. \ja{Why are we doing this for a generic set of descriptors $\boldsymbol{x_1}(t, \gamma)$ here? Seems like we're going forward, then backwards in the next section. In addition, many results will not hold unless $\boldsymbol{x_1}$ is a scalogram. We do specify here that higher-order coefficients have to be obtained with wavelets, so why not $\boldsymbol{x_1}$?}
 
-By resorting to wavelet transform modulus, as opposed to Fourier transform modulus, the resulting features are provably stable to time-warping deformation,
-in the sense of Lipschitz regularity with respect to diffeomorphisms \cite{Mallat2012}. \ja{This will not be true if $\boldsymbol{x_1}$ is an STFT, for example.}
-This stability property is crucial to signal classification, since it guarantees robustness to small variations in pitch, reverberation, and rhythmic organization of events, which can all be described as small time-warping transformations. These make up an important part of the intra-class variability among natural sounds, so a representation that has some insensitivity to them has an advantage.
+Formally, given a signal $\boldsymbol{x}(t)$, we would like its translation $\boldsymbol{x_c}(t) = \boldsymbol{x}(t-c)$ to be mapped to the same feature vector provided that $|c| \ll T$ for some maximum duration $T$ that specifies the extent of the time-shifting invariance. We can also define more complicated transformations by letting $c$ vary with $t$. In this case, we have $\boldsymbol{x_\tau}(t) = \boldsymbol{x}(t-\tau(t))$ for some function $\tau$, which performs a time-warping of $\boldsymbol{x}(t)$ to obtain $\boldsymbol{x_\tau}(t)$. Time-warpings model various changes, such as small variations in pitch, reverberation, and rhythmic organization of events. These make up an important part of intra-class variability among natural sounds, so a representation that has some insensitivity to such transformations would be very advantageous.
 
-Starting from a monophonic waveform $\boldsymbol{x}(t)$, the scattering transform is defined as an infinite cascade of wavelet transforms alternated with modulus operators.
-However, to achieve local invariance to translation up to $T \approx 500\,\mathrm{ms}$, (\ie the approximate minimal duration between non-overlapping acoustic events in our signals), two layers of scattering transform often suffice. Higher layers of scattering coefficients will represent larger-scale structure that is better captured by the cluster-based representation presented below.
+The wavelet scattering transform, described below, has both of these desired properties: invariance to time-shifting and stability to time-warping. The stability condition can be formulated as a Lipschitz continuity property, which guarantees that the feature transforms of $\boldsymbol{x}(t)$ and $\boldsymbol{x_\tau}(t)$ are close together if $|\tau'(t)|$ is bounded by a small constant.
 
 \subsection{Wavelet scalogram}
 Our convention for the Fourier transform of a continuous-time signal $\boldsymbol{x}(t)$ is $\boldsymbol{\hat{x}}(\omega) = \int_{-\infty}^{+\infty} x(t) \exp(- \mathrm{i} 2\pi \omega t) \; \mathrm{d}t$.
@@ -208,6 +199,12 @@ Therefore, the wavelet scalogram has a better temporal localization at high
 frequencies than the CQT, at the expense of a greater computational cost
 since the inverse fast Fourier transform (IFFT) routine must be called for each wavelet $\boldsymbol{\psi_{\gamma_1}}$ in the filter bank. \ja{Is the cost really greater?}
 However, this allows us to observe amplitude modulations at fine temporal scales in the scalogram, down to $2Q_1/\xi_1$ for $\gamma_1 = 0$, of the order of $1\,\textrm{ms}$ given the aforementioned values of $Q_1$ and $\xi_1$. \ja{Where does the formula $2Q_1/\xi_1$ come from?}
+
+To obtain the desired invariance and stability properties, the scalogram is averaged in time using a lowpass filter $\phi(t)$ with cut-off frequency $1/T$ (and so a duration of approximately $T$), to get
+\begin{equation}
+\mathbf{S_1}\boldsymbol{x}(t, \gamma_1) = \boldsymbol{x_1}(\cdot, \gamma_1) \ast \phi(t),
+\end{equation}
+which is known as the set of first-order scattering coefficients. They capture the average spectral envelope of $\boldsymbol{x}$ over scales of duration $T$, with the spectral resolution varying with constant Q, as described above. In this way, they are very closely related to the mel-frequency spectrogram and related features, such as MFCCs.
 
 \subsection{Extracting modulations with second-order scattering}
 In auditory scenes, amplitude modulations may be caused by a broad variety of rapid mechanical interactions, including collision, friction, turbulent flow, and so on.
