@@ -178,7 +178,7 @@ according to a geometric sequence of scales $2^{\gamma_1/Q_1}$, obtaining
 The variable $\gamma_1$ is a scale (an inverse log-frequency) taking integer values between $0$ and $(J_1 \times Q_1 - 1)$, where $J_1$ is the number of octaves spanned by the filter bank.
 For each $\gamma_1$, the wavelet $\boldsymbol{\psi_{\gamma_1}}(t)$
 has a center frequency of $2^{-\gamma_1/Q_1}\xi_1$ and a bandwidth of $2^{-\gamma_1/Q_1}\xi_1/Q_1$ resulting in the same quality factor $Q_1$ as $\boldsymbol{\psi}$.
-In the sequel, we set $\xi_1$ to $20~\mathrm{kHz}$, $J_1$ to $10$, and the quality factor $Q_1$, which doubles as the number of wavelets per octave, to $8$. This results in the wavelet filters covering the whole range of human hearing, from $20~\mathrm{Hz}$ to $20~\mathrm{kHz}$.
+In the sequel, we set $\xi_1$ to $20~\mathrm{kHz}$, $J_1$ to $10$, and the quality factor $Q_1$, which doubles as the number of wavelets per octave, to $8$. This results in the wavelet filters covering the whole range of human hearing, from $20~\mathrm{Hz}$ to $20~\mathrm{kHz}$. Setting $Q_1 = 8$ results in filters whose bandwidth approximates an equivalent rectangular bandwidth (ERB) scale.
 
 The wavelet transform of an audio signal
 $\boldsymbol{x}(t)$ is obtained by convolution with all wavelet filters
