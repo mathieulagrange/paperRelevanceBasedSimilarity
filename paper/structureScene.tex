@@ -310,7 +310,7 @@ Conversely, a late integration scheme relies on probabilistic assignments $\math
 \begin{equation}
 \hat{y} = \arg \max_{y} \rho\Big(\big\{ \mathbb{P}\left[y \,\vert\, \mathbf{S}\boldsymbol{x}(t,\gamma) \right] \big\}_{t} \Big)\mbox{,}
 \end{equation}
-where $\hat{y}$ is the estimated class label and $\rho$ is a reduction function, such as sum, product, or majority vote \cite{Kittler1998}. \ja{Do we really sum probabilities? Seems like a strange thing to do.}
+where $\hat{y}$ is the estimated class label and $\rho$ is a reduction function, such as sum, product, or majority vote \cite{Kittler1998}.
 
 A drawback of early integration is that it drastically reduces the number of training instances at the classifier stage, down to one per auditory scene.
 In the context of the DCASE 2013 private dataset, this corresponds to merely $8$ training instances per class, and $80$ instances overall, which can increase the variance of the estimated model and run the risk of overfitting.
