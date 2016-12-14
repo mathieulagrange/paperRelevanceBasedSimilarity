@@ -196,10 +196,10 @@ The scalogram bears resemblance to the constant-Q transform (CQT),
 which is derived from the short-term Fourier transform (STFT) by averaging the frequency
 axis into constant-Q subbands of center frequencies $2^{-\gamma_1/Q_1}\xi_1$.
 Indeed, both time-frequency representations are indexed by time $t$ and log-frequency $\gamma_1$.
-However, contrary to the CQT, the wavelet scalogram reaches the Heisenberg
+However, contrary to the CQT, the scalogram reaches the Heisenberg
 theoretical limit of optimal time-frequency localization across the whole
 frequency range, whereas the temporal resolution of the traditional CQT is fixed by the support of the STFT analyzing window. %\cite{Brown1992}
-Therefore, the wavelet scalogram has a better temporal localization at high
+Therefore, the scalogram has a better temporal localization at high
 frequencies than the CQT, at the expense of a greater computational cost
 since the inverse fast Fourier transform (IFFT) routine must be called for each wavelet $\boldsymbol{\psi_{\gamma_1}}$ in the filter bank. \ja{Is the cost really greater?}
 However, this allows us to observe amplitude modulations at fine temporal scales in the scalogram, down to $2Q_1/\xi_1$ for $\gamma_1 = 0$, of the order of $1\,\textrm{ms}$ given the aforementioned values of $Q_1$ and $\xi_1$. \ja{Where does the formula $2Q_1/\xi_1$ come from?}
