@@ -108,6 +108,7 @@ These equations were removed from the paper.
 \begin{enumerate}
 
 \item \emph{The late versus early integration of the features is well presented and evaluated. But a graphic representation of the whole process would arise the novelty of the model.}
+\vl{Lack of space. What do we do?}
 
 \item \emph{Authors may precise how the Gammatone wavelets allow to reproduce the asymmetry of temporal masking and the asymmetry of spectral masking.}
 We have written a short explanation of the role of Gammatone wavelets in the modeling of the asymmetry of temporal masking and the asymmetry of spectral masking.
@@ -123,6 +124,7 @@ Experiments have been performed in the Matlab environment using open source libr
 We have added results for SVM on MFCCs. As mentioned in the response to the other reviewer, we believe that the high dimensionality should not have a significant effect on these results. \ja{Although perhaps we should indeed talk about this in the paper.}
 
 \item \emph{Confusion matrix of the two best methods will be interesting.}
+\vl{Lack of space. What do we do?}
 
 \item \emph{The cross-validation analyses confirmed that the value T = 372 ms for the support of the low-pass filter is optimal when applying late integration by majority voting, but shall it adapted per classes  ?}
 Although it is true that different values of $T$ could be appropriate for different classes (that is, the different sound objects present could be of different scale), we do not expect results to change significantly. This is because the sounds are of a similar nature (ambient, non-directed) and so any distinct object shouldn't be much longer or shorter in duration in one class compared to another. In addtion, $T = 372\,\mathrm{ms}$ is at the longer end of the useful range of window sizes for which the scattering transform is useful, so it is unlikely that larger sizes would improve.
