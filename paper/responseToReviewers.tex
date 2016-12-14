@@ -64,7 +64,7 @@ We justify the cluster-based representation with results from cognitive psycholo
 \item \emph{The dataset is not well presented since the classes seem to represent stationary noises such as car/tram/train}
 While these scenes definitely have a stationary component, such as for the car, tram, train, metro station, and bus classes. This is not sufficient to classify them, since this stationary signal is very similar for these classes. This is why the cluster-based hierarchical representation that we propose is necessary in that it allows the system to pick out the distinct non-stationary components that discriminate between the classes.
 
-\item \emph{"recordings may be shifted locally 
+\item \emph{"Recordings may be shifted locally 
 without affecting their perception and therefore such shifts do not convey any information about the class" this is false. Rather say that application of time shift should not change the representation since it doesn't change the class belonging in this context and thus imposing time shift invariance will improve robustness.}
 The reviewer is correct that this is not true as stated. Our meaning is indeed what he/she describes and the text has been changed to reflect this.
 
@@ -85,7 +85,7 @@ For the time scales considered in this paper, the first two orders are sufficien
 
 \item \emph{It is never specified what are the signals frequency sampling which we have to deduce to be 44100 Hz from line 9 page 3 "20kHz close to the Nyquist frequency of the audio recordings".}
 
-\item \emph{"wavelet scalogram" is used along all the paper but scalogram is only defined for wavelets since 
+\item \emph{"Wavelet scalogram" is used along all the paper but scalogram is only defined for wavelets since 
 it is a scale-o-gram.}
 This is true, but for readers less familiar with the terminology, we have opted to use this more redundant expression to express the fact that these derive from wavelet decompositions.
 
