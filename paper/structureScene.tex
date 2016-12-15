@@ -544,7 +544,7 @@ Classification accuracies on the DCASE 2013 dataset with various settings of fea
 
 \begin{table}
 \begin{center}
-\caption{Class-wise accuracies on the DCASE 2016 dataset for the baseline algorithm (left) and proposed algorithm (right).}
+\caption{Class-wise accuracies on the DCASE 2016 dataset for the baseline algorithm (left) and proposed algorithm (right).\label{table:dcase2016}}
 \begin{tabular}{lccc}
 Features & MFCCs & MFCCs & log-scattering \\
 Classifier  & GMMs & linear SVMs & linear SVMs \\
@@ -569,7 +569,7 @@ tram & $85.4 \pm 13.9$ & $52.1 \pm 11.9$ & $83.7 \pm 12.2$ \\
 Average & $70.8 \pm \phantom{0}2.6$ & $65.8 \pm \phantom{0}8.0$ & $79.4 \pm \phantom{0}3.0$ \\
 \end{tabular}
 \end{center}
-\label{table:dcase2016}
+
 \end{table}
 
 
@@ -577,7 +577,7 @@ Average & $70.8 \pm \phantom{0}2.6$ & $65.8 \pm \phantom{0}8.0$ & $79.4 \pm \pha
 In order to evaluate the generality of our findings, we have taken part in the acoustic scene classification task of the 2016 edition of the DCASE challenge.
 This edition relies on the TUT 2016 acoustic scenes dataset, which contains $15$ classes of acoustic scenes, and is larger than the DCASE 2013 private dataset by one order of magnitude \cite{Mesaros2016_EUSIPCO}.
 Training support vector machines with a Gaussian RBF kernel is computationally demanding for a dataset of such size, especially under a late integration scheme, wherein the number of training instances exceeds $10^5$, we therefore use a linear kernel instead.
-Our experiments on the smaller DCASE 2013 dataset, as reported in table \ref{table:dcase2013}, show that the linear kernel gives comparable, albeit slightly worse, classification results than the Gaussian RBF kernel.
+Our experiments on the smaller DCASE 2013 dataset, as reported in Table \ref{table:dcase2013}, show that the linear kernel gives comparable, albeit slightly worse, classification results than the Gaussian RBF kernel.
 
 Our results on the public part of the DCASE 2016 dataset are reported in Table \ref{table:dcase2016}, compared with a baseline using MFCCs and a generative classifier, namely Gaussian mixture models with $16$ Gaussians per model. This baseline relies on a late integration scheme, wherein the reduction function $\rho$ is a product of likelihoods. For comparison, we also provide the results for the same MFCC features coupled with a linear SVM classifier. Results here are slightly worse since the SVM can only discriminate between classes that are linearly separable, a limitation not present for the GMMs.
 
