@@ -435,46 +435,11 @@ The clustering for the \emph{ob} methods is done using $k$-means$++$ \cite{arthu
 
 %\ja{I'm not sure what this means. Do we fix $m$ and $N$ here for all experiments or do we optimize them over the test data each time? If so, this will bias the results, no?}
 
-\begin{figure}[t]
-\begin{center}
-\includegraphics[width=.9\columnwidth]{bw/unsupervised_test1}
-\caption{Acoustic scene similarity retrieval (ASSR) in the DCASE 2013 private dataset: precisions at rank $k$ ($p@k$) obtained for scattering coefficients, with and without logarithmic compression, as a function of the rank $k$. \ja{Why not \emph{ob-a} here? Also, the relationship between the different approaches for the regular scattering coefficients seems to be inverted with respect to the log-scattering and the previous figure. That is, here we have \emph{early} $>$ \emph{ob-w} $\approx$ \emph{ob-c} instead of \emph{ob-w} $>$ \emph{ob-w} $>$ \emph{early}.}}
-\label{fig:ASS_2}
-\end{center}
-\end{figure}
-
 \section{Results \label{sec:results}}
 
-\subsection{Acoustic Scene Similarity Retrieval}
+The results on acoustic scene classification illustrate the superior performance of the log-scattering transform coupled with late integration, confirming the ideas motivating the construction of our cluster-based auditory scene representation. Using this representation for auditory scene similarity retrieval, we obtain results that improve significantly over traditional BOF and summary approaches, both with log-scattering features and MFCCs.
 
-This section presents evaluation results for the ASSR settings. The $p@k$ for different settings are shown in Figures \ref{fig:ASS_2} and \ref{fig:ASS_1}, illustrating the effect of the different similarity metrics and the influence of the logarithm, respectively.
-
-\subsubsection*{Role of logarithmic compression}
-
-Outcomes for the scattering with and without logarithmic compression are shown in Figure \ref{fig:ASS_2}. It can be seen that the logarithmic compression strongly improves the results, especially for the \emph{ob} approaches, which perform worse than \emph{early} without the logarithmic compression.
-
-\subsubsection*{MFCC \vs scattering transform}
-
-Irrespective of the rank $k$ considered, best result is achieved for the scattering transform with logarithmic compression using the \emph{ob-c} approach. Overall, log-compressed scattering coefficients systematically outperform MFCCs. This is to be expected since the scattering coefficients capture larger-scale modulations, as opposed to MFCCs which only describe the short-time spectral envelope.
-
-\subsubsection*{Relevance-based quantization \vs early integration}
-
-For the scattering transform, both \emph{ob-c} and \emph{ob-w} outperform \emph{early}, thus confirming the benefits of using an relevance-based quantization to improve the similarity measures between the scenes. However, it is worth noticing that \emph{ob-a} performs comparably to \emph{early}, showing that the discriminant information is destroyed by averaging the contributions from all centroids. To take advantage of an such a representation, we need to select certain representative centroids when comparing quantized objects. Furthermore, it appears that \emph{ob-c} is better able to characterize the classes than \emph{ob-w}. This last observation suggests that weighting a centroid according to the number of frames it contains may prove to be a limited solution. Indeed, nothing a priori indicates that the discriminant information between two scenes lays within the majority of their frames. On the contrary, two similar environments may shared a lot of similar sound sources with only a few sources discriminating between them.
-
-The same observations are made for the MFCCs for $k\leq5$. However for a rank $k$ greater than $5$, all the \emph{ob} approaches perform equivalently. This may be due to the fact that, at some point, the MFCCs fail to dissociate the discriminative events of a scene from the non-informative ones, thus making the cluster selection/weighting step useless. \ja{What is the ``at some point'' referring to? In other words, why do we expect this to happen for larger $k$ but not smaller?}
-	
-%However for a rank $k$ greater than $5$, there is no clear evidence that \emph{ob-c} and \emph{ob-w} approaches improve the results compared to \emph{early}. The latter even outperforms \emph{ob-a} for $k\geq5$. From this it appears that, although the \emph{ob} approaches are able to better retrieve the similarities between close scenes compared to \emph{early}, they are of no help when considering distant scenes of the same class. This may be due to the fact that, at some point, the MFCCs fail to dissociate the discriminative events of a scene from the non-informative ones, thus making a centroid-based description useless, or even counterproductive when the centroids are not weighted/selected.
-
-\begin{figure}[t]
-\begin{center}
-\includegraphics[width=.9\columnwidth]{bw/unsupervised_test2}
-\caption{Acoustic scene similarity retrieval (ASSR) in the DCASE 2013 private dataset: precisions at rank $k$ ($p@k$) obtained for MFCCs and scattering with logarithmic compression, as a function of the rank $k$.}
-\label{fig:ASS_1}
-\end{center}
-\end{figure}
-
-\subsection{Acoustic Scene Classification}
-
+\subsection{Experiment \#1: acoustic scene classification}
 
 \begin{figure}
 \begin{center}
@@ -486,7 +451,6 @@ The mean accuracies and fold-wise standard deviations of each experiment are rep
 \end{center}
 \end{figure}
 
-
 We report experiments on acoustic scene classification (ASC), following the original methodology of the DCASE 2013 challenge, and extend our approach to its 2016 edition.
 
 \subsubsection*{MFCCs \vs scattering}
@@ -494,19 +458,15 @@ We report experiments on acoustic scene classification (ASC), following the orig
 As shown in Figure \ref{fig:folds}, scattering coefficients outperform MFCCs over all but one fold of the DCASE 2013 private dataset when applying early integration, and over all folds when applying late integration.
 This is in accordance with previous results on similarity retrieval, as well as comparisons between mel-frequency coefficients and scattering coefficients for tasks ranging from musical genre recognition and phone segment classification \cite{Anden2014} to environmental sound classification \cite{Salamon2015}.
 
-\subsubsection*{Early \vs late integration}
-Late integration, \ie building a prediction by majority voting over $128$ local windows of duration $T=372\,\mathrm{ms}$, outperforms early integration, \ie classifying the acoustic scene with a global window of duration $T=24\,\mathrm{s}$.
-This result suggests that, despite its discriminative power at fine scales, the scattering transform is unable to separately characterize distinct acoustic events beyond the scale of about one second. \ja{This is not suggested since the scattering transform is computed at $T=372\,\mathrm{ms}$ and so cannot be expected to capture larger-scale structures. Rather, this says something about the non-stationarity of the audio signals and the fact that we cannot characterize them by some set of summary statistics.}
-Therefore, it is beneficial to regard the scattering transform as a mid-level descriptor of acoustic content, not as a high-level descriptor, and adopt a data-driven strategy for the temporal integration of acoustic events within one scene.
-
-Surprisingly, although we ran a large number of experiments to formulate the relevance-based quantization scheme into a supervised setting for acoustic scene classification, none managed to outperform the baseline strategy in \emph{late} temporal integration, namely majority voting. Among such methods, the best result is achieved by the \emph{ob-c} approach with log-compressed scattering coefficients, reaching an accuracy of $66\% \pm 7$. \ja{Why don't we display these results?} \ml{I agree, we should put the results} This might be due to the fact that the discriminability gained by the relevance-based quantization approach is already achieved by the classifiers during training and the fact the relevance-based quantization approach is equivalent to an early fusion approach, which in the case of the DCASE 2013 has not been identified as beneficial due to the dataset size (see discussion in Section \ref{sec:eili}). \ja{This sentence is very confusing.}
-
 \subsubsection*{Role of logarithmic compression}
 
 Logarithmic compression provides a small, albeit consistent boost to acoustic scene classification over all folds in the DCASE 2013 private dataset.
 Indeed, as discussed in subsection \ref{sec:logcomp}, and observed in Figure \ref{fig:compression}, the statistical assumption of normality for scattering coefficients is only approximately satisfied once mapped to a logarithmic, decibel-like scale. This transformation improves the discriminative power of the SVMs trained on scattering coefficients, regardless of the chosen temporal integration strategy (early or late) and the inner product kernel (linear or Gaussian RBF).
-Again, this is in accordance with our previous findings on acoustic scene similarity retrieval, which are reported in Figure \ref{fig:ASS_2}.
 
+\subsubsection*{Early \vs late integration}
+Late integration, \ie building a prediction by majority voting over $128$ local windows of duration $T=372\,\mathrm{ms}$, outperforms early integration, \ie classifying the acoustic scene with a global window of duration $T=24\,\mathrm{s}$.
+This result suggests that, despite its discriminative power at fine scales, the scattering transform is unable to separately characterize distinct acoustic events beyond the scale of about one second. \ja{This is not suggested since the scattering transform is computed at $T=372\,\mathrm{ms}$ and so cannot be expected to capture larger-scale structures. Rather, this says something about the non-stationarity of the audio signals and the fact that we cannot characterize them by some set of summary statistics.}
+Therefore, it is beneficial to regard the scattering transform as a mid-level descriptor of acoustic content, not as a high-level descriptor, and adopt a data-driven strategy for the temporal integration of acoustic events within one scene.
 
 \begin{table}
 \begin{center}
@@ -566,6 +526,30 @@ Our results on the public part of the DCASE 2016 dataset are reported in Table \
 
 With the scattering transforms, however, the average accuracy across classes is brought from $70.8\%$ to $79.4\%$.\footnote{Challenge results on the private part of the dataset are expected to be published in August 2016.} It is interesting to note, however, that two classes, ``home'' and ``residential\_area'' both drop significantly in accuracy from the baseline GMM model to the scattering SVM classifier. This can be partially explained by the substitution of the GMM with an SVM, which shows a similar drop for the MFCCs. However, another reason could be that these classes are well-characterized by the average spectral envelope of the signal and the second-order modulation information captured by the scattering coefficients is therefore superfluous.
 Furthermore, our cross-validation analysis confirmed that the value $T=372\,\mathrm{ms}$ for the support of the low-pass filter $\boldsymbol{\phi}(t)$ is optimal when applying late integration by majority voting.
+
+\subsection{Experiment \#2: acoustic scene similarity retrieval}
+
+This section presents evaluation results for the ASSR settings. The $p@k$ for different settings are shown in Figure \ref{fig:ASS_1}, illustrating the effect of the different similarity metrics.
+
+\subsubsection*{MFCC \vs scattering transform}
+
+Irrespective of the rank $k$ considered, best result is achieved for the scattering transform with logarithmic compression using the \emph{ob-c} approach. Overall, log-compressed scattering coefficients systematically outperform MFCCs. This is to be expected since the scattering coefficients capture larger-scale modulations, as opposed to MFCCs which only describe the short-time spectral envelope.
+
+\subsubsection*{Relevance-based quantization \vs early integration}
+
+For the scattering transform, both \emph{ob-c} and \emph{ob-w} outperform \emph{early}, thus confirming the benefits of using an relevance-based quantization to improve the similarity measures between the scenes. However, it is worth noticing that \emph{ob-a} performs comparably to \emph{early}, showing that the discriminant information is destroyed by averaging the contributions from all centroids. To take advantage of an such a representation, we need to select certain representative centroids when comparing quantized objects. Furthermore, it appears that \emph{ob-c} is better able to characterize the classes than \emph{ob-w}. This last observation suggests that weighting a centroid according to the number of frames it contains may prove to be a limited solution. Indeed, nothing a priori indicates that the discriminant information between two scenes lays within the majority of their frames. On the contrary, two similar environments may shared a lot of similar sound sources with only a few sources discriminating between them.
+
+The same observations are made for the MFCCs for $k\leq5$. However for a rank $k$ greater than $5$, all the \emph{ob} approaches perform equivalently. This may be due to the fact that, at some point, the MFCCs fail to dissociate the discriminative events of a scene from the non-informative ones, thus making the cluster selection/weighting step useless. \ja{What is the ``at some point'' referring to? In other words, why do we expect this to happen for larger $k$ but not smaller?}
+	
+%However for a rank $k$ greater than $5$, there is no clear evidence that \emph{ob-c} and \emph{ob-w} approaches improve the results compared to \emph{early}. The latter even outperforms \emph{ob-a} for $k\geq5$. From this it appears that, although the \emph{ob} approaches are able to better retrieve the similarities between close scenes compared to \emph{early}, they are of no help when considering distant scenes of the same class. This may be due to the fact that, at some point, the MFCCs fail to dissociate the discriminative events of a scene from the non-informative ones, thus making a centroid-based description useless, or even counterproductive when the centroids are not weighted/selected.
+
+\begin{figure}[t]
+\begin{center}
+\includegraphics[width=.9\columnwidth]{bw/unsupervised_test2}
+\caption{Acoustic scene similarity retrieval (ASSR) in the DCASE 2013 private dataset: precisions at rank $k$ ($p@k$) obtained for MFCCs and scattering with logarithmic compression, as a function of the rank $k$.}
+\label{fig:ASS_1}
+\end{center}
+\end{figure}
 
 \section{Conclusion}
 
