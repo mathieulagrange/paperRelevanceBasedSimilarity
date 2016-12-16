@@ -115,9 +115,8 @@ Computational bioacoustics usually refers to the investigation of sound producti
 
 %The same division is found in the field of auditory scene analysis, wherein the interest may either be 1) to isolate and identify precise events, \ie acoustic event detection (AED), or 2) to predict global attributes assigned to large time spans of audio, \ie acoustic scene classification (ASC).
 For these tasks, a popular approach is the bag-of-frames (BOF) approach for acoustic scene modeling introduced by Aucouturier et al. \cite{aucouturier2007bag}, where a scene is modeled by high-level summary statistics computed from local features.
-Being a very generic method, this approach has been applied to many audio classification tasks besides ASC.
-Yet the proposed implementation using Gaussian mixture models (GMMs) of mel-frequency cepstral coefficients (MFCCs) has been demonstrated to perform comparably to a direct averaging of the features for a variety of tasks \cite{lagrange:hal-01082501}.
-Indeed, the typical morphology of acoustic scenes is a ``skeleton of events on a bed of textures'' \cite{nelken2013}, with a few discrete sound events superimposed upon a stationary acoustic background.
+Interestingly, the proposed implementation using Gaussian mixture models (GMMs) of mel-frequency cepstral coefficients (MFCCs) has been demonstrated to perform comparably to a direct averaging of the features for a variety of tasks \cite{lagrange:hal-01082501}.
+This contrasts with the typical morphology of acoustic scenes, which is a ``skeleton of events on a bed of textures'' \cite{nelken2013} where a few discrete sound events superimposed upon a stationary acoustic background.
 Therefore, it is arguably more beneficial to focus on characterizing these distinct events through describing the large-scale temporal evolution of auditory scenes rather than on the joint probability distribution of short-term features.
 
 This statement has some support in auditory psychology as well as sound synthesis based on summary statistics \cite{mcdermott2013summary}. For example, studies in the cognitive psychology of urban sound environments have shown that global sound level (perceived or measured) is not sufficient to fully characterize an acoustic scene \cite{guyot2005urban,kang2006urban}. Rather, it seems that cognitive processes such as sound environment quality perception \cite{dubois2006cognitive} or loudness judgment \cite{kuwano_memory_2003} rely upon higher-level cognitive attributes such as the identities of sound sources which compose the scene. It has been shown that, if available, the complete description of the scene in terms of event occurrences is powerful enough to reliably predict high-level cognitive classes. For example, the presence of birds is very likely to be heard in parks in urban areas and so are strong pleasantness indicators. Consequently, research in sound perception is now strongly focused on the contribution of specific sound sources in the assessment of sound environments \cite{ricciardi2015sound,lavandier2006contribution}. Although the complete set of events occurring within a given auditory stream may not be discernable, even to human expects, research has shown that a small set of events, so-called markers, suffice to reliably predict many high-level attributes.
@@ -125,32 +124,9 @@ This statement has some support in auditory psychology as well as sound synthesi
 From a cognitive psychology perspective, the consensus is therefore that only a few distinct events are sufficient to describe an auditory scene, in contrast to BOF approaches which treat each observation equally when computing summary statistics. A method that takes this knowledge into account could therefore have potential for great impact in the modeling of acoustic scenes.
 
 Aside from \cite{aucouturier2007bag} and \cite{lagrange:hal-01082501} that consider the task of ASSR, much of the work dedicated to acoustic scene modeling is applied to the ASC task.
-An overview of the efforts for the latter task is provided by the IEEE Audio and Acoustic Signal Processing (AASP) Detection and Classification of Acoustic Scenes and Events (DCASE) challenge \cite{barchiesi2015acoustic}, held in 2013 to compare different approaches to scene classification. Table \ref{tab:dcase} summarizes the results of the submitted algorithms as well as newer systems that use the private part of the DCASE 2013 dataset for their experiments. Most of the scene prediction results are achieved by majority voting of predictions over local features.
+An overview of the efforts for the latter task is provided by the IEEE Audio and Acoustic Signal Processing (AASP) Detection and Classification of Acoustic Scenes and Events (DCASE) challenge \cite{barchiesi2015acoustic}, held in 2013 to compare different approaches to scene classification.
 
-\begin{table}
-\begin{center}
-\caption{Algorithms evaluated on the DCASE 2013 private dataset of acoustic scene classification. Algorithms above the horizontal line participated to the DCASE challenge. The algorithm marked with $^*$ considered only the public dataset. \label{tab:dcase} \ml{need to define RQA ILD LDA or remove table ?} 
-}
-\begin{tabular}{lcl}
-& Acc. \%  &  \multicolumn{1}{c}{Design}  \\
-\hline
-\cite{olivetti2013wonder} & 17 & compression distance, random forests \\
-\cite{elizalde2013vector} & 55 & i-vector, LDA \\
-\cite{krijnders2013tone} & 55 & cochleogram, SVMs \\
-\cite{patil2013multiresolution} & 58 & 2D Gabor filters, SVMs \\
-\cite{lee2013acoustic} & 60 & unsupervised learning over mel spectra, SVMs \\
-\cite{nogueira2013sound} & 60 & MFCCs and ILD features, SVMs \\
-\cite{chum2013ieee} & 65 & sparsity features, HMMs  \\
-\cite{geiger2013large} & 69 & mel spectra and MFCCs, SVMs \\
-\cite{rakotomamonjy2015histogram} & 69 & histogram of gradient (HOG), SVMs \\
-\cite{li2013auditory} & 72 & MFCCs, tree baggers \\
-\cite{roma2013} & 76 & RQA features stacked with MFCCs, SVMs \\
-\hline
-\cite{phan2016label} & 84/87 & label tree embedding of Gammatone, SVMs \\
-\cite{7362846} & 85$^*$ & amplitude modulated spectra, LDA \\
-\end{tabular}
-\end{center}
-\end{table}
+The methods that performed the best all followed a similar structure, where a low-level feature representation, such as MFCCs, were calculated over short windows and fed separately to a classifier, such as an SVM, for training. During the classification stage, the recording to be classified was similarly processed into short windows represented by feature vectors which were classified individually by the classifier and the classifier output was combined over the recording through majority vote. This last step is known as late integration and allows the classifier to work on individual, shorter-scale sound events instead of trying to classify the recording as a whole. By doing this, the classifier is able to identify and exploit the distinct events that characterize the scene instead of trying to model its average structure. This is in agreement with the psychoacoustic results related to the perception of auditory scenes presented above.
 
 %\gl{Othe this r paper:} \cite{jiang2005svm, kalinli2009saliency, su2011environmental, ye2015acoustic, bisot2015hog, chakrabarty2015exploring, xue2015auditory}
 
