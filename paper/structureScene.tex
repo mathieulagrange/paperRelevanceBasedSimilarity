@@ -354,9 +354,9 @@ Here, with the aim of better balancing the influence of salient sound events and
 The similarity between the scene centroids $\mu_m^u$ over the entire dataset, is computed using a radial basis function (RBF) kernel $K$ combined with the local scaling method proposed in \cite{selfTuneManor2004}:
 \begin{equation}
 \label{eq:kc}
-K_{mn}^{uv} = \exp\left( - \dfrac{\Vert \mu_m^u - \mu_n^v \Vert^2}{\Vert \mu_m^u - \mu_{m,k}^u \Vert \Vert \mu_n^v - \mu_{n,k}^v \Vert} \right).
+K_{mn}^{uv} = \exp\left( - \dfrac{\Vert \mu_m^u - \mu_n^v \Vert^2}{\Vert \mu_m^u - \mu_{m,q}^u \Vert \Vert \mu_n^v - \mu_{n,q}^v \Vert} \right).
 \end{equation} 
-Here, $\mu_{m,k}^u$ and $\mu_{n,k}^v$ are the $k^{\textrm{th}}$ nearest neighbors to the centroids $\mu_m^u$ and $\mu_n^v$, respectively, and $\Vert \cdot \Vert$ denotes the Euclidean norm.
+Here, $\mu_{m,q}^u$ and $\mu_{n,q}^v$ are the $q^{\textrm{th}}$ nearest neighbors to the centroids $\mu_m^u$ and $\mu_n^v$, respectively, and $\Vert \cdot \Vert$ denotes the Euclidean norm.
 
 To compute the similarity between two scenes, we then consider several centroid-based similarity metrics:
 \begin{itemize}
@@ -438,7 +438,7 @@ MFCCs are computed for windows of $50\,\mathrm{ms}$ and hops of $25\,\mathrm{ms}
 
 The performance of the temporal scattering transform and the \emph{ob} approaches are assessed in an unsupervised setting (ASSR) and in a supervised setting (ASC).
 
-For ASSR, evaluation is performed on the private part of the DCASE 2013 dataset. The metric used is the precision at rank $k$ ($p@k$), which is computed by taking a query item and counting the number of items of the same class within the $k$ closest neighbors, and then averaging over all query items. \ja{The variable $k$ is used previously, so we should change that.} The $p@k$ is computed for $k=\lbrace 1,\ldots,9\rbrace$, since each class only has $10$ items. Note that a $p@1$ is equivalent to the classification accuracy obtained by the classifier which chooses the label of the closest neighbor for a given item. For each experimental setting, we only report the results obtained with the sets of parameters, \emph{i.e.} the number of clusters $M$ for the \emph{ob} approaches and the scaling parameter $k$ of the RBF kernels (see Eq. \ref{eq:kc}) leading to the best $p@9$. The \emph{ob} approaches are compared to commonly used early integration approach \emph{early}.
+For ASSR, evaluation is performed on the private part of the DCASE 2013 dataset. The metric used is the precision at rank $k$ ($p@k$), which is computed by taking a query item and counting the number of items of the same class within the $k$ closest neighbors, and then averaging over all query items. The $p@k$ is computed for $k=\lbrace 1,\ldots,9\rbrace$, since each class only has $10$ items. Note that a $p@1$ is equivalent to the classification accuracy obtained by the classifier which chooses the label of the closest neighbor for a given item. For each experimental setting, we only report the results obtained with the sets of parameters, \emph{i.e.} the number of clusters $M$ for the \emph{ob} approaches and the scaling parameter $q$ of the RBF kernels (see Eq. \ref{eq:kc}) leading to the best $p@9$. The \emph{ob} approaches are compared to commonly used early integration approach \emph{early}.
 
 %\ja{I'm not sure what this means. Do we fix $m$ and $N$ here for all experiments or do we optimize them over the test data each time? If so, this will bias the results, no?}
 
@@ -506,7 +506,6 @@ We report experiments on acoustic scene classification (ASC), following the orig
 \subsubsection*{MFCCs \vs scattering}
 
 As shown in Figure \ref{fig:folds}, scattering coefficients outperform MFCCs over all but one fold of the DCASE 2013 private dataset when applying early integration, and over all folds when applying late integration.
-Not only is the average accuracy improved, but the variance between fold-wise accuracies is also reduced, such as from $16\%$ to $7\%$ in the case of early integration. \ja{Why does this happen?}
 This is in accordance with previous results on similarity retrieval, as well as comparisons between mel-frequency coefficients and scattering coefficients for tasks ranging from musical genre recognition and phone segment classification \cite{Anden2014} to environmental sound classification \cite{Salamon2015}.
 
 \subsubsection*{Early \vs late integration}
@@ -514,7 +513,7 @@ Late integration, \ie building a prediction by majority voting over $128$ local 
 This result suggests that, despite its discriminative power at fine scales, the scattering transform is unable to separately characterize distinct acoustic events beyond the scale of about one second. \ja{This is not suggested since the scattering transform is computed at $T=372\,\mathrm{ms}$ and so cannot be expected to capture larger-scale structures. Rather, this says something about the non-stationarity of the audio signals and the fact that we cannot characterize them by some set of summary statistics.}
 Therefore, it is beneficial to regard the scattering transform as a mid-level descriptor of acoustic content, not as a high-level descriptor, and adopt a data-driven strategy for the temporal integration of acoustic events within one scene.
 
-Surprisingly, although we ran a large number of experiments to formulate the relevance-based quantization scheme into a supervised setting for acoustic scene classification, none managed to outperform the baseline strategy in \emph{late} temporal integration, namely majority voting. Among such methods, the best result is achieved by the \emph{ob-c} approach with log-compressed scattering coefficients, reaching an accuracy of $66\% \pm0.7$. \ja{Why don't we display these results? Also how is the variance so much smaller here?} \ml{I agree, we should put the results} This might be due to the fact that the discriminability gained by the relevance-based quantization approach is already achieved by the classifiers during training and the fact the relevance-based quantization approach is equivalent to an early fusion approach, which in the case of the DCASE 2013 has not been identified as beneficial due to the dataset size (see discussion in Section \ref{sec:eili}). \ja{This sentence is very confusing.}
+Surprisingly, although we ran a large number of experiments to formulate the relevance-based quantization scheme into a supervised setting for acoustic scene classification, none managed to outperform the baseline strategy in \emph{late} temporal integration, namely majority voting. Among such methods, the best result is achieved by the \emph{ob-c} approach with log-compressed scattering coefficients, reaching an accuracy of $66\% \pm 7$. \ja{Why don't we display these results?} \ml{I agree, we should put the results} This might be due to the fact that the discriminability gained by the relevance-based quantization approach is already achieved by the classifiers during training and the fact the relevance-based quantization approach is equivalent to an early fusion approach, which in the case of the DCASE 2013 has not been identified as beneficial due to the dataset size (see discussion in Section \ref{sec:eili}). \ja{This sentence is very confusing.}
 
 \subsubsection*{Role of logarithmic compression}
 
