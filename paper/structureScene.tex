@@ -419,11 +419,19 @@ MFCCs are computed for windows of $50\,\mathrm{ms}$ and hops of $25\,\mathrm{ms}
 
 %\ja{We've tested the impact of the logarithm here, but not of the feature selection or standardization. Should we do this as well? For the feature selection, we did say earlier that we would test its impact.}
 
-\subsection{Methods}
+\subsection{Experiment \#1: acoustic scene classification}
 
-The performance of the temporal scattering transform and the \emph{ob} approaches are assessed in an unsupervised setting (ASSR) and in a supervised setting (ASC).
+Our first task is to compare the performance of the standard scattering transform, the logarithmically compressed scattering (log-scattering) transform, and baseline MFCCs. Secondly, we evaluate the two temporal integration approaches presented above, \emph{early} and \emph{late}.
 
-For ASSR, evaluation is performed on the private part of the DCASE 2013 dataset. The metric used is the precision at rank $k$ ($p@k$), which is computed by taking a query item and counting the number of items of the same class within the $k$ closest neighbors, and then averaging over all query items. The $p@k$ is computed for $k=\lbrace 1,\ldots,9\rbrace$, since each class only has $10$ items. Note that a $p@1$ is equivalent to the classification accuracy obtained by the classifier which chooses the label of the closest neighbor for a given item. For each experimental setting, we only report the results obtained with the sets of parameters, \emph{i.e.} the number of clusters $M$ for the \emph{ob} approaches and the scaling parameter $q$ of the RBF kernels (see Eq. \ref{eq:kc}) leading to the best $p@9$. The \emph{ob} approaches are compared to commonly used early integration approach \emph{early}.
+The different systems are evaluated on the private part of the DCASE 2013 dataset using five-fold stratified cross validation. The folds are identical to those used in the original challenge. The slack parameter $C$ of the SVM is here set to $1$. Both linear and Gaussian RBF kernels are used. For the latter, a local scaling method is applied \cite{selfTuneManor2004}. All feature vectors, that is scattering frames, MFCCs and centroids, are standardized prior to be given to the classifier. The standardization is computed with respect to the train/test splits of the cross validation scheme (see Section \ref{sec:stand}). Optimal parameters (see above) are this time learned on the public part of the DCASE 2013 dataset, also using five-fold stratified cross validation. \ja{Which parameters are these?} For these experiments, both \emph{early} and \emph{late} integration strategies are evaluated (see Section \ref{sec:eili}).
+
+\subsection{Experiment \#2: acoustic scene similarity retrieval}
+
+Having validated the underlying assumptions for the cluster-based auditory scene representation, we evaluate its performance for the task of acoustic scene similarity retrieval.
+
+The evaluation is performed on the private part of the DCASE 2013 dataset. The metric used is the precision at rank $k$ ($p@k$), which is computed by taking a query item and counting the number of items of the same class within the $k$ closest neighbors, and then averaging over all query items. The $p@k$ is computed for $k=\lbrace 1,\ldots,9\rbrace$, since each class only has $10$ items. Note that a $p@1$ is equivalent to the classification accuracy obtained by the classifier which chooses the label of the closest neighbor for a given item. For each experimental setting, we only report the results obtained with the sets of parameters, \emph{i.e.} the number of clusters $M$ for the \emph{ob} approaches and the scaling parameter $q$ of the RBF kernels (see Eq. \ref{eq:kc}) leading to the best $p@9$. The \emph{ob} approaches are compared to commonly used early integration approach \emph{early}. \ja{And BOF?}
+
+The clustering for the \emph{ob} methods is done using $k$-means$++$ \cite{arthur2007k}, an augmented version of $k$-means with a more robust initialization procedure. Three numbers of clusters are tested: $8$, $16$ and $32$. The implementation of the presented methods as well as the one of the experimental protocol is available.\footnote{\url{https://github.com/mathieulagrange/paperStructureScene16}} \ja{What is ``the one''?}
 
 %\ja{I'm not sure what this means. Do we fix $m$ and $N$ here for all experiments or do we optimize them over the test data each time? If so, this will bias the results, no?}
 
@@ -435,14 +443,7 @@ For ASSR, evaluation is performed on the private part of the DCASE 2013 dataset.
 \end{center}
 \end{figure}
 
-For ASC, the systems are again evaluated on the private part of DCASE 2013, but here with five-fold stratified cross validation. The folds are identical to those used in the original challenge. In the same way as the majority of the DCASE 2013 participants, we use an SVM for the ASC task, which is a large-margin binary discriminator with tunable regularization of misclassified examples. The slack parameter $C$ is here set to $1$. Optimal parameters (see above) are this time learned on the public part of the DCASE 2013 dataset, also using five-fold stratified cross validation. \ja{Which parameters are these?} For these experiments, both \emph{early} and \emph{late} integration strategies are evaluated (see Section \ref{sec:eili}).
-
-For the \emph{ob} approaches, we use the precomputed kernels described in Section \ref{sec:object}. For both the \emph{early} and \emph{late} methods, a linear kernel as well as an RBF kernel are used. As with the RBF kernels used in the \emph{ob} approaches, the RBF kernel in the SVM is scaled locally using the method proposed in \cite{selfTuneManor2004}. All feature vectors, that is scattering frames, MFCCs and centroids, are standardized prior to be given to the classifier. The standardization is computed with respect to the train/test splits of the cross validation scheme (see Section \ref{sec:stand}).
-
-The clustering for the \emph{ob} methods is done using $k$-means$++$ \cite{arthur2007k}, an augmented version of $k$-means with a more robust initialization procedure. Three numbers of clusters are tested: $8$, $16$ and $32$. The implementation of the presented methods as well as the one of the experimental protocol is available.\footnote{\url{https://github.com/mathieulagrange/paperStructureScene16}} \ja{What is ``the one''?}
-
 \section{Results \label{sec:results}}
-
 
 \subsection{Acoustic Scene Similarity Retrieval}
 
