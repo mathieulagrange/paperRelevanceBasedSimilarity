@@ -233,8 +233,8 @@ This suggests that, despite being hand-crafted and not learned, Gammatone wavele
 \section{Feature design}
 \label{sec:design}
 
-Before classification or clustering, it is beneficial to process scattering coefficients to improve invariance, normality, and generalization power.
-In this section, we review three transformations which achieve these properties, namely logarithmic compression, temporal integration, and standardization.
+Prior to constructing models (for classification or similarity estimation), it is beneficial to process scattering coefficients to improve invariance, normality, and generalization power.
+In this section, we review three transformations which achieve these properties, namely logarithmic compression and standardization.
 
 \subsection{Logarithmic compression}
 \label{sec:logcomp}
@@ -270,6 +270,26 @@ We note that taking the logarithm of such renormalized coefficients yields
 \ie a linear combination of the logarithms of first- and second-order coefficients.
 As such, a nonlinear renormalization becomes a linear transformation, which can be learned by a linearly discriminative classifier.
 
+\subsection{Standardization}
+\label{sec:stand}
+
+Let $\mathbf{S}\boldsymbol{x}(\gamma,n)$ be a dataset, where the $\gamma$ and $n$ respectively denotes feature and sample indices, respectively.
+It has been found that SVMs should be trained on scaled features with null mean and unit variance so as to avoid mismatch in numeric ranges \cite{Hsu2003}.
+To standardize $\mathbf{S}\boldsymbol{x}(\gamma,n)$, we subtract the sample mean vector $\mu[\mathbf{S}\boldsymbol{x}(\gamma)]$ from $\mathbf{S}\boldsymbol{x}(\gamma,n)$ and divide the result by the sample standard deviation vector $\sigma[\mathbf{S}\boldsymbol{x}] (\gamma)$.
+The vectors $\mu[\mathbf{S}\boldsymbol{x}(\gamma)]$ and $\sigma[\mathbf{S}\boldsymbol{x}](\gamma)$ are estimated from the training set only, and the same affine transformation is then applied to all samples in both the training and the test sets.
+
+\section{Supervised classification system}
+\label{sec:supervised}
+
+We are now ready to present the supervised method that we will apply to the acoustic scene classification task using scattering transforms. It consists of two parts, a classifier and a temporal integration method. While the classifier is an SVM, we shall consider two integration approaches, early and late.
+
+\subsection{Support vector machine classifier}
+\label{sec:svm}
+
+A support vector machine (SVM) is a binary discriminative classifier that attempts to find a separating hyperplane between a pair of classes of that provides the maximal margin between the two sets\cite{cortes-vapnik}. From another point of view, it attemts to find a direction on which to project in order to maximize separation between two point clouds. Since it is not a generative, but discriminative model, it is able to pick out those feature vectors that best characterize a particular class of auditory scenes compared to another. This property, coupled with its ease of use and efficient implementations \cite{libsvm} have rendered SVMs a popular choice for many classification systems.
+
+At the classification stage, the SVM gives a class label as output, which is one of the two classes it models. For multi-class settings, a one-\vs-one approach is often used, where an SVM is trained for each pair of classes. During classification, the outputs of all pairwise SVMs is computed and the class selected the largest number of times is chosen.
+
 \subsection{Early \vs late temporal integration}
 \label{sec:eili}
 
@@ -294,22 +314,7 @@ Conversely, a late integration scheme relies on probabilistic assignments $\math
 \end{equation}
 where $\hat{y}$ is the estimated class label and $\rho$ is a reduction function, such as sum, product, or majority vote \cite{Kittler1998}.
 
-A drawback of early integration is that it drastically reduces the number of training instances at the classifier stage, down to one per auditory scene.
-In the context of the DCASE 2013 private dataset, this corresponds to merely $8$ training instances per class, and $80$ instances overall, which can increase the variance of the estimated model and run the risk of overfitting.
-On the contrary, once the scattering representation $\mathbf{S}\boldsymbol{x}(t,\gamma)$ has been unpadded of any boundary artifacts, a late integration scheme for $T=372\textrm{ ms}$ would yield $128$ instances per $30$-second auditory scene, resulting in $10240$ instances overall.
-However, many of these instances may be silent or lack any salient properties of the class they are assigned to, which may increase the bias in the estimated model and run the risk of underfitting.
-Moreover, when applying late integration, the classifier optimizes accuracy at the frame level, not at the scene level, so its prediction might not yield optimal training error under the final evaluation metric.
-In short, early and late integration methods lie at opposite ends of the bias-versus-variance statistical tradeoff. The appropriateness of either approach depends therefore on the nature of the signal that is classified.
-We refer to \cite{Joder2009} for a comprehensive review of this problematic in the context of musical instrument recognition.
-In the context of this paper, early integration refers to an averaging of the features and late integration refers to a majority vote of the predictions given by an SVM. 
-
-\subsection{Standardization}
-\label{sec:stand}
-
-Let $\mathbf{S}\boldsymbol{x}(\gamma,n)$ be a dataset, where the $\gamma$ and $n$ respectively denotes feature and sample indices, respectively.
-It has been found that SVMs should be trained on scaled features with null mean and unit variance so as to avoid mismatch in numeric ranges \cite{Hsu2003}.
-To standardize $\mathbf{S}\boldsymbol{x}(\gamma,n)$, we subtract the sample mean vector $\mu[\mathbf{S}\boldsymbol{x}(\gamma)]$ from $\mathbf{S}\boldsymbol{x}(\gamma,n)$ and divide the result by the sample standard deviation vector $\sigma[\mathbf{S}\boldsymbol{x}] (\gamma)$.
-The vectors $\mu[\mathbf{S}\boldsymbol{x}(\gamma)]$ and $\sigma[\mathbf{S}\boldsymbol{x}](\gamma)$ are estimated from the training set only, and the same affine transformation is then applied to all samples in both the training and the test sets.
+A potential drawback of early integration is that it reduces a sequence of feature vectors to a single average. If the underlying signal is static in nature, this may be advantageous, as the temporal variation of the feature vectors constitutes an unwanted source of variability. For many audio signals, and in particular auditory scenes, this is very far from the truth, and prevents us from identifying the distinct sound events that characterize the signal as these may be drowned out by the background during the averaging step. In this case, a late integration approach would perform better, since it operates on the individual feature vectors and only the classification results are aggregated over time. Using experiments in acoustic scene classification below, we will demonstrate that the late integration approach does indeed succeed over early integration when scattering coefficients are used.
 
 \section{Relevance based quantization of features}
 \label{sec:object}
