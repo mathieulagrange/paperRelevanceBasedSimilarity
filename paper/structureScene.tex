@@ -66,13 +66,13 @@
 % in the abstract or keywords.
 \begin{abstract}
 
-This paper introduces a generic hierarchical modeling scheme for acoustic scenes using the wavelet scattering transform at sub-second time-scales with relevance-based quantization at larger time-scales. Instead of representing a scene using summary statistics, a method popularized by bag-of-features models, each scene is represented by a subset of its most representative features, allowing the retrieval system to focus on discriminative features. We demonstrate the potential of the proposed approach for both acoustic scene similarity retrieval and acoustic scene classification tasks on publicly available datasets, consistently outperforming baseline mel-frequency cepstral coefficient (MFCC) methods.
+An important task in computational bioacoustics and related fields, such as ecouacoustics, is to determine the similarity of two audio scenes. This is often done using bag-of-frames models and other representations based on summary statistics. While these successfully characterize static scenes with little variability in sound content, they are unable to accurately differentiate scenes characterized by a few distinct sound events superimposed over a static background. To address this problem, we propose a two-scale representation, which describes a signal at a short scale using scattering transforms while relying on a cluster model to characterize its larger-scale structure. To motivate this, we validate the use of scattering transforms for supervised acoustic scene classification (ASC), illustrating its state-of-the-art performance compared to traditional feature transforms like mel-frequency cepstral coefficients (MFCCs). Furthermore, we illustrate the power of the full cluster-based representation by applying it to an acoustic scene similarity retrieval (ASSR) task, where we again significantly outperform more traditional approaches based on summary statistics of MFCCs.
 
 \end{abstract}
 
 % Note that keywords are not normally used for peerreview paper.
 \begin{IEEEkeywords}
-acoustic scene classification, acoustic scene segmentation, acoustic scene similarity retrieval, scattering, wavelets, invariance
+bioacoustics, ecoacoustics, acoustic scene classification, acoustic scene similarity retrieval, cluster models, wavelets, scattering, invariance
 \end{IEEEkeywords}
 
 % For peer review papers, you can put extra information on the cover
