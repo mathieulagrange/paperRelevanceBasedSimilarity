@@ -99,7 +99,7 @@ A closely related, and more mature, field of investigation is the classification
 While narrower in its range of applications, it has the advantage of being rooted in the cognitive psychology of categorization \cite{dubois2006cognitive, guastavino_ideal_2006} and has received the attention of the data mining community for some time, resulting in the availability of well-designed datasets.
 
 Despite the differences, ecoacoustics and acoustic scene classification (ASC) task both raise the following question: how can we efficiently and effectively process a large amount of audio data using representations that are compact, generic in their design, and flexible in their use?
-The work described in this paper attempts to answer this question by demonstrating the usefulness of two concepts for environmental audio processing: 1) application of the wavelet scattering transform to extract discriminative features and 2) large time-scale modeling of the acoustic scene based on unsupervised clustering of each acoustic scene, allowing us to focus the scene description on a few salient sound objects that carry most of the semantic information. %\ja{Technically, the 1st concept has already been demonstrated in previous papers. Do we really want to claim this here?} ML narrowed the scope
+The work described in this paper attempts to answer this question by demonstrating the usefulness of two concepts for environmental audio processing: 1) application of the wavelet scattering transform to extract discriminative features and 2) large time-scale modeling of the acoustic scene based on unsupervised clustering of each acoustic scene, allowing us to focus the scene description on a few salient sound objects that carry most of the semantic information.
 
 Motivations of the proposed approach and a brief review of the state of the art in the field of acoustic scene modeling is given in Section \ref{sec:soa}. We describe the scattering transform in Section \ref{sec:scattering}, discuss processing of the resulting features in Section \ref{sec:design} and propose a cluster-based scene description in Section \ref{sec:object}. In Section \ref{sec:experiments}, several experiments are proposed for the unsupervised setting of acoustic scene similarity retrieval (ASSR) and for the supervised setting of acoustic scene classification (ASC). Results are subsequently reported in Section \ref{sec:results}.
 
@@ -125,7 +125,7 @@ An overview of the efforts for the latter task is provided by the IEEE Audio and
 
 \begin{table}
 \begin{center}
-\caption{Algorithms evaluated on the DCASE 2013 private dataset of acoustic scene classification. Algorithms above the horizontal line participated to the DCASE challenge. The algorithm marked with $^*$ considered only the public dataset. \label{tab:dcase} \ml{need to define RQA ILD LDA or remove table ?} %\ja{What are the initials OE, ELF, etc. for? Do we need them?}
+\caption{Algorithms evaluated on the DCASE 2013 private dataset of acoustic scene classification. Algorithms above the horizontal line participated to the DCASE challenge. The algorithm marked with $^*$ considered only the public dataset. \label{tab:dcase} \ml{need to define RQA ILD LDA or remove table ?} 
 }
 \begin{tabular}{lcl}
 & Acc. \%  &  \multicolumn{1}{c}{Design}  \\
@@ -338,7 +338,7 @@ The vectors $\mu[\mathbf{S}\boldsymbol{x}(\gamma)]$ and $\sigma[\mathbf{S}\bolds
 
 %From a data processing point of view, a holistic scheme, such as the bag-of-frame approach \cite{aucouturier2007bag}, has a simplicity, but clearly face poor performance on realistic conditions \cite{lagrange:hal-01082501}. 
 
-As discussed in Section \ref{sec:soa}, results in sound perception suggest the appropriateness of source-driven representations of auditory scenes for predicting high-level properties. As the detection of events is still an open problem \cite{7100934}, we consider in this paper a generic quantization scheme in order to identify and represent time intervals of the scene that are coherent, thus likely to be dominated by a given source of interest. \ja{This last sentence is a bit hard to parse. Are we segmenting the time-series and identifying coherent regions?} \ml{better ?}
+As discussed in Section \ref{sec:soa}, results in sound perception suggest the appropriateness of source-driven representations of auditory scenes for predicting high-level properties. As the detection of events is still an open problem \cite{7100934}, we consider in this paper a generic quantization scheme in order to identify and represent time intervals of the scene that are coherent, thus likely to be dominated by a given source of interest.
 
 Given a set of $d$-dimensional feature vectors $X_u = \{x_1^u, \ldots, x_L^u\}$, extracted from the scene $s_u$, where $u=\lbrace 1,2,\ldots,U\rbrace$, we would like to partition $X_u$ into a set $C_u = \{c^u_1, \ldots, c^u_M\}$ of $M$ clusters. The partitioning is done by minimizing squared error between the empirical mean, or centroid, of each cluster and the vectors belonging to it. Letting $\mu_m^u$ denote the centroid of the cluster $c_m^u$, we attempt to minimize the following objective function:
 \begin{equation}
@@ -436,7 +436,7 @@ MFCCs are computed for windows of $50\,\mathrm{ms}$ and hops of $25\,\mathrm{ms}
 
 \subsection{Methods}
 
-The performance of the temporal scattering transform and the \emph{ob} approaches are assessed in an unsupervised setting (ASSR) and in a supervised setting (ASC). \ja{The \emph{ob} approaches are not really assessed for ASC, though.} \ml{well, we say that this does not work well, no ?}
+The performance of the temporal scattering transform and the \emph{ob} approaches are assessed in an unsupervised setting (ASSR) and in a supervised setting (ASC).
 
 For ASSR, evaluation is performed on the private part of the DCASE 2013 dataset. The metric used is the precision at rank $k$ ($p@k$), which is computed by taking a query item and counting the number of items of the same class within the $k$ closest neighbors, and then averaging over all query items. \ja{The variable $k$ is used previously, so we should change that.} The $p@k$ is computed for $k=\lbrace 1,\ldots,9\rbrace$, since each class only has $10$ items. Note that a $p@1$ is equivalent to the classification accuracy obtained by the classifier which chooses the label of the closest neighbor for a given item. For each experimental setting, we only report the results obtained with the sets of parameters, \emph{i.e.} the number of clusters $M$ for the \emph{ob} approaches and the scaling parameter $k$ of the RBF kernels (see Eq. \ref{eq:kc}) leading to the best $p@9$. The \emph{ob} approaches are compared to commonly used early integration approach \emph{early}.
 
@@ -519,8 +519,7 @@ Surprisingly, although we ran a large number of experiments to formulate the rel
 \subsubsection*{Role of logarithmic compression}
 
 Logarithmic compression provides a small, albeit consistent boost to acoustic scene classification over all folds in the DCASE 2013 private dataset.
-Indeed, as discussed in subsection \ref{sec:logcomp}, and observed in Figure \ref{fig:compression}, the statistical assumption of normality for scattering coefficients is only approximately satisfied once mapped to a logarithmic, decibel-like scale. \ja{Isn't this why we also standardize the coefficients?} \vl{No, standardization does not affect skewness, unlike log compression}
-This transformation improves the discriminative power of the SVMs trained on scattering coefficients, regardless of the chosen temporal integration strategy (early or late) and the inner product kernel (linear or Gaussian RBF).
+Indeed, as discussed in subsection \ref{sec:logcomp}, and observed in Figure \ref{fig:compression}, the statistical assumption of normality for scattering coefficients is only approximately satisfied once mapped to a logarithmic, decibel-like scale. This transformation improves the discriminative power of the SVMs trained on scattering coefficients, regardless of the chosen temporal integration strategy (early or late) and the inner product kernel (linear or Gaussian RBF).
 Again, this is in accordance with our previous findings on acoustic scene similarity retrieval, which are reported in Figure \ref{fig:ASS_2}.
 
 
@@ -529,7 +528,6 @@ Again, this is in accordance with our previous findings on acoustic scene simila
 \caption{
 \label{table:dcase2013}
 Classification accuracies on the DCASE 2013 dataset with various settings of features, temporal integration strategies, and support vector machine kernels.
-\ja{The relationship between linear and RBF is inverted for the \emph{early} integration scheme compared to \emph{late}. Is this correct?}
 }
 \begin{tabular}{llll}
              & MFCCs         & scattering & log-scattering  \\
