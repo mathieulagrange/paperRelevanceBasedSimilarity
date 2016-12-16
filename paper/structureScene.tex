@@ -141,7 +141,7 @@ The methods that performed the best all followed a similar structure, where a lo
 Scattering transforms are time-shift invariant representations of audio signals computed by applying auditory and modulation filter banks alternated with complex modulus non-linearities.
 This section first explains the importance of local invariance to time-shifting and stability to time-warping in the representation of acoustic scenes, then describes how the scattering transform is designed to satisfy these properties while having a high discriminative power.
 
-\subsection{Invariance and stability in acoustic scenes}
+\subsection{Invariance and stability in audio signals}
 The notion of invariance to time-shifting plays an essential role in acoustic scene similarity retrieval as well as acoustic scene classification.
 Indeed, recordings may be shifted locally without affecting their original class memberships.
 To discard this superfluous source of variability, signals can be mapped to a time-shifting invariant feature space before training the classifier, eliminating the need for this classifier to explicitly learn this invariance and increasing the robustness of its predictions.
