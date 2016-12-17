@@ -24,7 +24,7 @@
 \usepackage{pgf}
 \usepackage{tikz}
 \usetikzlibrary{arrows,positioning}
-\usepackage{url}
+\usepackage[hyphens]{url}
 \usepackage{color}
 \usepackage{graphicx}
 \usepackage{xspace}
@@ -512,7 +512,7 @@ This is in accordance with previous results on similarity retrieval, as well as 
 
 In order to evaluate the generality of our findings, we have taken part in the acoustic scene classification task of the 2016 edition of the DCASE challenge, which was evaluated on a much larger dataset compared to DCASE 2013. For this reason, training support vector machines with the Gaussian RBF kernel proved computationally too demanding and we instead used a linear kernel. Results on DCASE 2013 (see Table \ref{table:dcase2013}) suggests that this provides comparable, albeit slightly worse results.
 
-We compare our results with baseline classifier using linear SVMs and MFCC features, which achieves an average accuracy of $65.5\%$. With the scattering transform, however, the average accuracy increases to $79.4\%$. This accuracy increases slightly to $80.8\%$ when calculated on the held-out evaluation dataset.\footnote{See \url{http://www.cs.tut.fi/sgn/arg/dcase2016/task-results-acoustic-scene-classification}} The small change in accuracy suggests that there is little overfitting in the model, an indication of good generalization power.
+We compare our results with baseline classifier using linear SVMs and MFCC features, which achieves an average accuracy of $65.5\%$. With the scattering transform, however, the average accuracy increases to $79.4\%$. This accuracy increases slightly to $80.8\%$ when calculated on the held-out evaluation dataset.\footnote{\url{http://www.cs.tut.fi/sgn/arg/dcase2016/task-results-acoustic-scene-classification}} The small change in accuracy suggests that there is little overfitting in the model, an indication of good generalization power.
 
 \subsubsection*{Early \vs late integration}
 On the DCASE 2013 dataset, late integration, \ie building a prediction by majority voting over $128$ local windows of duration $T=372\,\mathrm{ms}$, outperforms early integration, \ie classifying the acoustic scene with a global window of duration $T=24\,\mathrm{s}$.
