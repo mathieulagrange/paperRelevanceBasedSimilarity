@@ -361,7 +361,7 @@ To compute the $\widehat{\EMD}$, we use the implementation proposed in \cite{pel
 \begin{equation}
 \begin{split}
 \widehat{\EMD}(p_u,p_v) &=\left( \min\limits_{\lbrace f_{nm}\rbrace} \sum\limits_{n,m} f_{nm}D_{nm}^{uv} \right) \\
-&+ \left|\sum\limits_{n} w_n^u - \sum\limits_{m} w_m^v  \right| \alpha \max\limits_{n,m}\lbrace  D_{nm}^{uv}\rbrace.
+&+ \left|\sum\limits_{n} w_n^u - \sum\limits_{m} w_m^v  \right| \max\limits_{n,m}\lbrace  D_{nm}^{uv}\rbrace.
 \end{split}
 \end{equation}
 
@@ -373,7 +373,7 @@ To compute the $\widehat{\EMD}$, we use the implementation proposed in \cite{pel
 \sum\limits_{n,m}f_{nm} = \min\left( \sum\limits_{n} w_n^u ,\sum\limits_{m} w_m^v \right)
 \end{equation*} 
 %\ja{Can we provide some interpretation for the different terms and constraints here?}
-where $\lbrace f_{nm} \rbrace$ is the flow between the cluster weights $w_n^u$ and $w_m^v$, that is, the amount transported from the $n^{\textrm{th}}$ bin to ``supply the demand'' of the $m^\textrm{th}$ bin, and $\alpha$ is a parameter which trades off between \ja{?}. We denote by $D^{uv}$ the ground distance, a matrix containing the pairwise distances between the centroids sets $\mu^u$ and $\mu^v$. $D^{uv}$ is computed from the kernel $K$:
+where $\lbrace f_{nm} \rbrace$ is the flow between the cluster weights $w_n^u$ and $w_m^v$, that is, the amount transported from the $n^{\textrm{th}}$ bin to ``supply the demand'' of the $m^\textrm{th}$ bin. We denote by $D^{uv}$ the ground distance, a matrix containing the pairwise distances between the centroids sets $\mu^u$ and $\mu^v$. $D^{uv}$ is computed from the kernel $K$:
 \begin{equation*}
 D_{mn}^{uv}=1-K_{mn}^{uv}.
 \end{equation*}
@@ -390,6 +390,8 @@ with $A$ a scaling parameter, set to the mean value of the $\widehat{\EMD}$ betw
 \label{sec:experiments}
 
 The implementations of the presented methods and the experimental protocol are available online\footnote{\url{https://github.com/mathieulagrange/paperStructureScene16}}. % \ja{What is ``the one''?}
+
+% , and $\alpha$ is a parameter which trades off between \ja{?}
 
 \subsection{Datasets}
 
