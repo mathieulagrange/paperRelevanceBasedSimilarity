@@ -1,7 +1,7 @@
 function [] = printFigures(nbFig,name,opt)
 
 for jj=1:length(nbFig)
-    
+    colormap('gray')
     set(figure(nbFig(jj)),'PaperUnits','centimeters')
     set(figure(nbFig(jj)),'Units','centimeters')
     set(figure(nbFig(jj)),'PaperPositionMode','manual')

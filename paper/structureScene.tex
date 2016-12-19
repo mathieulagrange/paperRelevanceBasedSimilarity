@@ -286,7 +286,7 @@ We are now ready to present the supervised method that we will apply to the acou
 \subsection{Support vector machine classifier}
 \label{sec:svm}
 
-A support vector machine (SVM) is a binary discriminative classifier that attempts to find a separating hyperplane between a pair of classes of that provides the maximal margin between the two sets \cite{cortes-vapnik}. From another point of view, it attemts to find a direction on which to project in order to maximize separation between two point clouds. Since it is not a generative, but discriminative model, it is able to pick out those feature vectors that best characterize a particular class of auditory scenes compared to another. This property, coupled with its ease of use and efficient implementations \cite{libsvm} have rendered SVMs a popular choice for many classification systems.
+A support vector machine (SVM) is a binary discriminative classifier that attempts to find a separating hyperplane between a pair of classes of that provides the maximal margin between the two sets \cite{Cortes1995}. From another point of view, it attemts to find a direction on which to project in order to maximize separation between two point clouds. Since it is not a generative, but discriminative model, it is able to pick out those feature vectors that best characterize a particular class of auditory scenes compared to another. This property, coupled with its ease of use and efficient implementations \cite{libsvm} have rendered SVMs a popular choice for many classification systems.
 
 At the classification stage, the SVM gives a class label as output, which is one of the two classes it models. For multi-class settings, a one-\vs-one approach is often used, where an SVM is trained for each pair of classes. During classification, the outputs of all pairwise SVMs is computed and the class selected the largest number of times is chosen.
 
@@ -445,15 +445,15 @@ The results on acoustic scene classification illustrate the superior performance
 
 \subsection{Experiment \#1: acoustic scene classification}
 
-\begin{figure}
-\begin{center}
-\includegraphics[width=\columnwidth]{bw/folds.png}
-\caption{\label{fig:folds}
-Classification accuracies over the five folds of the DCASE 2013 private dataset, for various acoustic descriptors and temporal integration strategies.  Performance on each fold is depicted using a given symbol.
-The chosen classifier is a support vector machine (SVM) whose kernel is a Gaussian radial basis function (RBF).
-The mean accuracies and fold-wise standard deviations of each experiment are reported in Table \ref{table:dcase2013}.}
-\end{center}
-\end{figure}
+%\begin{figure}
+%\begin{center}
+%\includegraphics[width=\columnwidth]{bw/folds.png}
+%\caption{\label{fig:folds}
+%Classification accuracies over the five folds of the DCASE 2013 private dataset, for various acoustic descriptors and temporal integration strategies.  Performance on each fold is depicted using a given symbol.
+%The chosen classifier is a support vector machine (SVM) whose kernel is a Gaussian radial basis function (RBF).
+%The mean accuracies and fold-wise standard deviations of each experiment are reported in Table \ref{table:dcase2013}.}
+%\end{center}
+%\end{figure}
 
 \begin{table}
 \begin{center}
@@ -509,7 +509,9 @@ Indeed, as discussed in subsection \ref{sec:logcomp}, and observed in Figure \re
 
 \subsubsection*{MFCCs \vs scattering}
 
-As shown in Figure \ref{fig:folds}, scattering coefficients outperform MFCCs over all but one fold of the DCASE 2013 private dataset when applying early integration, and over all folds when applying late integration.
+%As shown in Figure \ref{fig:folds}, scattering coefficients outperform MFCCs over all but one fold of the DCASE 2013 private dataset when applying early integration, and over all folds when applying late integration.
+
+As shown on Table \ref{table:dcase2013}, scattering coefficients outperform MFCCs on the DCASE 2013 private dataset when applying early and integration.
 This is in accordance with previous results on similarity retrieval, as well as comparisons between mel-frequency coefficients and scattering coefficients for tasks ranging from musical genre recognition and phone segment classification \cite{Anden2014} to environmental sound classification \cite{Salamon2015}.
 
 In order to evaluate the generality of our findings, we have taken part in the acoustic scene classification task of the 2016 edition of the DCASE challenge, which was evaluated on a much larger dataset compared to DCASE 2013. For this reason, training support vector machines with the Gaussian RBF kernel proved computationally too demanding and we instead used a linear kernel. Results on DCASE 2013 (see Table \ref{table:dcase2013}) suggests that this provides comparable, albeit slightly worse results.

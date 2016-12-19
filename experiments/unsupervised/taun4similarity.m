@@ -18,7 +18,6 @@ if nargin==0, talspStruct2016_unsupervised('do', 4, 'mask', {}); return; else st
 store.xp_settings=data.xp_settings;
 store.soundIndex=data.soundIndex;
 store.class=data.class;
-store.dataset=data.dataset;
 
 store.weight=data.weight;
 store.indSample=data.indSample;

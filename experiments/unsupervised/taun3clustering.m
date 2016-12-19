@@ -22,7 +22,6 @@ rng(0);
 store.xp_settings=data.xp_settings;
 store.soundIndex=data.soundIndex;
 store.class=data.class;
-store.dataset=data.dataset;
 
 store.weight=[];
 store.centroid=[];

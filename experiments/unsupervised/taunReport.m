@@ -6,7 +6,7 @@ function config = taunReport(config)
 % Copyright: gregoirelafay
 % Date: 17-Dec-2016
 
-if nargin==0, talspStruct2016_unsupervised('report', 'r'); return; end
+if nargin==0, unsupervised('report', 'r'); return; end
 
 features = {'mfcc','scatT'};
 scat_log = {'','log'};
@@ -19,11 +19,11 @@ for a=1:length(features)
             case 'early'
                 switch features{a}
                     case 'mfcc'
-                        config = expExpose(config, 't','fontSize','scriptsize','step', 5, 'mask',{2 a 0 c 0 [1 2 3] 0},'obs',[1 2 3 4 5 6 7 8 9],'precision', 2,'save',1,'name', ...
+                        config = expExpose(config, 't','fontSize','scriptsize','step', 5, 'mask',{a 0 c 0 [1 2 3] 0},'obs',[1 2 3 4 5 6 7 8 9],'precision', 2,'save',1,'name', ...
                             ['unsupervised_test_' features{a} '_' integration{c}]);
                     case 'scatT'
                         for b=1:length(scat_log)
-                            config = expExpose(config, 't','fontSize','scriptsize','step', 5, 'mask',{2 a b c 0 [1 2 3] 0},'obs',[1 2 3 4 5 6 7 8 9],'precision', 2,'save',1,'name', ...
+                            config = expExpose(config, 't','fontSize','scriptsize','step', 5, 'mask',{a b c 0 [1 2 3] 0},'obs',[1 2 3 4 5 6 7 8 9],'precision', 2,'save',1,'name', ...
                                 ['unsupervised_test_' scat_log{b} features{a} '_' integration{c}]);
                         end
                 end  
@@ -31,11 +31,11 @@ for a=1:length(features)
                 for d=1:length(similarity_dist)
                     switch features{a}
                         case 'mfcc'
-                            config = expExpose(config, 't','fontSize','scriptsize','step', 5, 'mask',{2 a 0 c 0 [1 2 3] d},'obs',[1 2 3 4 5 6 7 8 9],'precision', 2,'save',1,'name', ...
+                            config = expExpose(config, 't','fontSize','scriptsize','step', 5, 'mask',{a 0 c 0 [1 2 3] d},'obs',[1 2 3 4 5 6 7 8 9],'precision', 2,'save',1,'name', ...
                                 ['unsupervised_test_' features{a} '_' integration{c} '_' similarity_dist{d}]);
                         case 'scatT'
                             for b=1:length(scat_log)
-                                config = expExpose(config, 't','fontSize','scriptsize','step', 5, 'mask',{2 a b c 0 [1 2 3] d},'obs',[1 2 3 4 5 6 7 8 9],'precision', 2,'save',1,'name', ...
+                                config = expExpose(config, 't','fontSize','scriptsize','step', 5, 'mask',{a b c 0 [1 2 3] d},'obs',[1 2 3 4 5 6 7 8 9],'precision', 2,'save',1,'name', ...
                                     ['unsupervised_test_' scat_log{b} features{a} '_' integration{c} '_' similarity_dist{d}]);
                             end
                     end  
@@ -43,3 +43,5 @@ for a=1:length(features)
         end
     end
 end
+
+

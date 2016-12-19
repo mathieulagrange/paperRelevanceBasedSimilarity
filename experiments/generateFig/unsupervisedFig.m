@@ -3,7 +3,7 @@ addpath([fileparts(mfilename('fullpath')) '/nonExposed'])
 
 %% settings
 
-dataPath='../talspStruct2016_unsupervised/report/figures/';
+dataPath='../unsupervised/report/figures/';
 linewidth=1.6;
 markersize=10;
 
@@ -31,6 +31,7 @@ for ii=1:length(dataLab)
         end
     end
     eval([dataLab{ii} '.meanBest=' dataLab{ii} '.mean(indMax,:);']); 
+     eval([dataLab{ii} '.meanBest=' dataLab{ii} '.meanBest(1, :);']); % ML
 end
 
 disp('')
@@ -47,7 +48,7 @@ plot(logscatT_early.meanBest,'o-','markersize',markersize,'linewidth',linewidth)
 plot(logscatT_clustering_emd.meanBest,'v-','markersize',markersize,'linewidth',linewidth)
 plot(logscatT_clustering_closest.meanBest,'^-','markersize',markersize,'linewidth',linewidth)
 hold off
-legend({'early, scattering','ob-w, scattering','ob-c, scattering','early, log-scattering','ob-w, log-scattering','ob-c, log-scattering'},'interpreter','none')
+legend({'early, scattering','RbQ-w, scattering','RbQ-c, scattering','early, log-scattering','RbQ-w, log-scattering','RbQ-c, log-scattering'},'interpreter','none')
 legend('boxoff')
 xlabel('k')
 ylabel('p@k')
@@ -57,6 +58,7 @@ disp('')
 
 figure(2)
 clf
+
 plot(mfcc_early.meanBest,'o--','markersize',markersize,'linewidth',linewidth)
 hold on
 plot(mfcc_clustering_average.meanBest,'*--','markersize',markersize,'linewidth',linewidth)
@@ -70,8 +72,8 @@ plot(logscatT_clustering_emd.meanBest,'v-','markersize',markersize,'linewidth',l
 plot(logscatT_clustering_closest.meanBest,'^-','markersize',markersize,'linewidth',linewidth)
 
 hold off
-legend({'early, mfcc','ob-a, mfcc','ob-w, mfcc','ob-c, mfcc', ...
-    'early, log-scattering','ob-a, log-scattering','ob-w, log-scattering','ob-c, log-scattering'},'interpreter','none')
+legend({'early, mfcc','RbQ-a, mfcc','RbQ-w, mfcc','RbQ-c, mfcc', ...
+    'early, log-scattering','RbQ-a, log-scattering','RbQ-w, log-scattering','RbQ-c, log-scattering'},'interpreter','none')
 legend('boxoff')
 xlabel('k')
 ylabel('p@k')

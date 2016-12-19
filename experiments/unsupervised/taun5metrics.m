@@ -11,7 +11,7 @@ function [config, store, obs] = taun5metrics(config, setting, data)
 % Date: 17-Dec-2016                                                                                
                                                                                                    
 % Set behavior for debug mode                                                                      
-if nargin==0, talspStruct2016_unsupervised('do', 5, 'mask', {2 [1 2] 0 11 2 0 0 3}); return; else store=[]; obs=[]; end
+if nargin==0, unsupervised('do', 5, 'mask', {}); return; else store=[]; obs=[]; end
                                                                                                    
 D=1-data.A/max(data.A(:));
 k2look=[1 2 3 4 5 6 7 8 9];
