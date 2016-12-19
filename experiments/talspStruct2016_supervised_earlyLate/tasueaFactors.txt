@@ -1,0 +1,6 @@
+dataset =1:== {'train','test'}
+features =1:== {'mfcc','scatT'}
+integration =2:== {'early','late'}
+scat_log =3:=2/2= [0 1]
+similarity =3:== {'linear','rbf'}
+similarity_nn =3:=5/2= [.1:.1:.9]
