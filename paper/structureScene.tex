@@ -185,7 +185,7 @@ theoretical limit of optimal time-frequency localization across the whole
 frequency range, whereas the temporal resolution of the traditional CQT is fixed by the support of the STFT analyzing window. %\cite{Brown1992}
 Therefore, the scalogram has a better temporal localization at high
 frequencies than the CQT, at the expense of a greater computational cost
-since the inverse fast Fourier transform (IFFT) routine must be called for each wavelet $\boldsymbol{\psi_{\gamma_1}}$ in the filter bank. \ja{Is the cost really greater?}
+since the inverse fast Fourier transform (IFFT) routine must be called for each wavelet $\boldsymbol{\psi_{\gamma_1}}$ in the filter bank.
 However, this allows us to observe amplitude modulations at fine temporal scales in the scalogram, down to $2Q_1/\xi_1$ for $\gamma_1 = 0$, of the order of $1\,\textrm{ms}$ given the aforementioned values of $Q_1$ and $\xi_1$.
 
 To obtain the desired invariance and stability properties, the scalogram is averaged in time using a lowpass filter $\phi(t)$ with cut-off frequency $1/T$ (and so a duration of approximately $T$), to get
