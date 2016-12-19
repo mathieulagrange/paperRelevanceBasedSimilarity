@@ -65,14 +65,19 @@
 % As a general rule, do not put math, special symbols or citations
 % in the abstract or keywords.
 \begin{abstract}
-
-An important task in the emerging field of computational ecoacoustics is to determine the similarity of two audio scenes to be able to get a high level understanding of large amount of audio recordings coming from large deployment of acoustics sensors that are continuously recordings the sonic environment. A convenient method considers bag-of-frames models and other representations based on summary statistics. While these successfully characterize static scenes with little variability in sound content, they are unable to accurately differentiate scenes characterized by a few distinct sound events superimposed over a static background. To address this problem, we propose a two-scale representation, which describes a signal at a short scale using scattering transforms while relying on a cluster model to characterize its larger-scale structure. To motivate this, we validate the use of scattering transforms for supervised acoustic scene classification (ASC), illustrating its state-of-the-art performance compared to traditional feature transforms like mel-frequency cepstral coefficients (MFCCs). Furthermore, we illustrate the power of the full cluster-based representation by applying it to an acoustic scene similarity retrieval (ASSR) task, where we again significantly outperform more traditional approaches based on summary statistics of MFCCs.
+The emerging field of computational ecoacoustics aims at retrieving high-level information from the continuous, environmental recordings of acoustic sensors.
+In this context, a central task is to cluster auditory scenes by similarity.
+A convenient method considers bag-of-frames models and other representations based on summary statistics.
+While these successfully characterize static scenes with little variability in sound content, they are unable to accurately differentiate scenes characterized by a few distinct sound events superimposed over a static background.
+To address this problem, we propose a two-scale representation, which describes a signal at a short scale using scattering transforms while relying on a cluster model to characterize its larger-scale structure.
+To motivate this, we validate the use of scattering transforms for supervised acoustic scene classification (ASC), illustrating its state-of-the-art performance compared to traditional features, such as mel-frequency cepstral coefficients (MFCCs).
+Furthermore, we illustrate the power of the full cluster-based representation by applying it to an acoustic scene similarity retrieval (ASSR) task, where we again significantly outperform more traditional approaches based on summary statistics of MFCCs.
 
 \end{abstract}
 
 % Note that keywords are not normally used for peerreview paper.
 \begin{IEEEkeywords}
-acoustic scene classification, acoustic scene similarity retrieval, cluster models, wavelets, scattering, invariance
+acoustic scene classification, acoustic scene similarity retrieval, cluster models, wavelets, scattering, invariance.
 \end{IEEEkeywords}
 
 % For peer review papers, you can put extra information on the cover
@@ -88,7 +93,7 @@ acoustic scene classification, acoustic scene similarity retrieval, cluster mode
 \section{Introduction}
 
 \IEEEPARstart{T}{he} amount of audio data recorded from our sonic environment has grown considerably over the past decades.
-In order to measure the effect of human activity and climate change on animal biodiversity researchers have recently undertaken the massive deployment of acoustic sensors throughout the world \cite{warren2006urban, NessSST13, stowell13b}. 
+In order to measure the effect of human activity and climate change on animal biodiversity, researchers have recently undertaken the massive deployment of acoustic sensors throughout the world \cite{warren2006urban, NessSST13, stowell13b}. 
 In addition, recent work has explored acoustic monitoring for characterization of human pleasantness in urban areas \cite{guyot2005urban, ricciardi2015sound}, as well as the prediction of annoyance due to traffic \cite{gloaguen}.
 Because they bear a strong societal impact and raise many scientific challenges, we believe that these applications are of considerable interest for the signal processing community.
 
@@ -557,7 +562,7 @@ These outcomes shall be studied further in future work by considering larger dat
 %\bibliography{biblio}
 \printbibliography
 
-\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{gfx/lostanlen}}]{Vincent Lostanlen} was born in 1992. He received an engineering degree from TELECOM ParisTech in 2013 and M.S. degree in acoustics, signal processing, and musical informatics (ATIAM) from the Universit\'{e} Pierre et Marie Curie and the Ircam (UPMC) in Paris, France, in 2013. Since 2013, he is a Ph.D. student at \'{E}cole normale sup\'{e}rieure in Paris, working under the supervision of St\'{e}phane Mallat.
+\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{gfx/lostanlen}}]{Vincent Lostanlen} was born in 1992. He received an engineering degree from TELECOM ParisTech in 2013 and his M.S. degree in acoustics, signal processing, and musical informatics (ATIAM) from the Universit\'{e} Pierre et Marie Curie (UPMC) and the Ircam in Paris, France, in 2013. Since 2013, he is a Ph.D. student at \'{E}cole normale sup\'{e}rieure in Paris, working under the supervision of St\'{e}phane Mallat. His research focuses on defining convolutional operators in the time-frequency domain with applications in audio classification.
 \end{IEEEbiography}
 
 \begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{gfx/lafay}}]{Gr\'egoire Lafay} was born in Paris, France, in 1990. He received in 2011 the B.S. degree in Acoustic from the University Pierre and Marie Curie (UPMC), Paris, France, and the B.S. degree in Musicology from the Sorbonne University, Paris, France. He received his M.S. degree in acoustics, signal processing, and musical informatics (ATIAM) from the Universit\'{e} Pierre and Marie Curie and the Ircam in Paris, France, in 2013. Since 2013, he is a Ph.D. student at IRCCyN, a French laboratory dedicated to cybernetics. His research interests include acoustic scene similarity and classification as well as acoustic scene perception. 
@@ -565,11 +570,11 @@ These outcomes shall be studied further in future work by considering larger dat
 
 
 \begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{gfx/anden}}]{Joakim And\'en}
-received the M.Sc. degree in mathematics from the Universit\'e Pierre et Marie Curie, Paris, France, in 2010 and the PhD degree in applied mathematics from Ecole Polytechnique, Palaiseau, France, in 2014. He is currently a postdoctoral researcher with the Program in Applied and Computational mathematics at Princeton University, Princeton, USA. His research interests include signal processing, machine learning, and statistical data analysis. He is a member of the IEEE.
+received the M.Sc. degree in mathematics from the Universit\'e Pierre et Marie Curie, Paris, France, in 2010 and the Ph.D. degree in applied mathematics from Ecole Polytechnique, Palaiseau, France, in 2014. He is currently a postdoctoral researcher with the Program in Applied and Computational mathematics at Princeton University, Princeton, USA. His research interests include signal processing, machine learning, and statistical data analysis. He is a member of the IEEE.
 
 \end{IEEEbiography}
 
-\begin{IEEEbiography}[{\includegraphics[width=1.25in,height=1.25in,clip,keepaspectratio]{gfx/lagrange}}]{Mathieu Lagrange} is a CNRS research scientist at IRCCyN, a French laboratory dedicated to cybernetics. He obtained his PhD in computer science at the University of Bordeaux in 2004, and visited several institutions in Canada (University of Victoria, McGill University) and in France (Orange Labs, TELECOM ParisTech, Ircam). His research focuses on machine listening algorithms applied to the analysis of musical and environmental audio.
+\begin{IEEEbiography}[{\includegraphics[width=1.25in,height=1.25in,clip,keepaspectratio]{gfx/lagrange}}]{Mathieu Lagrange} is a CNRS research scientist at IRCCyN, a French laboratory dedicated to cybernetics. He obtained his Ph.D. in computer science at the University of Bordeaux in 2004, and visited several institutions in Canada (University of Victoria, McGill University) and in France (Orange Labs, TELECOM ParisTech, Ircam). His research focuses on machine listening algorithms applied to the analysis of musical and environmental audio.
 \end{IEEEbiography}
 
 % biography section
