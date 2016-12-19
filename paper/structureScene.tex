@@ -348,19 +348,19 @@ Here, $\mu_{m,q}^u$ and $\mu_{n,q}^v$ are the $q^{\textrm{th}}$ nearest neighbor
 
 To compute the similarity between two scenes, we then consider several centroid-based similarity metrics:
 \begin{itemize}
-\item \emph{ob-closest} (\emph{ob-c}): the similarity between two scenes $s_u$ and $s_v$ is equal to the largest similarity between their centroids, that is
+\item Relevance-based Quantization closest similarity (\emph{RbQ-c}): the similarity between two scenes $s_u$ and $s_v$ is equal to the largest similarity between their centroids, that is
 \begin{equation}
 	\max_{m,n} K_{mn}^{uv},
 \end{equation}
-\item \emph{ob-averaged} (\emph{ob-a}): the similarity between two scenes $s_u$ and $s_v$ is equal to the average of their centroid similarities, that is
+\item Relevance-based Quantization average similarity  (\emph{RbQ-a}): the similarity between two scenes $s_u$ and $s_v$ is equal to the average of their centroid similarities, that is
 \begin{equation}
 	\frac{1}{M^2} \sum_{m,n} K_{mn}^{uv}
 \end{equation}
 and,
-\item \emph{ob-weighted} (\emph{ob-w}): the similarity between two scenes is computed using a variant of the earth mover's distance applied to the set of centroids weighted by the number of frames assigned to its cluster.
+\item Relevance-based Quantization weighted similarity  (\emph{RbQ-w}): the similarity between two scenes is computed using a variant of the earth mover's distance applied to the set of centroids weighted by the number of frames assigned to its cluster.
 \end{itemize}
 
-For \emph{ob-w}, each centroid is weighted according to the number of frames belonging to its cluster. Each scene $s_u$ is thus described by a signature $p_u$ of $M$ clusters, where $p_u=\lbrace(\mu_1^u,w_1^u),(\mu_2^u,w_2^u),\ldots,(\mu_M^u,w_M^u)\rbrace$) and $\mu_m^u$ and $w_m^u$ are the centroid and the weight of the $m$th cluster, respectively. The similarity between scenes is then given by a cross-bin histogram distance known as the non-normalized earth mover's distance ($\widehat{\EMD}$) introduced by \cite{pele2008linear}. The $\widehat{\EMD}$ computes the distance between two histograms by finding the minimal cost for transforming one histogram into the other, where cost is measured by the number of transported histogram counts times the ``ground distance'' moved in terms of the histogram bins. In our case, the histogram counts are the clusters weights $w_m^u$ defined over the bins formed by the centroids $\mu_m^u$, so the ground distance is the distance over these cluster centroids.
+For \emph{RbQ-w}, each centroid is weighted according to the number of frames belonging to its cluster. Each scene $s_u$ is thus described by a signature $p_u$ of $M$ clusters, where $p_u=\lbrace(\mu_1^u,w_1^u),(\mu_2^u,w_2^u),\ldots,(\mu_M^u,w_M^u)\rbrace$) and $\mu_m^u$ and $w_m^u$ are the centroid and the weight of the $m$th cluster, respectively. The similarity between scenes is then given by a cross-bin histogram distance known as the non-normalized earth mover's distance ($\widehat{\EMD}$) introduced by \cite{pele2008linear}. The $\widehat{\EMD}$ computes the distance between two histograms by finding the minimal cost for transforming one histogram into the other, where cost is measured by the number of transported histogram counts times the ``ground distance'' moved in terms of the histogram bins. In our case, the histogram counts are the clusters weights $w_m^u$ defined over the bins formed by the centroids $\mu_m^u$, so the ground distance is the distance over these cluster centroids.
 
 To compute the $\widehat{\EMD}$, we use the implementation proposed in \cite{pele2009fast}. Given two signatures $p_u$ and $p_v$, the $\widehat{\EMD}$ is computed by solving the following linear program:
 \begin{equation}
@@ -533,13 +533,13 @@ This section presents evaluation results for the acoustic scene similarity retri
 
 \subsubsection*{MFCC \vs scattering transform}
 
-Irrespective of the rank $k$ considered, best result is achieved for the scattering transform with logarithmic compression using the \emph{ob-c} approach. Overall, log-compressed scattering coefficients systematically outperform MFCCs. This is to be expected since the scattering coefficients capture larger-scale modulations, as opposed to MFCCs which only describe the short-time spectral envelope.
+Irrespective of the rank $k$ considered, best result is achieved for the scattering transform with logarithmic compression using the \emph{RbQ-c} approach. Overall, log-compressed scattering coefficients systematically outperform MFCCs. This is to be expected since the scattering coefficients capture larger-scale modulations, as opposed to MFCCs which only describe the short-time spectral envelope.
 
 \subsubsection*{Relevance-based quantization \vs early integration}
 
-For the scattering transform, both \emph{ob-c} and \emph{ob-w} outperform \emph{early}, thus confirming the benefits of using an relevance-based quantization to improve the similarity measures between the scenes. However, it is worth noticing that \emph{ob-a} performs comparably to \emph{early}, showing that the discriminant information is destroyed by averaging the contributions from all centroids. To take advantage of an such a representation, we need to select certain representative centroids when comparing quantized objects. Furthermore, it appears that \emph{ob-c} is better able to characterize the classes than \emph{ob-w}. This last observation suggests that weighting a centroid according to the number of frames it contains may prove to be a limited solution. Indeed, nothing a priori indicates that the discriminant information between two scenes lays within the majority of their frames. On the contrary, two similar environments may shared a lot of similar sound sources with only a few sources discriminating between them.
+For the scattering transform, both \emph{RbQ-c} and \emph{RbQ-w} outperform \emph{early}, thus confirming the benefits of using an relevance-based quantization (RbQ) to improve the similarity measures between the scenes. However, it is worth noticing that \emph{RbQ-a} performs comparably to \emph{early}, showing that the discriminant information is destroyed by averaging the contributions from all centroids. To take advantage of an such a representation, we need to select certain representative centroids when comparing quantized objects. Furthermore, it appears that \emph{RbQ-c} is better able to characterize the classes than \emph{RbQ-w}. This last observation suggests that weighting a centroid according to the number of frames it contains may prove to be a limited solution. Indeed, nothing a priori indicates that the discriminant information between two scenes lays within the majority of their frames. On the contrary, two similar environments may shared a lot of similar sound sources with only a few sources discriminating between them.
 
-The same observations are made for the MFCCs for $k\leq5$. However for a rank $k$ greater than $5$, all the \emph{ob} approaches perform equivalently. As such, one can conclude that the use of MFCCs allows us to retrieve closely related scenes, but their lack of discriminative capabilities making the cluster selection/weighting step useless for not so closely related scenes of the same class
+The same observations are made for the MFCCs for $k\leq5$. However for a rank $k$ greater than $5$, all the \emph{RbQ} approaches perform equivalently. As such, one can conclude that the use of MFCCs allows us to retrieve closely related scenes, but their lack of discriminative capabilities making the cluster selection/weighting step useless for not so closely related scenes of the same class
 
 %This may be due to the fact that, at some point, the MFCCs fail to dissociate the discriminative events of a scene from the non-informative ones, thus making the cluster selection/weighting step useless. \ja{What is the ``at some point'' referring to? In other words, why do we expect this to happen for larger $k$ but not smaller?}
 	
