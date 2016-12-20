@@ -88,7 +88,7 @@ As formulated, the scattering transforms do indeed have only local time-shifting
 
 \item \emph{The function $\phi$ is hardly considered as a low-pass since a low-pass is only used in coordination with a high-pass for quadratic mirror filters. Here $\phi$ is a scaling function.}
 
-The function $\phi$ is very much a low-pass filter with a frequency support of approximately $1/T$ and a time bandwidth of $T$, where $T$ is of the order of hundreds of milliseconds. It does not correspond to the traditional scaling function used in quadratic mirror filters.
+The function $\phi$ is very much a low-pass filter with a frequency support of approximately $1/T$ and a time bandwidth of $T$, where $T$ is of the order of hundreds of milliseconds. It does not correspond to the traditional scaling function used in quadrature mirror filters.
 
 \item \emph{Line 34: "wavelet transform modulus" is not clear at all.}
 
@@ -147,11 +147,11 @@ This has been added to the text.
 
 \item \emph{Reproducibility:  data sets are publicly available, the author do not mention if they plan to make their model available.}
 
-Experiments have been performed in the Matlab environment using open source libraries an all the authors are committed to comply to the reproducible research statements. The replication code is now available in beta, and will be soon stable.
+Experiments have been performed in the MATLAB environment using open source libraries an all the authors are committed to comply to the reproducible research statements. The replication code is now available in beta, and will be soon stable.
 
 \item \emph{In the last experience (Table III) GMM (MFCC) may be compared to SVM (MFCC) (in addition to SVM (logscat)). There is somewhere a high dimension effect that shall be clarified.}
 
-We have added results for SVM on MFCCs. As mentioned in the response to the other reviewer, we believe that the high dimensionality should not have a significant effect on these results, even-though we acknowledge that this effect would be interesting to study. Our justification have been added to the manuscript.
+We have added results for SVM on MFCCs. As mentioned in the response to the other reviewer, we believe that the high dimensionality should not have a significant effect on these results, even though we acknowledge that this effect would be interesting to study. Our justification have been added to the manuscript.
 
 \item \emph{Confusion matrix of the two best methods will be interesting.}
 
@@ -164,6 +164,8 @@ We have computed the confusion matrices and they are indeed of interest as the t
 Although it is true that different values of $T$ could be appropriate for different classes (that is, the different sound objects present could be of different scale), we do not expect results to change significantly. This is because the sounds are of a similar nature (ambient, non-directed) and so any distinct object shouldn't be much longer or shorter in duration in one class compared to another. In addition, $T = 372\,\mathrm{ms}$ is at the longer end of the useful range of window sizes for which the scattering transform is useful, so it is unlikely that larger sizes would improve.
 
 \item \emph{A table with the 2016 DCASE private results may be added (or replace Tab III).}
+
+The private results have been reported in terms of the average class accuracy, but due to lack of space, we have not included the per-class results. However, we do provide a link to the website where these can be viewed.
 
 \item \emph{The bibliography is huge, it may be reduced by 10 \%.}
 
