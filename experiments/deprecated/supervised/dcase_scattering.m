@@ -19,16 +19,8 @@ opts{1}.time.wavelet_handle = @gammatone_1d;
 opts{1}.time.S_log2_oversampling = 0;
 opts{2}.banks.time.nFilters_per_octave = 1;
 opts{2}.banks.time.wavelet_handle = @gammatone_1d;
-if strcmp(modulations, 'time')
-    opts{2}.banks.time.sibling_mask_factor = 2^6;
-elseif strcmp(modulations, 'timefrequency')
-    opts{2}.banks.time.sibling_mask_factor = 2^3;
-end
+opts{2}.banks.time.sibling_mask_factor = 2^6;
 opts{2}.banks.time.T = 2^17;
-if strcmp(modulations, 'timefrequency')
-    opts{2}.banks.gamma.nFilters_per_octave = 1;
-    opts{2}.banks.gamma.T = 2^nextpow2(Q1 * 4);
-end
 opts{2}.invariants.time.size = 2^19;
 opts{2}.invariants.time.T = 2^14;
 opts{2}.invariants.time.subscripts = 1;
@@ -38,7 +30,7 @@ opts{3}.invariants.time.subscripts = 1;
 archs = sc_setup(opts);
 
 % Prepare paths for memoized features
-out_file_name = [modulations, '_Q=', num2str(Q1, '%0.2d')];
+out_file_name = ['_Q=', num2str(Q1, '%0.2d')];
 if strcmp(dataset_path((end-6):end), 'testset')
     out_file_name = [out_file_name, '_test'];
 else
