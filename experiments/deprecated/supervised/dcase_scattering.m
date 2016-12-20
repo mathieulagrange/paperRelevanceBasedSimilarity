@@ -46,6 +46,12 @@ else
 end
 [~,~] = mkdir('memoized_features'); % [~,~] is to ignore the "already exists" warning
 
+chunk_length = 2^19;
+hop_length = 2^18;
+nChunks = 4;
+chunk_range = 1:chunk_length;
+S_chunks = cell(1, nChunks);
+
 %%
 nFiles = length(names);
 X_features = cell(1, nFiles);
@@ -54,7 +60,19 @@ for file_index = 1:nFiles
     path = fullfile(dataset_path, name);
     stereo_waveform = audioread(path);
     waveform = mean(stereo_waveform, 2);
-    X_features{file_index} = sc_propagate(waveform(:, azimuth_index), archs);
+    chunks = cat(2, ...
+        waveform(0*hop_length + chunk_range, :, :), ...
+        waveform(1*hop_length + chunk_range, :, :), ...
+        waveform(2*hop_length + chunk_range, :, :), ...
+        waveform(3*hop_length + chunk_range, :, :));
+    chunks = reshape(chunks, size(chunks, 1), nChunks);
+    parfor chunk_index = 1:nChunks
+        S_chunks{chunk_index} = sc_propagate(chunks(:, chunk_index), archs);
+    end
+    features = cellfun(@sc_format, S_chunks, 'UniformOutput', false);
+    features = cellfun(@(x) x(:, (1+end/4):(3*end/4)), features, ...
+        'UniformOutput', false);
+    X_features{file_index} = [features{:}];
     disp([name, ...
         ' finished on worker ', num2str(labindex()), ...
         ' at ', datestr(now(), 'HH:MM:SS')]);
