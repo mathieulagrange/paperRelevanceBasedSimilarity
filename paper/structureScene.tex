@@ -477,27 +477,28 @@ Classification accuracies on the DCASE 2013 dataset with various settings of fea
 
 \begin{table}
 \begin{center}
-\caption{Class-wise accuracies on the development part of the DCASE 2016 dataset.\label{table:dcase2016}}
-\begin{tabular}{lcc}
-Features & MFCCs & log-scattering \\
+\caption{Class-wise accuracies on the DCASE 2016 dataset.\label{table:dcase2016}}
+\begin{tabular}{lccc}
+Features & MFCCs & log-scattering & log-scattering \\
+Subset & development & development & evaluation \\
 \midrule
-beach & $58.3 \pm 28.2$ & $83.5 \pm \phantom{0}7.1$ \\
-bus & $58.2 \pm 25.4$ & $88.8 \pm 11.4$ \\
-cafe/restaurant & $77.4 \pm 14.7$ & $64.5 \pm \phantom{0}8.3$ \\
-car & $92.3 \pm \phantom{0}7.7$ & $94.9 \pm \phantom{0}6.1$ \\
-city\_center & $96.4 \pm \phantom{0}3.8$ & $91.7 \pm \phantom{0}9.4$ \\
-forest\_path & $67.7 \pm 30.8$ & $93.8 \pm \phantom{0}7.8$ \\
-grocery\_store & $44.7 \pm 24.8$ & $90.9 \pm \phantom{0}6.9$ \\
-home & $44.8 \pm 15.3$ & $56.2 \pm 23.9$ \\
-library & $54.6 \pm 20.3$ & $82.0 \pm 13.0$ \\
-metro\_station & $94.7 \pm \phantom{0}6.8$ & $96.0 \pm \phantom{0}2.3$ \\
-office & $95.7 \pm \phantom{0}7.5$ & $87.5 \pm 21.7$ \\
-park & $52.4 \pm 10.4$ & $75.4 \pm \phantom{0}7.4$ \\
-residential\_area & $53.2 \pm 17.0$ & $44.2 \pm 15.0$ \\
-train & $44.5 \pm 23.1$ & $58.3 \pm 10.0$ \\
-tram & $52.1 \pm 11.9$ & $83.7 \pm 12.2$ \\
+beach & $58.3 \pm 28.2$ & $83.5 \pm \phantom{0}7.1$ & $80.8$\\
+bus & $58.2 \pm 25.4$ & $88.8 \pm 11.4$ & $92.3$ \\
+cafe/restaurant & $77.4 \pm 14.7$ & $64.5 \pm \phantom{0}8.3$ & $50.0$ \\
+car & $92.3 \pm \phantom{0}7.7$ & $94.9 \pm \phantom{0}6.1$ & $96.2$ \\
+city\_center & $96.4 \pm \phantom{0}3.8$ & $91.7 \pm \phantom{0}9.4$ & $84.6$ \\
+forest\_path & $67.7 \pm 30.8$ & $93.8 \pm \phantom{0}7.8$ & $96.2$ \\
+grocery\_store & $44.7 \pm 24.8$ & $90.9 \pm \phantom{0}6.9$ & $84.6$ \\
+home & $44.8 \pm 15.3$ & $56.2 \pm 23.9$ & $80.8$ \\
+library & $54.6 \pm 20.3$ & $82.0 \pm 13.0$ & $65.4$ \\
+metro\_station & $94.7 \pm \phantom{0}6.8$ & $96.0 \pm \phantom{0}2.3$ & $96.2$ \\
+office & $95.7 \pm \phantom{0}7.5$ & $87.5 \pm 21.7$ & $100$ \\
+park & $52.4 \pm 10.4$ & $75.4 \pm \phantom{0}7.4$ & $65.4$ \\
+residential\_area & $53.2 \pm 17.0$ & $44.2 \pm 15.0$ & $69.2$ \\
+train & $44.5 \pm 23.1$ & $58.3 \pm 10.0$ & $53.8$ \\
+tram & $52.1 \pm 11.9$ & $83.7 \pm 12.2$ & $96.2$ \\
 \bottomrule
-Average & $65.8 \pm \phantom{0}8.0$ & $79.4 \pm \phantom{0}3.0$ \\
+Average & $65.8 \pm \phantom{0}8.0$ & $79.4 \pm \phantom{0}3.0$ & $80.8$ \\
 \end{tabular}
 \end{center}
 
@@ -519,9 +520,9 @@ This is in accordance with previous results on similarity retrieval, as well as 
 
 While the scattering coefficients have higher dimension compared to the MFCCs, this does not necessarily imply higher performance. Indeed, if the sounds to be classified were completely classified by their spectral envelopes, MFCCs would be sufficient and may even outperform the scattering transforms, since in this case the latter would contain superfluous modulation information. The results above, however, show the opposite tendency, where this additional information does in fact improve results.
 
-In order to evaluate the generality of our findings, we have taken part in the acoustic scene classification task of the 2016 edition of the DCASE challenge, which was evaluated on a much larger dataset compared to DCASE 2013. For this reason, training support vector machines with the Gaussian RBF kernel proved computationally too demanding and we instead used a linear kernel. Results on DCASE 2013 (see Table \ref{table:dcase2013}) suggests that this provides comparable, albeit slightly worse results.
+In order to evaluate the generality of our findings, we have taken part in the acoustic scene classification task of the 2016 edition of the DCASE challenge, which was evaluated on a much larger dataset compared to DCASE 2013. For this reason, training support vector machines with the Gaussian RBF kernel proved computationally too demanding and we instead used a linear kernel. Results on DCASE 2013 (see Table \ref{table:dcase2013}) suggests that this provides comparable, albeit slightly worse results. The results on DCASE 2016 (see Table \ref{table:dcase2016}).
 
-We compare our results with baseline classifier using linear SVMs and MFCC features, which achieves an average accuracy of $65.5\%$. With the scattering transform, however, the average accuracy increases to $79.4\%$. This accuracy increases slightly to $80.8\%$ when calculated on the held-out evaluation dataset.\footnote{\url{http://www.cs.tut.fi/sgn/arg/dcase2016/task-results-acoustic-scene-classification}} The small change in accuracy suggests that there is little overfitting in the model, an indication of good generalization power.
+We compare our results with baseline classifier using linear SVMs and MFCC features, which achieves an average accuracy of $65.5\%$. With the scattering transform, however, the average accuracy increases to $79.4\%$. This accuracy increases slightly to $80.8\%$ when calculated on the held-out evaluation dataset.\footnote{\url{http://www.cs.tut.fi/sgn/arg/dcase2016/task-results-acoustic-scene-classification}} The small change in overall accuracy and relatively stable class-wise accuracies suggest that there is little overfitting in the model, an indication of good generalization power.
 
 \subsubsection*{Early \vs late integration}
 On the DCASE 2013 dataset, late integration, \ie building a prediction by majority voting over $128$ local windows of duration $T=372\,\mathrm{ms}$, outperforms early integration, \ie classifying the acoustic scene with a global window of duration $T=24\,\mathrm{s}$.
