@@ -426,6 +426,23 @@ MFCCs are computed for windows of $50\,\mathrm{ms}$ and hops of $25\,\mathrm{ms}
 
 %\ja{We've tested the impact of the logarithm here, but not of the feature selection or standardization. Should we do this as well? For the feature selection, we did say earlier that we would test its impact.}
 
+\begin{table}
+\begin{center}
+\caption{
+\label{table:dcase2013}
+Classification accuracies on the DCASE 2013 dataset with various settings of features, temporal integration strategies, and support vector machine kernels.
+}
+\begin{tabular}{llll}
+             & MFCCs         & scattering & log-scattering  \\
+             \hline
+\emph{early}, linear  & $54\pm19$   & $62\pm\phantom{0}6$  & $66\pm11$     \\
+\emph{early}, RBF     & $47\pm16$  & $61\pm\phantom{0}9$  & $63\pm\phantom{0}6$   \\
+\emph{late}, linear  & $60\pm\phantom{0}9$ & $70\pm\phantom{0}8$  & $75\pm\phantom{0}5$   \\
+\emph{late}, RBF     & $68\pm14$ & $73\pm\phantom{0}6$  & $\mathbf{78}\pm\phantom{0}6$   \\
+\end{tabular}
+\end{center}
+\end{table}
+
 \subsection{Experiment \#1: acoustic scene classification}
 
 Our first task is to compare the performance of the standard scattering transform, the logarithmically compressed scattering (log-scattering) transform, and baseline MFCCs. Secondly, we evaluate the two temporal integration approaches presented above, \emph{early} and \emph{late}.
@@ -458,22 +475,7 @@ The results on acoustic scene classification illustrate the superior performance
 %\end{center}
 %\end{figure}
 
-\begin{table}
-\begin{center}
-\caption{
-\label{table:dcase2013}
-Classification accuracies on the DCASE 2013 dataset with various settings of features, temporal integration strategies, and support vector machine kernels.
-}
-\begin{tabular}{llll}
-             & MFCCs         & scattering & log-scattering  \\
-             \hline
-\emph{early}, linear  & $54\pm19$   & $62\pm\phantom{0}6$  & $66\pm11$     \\
-\emph{early}, RBF     & $47\pm16$  & $61\pm\phantom{0}9$  & $63\pm\phantom{0}6$   \\
-\emph{late}, linear  & $60\pm\phantom{0}9$ & $70\pm\phantom{0}8$  & $75\pm\phantom{0}5$   \\
-\emph{late}, RBF     & $68\pm14$ & $73\pm\phantom{0}6$  & $\mathbf{78}\pm\phantom{0}6$   \\
-\end{tabular}
-\end{center}
-\end{table}
+
 
 \begin{table}
 \begin{center}
