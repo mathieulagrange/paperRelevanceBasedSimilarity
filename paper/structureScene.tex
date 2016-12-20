@@ -508,7 +508,7 @@ We report experiments on acoustic scene classification, following the original m
 
 \subsubsection*{Role of logarithmic compression}
 
-Logarithmic compression provides a small boost to acoustic scene classification over all but one fold of the DCASE 2013 private dataset.
+On the DCASE 2013 dataset, logarithmic compression provides a small, albeit consistent boost to acoustic scene classification.
 Indeed, as discussed in subsection \ref{sec:logcomp}, and observed in Figure \ref{fig:compression}, the statistical assumption of normality for scattering coefficients is only approximately satisfied once mapped to a logarithmic, decibel-like scale. This transformation improves the discriminative power of the SVMs trained on scattering coefficients, regardless of the chosen temporal integration strategy (early or late) and the inner product kernel (linear or Gaussian RBF).
 
 \subsubsection*{MFCCs \vs scattering}
