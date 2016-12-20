@@ -32,7 +32,7 @@ inputPath  = /data/databases/environment/dcase/scenes
 % path to the code repository of the experiment (diamond operator <> do not replace unless you do not want expLanes to fill this field automatically)
 codePath  = 
 % path to the data repository of the experiment (structured with one directory per step)
-dataPath  = 
+dataPath  = /data/experiments/unsupervised
 % path to the data repository of the experiment for observation data (same as dataPath if left blank)
 obsPath  = 
 % path to store backups of data
@@ -47,7 +47,7 @@ toolPath  =
 %% CODE
 
 % code dependencies to load and send server side as a cell array of strings with paths to the dependencies
-dependencies  = {'../experiment_code'}
+dependencies  = {'../experiment_code', '~/tools/expLanes/lib'}
 % dependencies (including expLanes) can be part of the experiment in a dependencies directory: 0 do not use local versions, 1 use local versions, 2 update local versions
 localDependencies  = 0
 % version tag of the code of the experiment
