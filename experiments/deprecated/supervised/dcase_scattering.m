@@ -69,6 +69,6 @@ for file_index = 1:nFiles
         ' finished on worker ', num2str(labindex()), ...
         ' at ', datestr(now(), 'HH:MM:SS')]);
 end
-X_features = cat(1, X_features{:}).';
+X_features = cat(4, X_features{:});
 save(fullfile('memoized_features', out_file_name), 'X_features', '-v7.3');
 end
