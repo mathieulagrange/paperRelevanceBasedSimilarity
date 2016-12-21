@@ -36,7 +36,7 @@ simClus= computeSimilarity(store.centroid,params);
 
 switch setting.integration
     
-    case 'clustering'
+    case {'clustering', 'ex'}
         
         %% reshape weights
         

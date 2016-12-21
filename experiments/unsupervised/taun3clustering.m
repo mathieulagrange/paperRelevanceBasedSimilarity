@@ -11,11 +11,11 @@ function [config, store, obs] = taun3clustering(config, setting, data)
 % Date: 17-Dec-2016
 
 % Set behavior for debug mode
-if nargin==0, talspStruct2016_unsupervised('do', 3, 'mask', {}); return; else store=[]; obs=[]; end
+if nargin==0, unsupervised('do', 3, 'mask', {1 1 1 3}); return; else store=[]; obs=[]; end
 
 %% seed
 
-rng(0);
+rng('default');
 
 %% store
 
@@ -32,6 +32,7 @@ store.prediction=[];
 %% integration
 
 switch setting.integration
+   
     case 'clustering'
         
         params.clustering='kmeans';
@@ -40,10 +41,10 @@ switch setting.integration
             
             params.similarity='sqeuclidean';
             params.nbc=setting.clustering_nbc;
-            params.rep=1;
+            params.rep=setting.replications;
             params.emptyAction='singleton';
             
-            [prediction,centroid] = kmeans(full(data.features(:,data.indSample==jj))',params.nbc,'maxiter',1000,'replicates',params.rep,'start','plus','Distance',params.similarity,'EmptyAction',params.emptyAction);
+            [prediction,centroid] = kmeans(full(data.features(:,data.indSample==jj))',params.nbc,'replicates',params.rep,'start','sample','Distance',params.similarity,'EmptyAction',params.emptyAction);
             centroid=centroid';
             %[prediction,centroid,params] = featuresBasedClustering(data.features(:,data.indSample==jj),params);
             

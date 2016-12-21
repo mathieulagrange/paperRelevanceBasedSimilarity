@@ -19,4 +19,5 @@ k2look=[1 2 3 4 5 6 7 8 9];
 for jj=k2look
     rm = rankingMetrics(D, data.class,jj);
     eval(['obs.pa' num2str(jj) '=rm.precisionAt' num2str(jj) ';']);
+    eval(['store.pa' num2str(jj) '=rm.precisionAt' num2str(jj) ';']);
 end

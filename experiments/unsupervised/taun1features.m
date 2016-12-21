@@ -22,7 +22,7 @@ store.xp_settings.classes = {'bus','busystreet','office','openairmarket','park',
 switch setting.features
     case 'scatT'
         
-        fileId = fopen([config.inputPath 'sampleList_test.txt']);
+        fileId = fopen([config.inputPath 'sampleList_' setting.dataset '.txt']);
         store.xp_settings.sounds=textscan(fileId,'%s');store.xp_settings.sounds=store.xp_settings.sounds{1};
         fclose(fileId);
         
@@ -33,11 +33,11 @@ switch setting.features
         store.class=[];
         eval(['store.features.' setting.features '=[];']);
         
-                load([config.inputPath 'scattering/dcase2013_timeQ8_test.mat']);
+                load([config.inputPath 'scattering/dcase2013_timeQ8_' setting.dataset '.mat']);
                 load([config.inputPath 'scattering/dcase2013_timeQ8_freqs.mat']);
-                eval(['Y=dcase2013_timeQ8_test.Y_test;']);
-                eval(['X=dcase2013_timeQ8_test.X_test;']);
-                eval(['clearvars dcase2013_timeQ8_test ;']);
+                eval(['Y=dcase2013_timeQ8_' setting.dataset '.Y_' setting.dataset ';']);
+                eval(['X=dcase2013_timeQ8_' setting.dataset '.X_' setting.dataset ';']);
+                eval(['clearvars dcase2013_timeQ8_' setting.dataset ' ;']);
                 
                 store.xp_settings.Xfreqs=dcase2013_timeQ8_freqs;
                 X=squeeze(X(:,:,3,:));
@@ -71,7 +71,7 @@ switch setting.features
         
         %% select sound
         
-        fileId = fopen([config.inputPath  'sampleList_test.txt']);
+        fileId = fopen([config.inputPath  'sampleList_' setting.dataset '.txt']);
         store.xp_settings.sounds=textscan(fileId,'%s');store.xp_settings.sounds=store.xp_settings.sounds{1};
         fclose(fileId);
         

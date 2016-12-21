@@ -1,6 +1,8 @@
+dataset =1:5== {'train', 'test'}
 features =1:== {'mfcc','scatT'}
 scat_log =2:=2/2= [0 1]
 integration =3:== {'early','clustering'}
-clustering_nbc =3:=3/2= [8 16 32]
-similarity_nn =4:== [.1:.2:.7]
-similarity_dist =4:=3/2= {'emd','average','closest'}
+clustering_nbc =3:5=4/2= [2:2:32]
+similarity_nn =4:5== [.1:.2:.7]
+similarity_dist =4:=4/[2 3]= {'emd','average','closest'}
+replications = 3:=4/2= [1 20 50 100 200]

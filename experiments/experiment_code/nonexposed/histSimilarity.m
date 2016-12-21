@@ -21,7 +21,7 @@ switch params.histDist
                 
                 W1(W1==0)=[];
                 W2(W2==0)=[];
-                
+                if ~isempty(W1) && ~isempty(W2)
                 if length(W1)==length(W2)
                     
                     % just assume non symetric ground distance
@@ -33,7 +33,7 @@ switch params.histDist
                     [D(aa,bb),~]= emd_hat_mex_nes(W1,W2,F,extra_mass_penalty,flowType);
                     
                 end
-                
+                end
                 D(bb,aa)=D(aa,bb);
             end
         end
