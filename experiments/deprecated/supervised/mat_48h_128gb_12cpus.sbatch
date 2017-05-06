@@ -30,7 +30,7 @@ parpool('local', $SLURM_CPUS_PER_TASK)
 
 cd /home/vl1019/taslp16/experiments/deprecated/supervised
 
-addpath(genpath(‘~/scattering.m’))
+addpath(genpath('/home/vl1019/scattering.m'))
 
 supervised_script
 
