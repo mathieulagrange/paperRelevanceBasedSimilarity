@@ -30,7 +30,9 @@ parpool('local', $SLURM_CPUS_PER_TASK)
 
 cd /home/vl1019/taslp16/experiments/deprecated/supervised
 
-dcase_scattering
+addpath(genpath(‘~/scattering.m’))
+
+supervised_script
 
 exit
 
