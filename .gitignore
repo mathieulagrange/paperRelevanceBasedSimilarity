@@ -26,5 +26,6 @@ paper/responseToReviewers.synctex.gz
 
 *.sw*
 
-
 *.gz(busy)
+
+*.mat
