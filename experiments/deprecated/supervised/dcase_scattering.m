@@ -30,7 +30,7 @@ opts{3}.invariants.time.subscripts = 1;
 archs = sc_setup(opts);
 
 % Prepare paths for memoized features
-out_file_name = ['_Q=', num2str(Q1, '%0.2d')];
+out_file_name = ['Q=', num2str(Q1, '%0.2d')];
 if strcmp(dataset_path((end-6):end), 'testset')
     out_file_name = [out_file_name, '_test'];
 else
