@@ -1,0 +1,227 @@
+
+Hostname: c18-02
+
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2016 The MathWorks, Inc.
+                   R2016b (9.1.0.441655) 64-bit (glnxa64)
+                             September 7, 2016
+
+ 
+To get started, type one of these: helpwin, helpdesk, or demo.
+For product information, visit www.mathworks.com.
+ 
+>> >> Starting parallel pool (parpool) using the 'local' profile ... connected to 12 workers.
+
+ans = 
+
+ Pool with properties: 
+
+            Connected: true
+           NumWorkers: 12
+              Cluster: local
+        AttachedFiles: {}
+          IdleTimeout: 30 minute(s) (30 minutes remaining)
+          SpmdEnabled: true
+
+>> >> >> >> >> >> bus01.wav finished on worker 1 at 19:04:54
+bus02.wav finished on worker 1 at 19:05:38
+bus03.wav finished on worker 1 at 19:06:19
+bus04.wav finished on worker 1 at 19:06:59
+bus05.wav finished on worker 1 at 19:07:41
+bus06.wav finished on worker 1 at 19:08:21
+bus07.wav finished on worker 1 at 19:09:02
+bus08.wav finished on worker 1 at 19:09:43
+bus09.wav finished on worker 1 at 19:10:24
+bus10.wav finished on worker 1 at 19:11:05
+busystreet01.wav finished on worker 1 at 19:11:45
+busystreet02.wav finished on worker 1 at 19:12:26
+busystreet03.wav finished on worker 1 at 19:13:07
+busystreet04.wav finished on worker 1 at 19:13:48
+busystreet05.wav finished on worker 1 at 19:14:30
+busystreet06.wav finished on worker 1 at 19:15:11
+busystreet07.wav finished on worker 1 at 19:15:52
+busystreet08.wav finished on worker 1 at 19:16:34
+busystreet09.wav finished on worker 1 at 19:17:15
+busystreet10.wav finished on worker 1 at 19:17:56
+office01.wav finished on worker 1 at 19:18:36
+office02.wav finished on worker 1 at 19:19:17
+office03.wav finished on worker 1 at 19:19:58
+office04.wav finished on worker 1 at 19:20:39
+office05.wav finished on worker 1 at 19:21:21
+office06.wav finished on worker 1 at 19:22:02
+office07.wav finished on worker 1 at 19:22:43
+office08.wav finished on worker 1 at 19:23:25
+office09.wav finished on worker 1 at 19:24:05
+office10.wav finished on worker 1 at 19:24:46
+openairmarket01.wav finished on worker 1 at 19:25:27
+openairmarket02.wav finished on worker 1 at 19:26:08
+openairmarket03.wav finished on worker 1 at 19:26:48
+openairmarket04.wav finished on worker 1 at 19:27:29
+openairmarket05.wav finished on worker 1 at 19:28:10
+openairmarket06.wav finished on worker 1 at 19:28:50
+openairmarket07.wav finished on worker 1 at 19:29:30
+openairmarket08.wav finished on worker 1 at 19:30:11
+openairmarket09.wav finished on worker 1 at 19:30:51
+openairmarket10.wav finished on worker 1 at 19:31:32
+park01.wav finished on worker 1 at 19:32:13
+park02.wav finished on worker 1 at 19:32:53
+park03.wav finished on worker 1 at 19:33:34
+park04.wav finished on worker 1 at 19:34:15
+park05.wav finished on worker 1 at 19:34:55
+park06.wav finished on worker 1 at 19:35:36
+park07.wav finished on worker 1 at 19:36:17
+park08.wav finished on worker 1 at 19:36:57
+park09.wav finished on worker 1 at 19:37:38
+park10.wav finished on worker 1 at 19:38:18
+quietstreet01.wav finished on worker 1 at 19:38:59
+quietstreet02.wav finished on worker 1 at 19:39:40
+quietstreet03.wav finished on worker 1 at 19:40:20
+quietstreet04.wav finished on worker 1 at 19:41:01
+quietstreet05.wav finished on worker 1 at 19:41:41
+quietstreet06.wav finished on worker 1 at 19:42:22
+quietstreet07.wav finished on worker 1 at 19:43:02
+quietstreet08.wav finished on worker 1 at 19:43:43
+quietstreet09.wav finished on worker 1 at 19:44:23
+quietstreet10.wav finished on worker 1 at 19:45:04
+restaurant01.wav finished on worker 1 at 19:45:44
+restaurant02.wav finished on worker 1 at 19:46:25
+restaurant03.wav finished on worker 1 at 19:47:05
+restaurant04.wav finished on worker 1 at 19:47:45
+restaurant05.wav finished on worker 1 at 19:48:26
+restaurant06.wav finished on worker 1 at 19:49:06
+restaurant07.wav finished on worker 1 at 19:49:46
+restaurant08.wav finished on worker 1 at 19:50:26
+restaurant09.wav finished on worker 1 at 19:51:06
+restaurant10.wav finished on worker 1 at 19:51:46
+supermarket01.wav finished on worker 1 at 19:52:26
+supermarket02.wav finished on worker 1 at 19:53:07
+supermarket03.wav finished on worker 1 at 19:53:47
+supermarket04.wav finished on worker 1 at 19:54:28
+supermarket05.wav finished on worker 1 at 19:55:08
+supermarket06.wav finished on worker 1 at 19:55:49
+supermarket07.wav finished on worker 1 at 19:56:29
+supermarket08.wav finished on worker 1 at 19:57:10
+supermarket09.wav finished on worker 1 at 19:57:50
+supermarket10.wav finished on worker 1 at 19:58:31
+tube01.wav finished on worker 1 at 19:59:11
+tube02.wav finished on worker 1 at 19:59:52
+tube03.wav finished on worker 1 at 20:00:32
+tube04.wav finished on worker 1 at 20:01:13
+tube05.wav finished on worker 1 at 20:01:54
+tube06.wav finished on worker 1 at 20:02:34
+tube07.wav finished on worker 1 at 20:03:15
+tube08.wav finished on worker 1 at 20:03:55
+tube09.wav finished on worker 1 at 20:04:36
+tube10.wav finished on worker 1 at 20:05:20
+tubestation01.wav finished on worker 1 at 20:06:00
+tubestation02.wav finished on worker 1 at 20:06:42
+tubestation03.wav finished on worker 1 at 20:07:23
+tubestation04.wav finished on worker 1 at 20:08:04
+tubestation05.wav finished on worker 1 at 20:08:46
+tubestation06.wav finished on worker 1 at 20:09:27
+tubestation07.wav finished on worker 1 at 20:10:08
+tubestation08.wav finished on worker 1 at 20:10:49
+tubestation09.wav finished on worker 1 at 20:11:29
+tubestation10.wav finished on worker 1 at 20:12:10
+bus01.wav finished on worker 1 at 20:13:02
+bus02.wav finished on worker 1 at 20:13:44
+bus03.wav finished on worker 1 at 20:14:24
+bus04.wav finished on worker 1 at 20:15:05
+bus05.wav finished on worker 1 at 20:15:46
+bus06.wav finished on worker 1 at 20:16:26
+bus07.wav finished on worker 1 at 20:17:06
+bus08.wav finished on worker 1 at 20:17:47
+bus09.wav finished on worker 1 at 20:18:27
+bus10.wav finished on worker 1 at 20:19:07
+busystreet01.wav finished on worker 1 at 20:19:48
+busystreet02.wav finished on worker 1 at 20:20:28
+busystreet03.wav finished on worker 1 at 20:21:08
+busystreet04.wav finished on worker 1 at 20:21:49
+busystreet05.wav finished on worker 1 at 20:22:30
+busystreet06.wav finished on worker 1 at 20:23:11
+busystreet07.wav finished on worker 1 at 20:23:51
+busystreet08.wav finished on worker 1 at 20:24:32
+busystreet09.wav finished on worker 1 at 20:25:14
+busystreet10.wav finished on worker 1 at 20:25:55
+office01.wav finished on worker 1 at 20:26:36
+office02.wav finished on worker 1 at 20:27:17
+office03.wav finished on worker 1 at 20:28:01
+office04.wav finished on worker 1 at 20:28:42
+office05.wav finished on worker 1 at 20:29:23
+office06.wav finished on worker 1 at 20:30:04
+office07.wav finished on worker 1 at 20:30:46
+office08.wav finished on worker 1 at 20:31:28
+office09.wav finished on worker 1 at 20:32:09
+office10.wav finished on worker 1 at 20:32:50
+openairmarket01.wav finished on worker 1 at 20:33:31
+openairmarket02.wav finished on worker 1 at 20:34:11
+openairmarket03.wav finished on worker 1 at 20:34:52
+openairmarket04.wav finished on worker 1 at 20:35:34
+openairmarket05.wav finished on worker 1 at 20:36:14
+openairmarket06.wav finished on worker 1 at 20:36:55
+openairmarket07.wav finished on worker 1 at 20:37:35
+openairmarket08.wav finished on worker 1 at 20:38:16
+openairmarket09.wav finished on worker 1 at 20:38:57
+openairmarket10.wav finished on worker 1 at 20:39:38
+park01.wav finished on worker 1 at 20:40:19
+park02.wav finished on worker 1 at 20:41:00
+park03.wav finished on worker 1 at 20:41:40
+park04.wav finished on worker 1 at 20:42:23
+park05.wav finished on worker 1 at 20:43:08
+park06.wav finished on worker 1 at 20:43:49
+park07.wav finished on worker 1 at 20:44:29
+park08.wav finished on worker 1 at 20:45:10
+park09.wav finished on worker 1 at 20:45:50
+park10.wav finished on worker 1 at 20:46:32
+quietstreet01.wav finished on worker 1 at 20:47:12
+quietstreet02.wav finished on worker 1 at 20:47:53
+quietstreet03.wav finished on worker 1 at 20:48:33
+quietstreet04.wav finished on worker 1 at 20:49:15
+quietstreet05.wav finished on worker 1 at 20:49:55
+quietstreet06.wav finished on worker 1 at 20:50:35
+quietstreet07.wav finished on worker 1 at 20:51:16
+quietstreet08.wav finished on worker 1 at 20:51:56
+quietstreet09.wav finished on worker 1 at 20:52:36
+quietstreet10.wav finished on worker 1 at 20:53:16
+restaurant01.wav finished on worker 1 at 20:53:57
+restaurant02.wav finished on worker 1 at 20:54:37
+restaurant03.wav finished on worker 1 at 20:55:18
+restaurant04.wav finished on worker 1 at 20:55:58
+restaurant05.wav finished on worker 1 at 20:56:39
+restaurant06.wav finished on worker 1 at 20:57:19
+restaurant07.wav finished on worker 1 at 20:58:00
+restaurant08.wav finished on worker 1 at 20:58:40
+restaurant09.wav finished on worker 1 at 20:59:21
+restaurant10.wav finished on worker 1 at 21:00:07
+supermarket01.wav finished on worker 1 at 21:00:52
+supermarket02.wav finished on worker 1 at 21:01:33
+supermarket03.wav finished on worker 1 at 21:02:15
+supermarket04.wav finished on worker 1 at 21:02:56
+supermarket05.wav finished on worker 1 at 21:03:37
+supermarket06.wav finished on worker 1 at 21:04:18
+supermarket07.wav finished on worker 1 at 21:04:58
+supermarket08.wav finished on worker 1 at 21:05:38
+supermarket09.wav finished on worker 1 at 21:06:19
+supermarket10.wav finished on worker 1 at 21:07:01
+tube01.wav finished on worker 1 at 21:07:42
+tube02.wav finished on worker 1 at 21:08:23
+tube03.wav finished on worker 1 at 21:09:04
+tube04.wav finished on worker 1 at 21:09:45
+tube05.wav finished on worker 1 at 21:10:27
+tube06.wav finished on worker 1 at 21:11:08
+tube07.wav finished on worker 1 at 21:11:49
+tube08.wav finished on worker 1 at 21:12:30
+tube09.wav finished on worker 1 at 21:13:12
+tube10.wav finished on worker 1 at 21:13:53
+tubestation01.wav finished on worker 1 at 21:14:34
+tubestation02.wav finished on worker 1 at 21:15:14
+tubestation03.wav finished on worker 1 at 21:15:55
+tubestation04.wav finished on worker 1 at 21:16:35
+tubestation05.wav finished on worker 1 at 21:17:19
+tubestation06.wav finished on worker 1 at 21:18:02
+tubestation07.wav finished on worker 1 at 21:18:42
+tubestation08.wav finished on worker 1 at 21:19:23
+tubestation09.wav finished on worker 1 at 21:20:04
+tubestation10.wav finished on worker 1 at 21:20:44
+>> >> 

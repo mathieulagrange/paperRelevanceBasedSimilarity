@@ -1,0 +1,126 @@
+
+Jupyter server is running on: c26-01
+Job starts at: Thu May 11 11:06:00 EDT 2017
+
+Step 1 :
+
+If you are working in NYU campus, please open an iTerm window, run command
+
+ssh -L 7428:localhost:7428 vl1019@prince.hpc.nyu.edu
+
+If you are working off campus, you should already have ssh tunneling setup through HPC bastion host, 
+that you can directly login to prince with command
+
+ssh vl1019@prince
+
+Please open an iTerm window, run command
+
+ssh -L 7428:localhost:7428 vl1019@prince
+
+Step 2:
+
+Keep the iTerm windows in the previouse step open. Now open browser, find the line with
+
+The Jupyter Notebook is running at:
+
+the URL is something: http://localhost:/?token=XXXXXXXX
+
+you should be able to connect to jupyter notebook running remotly on prince compute node with above url
+
+[I 11:06:03.105 NotebookApp] Writing notebook server cookie secret to /state/partition1/job-682148/jupyter/notebook_cookie_secret
+[I 11:06:03.437 NotebookApp] Serving notebooks from local directory: /home/vl1019
+[I 11:06:03.437 NotebookApp] 0 active kernels 
+[I 11:06:03.437 NotebookApp] The Jupyter Notebook is running at: http://localhost:7428/?token=d151edf9d3b278a883e2fed513a04b6731279f00ddad1de6
+[I 11:06:03.437 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[C 11:06:03.438 NotebookApp] 
+    
+    Copy/paste this URL into your browser when you connect for the first time,
+    to login with a token:
+        http://localhost:7428/?token=d151edf9d3b278a883e2fed513a04b6731279f00ddad1de6
+[I 11:06:47.004 NotebookApp] 302 GET /?token=d151edf9d3b278a883e2fed513a04b6731279f00ddad1de6 (::1) 0.77ms
+[W 11:07:00.052 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20170511110603 (::1) 7.37ms referer=http://localhost:7428/notebooks/tetci17/experiments/deprecated/supervised/svm_classifcation.py.ipynb
+[I 11:07:00.281 NotebookApp] Kernel started: 7dd994f2-b929-4941-9da9-ea01a7094940
+[I 11:08:41.638 NotebookApp] 302 GET /?token=d151edf9d3b278a883e2fed513a04b6731279f00ddad1de6 (::1) 0.50ms
+[W 11:08:50.833 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20170511110603 (::1) 1.74ms referer=http://localhost:7428/notebooks/tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 11:10:51.031 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 11:12:51.044 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 11:13:12.837 NotebookApp] Kernel interrupted: 7dd994f2-b929-4941-9da9-ea01a7094940
+[I 11:13:20.344 NotebookApp] Kernel restarted: 7dd994f2-b929-4941-9da9-ea01a7094940
+[I 11:14:51.031 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 11:16:51.028 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 11:46:51.134 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 11:48:51.105 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 11:52:51.100 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 11:54:51.114 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 11:56:51.130 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 11:58:51.174 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 12:00:51.109 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 12:04:51.128 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 12:06:51.161 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 12:14:51.128 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 12:16:51.174 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 12:18:51.368 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 12:22:51.145 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 12:24:51.155 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 12:26:51.198 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 12:28:51.153 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 13:10:52.439 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 13:12:51.287 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 13:14:51.344 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 13:16:51.278 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 13:18:51.277 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 13:20:51.293 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 13:22:51.579 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 13:24:51.457 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 13:26:51.851 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 13:28:51.332 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 13:30:51.279 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 13:32:51.303 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 13:34:51.282 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 13:38:51.302 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 13:40:51.321 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 13:42:51.326 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 13:44:51.292 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 13:46:51.299 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 13:48:51.309 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 13:50:51.331 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 13:52:51.321 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 13:54:51.325 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 13:55:40.785 NotebookApp] Kernel restarted: 7dd994f2-b929-4941-9da9-ea01a7094940
+[I 13:56:51.371 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 13:58:51.353 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 14:00:51.348 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 14:10:51.348 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 14:12:51.355 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 14:42:51.421 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 15:24:51.495 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 15:24:58.308 NotebookApp] Kernel restarted: 7dd994f2-b929-4941-9da9-ea01a7094940
+[I 15:26:51.481 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 15:28:51.504 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 15:30:51.516 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 15:32:51.513 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 15:34:51.542 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 15:44:51.564 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 15:46:28.920 NotebookApp] Kernel interrupted: 7dd994f2-b929-4941-9da9-ea01a7094940
+[I 15:46:44.664 NotebookApp] Kernel interrupted: 7dd994f2-b929-4941-9da9-ea01a7094940
+[I 15:46:51.458 NotebookApp] Kernel restarted: 7dd994f2-b929-4941-9da9-ea01a7094940
+[I 15:46:51.547 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 15:48:51.568 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 15:50:51.549 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 15:54:51.578 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 15:56:51.762 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 15:58:51.591 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 16:02:51.561 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 16:04:51.604 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 16:05:21.751 NotebookApp] Kernel interrupted: 7dd994f2-b929-4941-9da9-ea01a7094940
+[I 16:06:51.579 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 16:23:31.492 NotebookApp] Kernel restarted: 7dd994f2-b929-4941-9da9-ea01a7094940
+[I 16:24:52.332 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 16:26:51.653 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 17:37:53.983 NotebookApp] Creating new notebook in /tetci17/experiments/deprecated/supervised
+[I 17:37:56.098 NotebookApp] Kernel started: 50e01d3a-fc60-49d8-9357-95e386cbc721
+[W 17:37:56.146 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20170511110603 (::1) 3.08ms referer=http://localhost:7428/notebooks/tetci17/experiments/deprecated/supervised/Untitled.ipynb?kernel_name=python3
+[I 17:38:18.108 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/nn_classification.ipynb
+[I 17:38:51.711 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
+[I 17:39:56.119 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/nn_classification.ipynb
+[I 17:40:51.742 NotebookApp] Saving file at /tetci17/experiments/deprecated/supervised/svm_classifcation.ipynb
