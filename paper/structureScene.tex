@@ -298,7 +298,7 @@ A support vector machine (SVM) is a binary discriminative classifier that attemp
 
 At the classification stage, the SVM gives a class label as output, which is one of the two classes it models. For multi-class settings, a one-\vs-one approach is often used, where an SVM is trained for each pair of classes. During classification, the outputs of all pairwise SVMs is computed and the class selected the largest number of times is chosen.
 
-Finally, the SVM can also be extended to handle nonlinear decision surfaces. This is obtained using the ``kernel trick'', which exploits the fact that all calculations in the SVM rely only on the inner product between vectors. By replacing this standard inner product by some other positive definite symmetric mapping, such as a Gaussian radial basis function (RBF), this is equivalent to performing a linear SVM after mapping the feature vectors into some high-dimensional space. A nonlinear mapping then results in a nonlinear decision surface in the orignal space.
+Finally, the SVM can also be extended to handle nonlinear decision surfaces. This is obtained using the ``kernel trick'', which exploits the fact that all calculations in the SVM rely only on the inner product between vectors. By replacing this standard inner product by some other positive definite symmetric mapping, such as a Gaussian radial basis function (RBF), this is equivalent to performing a linear SVM after mapping the feature vectors into some high-dimensional space. A nonlinear mapping then results in a nonlinear decision surface in the original space.
 
 \subsection{Early \vs late temporal integration}
 \label{sec:eili}
