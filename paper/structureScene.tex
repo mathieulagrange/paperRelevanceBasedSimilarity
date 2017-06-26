@@ -103,7 +103,9 @@ An important problem in this field is the characterization of auditory scenes fo
 
 To design better representations for the similarity retrieval task, we draw inspiration from a closely related, and more mature, field of investigation: the classification of acoustic scenes. This task, consisting of predicting scene labels from audio recordings, is narrower in its range of applications, but has the advantage of being rooted in the cognitive psychology of categorization \cite{dubois2006cognitive,guastavino_ideal_2006}. In addition, it has received significant attention from the data mining community for some time, resulting in the availability of well-designed datasets and competitive algorithms for solving it.
 
-Addressing this task requires first to be able to capture meaningful aspects within the signal at small time scales. In other words, how do we represent an extract of the auditory scene signal over a sub-second interval? A standard tool for this are the mel-frequency cepstral coefficients (MFCCs), originally developed for speech processing \cite{davis-mermelstein}, but which have found wider use in recent years in music information retrieval \cite{logan} and environmental audio processing \cite{aucouturier2007bag}.
+Addressing this task requires first to be able to capture meaningful aspects within the signal at small time scales.
+In other words, how do we represent an extract of the auditory scene signal over a sub-second interval?
+A standard tool for this are the mel-frequency cepstral coefficients (MFCCs), originally developed for speech processing \cite{davis-mermelstein}, but which have found wider use in recent years in music information retrieval \cite{logan} and environmental audio processing \cite{aucouturier2007bag}.
 A richer set of features is found in the scattering transform, a generic signal representation which has enjoyed significant success in various audio classification tasks \cite{Anden2014}.
 This is because the scattering transform cascades wavelet convolutions and pointwise nonlinearities, thus imitating the architecture of a convolutional neural network.
 As a result, the scattering transform benefits from some of the assets of end-to-end learning without needing a large amount of annotated training data to converge towards a meaningful representation.
@@ -246,7 +248,7 @@ In this section, we review two transformations which achieve these properties, n
 \subsection{Logarithmic compression}
 \label{sec:logcomp}
 
-Many algorithms in pattern recognition, including nearest-neighbor classifiers and support vector machines (SVMs), tend to work best when all features follow a standard normal distribution across all training instances \cite{Hsu2003}.
+Many algorithms in pattern recognition, including nearest neighbor classifiers and SVMs, tend to work best when all features follow a standard normal distribution across all training instances \cite{Hsu2003}.
 Yet the distribution of the scattering coefficients is skewed towards larger values. We can reduce this skewness by applying a pointwise concave transformation to all coefficients. In particular, we find that the logarithm performs particularly well in this respect.
 Figure \ref{fig:histograms} shows the distribution of an arbitrarily chosen scattering coefficient over the DCASE 2013 dataset, before and after logarithmic compression.
 
@@ -292,7 +294,7 @@ We are now ready to present the supervised method that we will apply to the acou
 \subsection{Support vector machine classifier}
 \label{sec:svm}
 
-A support vector machine (SVM) is a binary discriminative classifier that attempts to find a separating hyperplane between a pair of classes of that provides the maximal margin between the two sets \cite{Cortes1995}. From another point of view, it attempts to find a direction on which to project in order to maximize separation between two point clouds. Since it is not a generative, but discriminative model, it is able to pick out those feature vectors that best characterize a particular class of auditory scenes compared to another. This property, coupled with its ease of use and efficient implementations \cite{libsvm} have rendered SVMs a popular choice for many classification systems.
+A support vector machine (SVM) is a binary discriminative classifier that attempts to find a separating hyperplane between a pair of classes of that provides the maximal margin between the two sets \cite{Cortes1995}. From another point of view, it attempts to find a direction on which to project in order to maximize separation between two point clouds. Since it is not a generative, but discriminative model, it is able to pick out those feature vectors that best characterize a particular class of auditory scenes compared to another. This property, coupled with its ease of use and efficient implementations \cite{libsvm} have made SVMs a popular choice for many classification systems.
 
 At the classification stage, the SVM gives a class label as output, which is one of the two classes it models. For multi-class settings, a one-\vs-one approach is often used, where an SVM is trained for each pair of classes. During classification, the outputs of all pairwise SVMs is computed and the class selected the largest number of times is chosen.
 
