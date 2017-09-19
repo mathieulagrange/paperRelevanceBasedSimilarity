@@ -1,4 +1,4 @@
-dataset === {'train', 'test'}
+dataset === {'2013', '2016'}
 features === {'mfcc','scatT'}
 scat_log =2:=2/2= [0 1]
 integration =3:== {'early','clustering'}
