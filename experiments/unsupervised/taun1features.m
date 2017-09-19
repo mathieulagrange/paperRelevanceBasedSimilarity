@@ -11,7 +11,7 @@ function [config, store, obs] = taun1features(config, setting, data)
 % Date: 17-Dec-2016
 
 % Set behavior for debug mode
-if nargin==0, unsupervised('do', 1, 'mask', {2,1}); return; else store=[]; obs=[]; end
+if nargin==0, unsupervised('do', 1, 'mask', {1,2}); return; else store=[]; obs=[]; end
 
 %% setting
 store.xp_settings.sr=44100;
@@ -20,8 +20,9 @@ store.xp_settings.classes = {'bus','busystreet','office','openairmarket','park',
 switch setting.features
     case 'scatT'
         
-        fileId = fopen([config.inputPath 'sampleList_' setting.dataset '.txt']);
-        store.xp_settings.sounds=textscan(fileId,'%s');store.xp_settings.sounds=store.xp_settings.sounds{1};
+        fileId = fopen([config.inputPath 'dcase2013/sampleList_train.txt']);
+        store.xp_settings.sounds=textscan(fileId,'%s');
+        store.xp_settings.sounds=store.xp_settings.sounds{1};
         fclose(fileId);
         
         store.xp_settings.sounds=cellfun(@(x) x(strfind(x,'/')+1:end),store.xp_settings.sounds,'UniformOutput',false);
@@ -32,10 +33,10 @@ switch setting.features
         store.dataset=[];
         eval(['store.features.' setting.features '=[];']);
         
-                load([config.inputPath 'scattering/dcase2013_timeQ8_' setting.dataset '.mat']);
-                load([config.inputPath 'scattering/dcase2013_timeQ8_freqs.mat']);
-                eval(['Y=dcase2013_timeQ8_' setting.dataset '.Y_' setting.dataset ';']);
-                eval(['X=dcase2013_timeQ8_' setting.dataset '.X_' setting.dataset ';']);
+                load([config.inputPath 'dcase2013/scattering/dcase2013_timeQ8_train.mat']);
+                load([config.inputPath 'dcase2013/scattering/dcase2013_timeQ8_freqs.mat']);
+                eval(['Y=dcase2013_timeQ8_train.Y_train;']);
+                eval(['X=dcase2013_timeQ8_train.X_train;']);
                 eval(['clearvars dcase2013_timeQ8_' setting.dataset ';']);
                 
                 store.xp_settings.Xfreqs=dcase2013_timeQ8_freqs;
@@ -71,7 +72,7 @@ switch setting.features
         %% select sound
         switch setting.dataset
             case '2013'
-        fileId = fopen([config.inputPath 'dcase2013/'  'sampleList_train.txt']);
+        fileId = fopen([config.inputPath 'dcase2013/sampleList_train.txt']);
         store.xp_settings.sounds=textscan(fileId,'%s');
         store.xp_settings.sounds=store.xp_settings.sounds{1};
         fclose(fileId);
@@ -129,7 +130,8 @@ switch setting.features
             % store features
             eval(['store.features.' setting.features ' = [store.features.' setting.features ' ftrs.' setting.features '];']);
             
-            store.soundIndex(jj)=store.xp_settings.soundIndex(jj);
+       %     store.soundIndex(jj)=store.xp_settings.soundIndex(jj);
+             store.soundIndex(jj)=jj;
             store.indSample=[store.indSample ones(1,ftrs.size)*store.soundIndex(jj)];
             switch setting.dataset
                 case '2013'

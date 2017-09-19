@@ -11,7 +11,7 @@ function [config, store, obs] = taun2norm(config, setting, data)
 % Date: 17-Dec-2016
 
 % Set behavior for debug mode
-if nargin==0, talspStruct2016_unsupervised('do', 2, 'mask', {}); return; else store=[]; obs=[]; end
+if nargin==0, unsupervised('do', 2, 'mask', {2, 1}); return; else store=[]; obs=[]; end
 
 %% store
 

@@ -3,7 +3,7 @@ addpath([fileparts(mfilename('fullpath')) '/nonExposed'])
 
 %% settings
 
-dataPath='../unsupervised/report/figures/';
+dataPath='/home/lagrange/experiments/tetci17/experiments/unsupervised/report/figures/';
 linewidth=1.6;
 markersize=10;
 
@@ -15,7 +15,11 @@ dataLab={'mfcc_early','mfcc_clustering_closest','mfcc_clustering_average','mfcc_
 
 for ii=1:length(dataLab)
     load([dataPath 'unsupervised_test_' dataLab{ii}]); 
+    if ~isempty(data)
     eval([dataLab{ii} '.mean=data.meanData;']); 
+    else
+        eval([dataLab{ii} '.mean=mfcc_early.mean;']); 
+    end
 end
 
 disp('')
@@ -53,7 +57,7 @@ legend('boxoff')
 xlabel('k')
 ylabel('p@k')
 box off
-ylim([.25 .85])
+%ylim([.25 .85])
 disp('')
 
 figure(2)
@@ -78,7 +82,7 @@ legend('boxoff')
 xlabel('k')
 ylabel('p@k')
 box off
-ylim([0.25 .85])
+%ylim([0.25 .85])
 disp('')
  
 figOpt.fontsize=16;
