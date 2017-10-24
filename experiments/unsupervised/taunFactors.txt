@@ -1,7 +1,8 @@
-dataset === {'2013', '2016'}
-features === {'mfcc','scatT'}
+dataset === {'2013', '2016', '2016all'}
+features === {'mfcc','scatT', 'scatTime'}
 scat_log =2:=2/2= [0 1]
-integration =3:== {'early','clustering'}
-clustering_nbc =3:=4/2= [8 16 32]
-similarity_nn =4:== [.1:.2:.7]
+integration =3:== {'early','clustering', 'gmm', 'close'}
+clustering_nbc =3:=4/[2 4]= [8 16 32 64 0]
+similarity_nn =4:=4/[1 2 4]= [.1:.2:.7 1:20 0]
 similarity_dist =4:=4/2= {'emd','average','closest'}
+precision =5== 1:9

@@ -11,20 +11,21 @@ function [config, store, obs] = taun2norm(config, setting, data)
 % Date: 17-Dec-2016
 
 % Set behavior for debug mode
-if nargin==0, unsupervised('do', 2, 'mask', {2, 1}); return; else store=[]; obs=[]; end
+if nargin==0, unsupervised('do', 2, 'mask', {3, 1}); return; else store=[]; obs=[]; end
 
 %% store
 
 store.xp_settings=data.xp_settings;
 store.soundIndex=data.soundIndex;
 store.class=data.class;
+store.filter=data.filter;
 
 %% get features
 
 X=[];
 features2use=strsplit(setting.features,'_');
 for jj=1:length(features2use)
-    eval(['X=[X ; data.features.' features2use{jj} '];']);
+    X=[X ; data.features];
 end
 
 %% pooling

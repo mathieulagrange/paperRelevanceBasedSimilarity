@@ -14,6 +14,28 @@ integration = {'early','clustering'};
 similarity_dist = {'emd','average','closest'};
 db=2;
 features = {'mfcc'};
+
+% 2013
+    config = expExpose(config, 'p', 'mask', {1 [2 3] 2 [1 3 4] 5 [5 25]  3}, 'obs', 1, 'expand', 'precision');
+% config = expExpose(config, 't', 'mask', {1 1 2 [1 2 3 4] 0 25 3 5}, 'obs', 1, 'percent', 1);
+
+% 2016
+%     config = expExpose(config, 't', 'mask', {2 1 2 [ 3 4] 5 0 3 7}, 'obs', 'pf', 'precision', 4, 'percent', 1);
+%  config = expExpose(config, 'p', 'mask', {2 1 2 [1 2 3] 1 0 3}, 'expand', 'precision', 'obs', 2);
+% config = expExpose(config, 'p', 'mask', {2 1 2 [1 2 3] 1 3 3}, 'expand', 'precision', 'obs', 3);
+
+% 2016all
+%     config = expExpose(config, 't', 'mask', {3 1 2 [1 2 3:4] 0 25 3 7}, 'obs', 'p', 'precision', 4, 'percent', 1);
+
+%  config = expExpose(config, 'p', 'mask', {3 1 2 [1 3:4] 0 25 3}, 'expand', 'precision', 'obs', 'pf', 'percent', 1);
+
+
+%  config = expExpose(config, 'p', 'mask', {3 1 0 0 1 0 3}, 'expand', 'precision', 'obs', 2);
+% config = expExpose(config, 'p', 'mask', {3 1 0 0 1 1}, 'expand', 'precision', 'obs', 3);
+
+
+return
+
 %config = expExpose(config, 't','fontSize','scriptsize','step', 5, 'mask',{db});
 %return
 

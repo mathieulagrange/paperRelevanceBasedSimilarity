@@ -10,15 +10,18 @@ function [config, store, obs] = taun4similarity(config, setting, data)
 % Copyright: gregoirelafay
 % Date: 17-Dec-2016
 
+
 % Set behavior for debug mode
-if nargin==0, unsupervised('do', 4, 'mask', {2, 1}); return; else store=[]; obs=[]; end
+if nargin==0, unsupervised('do', 4:5, 'mask', {1, 2, 2, 4, 0, 0, 3}); return; else store=[]; obs=[]; end
 
 %% store
 
 store.xp_settings=data.xp_settings;
 store.soundIndex=data.soundIndex;
 store.class=data.class;
-
+if isfield(data, 'filter')
+    store.filter=data.filter;
+end
 store.weight=data.weight;
 store.indSample=data.indSample;
 store.centroid=data.centroid;
@@ -32,11 +35,34 @@ params.similarity='rbf';
 params.nn=setting.similarity_nn;
 params.class=store.centroidClass;
 
-simClus= computeSimilarity(store.centroid,params);
+
 
 switch setting.integration
-    
+    case 'close'
+        for k=1:length(data.class)
+            for l=k+1:length(data.class)
+                dkl = dist2(data.centroid(:, data.indSample==k)', data.centroid(:, data.indSample==l)');
+                if setting.similarity_nn~=0
+                    if setting.similarity_nn<1
+                        nn=max([1 round(setting.similarity_nn*size(dkl,2))]);
+                    else
+                        nn = setting.similarity_nn;
+                    end
+                    dkl = rbfKernel(dkl,'st-1nn',nn);
+                end
+                dkl = dkl(:);
+                d(k, l) = min(dkl(dkl~=0));
+                d(l, k) = d(k, l);
+            end
+        end
+        store.A=1-d;
+        d=1-d;
+        d=(d+d')/2;
+        %         d(logical(eye(size(d)))) = 1;
+        store.A = d;
+
     case 'clustering'
+        simClus= computeSimilarity(store.centroid,params);
         
         %% reshape weights
         
@@ -54,8 +80,21 @@ switch setting.integration
         params.indSample=store.indSample;
         
         [store.A,store.params] = histSimilarity(weight,params,simClus);
-        
-    otherwise
-        
+   
+    case 'early'
+        simClus= computeSimilarity(store.centroid,params);
         store.A = simClus;
+    case 'gmm'
+        d=[];
+        for k=1:length(data.model)
+            vec=[];
+            parfor l=k+1:length(data.model)
+                vec(l) = distanceModelToModel(data.model{k}, data.model{l}, 2000);
+            end
+            for l=k+1:length(data.model)
+                d(k, l) = vec(l);
+                d(l, k) = d(k, l);
+            end
+        end
+        store.A = 1-d;
 end
