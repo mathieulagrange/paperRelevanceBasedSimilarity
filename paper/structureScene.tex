@@ -1,10 +1,8 @@
-\documentclass{IEEEtran}
+\documentclass[smallextended]{svjour3}
 %\usepackage{cite}
 % *** GRAPHICS RELATED PACKAGES ***
 %
-\ifCLASSINFOpdf
   \usepackage[pdftex]{graphicx}
-\fi
 %
 \usepackage[cmex10]{amsmath}
 
@@ -55,6 +53,7 @@
 % Do not put math or special symbols in the title.
 %\title{An evaluation framework for event detection using a morphological model of acoustic scenes}
 \title{Relevance-based Quantization of Scattering Features for Unsupervised Mining of Environmental Audio}
+\titlerunning{Relevance-based Quantization of Scattering Features}
 
 \author{Vincent Lostanlen\thanks{This work is supported by the ERC InvariantClass grant 320959.}, Gr\'egoire Lafay, Joakim And\'en, and Mathieu Lagrange}
 
@@ -70,26 +69,15 @@ The emerging field of computational ecoacoustics aims at retrieving high-level i
 State of the art approaches for computing such a similarity is the "bag-of-frames" approach, i.e. modeling the audio using the summary statistics of short-term audio descriptors, such as mel-frequency cepstral coefficients (MFCCs).
 Although they successfully characterize static scenes with little variability in auditory content, they are unable to accurately discriminate scenes with few salient events superimposed over a textured background.
 To overcome this issue, we propose a two-scale representation which describes a signal at a short scale using scattering transforms while relying on a cluster model to characterize its larger-scale structure that better handle the required modeling of scarce events. Experimentation performed using the Acoustic Scene Similarity framework demonstrates the superiority of the proposed approach.
+\keywords{
+unsupervised learning \and data mining \and acoustic signal processing \and wavelet transforms \and audio databases \and content-based retrieval \and nearest neighbor searches \and acoustic sensors \and environmental sensors.}
+% \PACS{PACS code1 \and PACS code2 \and more}
 \end{abstract}
 
-% Note that keywords are not normally used for peerreview paper.
-\begin{IEEEkeywords}
-unsupervised learning, data mining, acoustic signal processing, wavelet transforms, audio databases, content-based retrieval, nearest neighbor searches, acoustic sensors, environmental sensors.
-\end{IEEEkeywords}
-
-% For peer review papers, you can put extra information on the cover
-% page as needed:
-% \ifCLASSOPTIONpeerreview
-% \begin{center} \bfseries EDICS Category: 3-BBND \end{center}
-% \fi
-%
-% For peerreview papers, this IEEEtran command inserts a page break and
-% creates the second title. It will be ignored for other modes.
-\IEEEpeerreviewmaketitle
 
 \section{Introduction}
 
-\IEEEPARstart{T}{he} amount of audio data recorded from our sonic environment has grown considerably over the past decades.
+The amount of audio data recorded from our sonic environment has grown considerably over the past decades.
 In order to measure the effect of human activity and climate change on animal biodiversity, researchers have recently undertaken the massive deployment of acoustic sensors throughout the world \cite{warren2006urban, NessSST13, stowell13b}.
 In addition, recent work has explored acoustic monitoring for characterization of human pleasantness in urban areas \cite{guyot2005urban, ricciardi2015sound}, as well as the prediction of annoyance due to traffic \cite{gloaguen}.
 Because they bear a strong societal impact and raise many scientific challenges, we believe that these applications are of considerable interest for the signal processing community.
@@ -115,7 +103,7 @@ Addressing this task requires first to be able to capture meaningful aspects wit
 In other words, how do we represent an extract of the auditory scene signal over a sub-second interval?
 A standard tool for this are the mel-frequency cepstral coefficients (MFCCs), originally developed for speech processing \cite{davis-mermelstein}, but which have found wider use in recent years in music information retrieval \cite{logan} and environmental audio processing \cite{aucouturier2007bag}.
 A richer set of features is found in the scattering transform, a generic signal representation which has enjoyed significant success in various audio classification tasks \cite{Anden2014}.
-This is because the scattering transform cascades wavelet convolutions and pointwise nonlinearities, thus imitating the architecture of a convolutional neural network \cite{} \vl{some relevant refs on dnns 4 audio}.
+This is because the scattering transform cascades wavelet convolutions and pointwise nonlinearities, thus imitating the architecture of a convolutional neural network \cite{} \ja{some relevant refs on dnns 4 audio}.
 
 For the task at at hand, the scattering features have the valuable advantage of not requiring training and thus potentially lead to wider range of application than trained features. Indeed, the task at hand is the mining of yet unheard audio datasets and the properties of the audio that are of interest remains to be defined. Thus leading to an unserpervised setting.
 
@@ -304,7 +292,7 @@ The vectors $\mu[\mathbf{S}\boldsymbol{x}(\gamma)]$ and $\sigma[\mathbf{S}\bolds
 
 %From a data processing point of view, a holistic scheme, such as the bag-of-frame approach \cite{aucouturier2007bag}, has a simplicity, but clearly face poor performance on realistic conditions \cite{lagrange:hal-01082501}.
 
-As discussed in Section \ref{sec:soa}, results in sound perception suggest the appropriateness of source-driven representations of auditory scenes for predicting high-level properties. While this can be addressed in the supervised case using late integration of discriminative classifiers (see Section \ref{sec:eili}), this is not directly feasible in the unsupervised case. As the detection of events is still an open problem \cite{7100934}, we consider in this paper a generic quantization scheme in order to identify and represent time intervals of the scene that are coherent, thus likely to be dominated by a given source of interest.
+As discussed in Section \ref{sec:soa}, results in sound perception suggest the appropriateness of source-driven representations of auditory scenes for predicting high-level properties. While this can be addressed in the supervised case using late integration of discriminative classifiers \ja{provide citation of your work}, this is not directly feasible in the unsupervised case. As the detection of events is still an open problem \cite{7100934}, we consider in this paper a generic quantization scheme in order to identify and represent time intervals of the scene that are coherent, thus likely to be dominated by a given source of interest.
 
 Given a set of $d$-dimensional feature vectors $X_u = \{x_1^u, \ldots, x_L^u\}$, extracted from the scene $s_u$, where $u=\lbrace 1,2,\ldots,U\rbrace$, we would like to partition $X_u$ into a set $C_u = \{c^u_1, \ldots, c^u_M\}$ of $M$ clusters. The partitioning is done by minimizing squared error between the empirical mean, or centroid, of each cluster and the vectors belonging to it. Letting $\mu_m^u$ denote the centroid of the cluster $c_m^u$, we attempt to minimize the following objective function:
 \begin{equation}
@@ -446,24 +434,24 @@ Considering the $p@5$ as in \cite{aucouturier2007bag} and \cite{lagrange:hal-010
 This paper presents a new approach for modeling acoustic scenes which utilizes scattering transforms at small scales and a cluster-based representation at large scales. Compared to traditional models based on BOF and summary statistics, this representation allows for the characterization of distinct sound events superimposed on a stationary texture, a concept which has strong grounding in the cognitive psychology literature. We demonstrate the usefulness of scattering-based representations for auditory scenes and the value of late integration using experiments in auditory scene classification. In order to extend the selectivity potential of late integration using SVMs to the unsupervised case, we develop the cluster-based model and validate it using experiments on acoustic scene similarity retrieval. For this task, we show significant improvements over the traditional BOF and summary statistics models based on both standard MFCCs and scattering features.
 These outcomes shall be studied further in future work by considering larger databases and emerging tasks in computational bioacoustics \cite{wimmer2013sampling}.
 
-%\bibliographystyle{unsrt}
+%\bibliographystyle{spmpsci}
 %\bibliography{biblio}
-\printbibliography
+%\printbibliography
 
-\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{gfx/lostanlen}}]{Vincent Lostanlen} was born in 1992. He received an engineering degree from TELECOM ParisTech in 2013 and his M.S. degree in acoustics, signal processing, and musical informatics (ATIAM) from the Universit\'{e} Pierre et Marie Curie (UPMC) and the Ircam in Paris, France, in 2013. Since 2013, he is a Ph.D. student at \'{E}cole normale sup\'{e}rieure in Paris, working under the supervision of St\'{e}phane Mallat. His research focuses on defining convolutional operators in the time-frequency domain with applications in audio classification.
-\end{IEEEbiography}
-
-\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{gfx/lafay}}]{Gr\'egoire Lafay} was born in 1990. He received the B.S. degree in Acoustic from the University Pierre and Marie Curie (UPMC), Paris, France, and the B.S. degree in Musicology from the Sorbonne University, Paris, France, in 2011. He received his M.S. degree in acoustics, signal processing, and musical informatics (ATIAM) from the UPMC and the Ircam in Paris, France, in 2013. Since 2013, he is a Ph.D. student at IRCCyN, Nantes, France. His research interests include acoustic scene similarity and classification as well as acoustic scene perception.
-\end{IEEEbiography}
-
-
-\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{gfx/anden}}]{Joakim And\'en}
-received the M.Sc. degree in mathematics from the Universit\'e Pierre et Marie Curie, Paris, France, in 2010 and the Ph.D. degree in applied mathematics from Ecole Polytechnique, Palaiseau, France, in 2014. He is currently a postdoctoral researcher with the Program in Applied and Computational mathematics at Princeton University, Princeton, USA. His research interests include signal processing, machine learning, and statistical data analysis. He is a member of the IEEE.
-
-\end{IEEEbiography}
-
-\begin{IEEEbiography}[{\includegraphics[width=1.25in,height=1.25in,clip,keepaspectratio]{gfx/lagrange}}]{Mathieu Lagrange} is a CNRS research scientist at IRCCyN, a French laboratory dedicated to cybernetics. He obtained his Ph.D. in computer science at the University of Bordeaux in 2004, and visited several institutions in Canada (University of Victoria, McGill University) and in France (Orange Labs, TELECOM ParisTech, Ircam). His research focuses on machine listening algorithms applied to the analysis of musical and environmental audio.
-\end{IEEEbiography}
+% \begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{gfx/lostanlen}}]{Vincent Lostanlen} was born in 1992. He received an engineering degree from TELECOM ParisTech in 2013 and his M.S. degree in acoustics, signal processing, and musical informatics (ATIAM) from the Universit\'{e} Pierre et Marie Curie (UPMC) and the Ircam in Paris, France, in 2013. Since 2013, he is a Ph.D. student at \'{E}cole normale sup\'{e}rieure in Paris, working under the supervision of St\'{e}phane Mallat. His research focuses on defining convolutional operators in the time-frequency domain with applications in audio classification.
+% \end{IEEEbiography}
+%
+% \begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{gfx/lafay}}]{Gr\'egoire Lafay} was born in 1990. He received the B.S. degree in Acoustic from the University Pierre and Marie Curie (UPMC), Paris, France, and the B.S. degree in Musicology from the Sorbonne University, Paris, France, in 2011. He received his M.S. degree in acoustics, signal processing, and musical informatics (ATIAM) from the UPMC and the Ircam in Paris, France, in 2013. Since 2013, he is a Ph.D. student at IRCCyN, Nantes, France. His research interests include acoustic scene similarity and classification as well as acoustic scene perception.
+% \end{IEEEbiography}
+%
+%
+% \begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{gfx/anden}}]{Joakim And\'en}
+% received the M.Sc. degree in mathematics from the Universit\'e Pierre et Marie Curie, Paris, France, in 2010 and the Ph.D. degree in applied mathematics from Ecole Polytechnique, Palaiseau, France, in 2014. He is currently a postdoctoral researcher with the Program in Applied and Computational mathematics at Princeton University, Princeton, USA. His research interests include signal processing, machine learning, and statistical data analysis. He is a member of the IEEE.
+%
+% \end{IEEEbiography}
+%
+% \begin{IEEEbiography}[{\includegraphics[width=1.25in,height=1.25in,clip,keepaspectratio]{gfx/lagrange}}]{Mathieu Lagrange} is a CNRS research scientist at IRCCyN, a French laboratory dedicated to cybernetics. He obtained his Ph.D. in computer science at the University of Bordeaux in 2004, and visited several institutions in Canada (University of Victoria, McGill University) and in France (Orange Labs, TELECOM ParisTech, Ircam). His research focuses on machine listening algorithms applied to the analysis of musical and environmental audio.
+% \end{IEEEbiography}
 
 % biography section
 %
