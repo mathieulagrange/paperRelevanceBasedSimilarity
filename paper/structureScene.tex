@@ -101,7 +101,7 @@ Addressing this task first requires the ability to capture meaningful aspects wi
 In other words, how do we represent an extract of the auditory scene signal over a sub-second interval?
 A standard tool for this are the mel-frequency cepstral coefficients (MFCCs), originally developed for speech processing \cite{davis-mermelstein}, but which have found wider use in recent years in music information retrieval \cite{logan} and environmental audio processing \cite{aucouturier2007bag}.
 A richer set of features is found in the scattering transform, a generic signal representation which has enjoyed significant success in various audio classification tasks \cite{Anden2014,chudacek}.
-This is because the scattering transform cascades wavelet convolutions and pointwise nonlinearities, thus imitating the architecture of a convolutional neural network \cite{} \ja{some relevant refs on dnns 4 audio}.
+This is because the scattering transform cascades wavelet convolutions and pointwise nonlinearities, thus imitating the architecture of a convolutional neural network \cite{lee,lostanlen-deep-spiral,soundnet,arandjelovic-zisserman}.
 
 For the task at at hand, scattering features have the advantage of not requiring training and thus potentially lead to wider range of application than trained features. Indeed, the task at hand is the mining of yet unheard audio datasets and the properties of the audio that are of interest remains to be defined, thus leading to an unserpervised setting.
 
