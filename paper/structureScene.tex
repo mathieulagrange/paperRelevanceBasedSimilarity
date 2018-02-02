@@ -242,8 +242,8 @@ This suggests that, despite being hand-crafted and not learned, Gammatone wavele
 \section{Feature design}
 \label{sec:design}
 
-Before constructing models for classification or similarity estimation, it is beneficial to process scattering coefficients to improve invariance, normality, and generalization power.
-In this section, we review two transformations which achieve these properties, namely logarithmic compression and standardization.
+Before constructing models for similarity estimation, it is beneficial to process scattering coefficients to improve invariance, normality, and generalization power.
+In this section, we review two transformations which achieve these properties: logarithmic compression and standardisation.
 
 \subsection{Logarithmic compression}
 \label{sec:logcomp}
@@ -268,23 +268,13 @@ Indeed, it is corroborated by the Weber-Fechner law in psychoacoustics, which st
 We must also recall that the measured amplitude of sound sources often decays polynomially with the distance to the microphone--a source of spurious variability in scene classification.
 Logarithmic compression linearizes this dependency, facilitating the construction of powerful invariants at the classifier stage.
 
-For the task of musical genre recognition, second-order scattering coefficients $\mathbf{S_2}\boldsymbol{x}(t,\gamma_1,\gamma_2)$ are sometimes normalized by the corresponding first-order scattering coefficients $\mathbf{S_1}\boldsymbol{x}(t,\gamma_1)$, since this decorrelates them from one another \cite{Anden2014}.
-We note that taking the logarithm of such renormalized coefficients yields
-\begin{equation}
-\log \dfrac{\mathbf{S_2}\boldsymbol{x}(t,\gamma_1,\gamma_2)}{\mathbf{S_1}\boldsymbol{x}(t,\gamma_1)} =
-\log \mathbf{S_2}\boldsymbol{x}(t, \gamma_1, \gamma_2) -
-\log \mathbf{S_1}\boldsymbol{x}(t, \gamma_1),
-\end{equation}
-\ie a linear combination of the logarithms of first- and second-order coefficients.
-As such, a nonlinear renormalization becomes a linear transformation, which can be learned by a linearly discriminative classifier.
-
-\subsection{Standardization}
+\subsection{Standardisation}
 \label{sec:stand}
 
-Let $\mathbf{S}\boldsymbol{x}(\gamma,n)$ be a dataset, where the $\gamma$ and $n$ respectively denotes feature and sample indices, respectively.
-It has been found that SVMs should be trained on scaled features with null mean and unit variance so as to avoid mismatch in numeric ranges \cite{Hsu2003}.
-To standardize $\mathbf{S}\boldsymbol{x}(\gamma,n)$, we subtract the sample mean vector $\mu[\mathbf{S}\boldsymbol{x}(\gamma)]$ from $\mathbf{S}\boldsymbol{x}(\gamma,n)$ and divide the result by the sample standard deviation vector $\sigma[\mathbf{S}\boldsymbol{x}] (\gamma)$.
-The vectors $\mu[\mathbf{S}\boldsymbol{x}(\gamma)]$ and $\sigma[\mathbf{S}\boldsymbol{x}](\gamma)$ are estimated from the training set only, and the same affine transformation is then applied to all samples in both the training and the test sets.
+Let $\mathbf{S}\boldsymbol{x}(\gamma,n)$ be a dataset, where $\gamma$ and $n$ denote feature and sample indices, respectively.
+Many algorithms operate better on features which have zero mean and unit variance to avoid mismatch in numeric ranges \cite{Hsu2003}.
+To standardise $\mathbf{S}\boldsymbol{x}(\gamma,n)$, we subtract the sample mean vector $\mu[\mathbf{S}\boldsymbol{x}(\gamma)]$ from $\mathbf{S}\boldsymbol{x}(\gamma,n)$ and divide the result by the sample standard deviation vector $\sigma[\mathbf{S}\boldsymbol{x}] (\gamma)$.
+The vectors $\mu[\mathbf{S}\boldsymbol{x}(\gamma)]$ and $\sigma[\mathbf{S}\boldsymbol{x}](\gamma)$ are estimated from the entire dataset.
 
 \section{Acoustic scene similarity retrieval}
 \label{sec:object}
