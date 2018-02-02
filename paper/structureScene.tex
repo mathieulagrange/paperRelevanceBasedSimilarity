@@ -64,11 +64,11 @@
 % As a general rule, do not put math, special symbols or citations
 % in the abstract or keywords.
 \begin{abstract}
-The emerging field of computational ecoacoustics aims at retrieving high-level information from the acoustic scenes recorded by some network of sensors. Large amount of unlabeled data are gathered using those networks that needs to be analyzed. In order to identify which parts needs human inspection, one needs tools that can mine data and identify structural such as recurring patterns or on contrary sparse occurences. To do so, one needs to be able to measure the level of similarity among the data without strong assumptions.
+The emerging field of computational ecoacoustics aims at retrieving high-level information from acoustic scenes recorded by some network of sensors. Large amounts of unlabeled data are gathered using such networks that needs to be analyzed. In order to identify which parts require human inspection, one needs tools that can mine data and identify structures such as recurring patterns or isolated events. To do so, one needs to be able to measure the level of similarity among the data without strong assumptions.
 
-State of the art approaches for computing such a similarity is the "bag-of-frames" approach, i.e. modeling the audio using the summary statistics of short-term audio descriptors, such as mel-frequency cepstral coefficients (MFCCs).
+State of the art approaches for computing such a similarity is the ``bag-of-frames'' approach, i.e., modeling the audio signal using the summary statistics of short-term audio descriptors, such as mel-frequency cepstral coefficients (MFCCs).
 Although they successfully characterize static scenes with little variability in auditory content, they are unable to accurately discriminate scenes with few salient events superimposed over a textured background.
-To overcome this issue, we propose a two-scale representation which describes a signal at a short scale using scattering transforms while relying on a cluster model to characterize its larger-scale structure that better handle the required modeling of scarce events. Experimentation performed using the Acoustic Scene Similarity framework demonstrates the superiority of the proposed approach.
+To overcome this issue, we propose a two-scale representation which describes a signal at a short scale using scattering transforms while relying on a cluster model to characterize its larger-scale structure that better handle the required modeling of sparse events. Experiments performed using the acoustic scene similarity framework demonstrates the superiority of the proposed approach.
 \keywords{
 unsupervised learning \and data mining \and acoustic signal processing \and wavelet transforms \and audio databases \and content-based retrieval \and nearest neighbor searches \and acoustic sensors \and environmental sensors.}
 % \PACS{PACS code1 \and PACS code2 \and more}
