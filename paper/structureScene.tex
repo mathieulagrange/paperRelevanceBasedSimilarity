@@ -348,46 +348,48 @@ with $A$ a scaling parameter, set to the mean value of the $\widehat{\EMD}$ betw
 \section{Experiments}
 \label{sec:experiments}
 
+To evaluate the representations introduced in the previous section, we apply it to the acoustic scene similarity retrieval task on the DCASE 2013 dataset.
+Results demonstrate the improved performance of the relevance-based quantization of scattering coefficients compared to baseline methods using summary statistics of MFCCs.
 The implementations of the presented methods and the experimental protocol are available online.\footnote{\url{https://github.com/mathieulagrange/paperRelevanceBasedSimilarity}} % \ja{What is ``the one''?}
 
 % , and $\alpha$ is a parameter which trades off between \ja{?}
 
-\subsection{Datasets}
+\subsection{Dataset}
 
 %For most of the experiments reported in this paper, we will consider the DCASE2013 dataset \cite{giannoulis2013database, 7100934}. Larger datasets exists: the
 %Rouen dataset \cite{rakotomamonjy2015histogram} and the public part of the DCASE2016 challenge.%
 The experiments in this paper are carried out on the DCASE 2013 \cite{7100934} dataset.
-The DCASE 2013 dataset consists of two parts, namely a public and a private subset, each made up of $100$ $30$-second recordings of various acoustic scenes, sampled at $44100\,\mathrm{Hz}$. The $100$ recordings are evenly divided into $10$ acoustic scene classes. To build the DCASE 2013 dataset, three different recordists visited a wide variety of locations in Greater London over a period of several months and in each scene recorded a few minutes of audio. No
+This dataset consists of two parts, namely a public and a private subset, each made up of $100$ acoustic scene recordings, sampled at $44100\,\mathrm{Hz}$ and $30$ seconds in duration. The dataset is evenly divided into $10$ acoustic scence classes. The recordings were made by three different recordists at a wide variety of locations in the Greater London area over a period of several months. No
 systematic variations in the recordings covaried with scene
-type: all recordings were made under moderate weather conditions, at varying times of day and week, and each recordist recorded each scene type. As a consequence, DCASE 2013 dataset enjoys an interesting intra-class diversity while remaining manageable in terms of size, making it suitable for extensive evaluation of algorithmic design choices \cite{lagrange:hal-01082501}.
+type: all recordings were made under moderate weather conditions, at varying times of day and week, and each recordist recorded each scene type. As a result, the DCASE 2013 dataset enjoys significant intra-class diversity while remaining of manageable size, making it suitable for extensive evaluation of algorithmic design choices \cite{lagrange:hal-01082501}.
 %In addition, it is still a challenging dataset, with a state-of-the-art system based using handcrafted features as input to SVMs achieving $76\%$ \cite{roma2013} (winner of the DCASE2013 challenge), while recent approaches based on label tree embedding achieve between $84\%$ and $87\%$ on DCASE 2013 depending on the prior knowledge used during training \cite{phan2016label}.
 
 %Recent advances using hierarchical classifier architectures obtain between $84\%$ and $87\%$ on DCASE2013 depending on the prior knowledge used during training \cite{phan2016label}. On the Rouen dataset, the state-of-the-art is currently $95\%$ \cite{bisot2016acoustic}.
-
-The public part of the dataset can used for optimizing the acoustic scene classification system and the private part used for computing the resulting accuracy using a five-fold cross validation scheme. For this paper, we shall perform our experiments on the private part of the dataset. The folds used are the same as the ones used during the challenge.
-
-The DCASE 2016 dataset has a similar organization, with $15$ classes of acoustic scenes, and is larger than the DCASE 2013 private dataset by one order of magnitude \cite{Mesaros2016_EUSIPCO}.
-
 %, but here we conduct our experiments on the public part of the dataset. \ja{Any more information on this dataset?}
 
 %In this paper, we are interested in evaluating different algorithmic designs leading to different scene models, we therefore resort to straightforward ranking performance measures for the ASSR task. \ja{It's not clear to me how the first part implies the second part here} Similarly, we have picked SVMs as our classifier for the ASC task, since these are a standard tool in the community and allows for us to focus our analysis on the earlier processing stages. Moreover, since MFCCs are well-established features which perform well for these task, we shall include them baseline features in all experiments described in this paper.
 
 \subsection{Feature design}
 
-Experiments are carried out using scattering coefficients as well as baseline mel-frequency cepstral coefficients (MFCCs) as features. For the scattering transform, each $30$-second scene is described by $128$ vectors computed with half-overlapping windows $\boldsymbol{\phi}(t)$ of duration $T=372\,\mathrm{ms}$, for a total of $24\,\mathrm{s}$. In this case, $3$ seconds are discarded at the beginning and end of the scene to avoid boundary artifacts. Experiments are conducted with and without logarithmic compression (see Section \ref{sec:logcomp}).
+Experiments are carried out using scattering coefficients as well as baseline mel-frequency cepstral coefficients (MFCCs) as features. For the scattering transform, each $30$-second scene is described by $128$ vectors computed with half-overlapping windows $\boldsymbol{\phi}(t)$ of duration $T=372\,\mathrm{ms}$, for a total of $24\,\mathrm{s}$. In this case, $3$ seconds are discarded at the beginning and end of the scene to avoid boundary artifacts. Experiments are conducted with and without logarithmic compression (see Section \ref{sec:logcomp}). \ml{Results in the next section only seem to contain the logarithmic compression. Do we have the other results as well?}
 
-MFCCs are computed for windows of $50\,\mathrm{ms}$ and hops of $25\,\mathrm{ms}$, with full frequency range. The standard configuration of $39$ coefficients coupled with an average-energy measure performs best in preliminary tests, so we use this in the following. The coefficients are averaged using $250\,\mathrm{ms}$ long non-overlapping windows so that each window represents structures of similar scale to the scattering coefficients.
+MFCCs are computed for windows of $50\,\mathrm{ms}$ and hops of $25\,\mathrm{ms}$ with full frequency range. The standard configuration of $39$ coefficients coupled with an average-energy measure performs best in preliminary tests, so we use this in the following. The coefficients are averaged using $250\,\mathrm{ms}$ long non-overlapping windows so that each window represents structures of similar scale to the scattering coefficients.
 
 %. The MFCC vectors within each texture window are then averaged in time. As the \emph{ob} approaches involve a clustering step, we need to ensure that both MFCCs and scattering coefficients have a comparable number of vectors per recording. Thus, $t$ is set to $250\,\mathrm{ms}$, resulting in $120$ MFCCs texture windows per scene.
 
 %\ja{We've tested the impact of the logarithm here, but not of the feature selection or standardization. Should we do this as well? For the feature selection, we did say earlier that we would test its impact.}
 
-Having validated the underlying assumptions for the cluster-based auditory scene representation, we evaluate its performance for the task of acoustic scene similarity retrieval.
+Having validated the underlying assumptions for the cluster-based auditory scene representation, we evaluate its performance for the task of acoustic scene similarity retrieval. \ml{What does this mean?}
 
-The evaluation is performed on the private part of the DCASE 2013 dataset. The metric used is the precision at rank $k$ ($p@k$), which is computed by taking a query item and counting the number of items of the same class within the $k$ closest neighbors, and then averaging over all query items. The $p@k$ is computed for $k=\lbrace 1,\ldots,9\rbrace$, since each class only has $10$ items. Note that a $p@1$ is equivalent to the classification accuracy obtained by the classifier which chooses the label of the closest neighbor for a given item. The \emph{RbQ} approaches are compared to commonly used early integration approach \emph{early}. %\ja{And BOF?}
+\subsection{Algorithm}
 
-The scaling parameter $q$ of the RBF kernels (see Eq. \ref{eq:kc}) is set to 10 \% of the number of data points to cluster, being the number of scenes for \emph{early} and the number of cluster for RbQ approaches.
-The clustering for the \emph{RbQ} approaches is done using plain $k$-means with random initialization and 200 replications. For each method, the numbers of clusters is set to the value among $8$, $16$ and $32$ that leads to the best $p@9$ on the training set.
+The evaluation is performed on the private part of the DCASE 2013 dataset. The metric used is the precision at rank $k$ ($p@k$), which is computed by taking a query item and counting the number of items of the same class within the $k$ closest neighbors, and then averaging over all query items. These closest neighbors are determined by a particular distance, which is one of \emph{RbQ-c}, \emph{RbQ-a}, or \emph{RbQ-w}.
+
+The metric $p@k$ is computed for $k=\lbrace 1,\ldots,9\rbrace$, since each class only has $10$ items. Note that a $p@1$ is equivalent to the classification accuracy obtained by the classifier which chooses the label of the closest neighbor for a given item. The \emph{RbQ} approaches are compared to commonly used early integration approach \emph{early}. %\ja{And BOF?}
+\ml{What is the early integration approach here? We should define it.}
+
+The scaling parameter $q$ of the RBF kernels (see Eq. \ref{eq:kc}) is set to $10\%$ of the number of data points to cluster, being the number of scenes for \emph{early} and the number of clusters for RbQ approaches. \ml{What does this mean?}
+The clustering for the \emph{RbQ} approaches is done using plain $k$-means with random initialization and $200$ replicates. For each method, the numbers of clusters is set to the value among $8$, $16$ and $32$ that leads to the best $p@9$ on the training set. \ml{What's the training set here?}
 
 %\ja{I'm not sure what this means. Do we fix $m$ and $N$ here for all experiments or do we optimize them over the test data each time? If so, this will bias the results, no?}
 
