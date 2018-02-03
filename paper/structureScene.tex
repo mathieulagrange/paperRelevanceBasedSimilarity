@@ -283,13 +283,9 @@ The vectors $\mu[\mathbf{S}\boldsymbol{x}(\gamma)]$ and $\sigma[\mathbf{S}\bolds
 
 %From a data processing point of view, a holistic scheme, such as the bag-of-frame approach \cite{aucouturier2007bag}, has a simplicity, but clearly face poor performance on realistic conditions \cite{lagrange:hal-01082501}.
 
-As discussed in Section \ref{sec:soa}, results in sound perception suggest the appropriateness of source-driven representations of auditory scenes for predicting high-level properties. While this can be addressed in the supervised case using late integration of discriminative classifiers \ja{provide citation of your work}, this is not directly feasible in the unsupervised case. As the detection of events is still an open problem \cite{7100934}, we consider in this paper a generic quantization scheme in order to identify and represent time intervals of the scene that are coherent, thus likely to be dominated by a given source of interest.
+As discussed in Section \ref{sec:soa}, results in sound perception suggest the appropriateness of source-driven representations of auditory scenes for predicting high-level properties. While this can be addressed in the supervised case using late integration of discriminative classifiers \cite{Anden2014}, this is not directly feasible in the unsupervised case. As the detection of events is still an open problem \cite{7100934}, we consider in this paper a generic quantization scheme in order to identify and represent time intervals of the scene that are coherent, thus likely to be dominated by a given source of interest.
 
-Given a set of $d$-dimensional feature vectors $X_u = \{x_1^u, \ldots, x_L^u\}$, extracted from the scene $s_u$, where $u=\lbrace 1,2,\ldots,U\rbrace$, we would like to partition $X_u$ into a set $C_u = \{c^u_1, \ldots, c^u_M\}$ of $M$ clusters. The partitioning is done by minimizing squared error between the empirical mean, or centroid, of each cluster and the vectors belonging to it. Letting $\mu_m^u$ denote the centroid of the cluster $c_m^u$, we attempt to minimize the following objective function:
-\begin{equation}
-J(C_u)=\sum\limits_{m} \sum_{x^u_l\in c^u_m} \Vert x_l^u - \mu_m^u \Vert^2\mbox{.}
-\end{equation}
-This is known as $k$-means clustering.
+Given a set of $d$-dimensional feature vectors $X_u = \{x_1^u, \ldots, x_L^u\}$, extracted from the scene $s_u$, where $u=\lbrace 1,2,\ldots,U\rbrace$, we would like to partition $X_u$ into a set $C_u = \{c^u_1, \ldots, c^u_M\}$ of $M$ clusters. The partitioning is done by minimizing squared error between the empirical mean, or centroid, of each cluster and the vectors belonging to it. This is known as $k$-means clustering \cite{lloyd} and has found widespread use for a variety of applications.
 Each scene $s_u$ is then described by a set of clusters $C_u$. One should note that this quantization approach differs from unsupervised learning schemes such as the ones studied in \cite{bisot2016acoustic}, where the scene features are projected in a dictionary learned from the entire dataset. Here, with the aim of better balancing the influence of salient sound events and texture-like sounds on the final decision, the similarity between two scenes is computed based on the similarity of their centroids.
 
 The similarity between the scene centroids $\mu_m^u$ over the entire dataset, is computed using a radial basis function (RBF) kernel $K$ combined with a local scaling method \cite{selfTuneManor2004}:
@@ -299,7 +295,7 @@ K_{mn}^{uv} = \exp\left( - \dfrac{\Vert \mu_m^u - \mu_n^v \Vert^2}{\Vert \mu_m^u
 \end{equation}
 Here, $\mu_{m,q}^u$ and $\mu_{n,q}^v$ are the $q^{\textrm{th}}$ nearest neighbors to the centroids $\mu_m^u$ and $\mu_n^v$, respectively, and $\Vert \cdot \Vert$ denotes the Euclidean norm.
 
-To compute the similarity between two scenes, we then consider several centroid-based similarity metrics:
+To compute the similarity between two scenes, we consider several centroid-based similarity metrics:
 \begin{itemize}
 \item Relevance-based Quantization closest similarity (\emph{RbQ-c}): the similarity between two scenes $s_u$ and $s_v$ is equal to the largest similarity between their centroids, that is
 \begin{equation}
@@ -313,8 +309,13 @@ and,
 \item Relevance-based Quantization weighted similarity  (\emph{RbQ-w}): the similarity between two scenes is computed using a variant of the earth mover's distance applied to the set of centroids each weighted by the number of frames assigned to its cluster.
 \end{itemize}
 
-For \emph{RbQ-w}, each centroid is weighted according to the number of frames belonging to its cluster. Each scene $s_u$ is thus described by a signature $p_u$ of $M$ clusters, where $p_u=\lbrace(\mu_1^u,w_1^u),(\mu_2^u,w_2^u),\ldots,(\mu_M^u,w_M^u)\rbrace$) and $\mu_m^u$ and $w_m^u$ are the centroid and the weight of the $m$th cluster, respectively. The similarity between scenes is then given by a cross-bin histogram distance known as the non-normalized earth mover's distance ($\widehat{\EMD}$) introduced by \cite{pele2008linear}. The $\widehat{\EMD}$ computes the distance between two histograms by finding the minimal cost for transforming one histogram into the other, where cost is measured by the number of transported histogram counts times the ``ground distance'' moved in terms of the histogram bins. In our case, the histogram counts are the clusters weights $w_m^u$ defined over the bins formed by the centroids $\mu_m^u$, so the ground distance is the distance over these cluster centroids.
+For \emph{RbQ-w}, each scene is represented by a signature
+$$
+p_u = \lbrace(\mu_1^u,w_1^u),(\mu_2^u,w_2^u),\ldots,(\mu_M^u,w_M^u)\rbrace,
+$$
+where each of the $M$ centroids $\mu_1^u, \ldots, \mu_M^u$ are paired with corresponding weights $w_1^u, \ldots, w_M^u$. The weight $w_m^u$ for the $m$th centroid $\mu_m^u$ is the number of frames belonging to a particular cluster. The similarity between scenes is then given by a cross-bin histogram distance known as the non-normalized earth mover's distance ($\widehat{\EMD}$) introduced by \cite{pele2008linear}. The $\widehat{\EMD}$ computes the distance between two histograms by finding the minimal cost for transforming one histogram into the other, where cost is measured by the number of transported histogram counts multiplied with the ``ground distance'' between the histogram bins. In our case, the histogram counts are the clusters weights $w_m^u$ defined over the bins formed by the centroids $\mu_m^u$, so the ground distance is the centroid distance. \ml{From what we have below, the distance is not actually the distance between centroids, though. It's given by the kernel $K_{mn}^{uv}$.}
 
+\ml{Do we need the details that follow? Is it not enough to refer to \cite{pele2009fast}?}
 To compute the $\widehat{\EMD}$, we use the implementation proposed in \cite{pele2009fast}. Given two signatures $p_u$ and $p_v$, the $\widehat{\EMD}$ is computed by solving the following linear program:
 \begin{equation}
 \begin{split}
@@ -335,13 +336,14 @@ where $\lbrace f_{nm} \rbrace$ is the flow between the cluster weights $w_n^u$ a
 \begin{equation*}
 D_{mn}^{uv}=1-K_{mn}^{uv}.
 \end{equation*}
+\ml{Note that this is not actually a distance.}
 
 To get the final similarity measure between the scenes $s_u$ and $s_v$, an extended Gaussian kernel $K^s$ is computed: %\cite{chapelle1999support,jing2003support}
 \begin{equation}
 \label{eq:ks}
 K_{uv}^s = \exp\left( - \dfrac{\widehat{\EMD}(p_u,p_v)}{A} \right) \\
 \end{equation}
-with $A$ a scaling parameter, set to the mean value of the $\widehat{\EMD}$ between all the scenes. The resulting kernel $K^s$ is known as an $\EMD$ kernel, and it should be noted that there is no guarantee that this kernel is positive definite.
+with $A$ a scaling parameter, set to the mean value of the $\widehat{\EMD}$ between all the scenes. The resulting kernel $K^s$ is known as an $\EMD$ kernel, and it should be noted that there is no guarantee that this kernel is positive definite. \ml{Is this kernel used anywhere? For similarity, do we not just use the EMD distance directly?}
 
 \section{Experiments}
 \label{sec:experiments}
