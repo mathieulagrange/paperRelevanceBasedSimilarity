@@ -88,10 +88,7 @@ An important problem in this field is that manually analysing the recorded data 
 
 The most straightforward approach is to assume a closed set of events of interests like sounds of animals expected to live near the acoustic sensors, train models for them and perform automatic annotation \cite{}. A given time interval, for example a single day, is then represented by the number of events within the predefined typology that have been detected in that period of time. This approach allows the scientist to drastically reduce the amount of information that needs to be processed. However, this approach has two drawbacks. The first is the reliance to trained models whose behavior on unseen data (such as different sensors) is prone to errors and cannot be always be trusted. More importantly, it is based on \textit{a priori} knowledge and thus cannot be considered for exploratory analysis where the quantities of interest have yet to be defined.
 
-\ml{What's going on here?}
-and annotation to whether recurring patterns  or sparsely distributed events to study anomalous or scarce behaviors. The latter allowing the scientist to then annotate only a representative audio of the periods of time with recurring patterns and the former to potentially discover unforseen phenomena.
-
-
+In order to identify which parts needs human inspection, one needs tools that can mine data and annotate to whether recurring patterns  or sparsely distributed events to study anomalous or scarce behaviors. The latter allowing the scientist to then annotate only a representative audio of the periods of time with recurring patterns and the former to potentially discover unforseen phenomena.
 
 With this aim, one needs to design an algorithm to perform an acoustic similarity retrieval, where the audio fragments judged ``most similar'' to a given query section are extracted from some larger dataset. This requires the audio fragments to be represented in some way that captures their distinctive qualities. This has been achieved by bag-of-frames approaches \cite{aucouturier2007bag}, which attempt to describe the auditory scene recording using summary statistics. Unfortunately, since this only captures the average structure of the scene, the approach often fails when presented with scenes which are dynamic and contain episodic, distinct sound events that discriminate the scene from others. Indeed, experiments in cognitive psychology \cite{dubois2006cognitive} and cognitive neurosciences \cite{nelken2004processing} suggest that this matches more closely human acoustic perception of acoustic scenes. We believe that the failure to model such distinct events is one of the reason why this approach is found to be insufficient when considering evaluation datasets of typical sizes \cite{lagrange:hal-01082501}.
 
@@ -127,14 +124,15 @@ As those distinct and sparse events are often highly relevant for the task at ha
 
 This statement has some support in auditory psychology as well as sound synthesis based on summary statistics \cite{mcdermott2013summary}. For example, studies in the cognitive psychology of urban sound environments have shown that global sound level (perceived or measured) is not sufficient to fully characterize an acoustic scene \cite{guyot2005urban,kang2006urban}. Rather, it seems that cognitive processes such as sound environment quality perception \cite{dubois2006cognitive} or loudness judgment \cite{kuwano_memory_2003} rely upon higher-level cognitive attributes such as the identities of sound sources which compose the scene. It has been shown that, if available, the complete description of the scene in terms of event occurrences is powerful enough to reliably predict high-level cognitive classes. For example, the presence of birds is very likely to be heard in parks in urban areas and so are strong pleasantness indicators. Consequently, research in sound perception is now strongly focused on the contribution of specific sound sources in the assessment of sound environments \cite{ricciardi2015sound,lavandier2006contribution}. Although the complete set of events occurring within a given auditory stream may not be discernable even to human expects, research has shown that a small set of events (so-called markers) suffice to reliably predict many high-level attributes.
 
-From a cognitive psychology perspective, the consensus is therefore that only a few distinct events are sufficient to describe an auditory scene, in contrast to BOF approaches which treat each observation the same and do not incorporate temporal structure between features. A method that takes this knowledge into account could therefore have potential for great impact in the modeling of acoustic scenes.
+From a cognitive psychology perspective, the consensus is therefore that only a few distinct events are sufficient to describe an auditory scene, in contrast to BOF approaches which treat each observation the same and do not incorporate temporal structure between features. A method that takes this knowledge into account could therefore have potential for great impact in the modeling of acoustic scenes, provided that the representation of the representation of those distinct events is rich enough.
 
-Aside from \cite{aucouturier2007bag} and \cite{lagrange:hal-01082501} that consider the task of acoustic scene similarity retrieval, much of the work dedicated to acoustic scene modeling is applied to the classification task.
-An overview of the efforts for the latter task is provided by the IEEE Audio and Acoustic Signal Processing (AASP) Detection and Classification of Acoustic Scenes and Events (DCASE) challenge \cite{barchiesi2015acoustic}, held in 2013 to compare different approaches to scene classification.
+%Aside from \cite{aucouturier2007bag} and \cite{lagrange:hal-01082501} that consider the task of acoustic scene similarity retrieval, much of the work dedicated to acoustic scene modeling is applied to the classification task.
+%An overview of the efforts for the latter task is provided by the IEEE Audio and Acoustic Signal Processing (AASP) Detection and Classification of Acoustic Scenes and Events (DCASE) challenge \cite{barchiesi2015acoustic}, held in 2013 to compare different approaches to scene classification.
 
-The methods that performed the best all follow a similar structure, where low-level feature representations, such as MFCCs, are calculated over short windows and fed separately to a classifier, such as a support vector machine (SVM) \cite{cortes-vapnik,cristianini2000introduction}, for training. During the classification stage, a given recording is similarly processed into short windows represented by feature vectors which are classified individually by the classifier. The individial class assignments are then combined through a majority vote which assigns a class to the whole recording. This last step is known as late integration and allows the classifier to work on individual, shorter-scale sound events instead of trying to classify the recording as a whole. By doing this, the classifier is able to identify and exploit the distinct events that characterize the scene instead of trying to model its average structure. This is in agreement with the psychoacoustic results related to the perception of auditory scenes presented above.
+%The methods that performed the best all follow a similar structure, where low-level feature representations, such as MFCCs, are calculated over short windows and fed separately to a classifier, such as a support vector machine (SVM) \cite{cortes-vapnik,cristianini2000introduction}, for training. During the classification stage, a given recording is similarly processed into short windows represented by feature vectors which are classified individually by the classifier. The individial class assignments are then combined through a majority vote which assigns a class to the whole recording. This last step is known as late integration and allows the classifier to work on individual, shorter-scale sound events instead of trying to classify the recording as a whole. By doing this, the classifier is able to identify and exploit the distinct events that characterize the scene instead of trying to model its average structure. This is in agreement with the psychoacoustic results related to the perception of auditory scenes presented above.
 
-\ml{These two last paragraphs are a bit out of place here, since we don't do classification in the paper. Perhaps there is some way to cut them down a bit?}
+
+%\ml{These two last paragraphs are a bit out of place here, since we don't do classification in the paper. Perhaps there is some way to cut them down a bit?}
 
 %\gl{Othe this r paper:} \cite{jiang2005svm, kalinli2009saliency, su2011environmental, ye2015acoustic, bisot2015hog, chakrabarty2015exploring, xue2015auditory}
 
@@ -313,37 +311,37 @@ For \emph{RbQ-w}, each scene is represented by a signature
 $$
 p_u = \lbrace(\mu_1^u,w_1^u),(\mu_2^u,w_2^u),\ldots,(\mu_M^u,w_M^u)\rbrace,
 $$
-where each of the $M$ centroids $\mu_1^u, \ldots, \mu_M^u$ are paired with corresponding weights $w_1^u, \ldots, w_M^u$. The weight $w_m^u$ for the $m$th centroid $\mu_m^u$ is the number of frames belonging to a particular cluster. The similarity between scenes is then given by a cross-bin histogram distance known as the non-normalized earth mover's distance ($\widehat{\EMD}$) introduced by \cite{pele2008linear}. The $\widehat{\EMD}$ computes the distance between two histograms by finding the minimal cost for transforming one histogram into the other, where cost is measured by the number of transported histogram counts multiplied with the ``ground distance'' between the histogram bins. In our case, the histogram counts are the clusters weights $w_m^u$ defined over the bins formed by the centroids $\mu_m^u$, so the ground distance is the centroid distance. \ml{From what we have below, the distance is not actually the distance between centroids, though. It's given by the kernel $K_{mn}^{uv}$.}
+where each of the $M$ centroids $\mu_1^u, \ldots, \mu_M^u$ are paired with corresponding weights $w_1^u, \ldots, w_M^u$. The weight $w_m^u$ for the $m$th centroid $\mu_m^u$ is the number of frames belonging to a particular cluster. The similarity between scenes is then given by a cross-bin histogram distance known as the non-normalized earth mover's distance ($\widehat{\EMD}$) introduced by \cite{pele2008linear}. The $\widehat{\EMD}$ computes the distance between two histograms by finding the minimal cost for transforming one histogram into the other, where cost is measured by the number of transported histogram counts multiplied with the ``ground distance'' between the histogram bins. %In our case, the histogram counts are the clusters weights $w_m^u$ defined over the bins formed by the centroids $\mu_m^u$, so the ground distance is the centroid distance. \ml{From what we have below, the distance is not actually the distance between centroids, though. It's given by the kernel $K_{mn}^{uv}$.}
 
-\ml{Do we need the details that follow? Is it not enough to refer to \cite{pele2009fast}?}
-To compute the $\widehat{\EMD}$, we use the implementation proposed in \cite{pele2009fast}. Given two signatures $p_u$ and $p_v$, the $\widehat{\EMD}$ is computed by solving the following linear program:
-\begin{equation}
-\begin{split}
-\widehat{\EMD}(p_u,p_v) &=\left( \min\limits_{\lbrace f_{nm}\rbrace} \sum\limits_{n,m} f_{nm}D_{nm}^{uv} \right) \\
-&+ \left|\sum\limits_{n} w_n^u - \sum\limits_{m} w_m^v  \right| \max\limits_{n,m}\lbrace  D_{nm}^{uv}\rbrace.
-\end{split}
-\end{equation}
+%\ml{Do we need the details that follow? Is it not enough to refer to \cite{pele2009fast}?}
+%To compute the $\widehat{\EMD}$, we use the implementation proposed in \cite{pele2009fast}. Given two signatures $p_u$ and $p_v$, the $\widehat{\EMD}$ is computed by solving the following linear program:
+% \begin{equation}
+% \begin{split}
+% \widehat{\EMD}(p_u,p_v) &=\left( \min\limits_{\lbrace f_{nm}\rbrace} \sum\limits_{n,m} f_{nm}D_{nm}^{uv} \right) \\
+% &+ \left|\sum\limits_{n} w_n^u - \sum\limits_{m} w_m^v  \right| \max\limits_{n,m}\lbrace  D_{nm}^{uv}\rbrace.
+% \end{split}
+% \end{equation}
+%
+% \begin{equation*}
+% \mathrm{s.t.} \quad f_{nm}\geq0 \quad \sum\limits_{m} f_{nm} \leq w_n^u \quad \sum\limits_{n} f_{nm} \leq w_m^v
+% \end{equation*}
+%
+% \begin{equation*}
+% \sum\limits_{n,m}f_{nm} = \min\left( \sum\limits_{n} w_n^u ,\sum\limits_{m} w_m^v \right)
+% \end{equation*}
+% %\ja{Can we provide some interpretation for the different terms and constraints here?}
+% where $\lbrace f_{nm} \rbrace$ is the flow between the cluster weights $w_n^u$ and $w_m^v$, that is, the amount transported from the $n^{\textrm{th}}$ bin to ``supply the demand'' of the $m^\textrm{th}$ bin. We denote by $D^{uv}$ the ground distance, a matrix containing the pairwise distances between the centroids sets $\mu^u$ and $\mu^v$ which is computed from $K$:
+% \begin{equation*}
+% D_{mn}^{uv}=1-K_{mn}^{uv}.
+% \end{equation*}
+% \ml{Note that this is not actually a distance.}
 
-\begin{equation*}
-\mathrm{s.t.} \quad f_{nm}\geq0 \quad \sum\limits_{m} f_{nm} \leq w_n^u \quad \sum\limits_{n} f_{nm} \leq w_m^v
-\end{equation*}
-
-\begin{equation*}
-\sum\limits_{n,m}f_{nm} = \min\left( \sum\limits_{n} w_n^u ,\sum\limits_{m} w_m^v \right)
-\end{equation*}
-%\ja{Can we provide some interpretation for the different terms and constraints here?}
-where $\lbrace f_{nm} \rbrace$ is the flow between the cluster weights $w_n^u$ and $w_m^v$, that is, the amount transported from the $n^{\textrm{th}}$ bin to ``supply the demand'' of the $m^\textrm{th}$ bin. We denote by $D^{uv}$ the ground distance, a matrix containing the pairwise distances between the centroids sets $\mu^u$ and $\mu^v$ which is computed from $K$:
-\begin{equation*}
-D_{mn}^{uv}=1-K_{mn}^{uv}.
-\end{equation*}
-\ml{Note that this is not actually a distance.}
-
-To get the final similarity measure between the scenes $s_u$ and $s_v$, an extended Gaussian kernel $K^s$ is computed: %\cite{chapelle1999support,jing2003support}
-\begin{equation}
-\label{eq:ks}
-K_{uv}^s = \exp\left( - \dfrac{\widehat{\EMD}(p_u,p_v)}{A} \right) \\
-\end{equation}
-with $A$ a scaling parameter, set to the mean value of the $\widehat{\EMD}$ between all the scenes. The resulting kernel $K^s$ is known as an $\EMD$ kernel, and it should be noted that there is no guarantee that this kernel is positive definite. \ml{Is this kernel used anywhere? For similarity, do we not just use the EMD distance directly?}
+% To get the final similarity measure between the scenes $s_u$ and $s_v$, an extended Gaussian kernel $K^s$ is computed: %\cite{chapelle1999support,jing2003support}
+% \begin{equation}
+% \label{eq:ks}
+% K_{uv}^s = \exp\left( - \dfrac{\widehat{\EMD}(p_u,p_v)}{A} \right) \\
+% \end{equation}
+% with $A$ a scaling parameter, set to the mean value of the $\widehat{\EMD}$ between all the scenes. The resulting kernel $K^s$ is known as an $\EMD$ kernel, and it should be noted that there is no guarantee that this kernel is positive definite. \ml{Is this kernel used anywhere? For similarity, do we not just use the EMD distance directly?}
 
 \section{Experiments}
 \label{sec:experiments}
@@ -371,7 +369,7 @@ type: all recordings were made under moderate weather conditions, at varying tim
 
 \subsection{Feature design}
 
-Experiments are carried out using scattering coefficients as well as baseline mel-frequency cepstral coefficients (MFCCs) as features. For the scattering transform, each $30$-second scene is described by $128$ vectors computed with half-overlapping windows $\boldsymbol{\phi}(t)$ of duration $T=372\,\mathrm{ms}$, for a total of $24\,\mathrm{s}$. In this case, $3$ seconds are discarded at the beginning and end of the scene to avoid boundary artifacts. Experiments are conducted with and without logarithmic compression (see Section \ref{sec:logcomp}). \ml{Results in the next section only seem to contain the logarithmic compression. Do we have the other results as well?}
+Experiments are carried out using scattering coefficients as well as baseline mel-frequency cepstral coefficients (MFCCs) as features. For the scattering transform, each $30$-second scene is described by $128$ vectors computed with half-overlapping windows $\boldsymbol{\phi}(t)$ of duration $T=372\,\mathrm{ms}$, for a total of $24\,\mathrm{s}$. In this case, $3$ seconds are discarded at the beginning and end of the scene to avoid boundary artifacts. Experiments are conducted with and without logarithmic compression (see Section \ref{sec:logcomp}).
 
 MFCCs are computed for windows of $50\,\mathrm{ms}$ and hops of $25\,\mathrm{ms}$ with full frequency range. The standard configuration of $39$ coefficients coupled with an average-energy measure performs best in preliminary tests, so we use this in the following. The coefficients are averaged using $250\,\mathrm{ms}$ long non-overlapping windows so that each window represents structures of similar scale to the scattering coefficients.
 
@@ -379,17 +377,16 @@ MFCCs are computed for windows of $50\,\mathrm{ms}$ and hops of $25\,\mathrm{ms}
 
 %\ja{We've tested the impact of the logarithm here, but not of the feature selection or standardization. Should we do this as well? For the feature selection, we did say earlier that we would test its impact.}
 
-Having validated the underlying assumptions for the cluster-based auditory scene representation, we evaluate its performance for the task of acoustic scene similarity retrieval. \ml{What does this mean?}
+%Having validated the underlying assumptions for the cluster-based auditory scene representation, we evaluate its performance for the task of acoustic scene similarity retrieval. \ml{What does this mean?}
 
 \subsection{Algorithm}
 
 The evaluation is performed on the private part of the DCASE 2013 dataset. The metric used is the precision at rank $k$ ($p@k$), which is computed by taking a query item and counting the number of items of the same class within the $k$ closest neighbors, and then averaging over all query items. These closest neighbors are determined by a particular distance, which is one of \emph{RbQ-c}, \emph{RbQ-a}, or \emph{RbQ-w}.
 
-The metric $p@k$ is computed for $k=\lbrace 1,\ldots,9\rbrace$, since each class only has $10$ items. Note that a $p@1$ is equivalent to the classification accuracy obtained by the classifier which chooses the label of the closest neighbor for a given item. The \emph{RbQ} approaches are compared to commonly used early integration approach \emph{early}. %\ja{And BOF?}
-\ml{What is the early integration approach here? We should define it.}
+The metric $p@k$ is computed for $k=\lbrace 1,\ldots,9\rbrace$, since each class only has $10$ items. Note that a $p@1$ is equivalent to the classification accuracy obtained by the classifier which chooses the label of the closest neighbor for a given item. The \emph{RbQ} approaches are compared to commonly used early integration approach \emph{early}, which consists in averaging over time the feature set of each scene, resulting in one feature vector per scene. The parameters of the BOF approach are the one used in \cite{aucouturier2007bag}, \texit{i.e.} 10 Gaussians per scene estimated using the Expectation Maximization algorithm. Gaussian models are compared using Monte-Carlo sampling approaximation.
 
-The scaling parameter $q$ of the RBF kernels (see Eq. \ref{eq:kc}) is set to $10\%$ of the number of data points to cluster, being the number of scenes for \emph{early} and the number of clusters for RbQ approaches. \ml{What does this mean?}
-The clustering for the \emph{RbQ} approaches is done using plain $k$-means with random initialization and $200$ replicates. For each method, the numbers of clusters is set to the value among $8$, $16$ and $32$ that leads to the best $p@9$ on the training set. \ml{What's the training set here?}
+The scaling parameter $q$ of the RBF kernels (see Eq. \ref{eq:kc}) is set to $10\%$ of the number of data points to cluster.%, being the number of scenes for \emph{early} and the number of clusters for RbQ approaches. \ml{What does this mean?}
+The clustering for the \emph{RbQ} approaches is done using plain $k$-means with random initialization and $200$ replicates. For each method, the numbers of clusters is set to $8$.
 
 %\ja{I'm not sure what this means. Do we fix $m$ and $N$ here for all experiments or do we optimize them over the test data each time? If so, this will bias the results, no?}
 
@@ -400,6 +397,18 @@ The clustering for the \emph{RbQ} approaches is done using plain $k$-means with 
 
 This section presents evaluation results for the acoustic scene similarity retrieval task. The $p@k$ for different settings are shown in Figure \ref{fig:ASS_1}, illustrating the effect of the different similarity metrics. This allows us to also evaluate the recall capabilities of the system under evaluation.
 
+\subsubsection*{Logarithmic compression}
+
+As can be seen on Fiugre \ref{fig:ASS_0}, the logarithmic compression is beneficial for precision performance irrespective of the similarity considered. The gain is more pronounced when considering alternative similarities.
+
+\begin{figure}[t]
+\begin{center}
+\includegraphics[width=\columnwidth]{gfx/unsupervised_test1}
+\caption{Acoustic scene similarity retrieval in the DCASE 2013 private dataset: precisions at rank $k$ ($p@k$) obtained for scattering with or without logarithmic compression, as a function of the rank $k$. \ml{ob a missing ??}}
+\label{fig:ASS_0}
+\end{center}
+\end{figure}
+
 \subsubsection*{MFCC \vs scattering transform}
 
 Irrespective of the rank $k$ considered, best result is achieved for the scattering transform with logarithmic compression using the \emph{RbQ-c} approach. Overall, log-compressed scattering coefficients systematically outperform MFCCs. This is to be expected since the scattering coefficients capture larger-scale modulations, as opposed to MFCCs which only describe the short-time spectral envelope.
@@ -407,6 +416,8 @@ Irrespective of the rank $k$ considered, best result is achieved for the scatter
 \subsubsection*{Relevance-based quantization \vs early integration}
 
 For the scattering transform, both \emph{RbQ-c} and \emph{RbQ-w} outperform \emph{early}, thus confirming the benefits of using an relevance-based quantization (\emph{RbQ}) to improve the similarity measures between the scenes. However, it is worth noticing that \emph{RbQ-a} performs worse or comparably to \emph{early}, showing that the discriminant information is destroyed by averaging the contributions from all centroids. This result is in line with the findings of \cite{lagrange:hal-01082501}. To take advantage of such a representation, we need to select certain representative centroids when comparing quantized objects. Furthermore, it appears that \emph{RbQ-c} is better able to characterize the classes compared to \emph{RbQ-w}. This last observation suggests that weighting a centroid according to the number of frames it contains may prove to be a limited solution. Indeed, nothing a priori indicates that the discriminant information between two scenes lays within the majority of their frames. On the contrary, two similar environments may share a lot of similar sound sources with only a few sources discriminating between them. \ml{This is a bit of a stretch, since it may just be that we used the wrong distance to take the weighting into account. Perhaps the non-normalize d EMD is not appropriate here?}
+
+\ja{needs to be discussed}
 
 Considering $p@5$ as our metric (as in \cite{aucouturier2007bag} and \cite{lagrange:hal-01082501}), the use of the log-scattering transform instead of MFCCs increases the performance from $0.31$ to $0.49$ and the use of the relevance-based quantization approach using the closest similarity (\emph{RbQ-c}) further improves the performance to $0.54$ for a global increase of $0.23$.
 
@@ -419,7 +430,7 @@ Considering $p@5$ as our metric (as in \cite{aucouturier2007bag} and \cite{lagra
 \begin{figure}[t]
 \begin{center}
 \includegraphics[width=\columnwidth]{gfx/unsupervised_test2}
-\caption{Acoustic scene similarity retrieval in the DCASE 2013 private dataset: precisions at rank $k$ ($p@k$) obtained for MFCCs and scattering with logarithmic compression, as a function of the rank $k$.}
+\caption{Acoustic scene similarity retrieval in the DCASE 2013 private dataset: precisions at rank $k$ ($p@k$) obtained for MFCCs and scattering with logarithmic compression, as a function of the rank $k$. \ml{add gmms}}
 \label{fig:ASS_1}
 \end{center}
 \end{figure}
