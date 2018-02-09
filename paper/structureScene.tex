@@ -218,7 +218,7 @@ Indeed, higher-order scattering coefficients have been shown to contain reduced 
 \subsection{Gammatone wavelets}
 \begin{figure}
 \begin{center}
-\includegraphics[width=\columnwidth]{gfx/gammatones}
+\includegraphics[width=\columnwidth]{figures/gammatones}
 \caption{
 \label{fig:gammatones}
 Gammatone wavelets $\psi(t)$ in the time domain with quality factors (a) $Q = 4$ and (b) $Q = 1$.
@@ -252,7 +252,7 @@ Figure \ref{fig:histograms} shows the distribution of an arbitrarily chosen scat
 
 \begin{figure}
 \begin{center}
-\includegraphics[width=\columnwidth]{gfx/compression}
+\includegraphics[width=\columnwidth]{figures/compression}
 \caption{
 \label{fig:histograms}
 Histogram of values taken by the first-order scattering coefficient $\mathbf{S}\boldsymbol{x}(\gamma)$, corresponding to a center acoustic frequency of $302\,\mathrm{Hz}$,
@@ -383,7 +383,7 @@ MFCCs are computed for windows of $50\,\mathrm{ms}$ and hops of $25\,\mathrm{ms}
 
 The evaluation is performed on the private part of the DCASE 2013 dataset. The metric used is the precision at rank $k$ ($p@k$), which is computed by taking a query item and counting the number of items of the same class within the $k$ closest neighbors, and then averaging over all query items. These closest neighbors are determined by a particular distance, which is one of \emph{RbQ-c}, \emph{RbQ-a}, or \emph{RbQ-w}.
 
-The metric $p@k$ is computed for $k=\lbrace 1,\ldots,9\rbrace$, since each class only has $10$ items. Note that a $p@1$ is equivalent to the classification accuracy obtained by the classifier which chooses the label of the closest neighbor for a given item. The \emph{RbQ} approaches are compared to commonly used early integration approach \emph{early}, which consists in averaging over time the feature set of each scene, resulting in one feature vector per scene. The parameters of the BOF approach are the one used in \cite{aucouturier2007bag}, \texit{i.e.} 10 Gaussians per scene estimated using the Expectation Maximization algorithm. Gaussian models are compared using Monte-Carlo sampling approaximation.
+The metric $p@k$ is computed for $k=\lbrace 1,\ldots,9\rbrace$, since each class only has $10$ items. Note that a $p@1$ is equivalent to the classification accuracy obtained by the classifier which chooses the label of the closest neighbor for a given item. The \emph{RbQ} approaches are compared to commonly used early integration approach \emph{early}, which consists in averaging over time the feature set of each scene, resulting in one feature vector per scene. The parameters of the BOF approach are the one used in \cite{aucouturier2007bag}, \textit{i.e.} 10 Gaussians per scene estimated using the Expectation Maximization algorithm. Gaussian models are compared using Monte-Carlo sampling approaximation.
 
 The scaling parameter $q$ of the RBF kernels (see Eq. \ref{eq:kc}) is set to $10\%$ of the number of data points to cluster.%, being the number of scenes for \emph{early} and the number of clusters for RbQ approaches. \ml{What does this mean?}
 The clustering for the \emph{RbQ} approaches is done using plain $k$-means with random initialization and $200$ replicates. For each method, the numbers of clusters is set to $8$.
@@ -397,14 +397,28 @@ The clustering for the \emph{RbQ} approaches is done using plain $k$-means with 
 
 This section presents evaluation results for the acoustic scene similarity retrieval task. The $p@k$ for different settings are shown in Figure \ref{fig:ASS_1}, illustrating the effect of the different similarity metrics. This allows us to also evaluate the recall capabilities of the system under evaluation.
 
-\subsubsection*{Logarithmic compression}
+\subsubsection*{Baselines}
 
-As can be seen on Fiugre \ref{fig:ASS_0}, the logarithmic compression is beneficial for precision performance irrespective of the similarity considered. The gain is more pronounced when considering alternative similarities.
+As can be seen on Figure \ref{fig:ASS_-1}, the BOF approach behaves similarly to the early approach when considering MFCCs as features. Its performance decreases compared to the early approach when considering the scattering features. Extensive analysis of those results is out of the scope of this paper, but we can assume that this decrease is to to the dimensionality reduction operated on the scattering features before GMM training in order to ensure the convergence of the EM algorithm.
+
+The early approach being simpler in terms of implementation and runtime complexity, this method is retained as baseline for the remaining.
 
 \begin{figure}[t]
 \begin{center}
-\includegraphics[width=\columnwidth]{gfx/unsupervised_test1}
-\caption{Acoustic scene similarity retrieval in the DCASE 2013 private dataset: precisions at rank $k$ ($p@k$) obtained for scattering with or without logarithmic compression, as a function of the rank $k$. \ml{ob a missing ??}}
+\includegraphics[width=\columnwidth]{figures/baselines}
+\caption{Acoustic scene similarity retrieval in the DCASE 2013 private dataset: precisions at rank $k$ ($p@k$) obtained for scattering with or without logarithmic compression, as a function of the rank $k$.}
+\label{fig:ASS_-1}
+\end{center}
+\end{figure}
+
+\subsubsection*{Logarithmic compression}
+
+As can be seen on Figure \ref{fig:ASS_0}, the logarithmic compression is beneficial for precision performance irrespective of the similarity considered. The gain is more pronounced when considering alternative similarities.
+
+\begin{figure}[t]
+\begin{center}
+\includegraphics[width=\columnwidth]{figures/log}
+\caption{Acoustic scene similarity retrieval in the DCASE 2013 private dataset: precisions at rank $k$ ($p@k$) obtained for scattering with or without logarithmic compression, as a function of the rank $k$.}
 \label{fig:ASS_0}
 \end{center}
 \end{figure}
@@ -429,7 +443,7 @@ Considering $p@5$ as our metric (as in \cite{aucouturier2007bag} and \cite{lagra
 
 \begin{figure}[t]
 \begin{center}
-\includegraphics[width=\columnwidth]{gfx/unsupervised_test2}
+\includegraphics[width=\columnwidth]{figures/overall}
 \caption{Acoustic scene similarity retrieval in the DCASE 2013 private dataset: precisions at rank $k$ ($p@k$) obtained for MFCCs and scattering with logarithmic compression, as a function of the rank $k$. \ml{add gmms}}
 \label{fig:ASS_1}
 \end{center}
@@ -444,19 +458,19 @@ These outcomes shall be studied further in future work by considering larger dat
 %\bibliography{biblio}
 \printbibliography
 
-% \begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{gfx/lostanlen}}]{Vincent Lostanlen} was born in 1992. He received an engineering degree from TELECOM ParisTech in 2013 and his M.S. degree in acoustics, signal processing, and musical informatics (ATIAM) from the Universit\'{e} Pierre et Marie Curie (UPMC) and the Ircam in Paris, France, in 2013. Since 2013, he is a Ph.D. student at \'{E}cole normale sup\'{e}rieure in Paris, working under the supervision of St\'{e}phane Mallat. His research focuses on defining convolutional operators in the time-frequency domain with applications in audio classification.
+% \begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{figures/lostanlen}}]{Vincent Lostanlen} was born in 1992. He received an engineering degree from TELECOM ParisTech in 2013 and his M.S. degree in acoustics, signal processing, and musical informatics (ATIAM) from the Universit\'{e} Pierre et Marie Curie (UPMC) and the Ircam in Paris, France, in 2013. Since 2013, he is a Ph.D. student at \'{E}cole normale sup\'{e}rieure in Paris, working under the supervision of St\'{e}phane Mallat. His research focuses on defining convolutional operators in the time-frequency domain with applications in audio classification.
 % \end{IEEEbiography}
 %
-% \begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{gfx/lafay}}]{Gr\'egoire Lafay} was born in 1990. He received the B.S. degree in Acoustic from the University Pierre and Marie Curie (UPMC), Paris, France, and the B.S. degree in Musicology from the Sorbonne University, Paris, France, in 2011. He received his M.S. degree in acoustics, signal processing, and musical informatics (ATIAM) from the UPMC and the Ircam in Paris, France, in 2013. Since 2013, he is a Ph.D. student at IRCCyN, Nantes, France. His research interests include acoustic scene similarity and classification as well as acoustic scene perception.
+% \begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{figures/lafay}}]{Gr\'egoire Lafay} was born in 1990. He received the B.S. degree in Acoustic from the University Pierre and Marie Curie (UPMC), Paris, France, and the B.S. degree in Musicology from the Sorbonne University, Paris, France, in 2011. He received his M.S. degree in acoustics, signal processing, and musical informatics (ATIAM) from the UPMC and the Ircam in Paris, France, in 2013. Since 2013, he is a Ph.D. student at IRCCyN, Nantes, France. His research interests include acoustic scene similarity and classification as well as acoustic scene perception.
 % \end{IEEEbiography}
 %
 %
-% \begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{gfx/anden}}]{Joakim And\'en}
+% \begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{figures/anden}}]{Joakim And\'en}
 % received the M.Sc. degree in mathematics from the Universit\'e Pierre et Marie Curie, Paris, France, in 2010 and the Ph.D. degree in applied mathematics from Ecole Polytechnique, Palaiseau, France, in 2014. He is currently a postdoctoral researcher with the Program in Applied and Computational mathematics at Princeton University, Princeton, USA. His research interests include signal processing, machine learning, and statistical data analysis. He is a member of the IEEE.
 %
 % \end{IEEEbiography}
 %
-% \begin{IEEEbiography}[{\includegraphics[width=1.25in,height=1.25in,clip,keepaspectratio]{gfx/lagrange}}]{Mathieu Lagrange} is a CNRS research scientist at IRCCyN, a French laboratory dedicated to cybernetics. He obtained his Ph.D. in computer science at the University of Bordeaux in 2004, and visited several institutions in Canada (University of Victoria, McGill University) and in France (Orange Labs, TELECOM ParisTech, Ircam). His research focuses on machine listening algorithms applied to the analysis of musical and environmental audio.
+% \begin{IEEEbiography}[{\includegraphics[width=1.25in,height=1.25in,clip,keepaspectratio]{figures/lagrange}}]{Mathieu Lagrange} is a CNRS research scientist at IRCCyN, a French laboratory dedicated to cybernetics. He obtained his Ph.D. in computer science at the University of Bordeaux in 2004, and visited several institutions in Canada (University of Victoria, McGill University) and in France (Orange Labs, TELECOM ParisTech, Ircam). His research focuses on machine listening algorithms applied to the analysis of musical and environmental audio.
 % \end{IEEEbiography}
 
 % biography section
