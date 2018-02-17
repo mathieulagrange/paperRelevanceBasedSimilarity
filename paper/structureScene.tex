@@ -294,49 +294,30 @@ where each of the $M$ centroids $\mu_1^u, \ldots, \mu_M^u$ are paired with corre
 \section{Experiments}
 \label{sec:experiments}
 
-To evaluate the representations introduced in the previous section, we apply it to the acoustic scene similarity retrieval task on the DCASE 2013 dataset.
+To evaluate the representations introduced in the previous section, we apply it to the acoustic scene similarity retrieval task.
 Results demonstrate the improved performance of the relevance-based quantization of scattering coefficients compared to baseline methods using summary statistics of MFCCs.
-The implementations of the presented methods and the experimental protocol are available online.\footnote{\url{https://github.com/mathieulagrange/paperRelevanceBasedSimilarity}} % \ja{What is ``the one''?}
-
-% , and $\alpha$ is a parameter which trades off between \ja{?}
+The implementations of the presented methods and the experimental protocol are available online.\footnote{\url{https://github.com/mathieulagrange/paperRelevanceBasedSimilarity}}
 
 \subsection{Dataset}
 
-%For most of the experiments reported in this paper, we will consider the DCASE2013 dataset \cite{giannoulis2013database, 7100934}. Larger datasets exists: the
-%Rouen dataset \cite{rakotomamonjy2015histogram} and the public part of the DCASE2016 challenge.%
-The experiments in this paper are carried out on the DCASE 2013 \cite{7100934} dataset.
-This dataset consists of two parts, namely a public and a private subset, each made up of $100$ acoustic scene recordings, sampled at $44100\,\mathrm{Hz}$ and $30$ seconds in duration. The dataset is evenly divided into $10$ acoustic scence classes. The recordings were made by three different recordists at a wide variety of locations in the Greater London area over a period of several months. No
+The experiments in this paper are carried out on the DCASE 2013 dataset \cite{7100934}.
+This dataset consists of two parts, a public and a private subset, each made up of $100$ acoustic scene recordings sampled at $44100\,\mathrm{Hz}$ and $30$ seconds in duration. The dataset is evenly divided into $10$ acoustic scence classes. The recordings were made by three different recordists at a wide variety of locations in the Greater London area over a period of several months. No
 systematic variations in the recordings covaried with scene
-type: all recordings were made under moderate weather conditions, at varying times of day and week, and each recordist recorded each scene type. As a result, the DCASE 2013 dataset enjoys significant intra-class diversity while remaining of manageable size, making it suitable for extensive evaluation of algorithmic design choices \cite{lagrange:hal-01082501}.
-%In addition, it is still a challenging dataset, with a state-of-the-art system based using handcrafted features as input to SVMs achieving $76\%$ \cite{roma2013} (winner of the DCASE2013 challenge), while recent approaches based on label tree embedding achieve between $84\%$ and $87\%$ on DCASE 2013 depending on the prior knowledge used during training \cite{phan2016label}.
-
-%Recent advances using hierarchical classifier architectures obtain between $84\%$ and $87\%$ on DCASE2013 depending on the prior knowledge used during training \cite{phan2016label}. On the Rouen dataset, the state-of-the-art is currently $95\%$ \cite{bisot2016acoustic}.
-%, but here we conduct our experiments on the public part of the dataset. \ja{Any more information on this dataset?}
-
-%In this paper, we are interested in evaluating different algorithmic designs leading to different scene models, we therefore resort to straightforward ranking performance measures for the ASSR task. \ja{It's not clear to me how the first part implies the second part here} Similarly, we have picked SVMs as our classifier for the ASC task, since these are a standard tool in the community and allows for us to focus our analysis on the earlier processing stages. Moreover, since MFCCs are well-established features which perform well for these task, we shall include them baseline features in all experiments described in this paper.
+type: all recordings were made under moderate weather conditions, at varying times of day and week, and each recordist recorded each scene type. As a result, the dataset enjoys significant intra-class diversity while remaining of manageable size, making it suitable for evaluation of algorithmic design choices \cite{lagrange:hal-01082501}.
 
 \subsection{Feature design}
 
-Experiments are carried out using scattering coefficients as well as baseline mel-frequency cepstral coefficients (MFCCs) as features. For the scattering transform, each $30$-second scene is described by $128$ vectors computed with half-overlapping windows $\boldsymbol{\phi}(t)$ of duration $T=372\,\mathrm{ms}$, for a total of $24\,\mathrm{s}$. In this case, $3$ seconds are discarded at the beginning and end of the scene to avoid boundary artifacts. Experiments are conducted with and without logarithmic compression (see Section \ref{sec:logcomp}).
+We perform our experiments using both scattering coefficients and MFCCs. For the scattering transform, each $30$-second scene is described by $128$ vectors of dimension $1367$ computed with half-overlapping windows $\boldsymbol{\phi}(t)$ of duration $T=372\,\mathrm{ms}$, for a total of $24\,\mathrm{s}$. Here we discard $3$ seconds from the beginning and end of the scene to avoid boundary artifacts. We also conduct experiments with and without logarithmic compression of the scattering coefficients (see Section \ref{sec:logcomp}).
 
-MFCCs are computed for windows of $50\,\mathrm{ms}$ and hops of $25\,\mathrm{ms}$ with full frequency range. The standard configuration of $39$ coefficients coupled with an average-energy measure performs best in preliminary tests, so we use this in the following. The coefficients are averaged using $250\,\mathrm{ms}$ long non-overlapping windows so that each window represents structures of similar scale to the scattering coefficients.
-
-%. The MFCC vectors within each texture window are then averaged in time. As the \emph{ob} approaches involve a clustering step, we need to ensure that both MFCCs and scattering coefficients have a comparable number of vectors per recording. Thus, $t$ is set to $250\,\mathrm{ms}$, resulting in $120$ MFCCs texture windows per scene.
-
-%\ja{We've tested the impact of the logarithm here, but not of the feature selection or standardization. Should we do this as well? For the feature selection, we did say earlier that we would test its impact.}
-
-%Having validated the underlying assumptions for the cluster-based auditory scene representation, we evaluate its performance for the task of acoustic scene similarity retrieval. \ml{What does this mean?}
+MFCCs are computed for windows of $50\,\mathrm{ms}$ and hops of $25\,\mathrm{ms}$ with full frequency range. The standard configuration of $39$ coefficients coupled with an average-energy measure performs best in preliminary tests, so we use this in the following. We average the coefficients using $250\,\mathrm{ms}$ long non-overlapping windows so that each window represents structures of scales close to that of scattering coefficients.
 
 \subsection{Algorithm}
 
-The evaluation is performed on the private part of the DCASE 2013 dataset. The metric used is the precision at rank $k$ ($p@k$), which is computed by taking a query item and counting the number of items of the same class within the $k$ closest neighbors, and then averaging over all query items. These closest neighbors are determined by a particular distance, which is one of \emph{RbQ-c}, \emph{RbQ-a}, or \emph{RbQ-w}. \vl{Avoid passive voice.}
+The evaluation is performed on the private part of the DCASE 2013 dataset. As a metric, we use the precision at rank $k$ ($p@k$). This number is computed by taking a query item and counting the number of items of the same class within the $k$ closest neighbors, and then averaging over all query items. We determine these neighbors using one of the proposed similarity measures \emph{RbQ-c}, \emph{RbQ-a}, or \emph{RbQ-w}. We compute $p@k$ for $k=\lbrace 1,\ldots,9\rbrace$, since each class only has $10$ items. Note that $p@1$ is equal to the classification accuracy obtained by the nearest-neighbor classifier in a leave-one-out cross-validation setting. 
 
-The metric $p@k$ is computed for $k=\lbrace 1,\ldots,9\rbrace$, since each class only has $10$ items. Note that a $p@1$ is equivalent to the classification accuracy obtained by the classifier which chooses the label of the closest neighbor for a given item. The \emph{RbQ} approaches are compared to commonly used early integration approach \emph{early}, which consists in averaging over time the feature set of each scene, resulting in one feature vector per scene. The parameters of the BOF approach are the one used in \cite{aucouturier2007bag}, \textit{i.e.} 10 Gaussians per scene estimated using the Expectation Maximization (EM) algorithm. Gaussian models are compared using Monte-Carlo sampling approximation. In order to ensure convergence of the EM algorithm when considering the scattering features as input, the dimension of the feature vector is reduced from 1367 to 30 by projecting the features over the 30 principal components computed over the whole dataset. \vl{Too much passive voice, too many instances of "use", "used".}
+The \emph{RbQ} measures are compared to commonly used early integration approach \emph{early}, which consists in averaging over time the feature set of each scene, resulting in one feature vector per scene. The distance on this average feature vector is then used to determine $p@k$. For the BOF approach of Aucouturier et al. \cite{aucouturier2007bag}, $10$-component GMMs are estimated for each scene using the expectation-maximization (EM) algorithm \cite{dempster-laird}. The similarity between a given pair of scene GMMs is then calculated through Monte Carlo sampling approximation. To ensure convergence of the EM algorithm for the scattering features, we reduce their dimension from $1367$ to $30$ by projecting the features onto the top $30$ principal components of the dataset.
 
-The scaling parameter $q$ of the RBF kernels (see Eq. \ref{eq:kc}) is set to $10\%$ of the number of data points to cluster.%, being the number of scenes for \emph{early} and the number of clusters for RbQ approaches. \ml{What does this mean?}
-The clustering for the \emph{RbQ} approaches is done using plain $k$-means with random initialization and $200$ replicates. For each method, the numbers of clusters is set to $8$.
-
-%\ja{I'm not sure what this means. Do we fix $m$ and $N$ here for all experiments or do we optimize them over the test data each time? If so, this will bias the results, no?}
+The scaling parameter $q$ of the RBF kernels (see Eq. \ref{eq:kc}) is set to $10\%$ of the number of data points to cluster. For each method, the numbers of clusters is set to $8$.
 
 \section{Results \label{sec:results}}
 
