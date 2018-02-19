@@ -55,7 +55,25 @@
 \title{Relevance-based Quantization of Scattering Features for Unsupervised Mining of Environmental Audio}
 \titlerunning{Relevance-based Quantization of Scattering Features}
 
-\author{Vincent Lostanlen\thanks{This work is supported by the ERC InvariantClass grant 320959.}, Gr\'egoire Lafay, Joakim And\'en, and Mathieu Lagrange}
+
+\author{Vincent Lostanlen         \and
+		Gr\'egoire Lafay  \and Joakim And\'en  \and Mathieu Lagrange.}
+
+\institute{Vincent Lostanlen \at
+              \email{vincent.lostanlen@nyu.edu}
+\and
+			Gr\'egoire Lafay \at
+              \email{lafaygregoire@gmail.com}
+\and
+			Joakim And\'en \at
+              \email{janden@flatironinstitute.org}           \and
+			Mathieu Lagrange \at
+              \email{mathieu.lagrange@cnrs.fr}
+}
+
+\date{Received: date / Accepted: date}
+% The correct dates will be entered by the editor
+
 
 
 % make the title area
@@ -453,6 +471,30 @@ Considering $p@5$ as our metric (as in \cite{aucouturier2007bag} and \cite{lagra
 
 This paper presents a new approach for modeling acoustic scenes which utilizes scattering transforms at small scales and a cluster-based representation at large scales. Compared to traditional models based on BOF and summary statistics, this representation allows for the characterization of distinct sound events superimposed on a stationary texture, a concept which has strong grounding in the cognitive psychology literature. In order to extend the selectivity potential of late integration using SVMs to the unsupervised case, we develop the cluster-based model and validate it using experiments on acoustic scene similarity retrieval. For this task, we show significant improvements over the traditional BOF and summary statistics models based on both standard MFCCs and scattering features.
 These outcomes shall be studied further in future work by considering larger databases and emerging tasks in computational bioacoustics \cite{wimmer2013sampling}.
+
+
+\section*{Availability of data and materials}
+The dataset supporting the conclusions of this article is available in the dcase2013 repository,  \sloppy \url{http://c4dm.eecs.qmul.ac.uk/sceneseventschallenge/description.html}.
+The software supporting the conclusions of this article is available in
+\begin{itemize}
+\item Project name: article2017EstimationAmbiance
+\item \sloppy Project home page: \url{https://github.com/mathieulagrange/paperRelevanceBasedSimilarity}
+\item Programming language: Matlab
+\item License: GNU GPL
+\item Any restrictions to use by non-academics: license needed
+\end{itemize}
+
+
+\section*{Competing interests}
+The authors declare that they have no competing interests.
+
+\section*{Funding}
+This study is co-funded by the ANR under project reference ANR-16-CE22-0012.
+
+\section*{Authors' contributions}
+GL and VL carried out the numerical experiments and drafted the manuscript. VL, GL, JA and ML participated in the design of the study and helped to draft the manuscript.
+All authors read and approved the final manuscript.
+
 
 %\bibliographystyle{spmpsci}
 %\bibliography{biblio}

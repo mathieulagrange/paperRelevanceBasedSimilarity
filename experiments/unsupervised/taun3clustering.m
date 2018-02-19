@@ -11,7 +11,7 @@ function [config, store, obs] = taun3clustering(config, setting, data)
 % Date: 17-Dec-2016
 
 % Set behavior for debug mode
-if nargin==0, unsupervised('do', 3, 'mask', {2 0 2 3 }); return; else store=[]; obs=[]; end
+if nargin==0, unsupervised('do', 3, 'mask', {2 0 2 1 0 1 1 0 2}); return; else store=[]; obs=[]; end
 
 %% seed
 
@@ -66,6 +66,12 @@ switch setting.integration
         end
         
     case 'early'
+         if setting.pca
+           % perform pca
+          coeff = pca(data.features');
+          data.features = data.features'*coeff;
+          data.features = data.features(:, 1:30)';
+        end
         
         store.centroid=cell2mat(arrayfun(@(x) mean(data.features(:,data.indSample==x),2),unique(data.indSample),'UniformOutput',false));
         store.indSample=unique(data.indSample);
