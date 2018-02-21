@@ -11,7 +11,7 @@ function [config, store, obs] = taun3clustering(config, setting, data)
 % Date: 17-Dec-2016
 
 % Set behavior for debug mode
-if nargin==0, unsupervised('do', 3, 'mask', {2 0 2 1 0 1 1 0 2}); return; else store=[]; obs=[]; end
+if nargin==0, unsupervised('do', 3, 'mask', {2 0 2 3 0 1 1 0 2}); return; else store=[]; obs=[]; end
 
 %% seed
 
@@ -78,8 +78,10 @@ switch setting.integration
         store.centroidClass=store.class;
         case 'gmm'
         expRandomSeed();
+        setting.nbg=8;
         if strcmp(setting.features(1:4), 'scat') 
            % perform pca
+           setting.nbg=4;
           coeff = pca(data.features');
           data.features = data.features'*coeff;
           data.features = data.features(:, 1:30)';
@@ -92,7 +94,7 @@ switch setting.integration
                 if strcmp(setting.dataset, '2016') && i==33
                     dn = dn + randn(size(dn))*1;
                 end
-                gmmi = createGmm(dn, 10);
+                gmmi = createGmm(dn, setting.nbg);
                 if ~(any(isnan(gmmi.priors)) && any(isnan(gmmi.covars(:))))
                     break;
                 end
@@ -101,7 +103,7 @@ switch setting.integration
                 fprintf(2, 'unable to learn gmm for sample %d, performing kmeans\n', i);
                 
                 nbcoef=size(dn,2);
-                gmmi = gmm(nbcoef, 10, 'diag');
+                gmmi = gmm(nbcoef, setting.nbg, 'diag');
                 % options = foptions;
                 options(14) = 200;	% Just use 20 iterations of k-means in initialisation
                 options(1)  = -1;
