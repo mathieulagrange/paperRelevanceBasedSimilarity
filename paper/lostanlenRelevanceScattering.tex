@@ -351,9 +351,7 @@ The early approach being simpler in terms of implementation and runtime complexi
 \begin{figure}[t]
 \begin{center}
 \includegraphics[width=\columnwidth]{figures/baselines}
-\caption{Acoustic scene similarity retrieval in the DCASE 2013 private dataset: precisions at rank $k$ ($p@k$) obtained for scattering with or without logarithmic compression, as a function of the rank $k$.
-\vl{The x-axis label is wrong. precision should be replaced by "rank $k$". The y-axis should be "precision ($p@k$)". It would be good to have the y-axis range from $0\%$ to $100\%$.
-The lines should be thicker and follow a color palette of complementary colors (blue vs. orange). The legends should not be abbreviated: scatT -> scattering, mfcc -> MFCC. } \ja{Should we not have $k$ stricly smaller than $10$ here?} \ml{very true, we should stop at k=9 for all figures. We can see it reaches a plateau. mfcc, early pca should be discarded.}}
+\caption{Acoustic scene similarity retrieval in the DCASE 2013 private dataset: precisions at rank $k$ ($p@k$) obtained for scattering with or without logarithmic compression, as a function of the rank $k$.}
 \label{fig:ASS_-1}
 \end{center}
 \end{figure}
@@ -365,7 +363,7 @@ Figure \ref{fig:ASS_0} shows that logarithmic compression of the scattering feat
 \begin{figure}[t]
 \begin{center}
 \includegraphics[width=\columnwidth]{figures/log}
-\caption{Acoustic scene similarity retrieval in the DCASE 2013 private dataset: precisions at rank $k$ ($p@k$) obtained for scattering with or without logarithmic compression, as a function of the rank $k$.\ml{show only early}}
+\caption{Acoustic scene similarity retrieval in the DCASE 2013 private dataset: precisions at rank $k$ ($p@k$) obtained for scattering with or without logarithmic compression, as a function of the rank $k$.}
 \label{fig:ASS_0}
 \end{center}
 \end{figure}
@@ -385,7 +383,7 @@ With $p@5$ as our metric (cf. \cite{aucouturier2007bag} and \cite{lagrange:hal-0
 \begin{figure}[t]
 \begin{center}
 \includegraphics[width=\columnwidth]{figures/overall}
-\caption{Acoustic scene similarity retrieval in the DCASE 2013 private dataset: precisions at rank $k$ ($p@k$) obtained for MFCCs and scattering with logarithmic compression, as a function of the rank $k$.\ml{keep only early approaches, and adapt the text refering to it then.}}
+\caption{Acoustic scene similarity retrieval in the DCASE 2013 private dataset: precisions at rank $k$ ($p@k$) obtained for MFCCs and scattering with logarithmic compression.}
 \label{fig:ASS_1}
 \end{center}
 \end{figure}
