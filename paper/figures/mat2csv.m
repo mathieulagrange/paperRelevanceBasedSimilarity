@@ -17,6 +17,8 @@ for k=1:length(files)
         lines(i).LineWidth = 2.0;
     end
     axis([1 9 10 100]);
+    set(gcf, 'PaperPosition', 'auto');
     disp('edit');
     saveas(gcf, [files(k).name(1:end-3) 'png'])
+     savefig(gcf, [files(k).name(1:end-4) '2.fig'])
 end
