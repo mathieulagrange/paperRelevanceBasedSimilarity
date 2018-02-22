@@ -21,5 +21,5 @@ D=1-data.A/max(data.A(:));
 %     eval(['obs.pa' num2str(jj) '=rm.precisionAt' num2str(jj) ';']);
 % end
 
-rm = rankingMetrics(D, data.class,setting.precision);
-eval(['obs.p=rm.precisionAt' num2str(setting.precision) ';']);
+rm = rankingMetrics(D, data.class,setting.rank);
+eval(['obs.precision=rm.precisionAt' num2str(setting.rank) ';']);
