@@ -84,7 +84,7 @@
 \begin{abstract}
 The emerging field of computational ecoacoustics aims at retrieving high-level information from acoustic scenes recorded by some network of sensors. These networks gather large amounts of data requiring analysis. To decide which parts to inspect manually, we need tools that automatically mine the data, identifying recurring patterns and isolated events. This requires a similarity measure for acoustic scenes that does not impose strong assumptions on the data.
 
-The state of the art in audio similarity measurement is the ``bag-of-frames'' approach, which models a recording using summary statistics of short-term audio descriptors, such as mel-frequency cepstral coefficients (MFCCs). They successfully characterize static scenes with little variability in auditory content, but cannot accurately capture scenes with a few salient events superimposed over static background.
+The state of the art in audio similarity measurement is the ``bag-of-frames'' approach, which models a recording using summary statistics of short-term audio descriptors, such as mel-frequency cepstral coefficients (MFCCs). They successfully characterise static scenes with little variability in auditory content, but cannot accurately capture scenes with a few salient events superimposed over static background.
 To overcome this issue, we propose a two-scale representation which describes a recording using clusters of scattering coefficients. The scattering coefficients capture short-scale structure, while the cluster model captures longer time scales, allowing for more accurate characterization of sparse events. Evaluation within the acoustic scene similarity framework demonstrates the superiority of the proposed approach.
 \keywords{
 unsupervised learning \and data mining \and acoustic signal processing \and wavelet transforms \and audio databases \and content-based retrieval \and nearest neighbor searches \and acoustic sensors \and environmental sensors.}
@@ -102,11 +102,11 @@ Since they bear a strong societal impact and raise many scientific challenges, w
 These questions are explored in an emerging field of computational bioacoustics, known as ecoacoustics, which is the interdisciplinary study of relationships between natural or anthropogenic sounds and their environments at the intersection of ecology, acoustics and computer science \cite{krause}.
 An important problem in this field is that manually analysing the recorded data to identify the quantities of interest is very costly \cite{wimmer2013sampling}. Some sort of pre-screening is therefore required to reduce the need for human expert listening and annotation.
 
-The most straightforward approach is to specify a closed set of sound classes, such as sounds of animals expected to live near the acoustic sensors. Computational models are trainedthen  for these classes which are used to automatically annotate recordings \cite{quteprints96243}. A given time interval (e.g., a single day) is then represented by the number of events detected during that interval for each class. This allows the scientist to drastically reduce the amount of information requiring manual processing. However, this approach has two drawbacks. First, it relies on trained models whose behavior on unseen data (such as different sensors) is prone to errors and cannot be trusted. Second, and more importantly, it is based on \textit{a priori} knowledge and thus cannot be considered for exploratory analysis where quantities of interest have yet to be defined.
+The most straightforward approach is to specify a closed set of sound classes, such as sounds of animals expected to live near the acoustic sensors. Computational models are trained then  for these classes which are used to automatically annotate recordings \cite{quteprints96243}. A given time interval (e.g., a single day) is then represented by the number of events detected during that interval for each class. This allows the scientist to drastically reduce the amount of information requiring manual processing. However, this approach has two drawbacks. First, it relies on trained models whose behavior on unseen data (such as different sensors) is prone to errors and cannot be trusted. Second, and more importantly, it is based on \textit{a priori} knowledge and thus cannot be considered for exploratory analysis where quantities of interest have yet to be defined.
 
 To identify which parts need human inspection, we need tools that can detect both recurring patterns and sparsely distributed events. Identifying recurring patterns allows the user to focus on certain time points for manual annotation, while detection of more rare structures enables discovery of unforeseen phenomena.
 
-With this aim, we need to design an algorithm for acoustic similarity retrieval, where the audio fragments judged ``most similar'' to a given query recording must be extracted from some larger dataset. This requires us to represent an audio recording in a way that captures its distinctive qualities. This has previously been attempted using bag-of-frames approaches \cite{aucouturier2007bag}, which describes an auditory scene recording using summary statistics of short-time features. Unfortunately, this only captures the average structure of the scene, so the approach often fails when presented with highly dynamic scenes or those characterized by a few distinct sound events. Indeed, experiments in cognitive psychology \cite{dubois2006cognitive} and cognitive neuroscience \cite{nelken2004processing} suggest that this more closely matches human acoustic perception. We believe that the failure to model such distinct events is one of the reasons why this approach is insufficient for moderate-sized evaluation datasets \cite{lagrange:hal-01082501}.
+With this aim, we need to design an algorithm for acoustic similarity retrieval, where the audio fragments judged ``most similar'' to a given query recording must be extracted from some larger dataset. This requires us to represent an audio recording in a way that captures its distinctive qualities. This has previously been attempted using bag-of-frames approaches \cite{aucouturier2007bag}, which describes an auditory scene recording using summary statistics of short-time features. Unfortunately, this only captures the average structure of the scene, so the approach often fails when presented with highly dynamic scenes or those characterised by a few distinct sound events. Indeed, experiments in cognitive psychology \cite{dubois2006cognitive} and cognitive neuroscience \cite{nelken2004processing} suggest that this more closely matches human acoustic perception. We believe that the failure to model such distinct events is one of the reasons why this approach is insufficient for moderate-sized evaluation datasets \cite{lagrange:hal-01082501}.
 
 Solving the acoustic similarity retrieval first requires the ability to capture meaningful signal structure at small time scales.
 This is often achieved using mel-frequency cepstral coefficients (MFCCs).
@@ -115,7 +115,7 @@ A richer representation, the scattering transform, has enjoyed significant succe
 Its structure is that of a convolutional neural network \cite{lee,lostanlen-deep-spiral,soundnet,arandjelovic-zisserman}, but with fixed filters.
 Specifically, it alternates convolutions with wavelet filters and pointwise nonlinearities to ensure time-shift invariance and time-warping stability \cite{Mallat2012}.
 
-For our task, one advantage of the scattering transform is not requiring a training step, allowing for a wider range of applications compared to learned features. Indeed, for data mining of previously unheard datasets, the properties of relevant audio structures remains to be defined, leading to an unserpervised setting.
+For our task, one advantage of the scattering transform is not requiring a training step, allowing for a wider range of applications compared to learned features. Indeed, for data mining of previously unheard datasets, the properties of relevant audio structures remains to be defined, leading to an unsupervised setting.
 
 In this work, we propose a new model for acoustic scenes, where the signal is represented at sub-second scales by scattering transforms, while larger scales are captured by an cluster model. This unsupervised model quantizes the scattering coefficients into a given number of clusters. These clusters to define a set of distances for acoustic similarity retrieval. Evaluating this approach on a scene retrieval task, we obtain significant improvements over traditional bag-of-frames and summary statistics models applied both to MFCCs and scattering coefficients.
 
@@ -130,10 +130,10 @@ In this context, a popular approach is the bag of frames (BOF), first applied to
 It models an auditory scene using high-level summary statistics computed from local features, typically implemented by Gaussian mixture models (GMMs) of MFCCs.
 Recently, this representation was shown to perform comparably to direct averaging of the features for a variety of tasks \cite{lagrange:hal-01082501}.
 This contrasts with the typical morphology of acoustic scenes, a ``skeleton of events on a bed of textures,'' where a few discrete sound events are superimposed upon a stationary acoustic background \cite{nelken2013}.
-Such events are not well-characterized by summarizing short-term features, but are better described by large-scale temporal evolution of auditory scenes.
+Such events are not well-characterised by summarizing short-term features, but are better described by large-scale temporal evolution of auditory scenes.
 The latter approach should therefore prove more fruitful in measuring auditory scene similarity.
 
-This statement has some support in auditory psychology as well as sound synthesis based on summary statistics \cite{mcdermott2013summary}. Studies in the cognitive psychology of urban sound environments have shown that global sound level (perceived or measured) is not sufficient to fully characterize an acoustic scene \cite{guyot2005urban,kang2006urban}. Instead, cognitive processes such as sound environment quality perception \cite{dubois2006cognitive} or loudness judgment \cite{kuwano_memory_2003} seem to rely upon higher-level cognitive attributes. These typically include the identities of the sound sources which consitute the scene. It has been shown that, if available, the complete description of the scene in terms of event occurrences is powerful enough to reliably predict high-level cognitive classes. For example, in urban areas the presence of birds is likely to be heard in parks and are therefore strong pleasantness indicators. Consequently, research in sound perception is now strongly focused on the contribution of specific sound sources in the assessment of sound environments \cite{ricciardi2015sound,lavandier2006contribution}. Although the complete set of events occurring within a given auditory stream may not be discernable even to human expects, research has shown that a small set of events (so-called markers) suffice to reliably predict many high-level attributes.
+This statement has some support in auditory psychology as well as sound synthesis based on summary statistics \cite{mcdermott2013summary}. Studies in the cognitive psychology of urban sound environments have shown that global sound level (perceived or measured) is not sufficient to fully characterise an acoustic scene \cite{guyot2005urban,kang2006urban}. Instead, cognitive processes such as sound environment quality perception \cite{dubois2006cognitive} or loudness judgment \cite{kuwano_memory_2003} seem to rely upon higher-level cognitive attributes. These typically include the identities of the sound sources which constitute the scene. It has been shown that, if available, the complete description of the scene in terms of event occurrences is powerful enough to reliably predict high-level cognitive classes. For example, in urban areas the presence of birds is likely to be heard in parks and are therefore strong pleasantness indicators. Consequently, research in sound perception is now strongly focused on the contribution of specific sound sources in the assessment of sound environments \cite{ricciardi2015sound,lavandier2006contribution}. Although the complete set of events occurring within a given auditory stream may not be discernable even to human expects, research has shown that a small set of events (so-called markers) suffice to reliably predict many high-level attributes.
 
 From a cognitive psychology perspective, the consensus is therefore that only a few distinct events are sufficient to describe an auditory scene, in contrast to BOF models which treat each observation separately and do not capture their temporal structure. A method that takes this knowledge into account could therefore have potential for great impact in acoustic scene modeling, given a rich enough representation of these distinct events.
 
@@ -155,7 +155,7 @@ The wavelet scattering transform, described below, has both of these desired pro
 \subsection{Wavelet scalogram}
 Our convention for the Fourier transform of a continuous-time signal $\boldsymbol{x}(t)$ is $\boldsymbol{\hat{x}}(\omega) = \int_{-\infty}^{+\infty} x(t) \exp(- \mathrm{i} 2\pi \omega t) \; \mathrm{d}t$.
 Let $\boldsymbol{\psi}(t)$ a complex-valued analytic bandpass filter of
-center frequency $\xi_1$ and bandwidth $\xi_1/Q_1$, where $Q_1$ is the quality factor of the filter.
+central frequency $\xi_1$ and bandwidth $\xi_1/Q_1$, where $Q_1$ is the quality factor of the filter.
 A filter bank of wavelets is built by dilating $\boldsymbol{\psi}(t)$
 according to a geometric sequence of scales $2^{\gamma_1/Q_1}$, obtaining
 \begin{equation}
@@ -163,7 +163,7 @@ according to a geometric sequence of scales $2^{\gamma_1/Q_1}$, obtaining
 \end{equation}
 The variable $\gamma_1$ is a scale (an inverse log-frequency) taking integer values between $0$ and $(J_1 Q_1 - 1)$, where $J_1$ is the number of octaves spanned by the filter bank.
 For each $\gamma_1$, the wavelet $\boldsymbol{\psi_{\gamma_1}}(t)$
-has a center frequency of $2^{-\gamma_1/Q_1}\xi_1$ and a bandwidth of $2^{-\gamma_1/Q_1}\xi_1/Q_1$ resulting in the same quality factor $Q_1$ as $\boldsymbol{\psi}$.
+has a central frequency of $2^{-\gamma_1/Q_1}\xi_1$ and a bandwidth of $2^{-\gamma_1/Q_1}\xi_1/Q_1$ resulting in the same quality factor $Q_1$ as $\boldsymbol{\psi}$.
 In the following, we set $\xi_1$ to $20~\mathrm{kHz}$, $J_1$ to $10$, and the quality factor $Q_1$, which is also the number of wavelets per octave, to $8$. This results in the wavelet filters covering the whole range of human hearing, from $20~\mathrm{Hz}$ to $20~\mathrm{kHz}$. Setting $Q_1 = 8$ results in filters whose bandwidth approximates an equivalent rectangular bandwidth (ERB) scale \cite{Fastl2007}.
 
 The wavelet transform of an audio signal
@@ -176,7 +176,7 @@ the wavelet scalogram
 \end{equation}
 The scalogram bears resemblance to the constant-Q transform (CQT),
 which is derived from the short-term Fourier transform (STFT) by averaging the frequency
-axis into constant-Q subbands of center frequencies $2^{-\gamma_1/Q_1}\xi_1$.
+axis into constant-Q subbands of central frequencies $2^{-\gamma_1/Q_1}\xi_1$.
 Indeed, both time-frequency representations are indexed by time $t$ and log-frequency $\gamma_1$.
 However, contrary to the CQT, the scalogram reaches a better time-frequency localization across the whole
 frequency range, whereas the temporal resolution of the traditional CQT is fixed by the support of the STFT analyzing window. %\cite{Brown1992}
@@ -196,7 +196,7 @@ In auditory scenes, short-time amplitude modulations may be caused by a variety 
 At longer time-scales, they also account for higher-level attributes of sound, such as prosody in speech or rhythm in music.
 Although they are discarded while filtering $\boldsymbol{x_1}(t,\gamma_1)$ into the time-shift invariant representation $\mathbf{S_1}\boldsymbol{x}(t,\gamma_1)$, they can be recovered from $\boldsymbol{x_1}(t,\gamma_1)$ by a second wavelet transform and another complex modulus.
 
-We define second-order wavelets $\boldsymbol{\psi_{\gamma_2}}(t)$ in the same way as the first-order wavelets, but with parameters $\xi_2$, $J_2$, and $Q_2$. Consequently, they have center frequencies $2^{-\gamma_2/Q_2}\xi_2$ for $\gamma_2$ taking values between $0$ and $(J_2 Q_2 - 1)$. While this abuses notation slightly, the identity of the wavelets should be clear from context.
+We define second-order wavelets $\boldsymbol{\psi_{\gamma_2}}(t)$ in the same way as the first-order wavelets, but with parameters $\xi_2$, $J_2$, and $Q_2$. Consequently, they have central frequencies $2^{-\gamma_2/Q_2}\xi_2$ for $\gamma_2$ taking values between $0$ and $(J_2 Q_2 - 1)$. While this abuses notation slightly, the identity of the wavelets should be clear from context.
 The amplitude modulation spectrum resulting from a wavelet modulus decomposition using these second-order wavelets is then
 \begin{equation}
 \boldsymbol{x_2}(t,\gamma_1,\gamma_2) =
@@ -251,7 +251,7 @@ Figure \ref{fig:histograms} shows the distribution of an arbitrarily chosen scat
 \includegraphics[width=\columnwidth]{figures/compression}
 \caption{
 \label{fig:histograms}
-Histogram of values taken by the first-order scattering coefficient $\mathbf{S}\boldsymbol{x}(\gamma)$, corresponding to a center acoustic frequency of $302\,\mathrm{Hz}$,
+Histogram of values taken by the first-order scattering coefficient $\mathbf{S}\boldsymbol{x}(\gamma)$, corresponding to a central acoustic frequency of $302\,\mathrm{Hz}$,
 (a) before and (b) after logarithmic compression.}
 \label{fig:compression}
 \end{center}
@@ -260,7 +260,7 @@ Histogram of values taken by the first-order scattering coefficient $\mathbf{S}\
 Taking the logarithm of a magnitude spectrum is ubiquitous in audio signal processing.
 Indeed, it is corroborated by the Weber-Fechner law in psychoacoustics, which states that the sensation of loudness is roughly proportional to the logarithm of the acoustic pressure.
 We must also recall that the measured amplitude of sound sources often decays polynomially with the distance to the microphone--a source of spurious variability in scene classification.
-Logarithmic compression linearizes this dependency, facilitating the construction of powerful invariants at the classifier stage.
+Logarithmic compression linearise this dependency, facilitating the construction of powerful invariants at the classifier stage.
 
 \subsection{Standardisation}
 \label{sec:stand}
@@ -319,7 +319,7 @@ The implementations of the presented methods and the experimental protocol are a
 \subsection{Dataset}
 
 The experiments in this paper are carried out on the DCASE 2013 dataset \cite{7100934}.
-This dataset consists of two parts, a public and a private subset, each made up of $100$ acoustic scene recordings sampled at $44100\,\mathrm{Hz}$ and $30$ seconds in duration. The dataset is evenly divided into $10$ acoustic scence classes. The recordings were made by three different recordists at a wide variety of locations in the Greater London area over a period of several months. No
+This dataset consists of two parts, a public and a private subset, each made up of $100$ acoustic scene recordings sampled at $44100\,\mathrm{Hz}$ and $30$ seconds in duration. The dataset is evenly divided into $10$ acoustic scene classes. The recordings were made by three different recordists at a wide variety of locations in the Greater London area over a period of several months. No
 systematic variations in the recordings covaried with scene
 type: all recordings were made under moderate weather conditions, at varying times of day and week, and each recordist recorded each scene type. As a result, the dataset enjoys significant intra-class diversity while remaining of manageable size, making it suitable for evaluation of algorithmic design choices \cite{lagrange:hal-01082501}.
 
@@ -376,7 +376,7 @@ Irrespective of the rank $k$ considered, best result is achieved for the scatter
 
 For the scattering transform, both \emph{RbQ-c} and \emph{RbQ-w} outperform \emph{early}, thus confirming the benefits of using an relevance-based quantization (\emph{RbQ}) to improve the similarity measures between the scenes. However, it is worth noting that \emph{RbQ-a} performs comparably to or worse than \emph{early}, showing that the discriminant information is destroyed by averaging the contributions from all centroids. This result is in line with the findings of \cite{lagrange:hal-01082501}. To take advantage of such a representation, we need to select certain representative centroids when comparing quantized objects.
 
-Furthermore, it appears that \emph{RbQ-c} is better able to characterize the classes compared to \emph{RbQ-w}. Although not the only way of incorporating the number of frames associated to each centroid, the earth mover's distance is a rather natural of doing so. Its worse performance therefore suggests that including this information may not always be desirable. Indeed, nothing a priori indicates that the discriminant information between two scenes lays within the majority of their frames. On the contrary, two similar environments may share a lot of similar sound sources with only a few sources discriminating between them.
+Furthermore, it appears that \emph{RbQ-c} is better able to characterise the classes compared to \emph{RbQ-w}. Although not the only way of incorporating the number of frames associated to each centroid, the earth mover's distance is a rather natural of doing so. Its worse performance therefore suggests that including this information may not always be desirable. Indeed, nothing a priori indicates that the discriminant information between two scenes lays within the majority of their frames. On the contrary, two similar environments may share a lot of similar sound sources with only a few sources discriminating between them.
 
 With $p@5$ as our metric (cf. \cite{aucouturier2007bag} and \cite{lagrange:hal-01082501}), we see that replacing MFCCs by the logarithmically compressed scattering transform increases performance from $0.31$ to $0.49$. In addition, the relevance-based quantization using the closest similarity (\emph{RbQ-c}) further improves the performance to $0.54$ for a global increase of $0.23$. \vl{It is worth reminding what the baselines are.}
 
