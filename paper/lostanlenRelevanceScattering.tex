@@ -15,7 +15,7 @@
 \usepackage{stfloats}
 % LaTeX2e). It also provides a command:
 \fnbelowfloat
-
+\usepackage{endfloat}
 \usepackage{booktabs}
 \usepackage{amssymb}
 \usepackage{amsmath}
@@ -351,7 +351,7 @@ The early approach being simpler in terms of implementation and runtime complexi
 \begin{figure}[t]
 \begin{center}
 \includegraphics[width=\columnwidth]{figures/baselines}
-\caption{Acoustic scene similarity retrieval in the DCASE 2013 private dataset: precisions at rank $k$ ($p@k$) obtained for scattering with or without logarithmic compression, as a function of the rank $k$.}
+\caption{Acoustic scene similarity retrieval in the DCASE 2013 private dataset: precisions at rank $k$ ($p@k$) obtained for several baseline approaches, as a function of the rank $k$.}
 \label{fig:ASS_-1}
 \end{center}
 \end{figure}
