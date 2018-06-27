@@ -6,6 +6,8 @@
 %
 \usepackage[cmex10]{amsmath}
 
+\usepackage[pagewise]{lineno}
+\linenumbers
 
 % *** ALIGNMENT PACKAGES ***
 %
@@ -106,7 +108,7 @@ The most straightforward approach is to specify a closed set of sound classes, s
 
 To identify which parts need human inspection, we need tools that can detect both recurring patterns and sparsely distributed events. Identifying recurring patterns allows the user to focus on certain time points for manual annotation, while detection of more rare structures enables discovery of unforeseen phenomena.
 
-With this aim, we need to design an algorithm for acoustic similarity retrieval, where the audio fragments judged ``most similar'' to a given query recording must be extracted from some larger dataset. This requires us to represent an audio recording in a way that captures its distinctive qualities. This has previously been attempted using bag-of-frames approaches \cite{aucouturier2007bag}, which describes an auditory scene recording using summary statistics of short-time features. Unfortunately, this only captures the average structure of the scene, so the approach often fails when presented with highly dynamic scenes or those characterised by a few distinct sound events. Indeed, experiments in cognitive psychology \cite{dubois2006cognitive} and cognitive neuroscience \cite{nelken2004processing} suggest that this more closely matches human acoustic perception. We believe that the failure to model such distinct events is one of the reasons why this approach is insufficient for moderate-sized evaluation datasets \cite{lagrange:hal-01082501}.
+With this aim, we need to design an algorithm for acoustic similarity retrieval, where the audio fragments judged ``most similar'' to a given query recording must be extracted from some larger dataset. To construct such an algorithm, we are required to represent an audio recording in a way that captures its distinctive qualities. A popular choice of representation is the bag of frames \cite{aucouturier2007bag}, which describes an auditory scene recording using summary statistics of short-time features. Unfortunately, the bag-of-frames approach only captures the average structure of the scene, so the approach often fails when presented with highly dynamic scenes or those characterised by a few distinct sound events. Furthermore, experiments in cognitive psychology \cite{dubois2006cognitive} and cognitive neuroscience \cite{nelken2004processing} suggest that human acoustic perception is highly sensitive to such isolated sound events. We believe that the failure to model such distinct events is one of the reasons why the bag-of-frames representation is insufficient for moderate-sized evaluation datasets \cite{lagrange:hal-01082501}.
 
 Solving the acoustic similarity retrieval first requires the ability to capture meaningful signal structure at small time scales.
 This is often achieved using mel-frequency cepstral coefficients (MFCCs).
@@ -117,7 +119,7 @@ Specifically, it alternates convolutions with wavelet filters and pointwise nonl
 
 For our task, one advantage of the scattering transform is not requiring a training step, allowing for a wider range of applications compared to learned features. Indeed, for data mining of previously unheard datasets, the properties of relevant audio structures remains to be defined, leading to an unsupervised setting.
 
-In this work, we propose a new model for acoustic scenes, where the signal is represented at sub-second scales by scattering transforms, while larger scales are captured by an cluster model. This unsupervised model quantizes the scattering coefficients into a given number of clusters. These clusters to define a set of distances for acoustic similarity retrieval. Evaluating this approach on a scene retrieval task, we obtain significant improvements over traditional bag-of-frames and summary statistics models applied both to MFCCs and scattering coefficients.
+In this work, we propose a new model for acoustic scenes, where the signal is represented at sub-second scales by scattering transforms, while larger scales are captured by a cluster model. This unsupervised model quantizes the scattering coefficients into a given number of clusters. These clusters are then used to define a set of distances for acoustic similarity retrieval. Evaluating this approach on a scene retrieval task, we obtain significant improvements over traditional bag-of-frames and summary statistics models applied both to MFCCs and scattering coefficients.
 
 Motivations of the proposed approach and a brief review of the state of the art in acoustic scene modeling are given in Section \ref{sec:soa}. We describe the scattering transform in Section \ref{sec:scattering}, discuss feature post-processing in Section \ref{sec:design} and propose a cluster-based scene description in Section \ref{sec:object}. Section \ref{sec:experiments} describes several experiments for the acoustic scene similarity retrieval task. Results are reported in Section \ref{sec:results}.
 
@@ -205,10 +207,10 @@ The amplitude modulation spectrum resulting from a wavelet modulus decomposition
 In the following, we set $\xi_2$ to $2.5\,\mathrm{kHz}$, $Q_2$ to $1$, and $J_2$ to $12$. Lastly, the low-pass filter $\boldsymbol{\phi}(t)$ is applied to $\boldsymbol{x_2}(t, \gamma_1, \gamma_2)$ to guarantee local invariance to time-shifting, which yields the second-order scattering coefficients
 \begin{equation}
 \mathbf{S_2}\boldsymbol{x}(t,\gamma_1,\gamma_2) =
-(\boldsymbol{x_2}(\cdot,\gamma_1,\gamma_2) \ast \boldsymbol{\phi})(t).
+\boldsymbol{x_2}(\cdot,\gamma_1,\gamma_2) \ast \boldsymbol{\phi}(t).
 \end{equation}
 
-The scattering transform $\mathbf{S}\boldsymbol{x}(t,\gamma)$ consists of the concatenation of first-order coefficients $\mathbf{S_1}\boldsymbol{x}(t,\gamma_1)$ and second-order coefficients $\mathbf{S_1}\boldsymbol{x}(t,\gamma_1,\gamma_2)$ into a feature matrix $\mathbf{S}\boldsymbol{x}(t,\gamma)$, where $\gamma$ denotes either $\gamma_1$ or $(\gamma_1,\gamma_2)$. While higher-order scattering coefficients can be calculated, for the purposes of our current work, the first and second order are sufficient.
+The scattering transform $\mathbf{S}\boldsymbol{x}(t,\gamma)$ consists of the concatenation of first-order coefficients $\mathbf{S_1}\boldsymbol{x}(t,\gamma_1)$ and second-order coefficients $\mathbf{S_2}\boldsymbol{x}(t,\gamma_1,\gamma_2)$ into a feature matrix $\mathbf{S}\boldsymbol{x}(t,\gamma)$, where $\gamma$ denotes either $\gamma_1$ or $(\gamma_1,\gamma_2)$. While higher-order scattering coefficients can be calculated, for the purposes of our current work, the first and second order are sufficient.
 Indeed, higher-order scattering coefficients have been shown to contain reduced energy and are therefore of limited use \cite{irene}.
 
 \subsection{Gammatone wavelets}
@@ -307,7 +309,7 @@ For \emph{RbQ-w}, each scene is represented by a signature
 $$
 p_u = \lbrace(\mu_1^u,w_1^u),(\mu_2^u,w_2^u),\ldots,(\mu_M^u,w_M^u)\rbrace,
 $$
-where each of the $M$ centroids $\mu_1^u, \ldots, \mu_M^u$ are paired with corresponding weights $w_1^u, \ldots, w_M^u$. The weight $w_m^u$ for the $m$th centroid $\mu_m^u$ is the number of frames belonging to a particular cluster. The similarity between scenes is then given by a cross-bin histogram distance known as the non-normalized earth mover's distance $\widehat{\EMD}$ introduced by \cite{pele2008linear}. The $\widehat{\EMD}$ computes the distance between two histograms by finding the minimal cost for transforming one histogram into the other, where cost is measured by the number of transported histogram counts multiplied by the a dissimilarity measure between the histogram bins. Here, that measure is given by $1-K_{mn}^{uv}$.
+where each of the $M$ centroids $\mu_1^u, \ldots, \mu_M^u$ are paired with corresponding weights $w_1^u, \ldots, w_M^u$. The weight $w_m^u$ for the $m$th centroid $\mu_m^u$ is the number of frames belonging to a particular cluster. The similarity between scenes is then given by a cross-bin histogram distance known as the non-normalized earth mover's distance $\widehat{\EMD}$ introduced by \cite{pele2008linear}. The $\widehat{\EMD}$ computes the distance between two histograms by finding the minimal cost for transforming one histogram into the other, where cost is measured by the number of transported histogram counts multiplied by a dissimilarity measure between the histogram bins. Here, that measure is given by $1-K_{mn}^{uv}$.
 
 \section{Experiments}
 \label{sec:experiments}
