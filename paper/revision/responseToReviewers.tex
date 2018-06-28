@@ -15,39 +15,39 @@ As a preamble, we would like to thank the reviewers for their comments and sugge
 
 \item \emph{I understand that the authors cannot run such a test but I suggest that they only refer to ecoacoustics in the discussion by mentionning that this could be tested on other audio scenes as those recorded in natural environments.}
 
-$\rightarrow$
+$\rightarrow$ ML
 
 \item \emph{The dataset is too quickly described. I had to read ref\#36 to understand how it was built and made of. It would be nice to have an example of a labelled recording either as a spectrogram or scalogram to estimate the complexity of the scenes recorded. The event classes should also be detailed.}
 
-$\rightarrow$
+$\rightarrow$ VL
 
 \item \emph{It is a pity that the methods are not directly compared with the different strategies reported in ref\#36.}
 
-$\rightarrow$
+$\rightarrow$ JA
 
 \item \emph{.P1L36: "superiority" and other superlative seems too strong. I would say that thet the proposed approach performed better on the dataset tested.}
 
-$\rightarrow$
+$\rightarrow$ VL
 
 \item \emph{.P2L29: "cannot be trusted" seems too strong, any system is proned to errors. These errors need to be estimated so that we can estimate how much the system is reliable, but I would not roughly say that it cannot be trusted.}
 
-$\rightarrow$
+$\rightarrow$ VL
 
 \item \emph{.P10L44: the title of this subsection does not seem to be totally appropriate, I would rename it "Evaluation and algorithm"}
 
-$\rightarrow$
+$\rightarrow$ VL
 
 \item \emph{.P11L37: the comments about figure 3 (and others) is rather quick with no try of quantification of the differences/similarities between the p@k curves.}
 
-$\rightarrow$
+$\rightarrow$ JA
 
 \item \emph{.P12L37: Delete the comment addressed to one of the authors}
 
-$\rightarrow$
+$\rightarrow$ JA
 
 \item \emph{.P13L16: Using French for a project name might not be a good idea for reaching a large audience}
 
-$\rightarrow$
+$\rightarrow$ JA
 
 \end{enumerate}
 
@@ -57,27 +57,27 @@ $\rightarrow$
 
 \item \emph{Only two applications are considered in the literature review, bioacoustics and urban sound environment, but they allow to present a problem that also exists in other application areas.}
 
-$\rightarrow$
+$\rightarrow$ ML
 
 \item \emph{The authors present their technique as opposed to the BOF approach, that is considered "state of the art". BOF maybe a popular technique but the fact that gets rid of the temporal structure makes it useless in many tasks. In fact, in DCASE 2013 BOF was the chosen baseline system but no participant proposed that technique. Certainly, BOF allows the authors to make stronger the point about describing an acoustic scene from a few distinct events, but perhaps they should avoid to claim BOF as "the" state of the art in this problem.}
 
-$\rightarrow$
+$\rightarrow$ JA
 
 \item \emph{It would be interesting to see the contribution to the results of the Gammatone wavelet in comparison to Morlet or another more classical wavelet.}
 
-$\rightarrow$
+$\rightarrow$ VL
 
 \item \emph{There are several parameters that must be set in the experimentation. The reader may want to know if there is any specific parameter that is critical. What about M?}
 
-$\rightarrow$
+$\rightarrow$ ML - Experiment with variable number $M$ for best approach.
 
 \item \emph{According to Section 6.2, the number of scattering features is much higher than MFCC features; 1367 instead of 40 for each vector, and there is a similar number of vectors per time unit. This would mean a much higher computational load. However, in the experiments, a projection is applied to reduce them to 30. Is it PCA? The convergence of the EM  algorithm is invoked, but the computational load may be an added reason.}
 
-$\rightarrow$
+$\rightarrow$ JA
 
 \item \emph{I do not see the authors have mentioned in Section 7 the following observation (Fig.3): for MFCC the relevance-based quantization improves the performance wrt BOF.}
 
-$\rightarrow$
+$\rightarrow$ JA
 
 \item \emph{Pag. 2, line 48: what "this" refers to?}
 
