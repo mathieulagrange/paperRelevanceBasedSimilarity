@@ -321,7 +321,8 @@ The implementations of the presented methods and the experimental protocol are a
 \subsection{Dataset}
 
 The experiments in this paper are carried out on the DCASE 2013 dataset \cite{7100934}.
-This dataset consists of two parts, a public and a private subset, each made up of $100$ acoustic scene recordings sampled at $44100\,\mathrm{Hz}$ and $30$ seconds in duration. The dataset is evenly divided into $10$ acoustic scene classes. The recordings were made by three different recordists at a wide variety of locations in the Greater London area over a period of several months. No
+Although the dataset was constructed for the task of acoustic scene classification, where the goal is to correctly assign the class of a given recording, we can use the same recordings and class labels for the task of acoustic scene similarity retrieval.
+The dataset consists of two parts, a public and a private subset, each made up of $100$ acoustic scene recordings sampled at $44100\,\mathrm{Hz}$ and $30$ seconds in duration. The dataset is evenly divided into $10$ acoustic scene classes. The recordings were made by three different recordists at a wide variety of locations in the Greater London area over a period of several months. No
 systematic variations in the recordings covaried with scene
 type: all recordings were made under moderate weather conditions, at varying times of day and week, and each recordist recorded each scene type. As a result, the dataset enjoys significant intra-class diversity while remaining of manageable size, making it suitable for evaluation of algorithmic design choices \cite{lagrange:hal-01082501}.
 
