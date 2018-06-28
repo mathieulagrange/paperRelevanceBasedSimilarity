@@ -380,7 +380,7 @@ For the scattering transform, both \emph{RbQ-c} and \emph{RbQ-w} outperform \emp
 
 Furthermore, it appears that \emph{RbQ-c} is better able to characterise the classes compared to \emph{RbQ-w}. Although not the only way of incorporating the number of frames associated to each centroid, the earth mover's distance is a rather natural of doing so. Its worse performance therefore suggests that including this information may not always be desirable. Indeed, nothing a priori indicates that the discriminant information between two scenes lays within the majority of their frames. On the contrary, two similar environments may share a lot of similar sound sources with only a few sources discriminating between them.
 
-With $p@5$ as our metric (cf. \cite{aucouturier2007bag} and \cite{lagrange:hal-01082501}), we see that replacing MFCCs by the logarithmically compressed scattering transform increases performance from $0.31$ to $0.49$. In addition, the relevance-based quantization using the closest similarity (\emph{RbQ-c}) further improves the performance to $0.54$ for a global increase of $0.23$. \vl{It is worth reminding what the baselines are.}
+With $p@5$ as our metric (cf. \cite{aucouturier2007bag} and \cite{lagrange:hal-01082501}), we see that replacing MFCCs by the logarithmically compressed scattering transform increases performance from $0.31$ to $0.49$. In addition, the relevance-based quantization using the closest similarity (\emph{RbQ-c}) further improves the performance to $0.54$ for a global increase of $0.23$.
 
 \begin{figure}[t]
 \begin{center}
@@ -400,7 +400,6 @@ These outcomes shall be studied further in future work by considering larger dat
 The dataset supporting the conclusions of this article is available in the dcase2013 repository,  \sloppy \url{http://c4dm.eecs.qmul.ac.uk/sceneseventschallenge/description.html}.
 The software supporting the conclusions of this article is available in
 \begin{itemize}
-\item Project name: article2017EstimationAmbiance
 \item \sloppy Project home page: \url{https://github.com/mathieulagrange/paperRelevanceBasedSimilarity}
 \item Programming language: Matlab
 \item License: GNU GPL
