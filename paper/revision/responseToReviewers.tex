@@ -78,7 +78,8 @@ $\rightarrow$ ML - Experiment with variable number $M$ for best approach.
 
 \item \emph{According to Section 6.2, the number of scattering features is much higher than MFCC features; 1367 instead of 40 for each vector, and there is a similar number of vectors per time unit. This would mean a much higher computational load. However, in the experiments, a projection is applied to reduce them to 30. Is it PCA? The convergence of the EM  algorithm is invoked, but the computational load may be an added reason.}
 
-$\rightarrow$ JA
+$\rightarrow$
+As described in Section 6.3, the scattering features are indeed projected onto the top $30$ principal components for use in the BOF model. This is to mitigate the problem of running EM in such a high-dimensional space. For the other methods, it may reduce the computational load, but potentially at the cost of sacrificing certain information that may be leveraged by those other methods. For this reason, we have chosen to run them on the full, $1367$-dimensional, feature vectors.
 
 \item \emph{I do not see the authors have mentioned in Section 7 the following observation (Fig.3): for MFCC the relevance-based quantization improves the performance wrt BOF.}
 
