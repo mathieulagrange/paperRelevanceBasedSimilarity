@@ -348,7 +348,13 @@ Combining these with the \emph{RbQ} cluster model, we obtain significant improve
 
 \subsubsection*{Baselines}
 
-As seen in Figure \ref{fig:ASS_-1}, the BOF approach behaves similarly to the early approach when applied both to the MFCCs and the scattering features.
+As seen in Figure \ref{fig:ASS_-1}, scattering features significantly outperform the baseline MFCCs for both BOF and early integration schemes.
+This is expected, as the scattering transform extends the MFCCs by including supplementary amplitude modulation information \cite{Anden2014}.
+We also note that applying PCA reduction to the scattering transform has little effect for the early integration scheme.
+In the context of summary statistics, $30$ dimensions are sufficient to discriminate between auditory scenes.
+
+Comparing the BOF to early integration, both approaches perform similarly for MFCCs and PCA-reduced scattering features alike.
+This is in line with previous results on BOF \cite{lagrange:hal-01082501}, where it is found to perform similarly as similarity retrieval on features averaged over the entire recording.
 
 The early approach being simpler in terms of implementation and runtime complexity, we retain this method as baseline for the remainder of the experiments.
 
