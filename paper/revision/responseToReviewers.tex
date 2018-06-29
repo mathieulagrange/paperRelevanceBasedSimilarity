@@ -13,9 +13,9 @@ As a preamble, we would like to thank the reviewers for their comments and sugge
 
 \begin{enumerate}
 
-\item \emph{I understand that the authors cannot run such a test but I suggest that they only refer to ecoacoustics in the discussion by mentionning that this could be tested on other audio scenes as those recorded in natural environments.}
+\item \emph{I suggest that they only refer to ecoacoustics in the discussion by mentionning that this could be tested on other audio scenes as those recorded in natural environments.}
 
-$\rightarrow$ ML
+$\rightarrow$ The abstract introduction, background section and conclusion have been rewritten to widen the scope of application of the proposed method and suggest the ecoacoustic as potential area of interest for further research.
 
 \item \emph{The dataset is too quickly described. I had to read ref\#36 to understand how it was built and made of. It would be nice to have an example of a labelled recording either as a spectrogram or scalogram to estimate the complexity of the scenes recorded. The event classes should also be detailed.}
 
@@ -24,7 +24,11 @@ $\rightarrow$ VL
 \item \emph{It is a pity that the methods are not directly compared with the different strategies reported in ref\#36.}
 
 $\rightarrow$
-Since the tasks are different, it is not straightforward to compare the proposed methods with the approaches of ref\#36. In the former, we propose a method for acoustic scene similarity retrieval, while the latter discusses the problem of scene classification. In similarity retrieval, we would like to find other recordings in the dataset that are as similar to the original as possible (which here is defined as being in the same class). In scene classification, the task is to assign a class to each recording. In this sense, similarity retrieval is a more general problem. For our experiments, we calculate the p@k curves for each propsed method, allowing us to analyze the distribution of recordings most similar to a particular query recording. The classification setting is reproduced for $k = 1$, with the p@1 measure corresponding to the leave-one-out classification accuracy of nearest neighbors. As such, the classification task is a special case of the similarity retrieval setting considered here. We have modified the manuscript to make this distinction more clear.
+Since the tasks are different, it is not straightforward to compare the proposed methods with the approaches of ref\#36. In the former, we propose a method for acoustic scene similarity retrieval, while the latter discusses the problem of scene classification. In similarity retrieval, we would like to find other recordings in the dataset that are as similar to the original as possible (which here is defined as being in the same class). In scene classification, the task is to assign a class to each recording. In this sense, similarity retrieval is a more general problem. For our experiments, we calculate the p@k curves for each proposed method, allowing us to analyze the distribution of recordings most similar to a particular query recording. The classification setting is reproduced for $k = 1$, with the p@1 measure corresponding to the leave-one-out classification accuracy of nearest neighbors. As such, the classification task is a special case of the similarity retrieval setting considered here. We have modified the manuscript to make this distinction more clear.
+
+It is also worth considering that the BOF model is used differently in scene retrieval (our use case) and scene classification (ref\#36). In scene retrieval, given two scenes (a and b) modeled using GMMs (A and B), the similarity between two scenes is the similarity between A and B. In scene classification, each class of sound scenes (park, boulevard) are modeled using a GMM (P, B). Then, for an unknown scene $u$, the likelihood of $u$ given P and B are computed. The scene $u$ is then labeled P if the likelihood of $u$ given P is greater than the likelihood of $u$ given B.
+
+Even if the technical aspects are quite close, the way the algorithm is designed is different as the tasks they have to solve are differents. A synthetic description of the matter is added to Section 2.
 
 \item \emph{.P1L36: "superiority" and other superlative seems too strong. I would say that thet the proposed approach performed better on the dataset tested.}
 
@@ -61,7 +65,7 @@ This has been fixed in the revised manuscript.
 
 \item \emph{Only two applications are considered in the literature review, bioacoustics and urban sound environment, but they allow to present a problem that also exists in other application areas.}
 
-$\rightarrow$ ML
+$\rightarrow$ We reformulated in a more abstract way the task we attempt to solve, and give potential areas of applications in the introduction and conlusion sections.
 
 \item \emph{The authors present their technique as opposed to the BOF approach, that is considered "state of the art". BOF maybe a popular technique but the fact that gets rid of the temporal structure makes it useless in many tasks. In fact, in DCASE 2013 BOF was the chosen baseline system but no participant proposed that technique. Certainly, BOF allows the authors to make stronger the point about describing an acoustic scene from a few distinct events, but perhaps they should avoid to claim BOF as "the" state of the art in this problem.}
 
@@ -72,9 +76,13 @@ As discussed above in the response to the first reviewer, the application in the
 
 $\rightarrow$ VL
 
-\item \emph{There are several parameters that must be set in the experimentation. The reader may want to know if there is any specific parameter that is critical. What about M?}
+\item \emph{There are several parameters that must be set in the experimentation. The reader may want to know if there is any specific parameter that is critical.}
 
-$\rightarrow$ ML - Experiment with variable number $M$ for best approach.
+$\rightarrow$ Considering the features design, we set the parameters to widely used values that have shown to be robust. We also ran a sensitivity analysis for the parameters that controls the proposed algorithm: scaling parameter $q$ and the number of clusters $M$. None of them are found to be critical providing that they are set in a reasonable range. It is worth noting that the scaling method is specifically designed for reducing sensitivity compared to the direct RBF kernel formulation.
+
+\item \emph{What about M?}
+
+$\rightarrow$ A discussion about the setting of the parameter M is added at the end of Section 6.3.
 
 \item \emph{According to Section 6.2, the number of scattering features is much higher than MFCC features; 1367 instead of 40 for each vector, and there is a similar number of vectors per time unit. This would mean a much higher computational load. However, in the experiments, a projection is applied to reduce them to 30. Is it PCA? The convergence of the EM  algorithm is invoked, but the computational load may be an added reason.}
 
