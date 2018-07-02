@@ -8,6 +8,10 @@ function config = taunReport(config)
 
 if nargin==0, unsupervised('report', 'r', 'reportName', 'ml'); return; end
 
+config = expExpose(config, 'p', 'mask', {2 0 2 2 0 1 0 5}, 'expand', 'clustering_nbc', 'obs', 'precision', 'percent', 1, 'save', 'sensitivityM');
+config = expExpose(config, 'p', 'mask', {2 0 2 2 0 1 0 5}, 'expand', 'clustering_nbc', 'obs', 'time', 'step', 4, 'save', 'sensitivityMtime');
+
+return
 
 config = expExpose(config, 'p', 'mask', {2 0 2 [1 3] 0 1 1}, 'expand', 'rank', 'obs', 'precision', 'percent', 1, 'save', 'baselines');
 config = expExpose(config, 'p', 'mask', {2 0 2 [1 2] 1 1}, 'expand', 'rank', 'obs', 'precision', 'percent', 1, 'save', 'overall');

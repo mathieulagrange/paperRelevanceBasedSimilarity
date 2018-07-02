@@ -43,10 +43,14 @@ switch setting.integration
             params.rep=1;
             params.emptyAction='singleton';
             
+            if params.nbc<128
             [prediction,centroid] = kmeans(full(data.features(:,data.indSample==jj))',params.nbc,'maxiter',1000,'replicates',params.rep,'start','plus','Distance',params.similarity,'EmptyAction',params.emptyAction);
             centroid=centroid';
             %[prediction,centroid,params] = featuresBasedClustering(data.features(:,data.indSample==jj),params);
-            
+            else
+                centroid=full(data.features(:,data.indSample==jj));
+                prediction=[1:128];
+            end
             %% weight
             
             params.histType='';
