@@ -84,7 +84,7 @@
 The emerging field of computational acoustic monitoring aims at retrieving high-level information from acoustic scenes recorded by some network of sensors. These networks gather large amounts of data requiring analysis. To decide which parts to inspect further, we need tools that automatically mine the data, identifying recurring patterns and isolated events. This requires a similarity measure for acoustic scenes that does not impose strong assumptions on the data.
 
 The state of the art in audio similarity measurement is the ``bag-of-frames'' approach, which models a recording using summary statistics of short-term audio descriptors, such as mel-frequency cepstral coefficients (MFCCs). They successfully characterise static scenes with little variability in auditory content, but cannot accurately capture scenes with a few salient events superimposed over static background.
-To overcome this issue, we propose a two-scale representation which describes a recording using clusters of scattering coefficients. The scattering coefficients capture short-scale structure, while the cluster model captures longer time scales, allowing for more accurate characterization of sparse events. Evaluation within the acoustic scene similarity framework demonstrates the superiority of the proposed approach.
+To overcome this issue, we propose a two-scale representation which describes a recording using clusters of scattering coefficients. The scattering coefficients capture short-scale structure, while the cluster model captures longer time scales, allowing for more accurate characterization of sparse events. Evaluation within the acoustic scene similarity framework demonstrates the interest of the proposed approach.
 \keywords{
 unsupervised learning \and data mining \and acoustic signal processing \and wavelet transforms \and audio databases \and content-based retrieval \and nearest neighbor searches \and acoustic sensors \and environmental sensors.}
 % \PACS{PACS code1 \and PACS code2 \and more}
@@ -343,7 +343,7 @@ The scaling parameter $q$ of the RBF kernels (see Eq.~\ref{eq:kc}) is set to $10
 
 \section{Results \label{sec:results}}
 
-Results for the acoustic scene similarity retrieval task demonstrate the superiority of the logarithmically compressed scattering features compared to MFCCs.
+Results for the acoustic scene similarity retrieval task demonstrate that logarithmically compressed scattering features outerform MFCCs.
 Combining these with the \emph{RbQ} cluster model, improvements are obtained over traditional BOF and summary statistic measures.
 
 \subsubsection*{Baselines}
