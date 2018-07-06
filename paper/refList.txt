@@ -23,6 +23,16 @@ ISSN={1520-9210},
 month={Oct},}
 
 
+@article{mallat2012cpam,
+  title={Group invariant scattering},
+  author={Mallat, St{\'e}phane},
+  journal={Communications on Pure and Applied Mathematics},
+  volume={65},
+  number={10},
+  pages={1331--1398},
+  year={2012},
+  publisher={Wiley Online Library}
+}
 
 @inproceedings{turner2008modeling,
   title={Modeling natural sounds with modulation cascade processes},
