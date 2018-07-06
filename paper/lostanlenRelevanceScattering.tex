@@ -333,7 +333,7 @@ We perform our experiments using both scattering coefficients and MFCCs. For the
 
 MFCCs are computed for windows of $50\,\mathrm{ms}$ and hops of $25\,\mathrm{ms}$ with full frequency range. The standard configuration of $39$ coefficients coupled with an average-energy measure performs best in preliminary tests, so we use this in the following. We average the coefficients using $250\,\mathrm{ms}$ long non-overlapping windows so that each window represents structures of scales close to that of scattering coefficients.
 
-\subsection{Algorithm}
+\subsection{Evaluation and algorithm}
 
 The evaluation is performed on the private part of the DCASE 2013 dataset. As a metric, we use the precision at rank $k$ ($p@k$). This number is computed by taking a query item and counting the number of items of the same class within the $k$ closest neighbors, and then averaging over all query items. We determine these neighbors using one of the proposed similarity measures \emph{RbQ-c}, \emph{RbQ-a}, or \emph{RbQ-w}. We compute $p@k$ for $k=\lbrace 1,\ldots,9\rbrace$, since each class only has $10$ items. Note that $p@1$ is equal to the classification accuracy obtained by the nearest-neighbor classifier in a leave-one-out cross-validation setting.
 
