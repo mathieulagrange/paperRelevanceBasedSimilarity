@@ -1,0 +1,50 @@
+\begin{figure}
+\begin{center}
+\includegraphics[width=\columnwidth]{figures/gammatones}
+\caption{
+\label{fig:gammatones}
+Gammatone wavelets $\psi(t)$ in the time domain with quality factors (a) $Q = 4$ and (b) $Q = 1$.
+Oscillations (red, blue) are the real and imaginary parts. The envelope (yellow) is the complex modulus.}
+\end{center}
+\end{figure}
+\efloatseparator
+ 
+\begin{figure}
+\begin{center}
+\includegraphics[width=\columnwidth]{figures/compression}
+\caption{
+\label{fig:histograms}
+Histogram of values taken by the first-order scattering coefficient $\mathbf{S}\boldsymbol{x}(\gamma)$, corresponding to a central acoustic frequency of $302\,\mathrm{Hz}$,
+(a) before and (b) after logarithmic compression.}
+\label{fig:compression}
+\end{center}
+\end{figure}
+\efloatseparator
+ 
+\begin{figure}[t]
+\begin{center}
+\includegraphics[width=\columnwidth]{figures/baselines}
+\caption{Acoustic scene similarity retrieval in the DCASE 2013 private dataset: precisions at rank $k$ ($p@k$) obtained for several baseline approaches, as a function of the rank $k$.}
+\label{fig:ASS_-1}
+\end{center}
+\end{figure}
+\efloatseparator
+ 
+\begin{figure}[t]
+\begin{center}
+\includegraphics[width=\columnwidth]{figures/log}
+\caption{Acoustic scene similarity retrieval in the DCASE 2013 private dataset: precisions at rank $k$ ($p@k$) obtained for scattering with or without logarithmic compression, as a function of the rank $k$.}
+\label{fig:ASS_0}
+\end{center}
+\end{figure}
+\efloatseparator
+ 
+\begin{figure}[t]
+\begin{center}
+\includegraphics[width=\columnwidth]{figures/overall}
+\caption{Acoustic scene similarity retrieval in the DCASE 2013 private dataset: precisions at rank $k$ ($p@k$) obtained for MFCCs and scattering with logarithmic compression.}
+\label{fig:ASS_1}
+\end{center}
+\end{figure}
+\efloatseparator
+ 
