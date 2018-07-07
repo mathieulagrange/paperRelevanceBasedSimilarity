@@ -258,7 +258,12 @@ month={Dec}
 }
 
 
-
+@inproceedings{sainath2015interspeech,
+  title={{Learning the speech front-end with raw waveform CLDNNs}},
+  author={Sainath, Tara N and Weiss, Ron J and Senior, Andrew and Wilson, Kevin W and Vinyals, Oriol},
+  booktitle={Proc. Interspeech},
+  year={2015}
+}
 
 @article{Mesgarani2012,
 abstract = {Humans possess a remarkable ability to attend to a single speaker's voice in a multi-talker background. How the auditory system manages to extract intelligible speech under such acoustically complex and adverse listening conditions is not known, and, indeed, it is not clear how attended speech is internally represented. Here, using multi-electrode surface recordings from the cortex of subjects engaged in a listening task with two simultaneous speakers, we demonstrate that population responses in non-primary human auditory cortex encode critical features of attended speech: speech spectrograms reconstructed based on cortical responses to the mixture of speakers reveal the salient spectral and temporal features of the attended speaker, as if subjects were listening to that speaker alone. A simple classifier trained solely on examples of single speakers can decode both attended words and speaker identity. We find that task performance is well predicted by a rapid increase in attention-modulated
