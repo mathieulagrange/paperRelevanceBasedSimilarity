@@ -1055,3 +1055,10 @@ type = {Master thesis},
   pages = {6450--6454},
   year = {2016}
 }
+
+@phdthesis{lostanlen2017phd,
+  TITLE = {{Convolutional operators in the time-frequency domain}},
+  AUTHOR = {Lostanlen, Vincent},
+  SCHOOL = {{\'{E}cole normale sup\'{e}rieure}},
+  YEAR = {2017}
+}
