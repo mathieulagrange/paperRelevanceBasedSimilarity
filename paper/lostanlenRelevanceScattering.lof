@@ -1,11 +1,11 @@
 \boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {1}{\ignorespaces Gammatone wavelets $\psi (t)$ in the time domain with quality factors (a) $Q = 4$ and (b) $Q = 1$. Oscillations (red, blue) are the real and imaginary parts. The envelope (yellow) is the complex modulus.}}{18}
+\contentsline {figure}{\numberline {1}{\ignorespaces Gammatone wavelets $\psi (t)$ in the time domain with quality factors (a) $Q = 4$ and (b) $Q = 1$. Oscillations (red, blue) are the real and imaginary parts. The envelope (yellow) is the complex modulus.}}{21}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {2}{\ignorespaces Histogram of values taken by the first-order scattering coefficient $\mathbf {S}\boldsymbol {x}(\gamma )$, corresponding to a central acoustic frequency of $302\tmspace +\thinmuskip {.1667em}\mathrm {Hz}$, (a) before and (b) after logarithmic compression.}}{19}
+\contentsline {figure}{\numberline {2}{\ignorespaces Histogram of values taken by the first-order scattering coefficient $\mathbf {S}\boldsymbol {x}(\gamma )$, corresponding to a central acoustic frequency of $302\tmspace +\thinmuskip {.1667em}\mathrm {Hz}$, (a) before and (b) after logarithmic compression.}}{22}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {3}{\ignorespaces Acoustic scene similarity retrieval in the DCASE 2013 private dataset: precisions at rank $k$ ($p@k$) obtained for several baseline approaches, as a function of the rank $k$.}}{20}
+\contentsline {figure}{\numberline {3}{\ignorespaces Acoustic scene similarity retrieval in the DCASE 2013 private dataset: precisions at rank $k$ ($p@k$) obtained for several baseline approaches, as a function of the rank $k$.}}{23}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {4}{\ignorespaces Acoustic scene similarity retrieval in the DCASE 2013 private dataset: precisions at rank $k$ ($p@k$) obtained for scattering with or without logarithmic compression, as a function of the rank $k$.}}{21}
+\contentsline {figure}{\numberline {4}{\ignorespaces Acoustic scene similarity retrieval in the DCASE 2013 private dataset: precisions at rank $k$ ($p@k$) obtained for scattering with or without logarithmic compression, as a function of the rank $k$.}}{24}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5}{\ignorespaces Acoustic scene similarity retrieval in the DCASE 2013 private dataset: precisions at rank $k$ ($p@k$) obtained for MFCCs and scattering with logarithmic compression.}}{22}
+\contentsline {figure}{\numberline {5}{\ignorespaces Acoustic scene similarity retrieval in the DCASE 2013 private dataset: precisions at rank $k$ ($p@k$) obtained for MFCCs and scattering with logarithmic compression.}}{25}
