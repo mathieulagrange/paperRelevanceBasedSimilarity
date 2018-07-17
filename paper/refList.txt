@@ -1062,3 +1062,56 @@ type = {Master thesis},
   SCHOOL = {{\'{E}cole normale sup\'{e}rieure}},
   YEAR = {2017}
 }
+
+@book{Cohen1995,
+  title={Time-frequency analysis},
+  author={Cohen, L},
+  publisher = {Prentice Hall},
+  year = {1995}
+}
+
+
+@article{Grossmann1984,
+author = {Grossmann, A and Morlet, J},
+journal = {SIAM Journal on Mathematical Analysis},
+number = {4},
+pages = {723--736},
+title = {{Decomposition of Hardy functions into square integrable wavelets of constant shape}},
+volume = {15},
+year = {1984}
+}
+
+@inproceedings{Pressnitzer2005,
+  title={Real-time auditory models},
+  author={Pressnitzer, D and Gnansia, D},
+  booktitle={Proceedings of the International Computer Music Conference (ICMC)},
+  year = {2005}
+}
+
+
+@article{Flanagan1960,
+  title={Models for approximating basilar membrane displacement},
+  author={Flanagan, JL},
+  journal={Journal of the Acoustical Society of America},
+  volume={32},
+  number={7},
+  pages={937--937},
+  year={1960}
+}
+
+@article{Patterson1976,
+   author = "Patterson, RD",
+   title = "Auditory filter shapes derived with noise stimuli",
+   journal = "Journal of the Acoustical Society of America",
+   year = "1976",
+   volume = "59",
+   number = "3",
+   pages = "640-654",
+}
+
+@inproceedings{Lyon2010,
+  title={History and future of auditory filter models},
+  author={Lyon, RF and Katsiamis, AG and Drakakis, EM},
+  booktitle={Proceedings of the IEEE International Symposium on Circuits and Systems (ISCS)},
+  year={2010}
+}
