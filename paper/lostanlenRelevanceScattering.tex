@@ -494,24 +494,7 @@ As a consequence, the Fourier transform modulus $\vert\boldsymbol{\widehat{x}}(\
 is not only invariant to translation, but also invariant to time reversal.
 Yet, although invariance to translation is needed for classification,
 invariance to time reversal is an undesirable property.
-
-The situation is different in the time-frequency domain. If the wavelet
-$\boldsymbol{\psi}(t)$ has a symmetric envelope, that is, if there
-exists a phase shift $\varphi\in[0;2\pi[$ such that $\boldsymbol{\psi}(-t)=\mathrm{e}^{\mathrm{i}\varphi}\boldsymbol{\psi}(t)$,
-the wavelet transform is equivariant with respect to time reversal:
-\begin{eqnarray*}
-\mathbf{U}_{1}(\mathcal{W}_{\boldsymbol{\tau}}\boldsymbol{x})(t,\gamma) & = & \left|\mathrm{e}^{\mathrm{i}\varphi}\int_{-\infty}^{+\infty}\boldsymbol{x}(-t^{\prime})\boldsymbol{\psi}_{2^{\gamma},T(2^{\gamma})}(t^{\prime}-t)\;\mathrm{d}t^{\prime}\right|\\
- & = & \left|\mathrm{e}^{\mathrm{i}\varphi}\right|\times\left|\int_{-\infty}^{+\infty}\boldsymbol{x}(t^{\prime})\boldsymbol{\psi}_{2^{\gamma},T(2^{\gamma})}(-t-t^{\prime})\;\mathrm{d}t^{\prime}\right|\\
- & = & \mathbf{U}_{1}\boldsymbol{x}(t,\gamma).
-\end{eqnarray*}
-Gabor wavelets have a symmetric envelope, as they satisfy $\boldsymbol{\psi}(-t)=-\boldsymbol{\psi}(t)$,
-i.e. $\varphi=\pi$. This is due to the fact that Gaussians have bell-shaped
-symmetric envelopes. Therefore, the Gabor wavelet transform commutes
-with time reversal: 
-\[
-\mathbf{U}_{1}(\mathcal{W}_{\boldsymbol{\tau}}\boldsymbol{x})(t,\gamma)=\mathbf{U}_{1}\boldsymbol{x}(-t,\gamma).
-\]
-A simple way to break this undesirable invariance is to choose $\boldsymbol{\psi}(t)$
+A simple way to break invariance to time reversal is to choose $\boldsymbol{\psi}(t)$
 as an asymmetric wavelet instead of a Gabor symmetric wavelet.
 
 The complex-valued Gammatone wavelet is a modification of the real-valued
