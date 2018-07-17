@@ -1115,3 +1115,10 @@ year = {1984}
   booktitle={Proceedings of the IEEE International Symposium on Circuits and Systems (ISCS)},
   year={2010}
 }
+
+@inproceedings{Sainath2015,
+  title={Learning the speech front-end with raw waveform CLDNNs},
+  author={Sainath, TN and Weiss, Ron J and Senior, Andrew and Wilson, Kevin W and Vinyals, Oriol},
+  booktitle={Proceedings of INTERSPEECH},
+  year={2015}
+}
