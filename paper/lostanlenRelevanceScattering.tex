@@ -486,8 +486,14 @@ All authors read and approved the final manuscript.
 %\enlargethispage{-5in}
 
 
-\section{Supplementary material}
+\section{Supplementary material: }
 
+The introductory paper on Gammatone wavelet \cite{Venkitaraman2014} does not provide a formula for deducing $\sigma$ from the specification of a quality factor $Q$.
+
+In this appendix, we provide a rationale for choosing the topmost center frequency $\xi$ of a Gammatone wavelet filter bank in a discrete-time setting. Then, we relate the bandwidth parameter $\sigma$ to the choice of a quality factor Q.
+
+
+\subsubsection*{Motivation}
 Time reversal of a real signal $\boldsymbol{x}(t)$ is equivalent
 to the complex conjugation of its Fourier transform $\boldsymbol{\widehat{x}}(\omega$).
 As a consequence, the Fourier transform modulus $\vert\boldsymbol{\widehat{x}}(\omega)\vert$
@@ -521,6 +527,8 @@ its Fourier transform satisfies Hermitian symmetry, which implies
 that it does not belong to the space $H^{2}$ of analytic functions.
 More generally, there are no real-valued functions in $H^{2}$ \cite{Grossmann1984}.
 
+\subsubsection*{Related work}
+
 With the aim of building a pseudo-analytic admissible Gammatone wavelet,
 \cite{Venkitaraman2014} have modified the definition of the Gammatone
 auditory filter, by replacing the real-valued sine wave $\cos(2\pi t)$
@@ -544,9 +552,9 @@ $N$ is causal, as opposed to the Morlet wavelet transform, which
 makes it better suited to real-time applications. From an evolutionary
 point of view, it has been argued that the Gammatone reaches a practical
 compromise between time-frequency localization and causality constraints.
-\cite{Venkitaraman2014} did not provide a formula for deducing $\sigma$
-from the specification of a quality factor $Q$.
-In this appendix, we provide a rationale for choosing the topmost center frequency $\xi$ of a Gammatone wavelet filter bank in a discrete-time setting. Then, we relate the bandwidth parameter $\sigma$ to the choice of a quality factor Q.
+
+
+\subsubsection*{Center frequency parameter}
 
 In order to preserve energy and allow for perfect reconstruction,
 the Gammatone wavelet filter bank must satisfy the inequalities
@@ -571,6 +579,7 @@ of which we deduce the identity
 For $Q=1$, this yields a center frequency of $\xi=\frac{2\pi}{3}$.
 For greater values of $Q$, the center frequency $\xi$ tends towards
 $\pi$.
+
 
 \subsubsection*{Bandwidth parameter}
 
