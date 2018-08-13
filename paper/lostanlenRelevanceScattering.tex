@@ -338,7 +338,7 @@ The evaluation is performed on the private part of the DCASE 2013 dataset. As a 
 
 The \emph{RbQ} measures are compared to commonly used early integration approach \emph{early}, which consists in averaging over time the feature set of each scene, resulting in one feature vector per scene. The distance on this average feature vector is then used to determine $p@k$. For the BoF approach of Aucouturier et al.~\cite{aucouturier2007bag}, GMMs are estimated for each scene using the expectation-maximization (EM) algorithm~\cite{dempster-laird, moon1996expectation}. The similarity between a given pair of scene GMMs is then calculated through Monte Carlo sampling approximation. To ensure convergence of the EM algorithm for the scattering features, we reduce their dimension from $1367$ to $30$ by projecting the features onto the top $30$ principal components of the dataset. the number of Gaussians is optimized for each type of features by grid search in the range $[2, 20]$. Best $p@5$ is reached with 8 and 4  Gaussians, respectively for MFCCs and scattering features. Recommended number of Gaussians for MFCCs given in~\cite{aucouturier2007bag} is 10.
 
-The scaling parameter $q$ of the RBF kernels (see Eq.~\ref{eq:kc}) is set to $10\%$ of the number of data points to cluster.  As the number of Gaussians for the BoF approach, the numbers of clusters $M$ controls the level of abstraction. For each method, the parameter $M$ is set to $8$. It thus allows $8$ different types of observations to de modeled, which seems reasonable given the duration of the scene (30 seconds). Note that this is the only free parameter in the proposed method. However, except for $\emph{RbQ-a}$, the results are not very sensitive to the choice of $M$, as long as it is large enough to characterize the seen. For a numerical demonstration of this, please see the end of the next section.
+The scaling parameter $q$ of the RBF kernels (see Eq.~\ref{eq:kc}) is set to $10\%$ of the number of data points to cluster.  As the number of Gaussians for the BoF approach, the numbers of clusters $M$ controls the level of abstraction. For each method, unless otherwise stated, the parameter $M$ is set to $8$. It thus allows $8$ different types of observations to be modeled, which seems reasonable given the duration of the scene (30 seconds). Note that this is the only free parameter in the proposed method. However, except for $\emph{RbQ-a}$, the results are not very sensitive to the choice of $M$, as long as it is large enough to characterize the seen. For a numerical demonstration of this, please see the end of the next section.
 
 \section{Results \label{sec:results}}
 
@@ -402,10 +402,9 @@ With $p@5$ as our metric (cf.~\cite{aucouturier2007bag} and~\cite{lagrange:hal-0
 We now study the sensitivity of the precision at rank $5$ ($p@5$) with respect to the number of clusters $M$.
 The results are shown in Figure \ref{fig:sensitivityM}.
 
-For a small number of clusters ($M = 1$ or $M = 2$), all methods perform worse, since not enough discriminative sound objects are extracted from the recording.
-This corresponds a summary statistics model.
+For a small number of clusters ($M = 1$ or $M = 2$), all methods perform worse, since not enough discriminative sound objects are extracted from the recording. Please note that setting $M = 1$ is equivalent to the \emph{early} approach as this corresponds a summary statistics model.
 For $M = 4$, most methods perform well, since this allows for better characterization of various signal structures in the scenes.
-As the number of clusters increases, the \emph{RbQ-a} method performs significantly worse for both scattering features and MFCCs since any distinct objects are averaged out by clusters representing the background.
+As the number of clusters increases, the \emph{RbQ-a} method performs worse for both scattering features and MFCCs since any distinct objects are averaged out by clusters representing the background.
 The \emph{RbQ-w} and \emph{RbQ-c} methods do better in this regard, as they are better able to emphasize the clusters that discriminate well between scenes.
 
 Using \emph{RbQ-c}, therefore, we are not very sensitive to the choice of $M$, as long as it is large enough to allow for separation of the discriminative sound objects from the background.
@@ -529,7 +528,7 @@ The complex-valued Gammatone wavelet is a modification of the real-valued
 Gammatone auditory filter, originated in auditory physiology. The
 Gammatone auditory filter of dimensionless frequency $1$ is defined
 as a gamma distribution of order $N\in\mathbb{N}^{*}$ and bandwidth
-$\sigma$ modulated by a sine wave, that is, 
+$\sigma$ modulated by a sine wave, that is,
 \[
 t^{N-1}\exp(-2\pi\sigma t)\cos(2\pi t).
 \]
@@ -589,7 +588,7 @@ frequency $\omega=\pi$ can be achieved by placing the log-frequency
 $\log_{2}\xi$ of the first (topmost) wavelet in between the log-frequency
 $\log_{2}(\xi\times2^{-1/Q})$ of the second wavelet and the log-frequency
 $\log_{2}(2\pi-\xi)$ of the mirror of the first wavelet. We obtain
-the equation 
+the equation
 \[
 \log_{2}\xi-\log_{2}(\xi\times2^{-1/Q})=\log_{2}(2\pi-\xi)-\log_{2}\xi,
 \]
@@ -659,7 +658,7 @@ We conclude with the following closed form for $\alpha$:
 \[
 \alpha=K_{N}\times\sqrt{\dfrac{\sqrt{1+h_{N}\left(Q\right)^{2}}-1}{2}}\times\xi,
 \]
-where 
+where
 \[
 K_{N}=r^{1/N}N\sqrt{1-r^{2/N}}\mbox{ and }h_{N}\left(Q\right)=\dfrac{1-2^{-1/Q}}{N\times\left(1-r^{2/N}\right)}.
 \]

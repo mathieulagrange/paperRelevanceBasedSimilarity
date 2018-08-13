@@ -83,7 +83,7 @@ $\rightarrow$ Considering the features design, we set the parameters to widely u
 
 \item \emph{What about M?}
 
-$\rightarrow$ A discussion about the setting of the parameter M is added at the end of Section 6.3.
+$\rightarrow$ The number of clusters $M$ is indeed an important parameter. The higher $M$ is, the more complex the model and the computation are. Setting $M$ to 4 roughly states that there may be at most 4 different types of events in the given chunk of audio, here 30 sec. The analysis we added to the manuscript at the end of Section 7.
 
 \item \emph{According to Section 6.2, the number of scattering features is much higher than MFCC features; 1367 instead of 40 for each vector, and there is a similar number of vectors per time unit. This would mean a much higher computational load. However, in the experiments, a projection is applied to reduce them to 30. Is it PCA? The convergence of the EM  algorithm is invoked, but the computational load may be an added reason.}
 
