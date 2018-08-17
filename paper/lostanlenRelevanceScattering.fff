@@ -58,3 +58,12 @@ Wavelet scalogram $\boldsymbol{x}_1(t,\gamma_1)$ of the audio recording \emph{pa
 \end{figure}
 \efloatseparator
  
+\begin{figure}[t]
+\begin{center}
+\includegraphics[width=\columnwidth]{figures/sensitivityM}
+\caption{Acoustic scene similarity retrieval in the DCASE 2013 private dataset: precision at rank $5$ ($p@5$) obtained for different methods as a function of the number of clusters $M$.}
+\label{fig:sensitivityM}
+\end{center}
+\end{figure}
+\efloatseparator
+ 
