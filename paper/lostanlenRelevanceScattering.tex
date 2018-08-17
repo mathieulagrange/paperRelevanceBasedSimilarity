@@ -44,6 +44,7 @@
 \bibliography{biblio}
 %\renewcommand{\baselinestretch}{2}
 
+\graphicspath{{./}{figures/}}
 
 \begin{document}
 %
@@ -216,7 +217,7 @@ Indeed, higher-order scattering coefficients have been shown to contain reduced 
 \subsection{Gammatone wavelets}
 \begin{figure}
 \begin{center}
-\includegraphics[width=\columnwidth]{figures/gammatones}
+\includegraphics[width=\columnwidth]{gammatones}
 \caption{
 \label{fig:gammatones}
 Gammatone wavelets $\boldsymbol{\psi}(t)$ in the time domain with quality factors (a) $Q = 4$ and (b) $Q = 1$.
@@ -250,7 +251,7 @@ Figure~\ref{fig:histograms} shows the distribution of an arbitrarily chosen scat
 
 \begin{figure}
 \begin{center}
-\includegraphics[width=\columnwidth]{figures/compression}
+\includegraphics[width=\columnwidth]{compression}
 \caption{
 \label{fig:histograms}
 Histogram of values taken by the first-order scattering coefficient $\mathbf{S}\boldsymbol{x}(\gamma)$, corresponding to a central acoustic frequency of $302\,\mathrm{Hz}$,
@@ -330,7 +331,7 @@ As an illustration, Figure \ref{fig:scalogram} represents the wavelet scalogram 
 
 \begin{figure}
 \begin{center}
-\includegraphics[width=\columnwidth]{figures/park_scalogram.png}
+\includegraphics[width=\columnwidth]{park_scalogram.png}
 \caption{
 \label{fig:scalogram}
 Wavelet scalogram $\boldsymbol{x}_1(t,\gamma_1)$ of the audio recording \emph{park04} in the DCASE 2013 dataset. We observe that this acoustic scene is a mixture of transient events (chirping birds, footsteps) and stationary texture (flowing water).}
@@ -371,7 +372,7 @@ The early approach being simpler in terms of implementation and runtime complexi
 
 \begin{figure}[t]
 \begin{center}
-\includegraphics[width=\columnwidth]{figures/baselines}
+\includegraphics[width=\columnwidth]{baselines}
 \caption{Acoustic scene similarity retrieval in the DCASE 2013 private dataset: precisions at rank $k$ ($p@k$) obtained for several baseline approaches, as a function of the rank $k$.}
 \label{fig:ASS_-1}
 \end{center}
@@ -383,7 +384,7 @@ Figure~\ref{fig:ASS_0} shows that logarithmic compression of the scattering feat
 
 \begin{figure}[t]
 \begin{center}
-\includegraphics[width=\columnwidth]{figures/log}
+\includegraphics[width=\columnwidth]{log}
 \caption{Acoustic scene similarity retrieval in the DCASE 2013 private dataset: precisions at rank $k$ ($p@k$) obtained for scattering with or without logarithmic compression, as a function of the rank $k$.}
 \label{fig:ASS_0}
 \end{center}
@@ -403,7 +404,7 @@ With $p@5$ as our metric (cf.~\cite{aucouturier2007bag} and~\cite{lagrange:hal-0
 
 \begin{figure}[t]
 \begin{center}
-\includegraphics[width=\columnwidth]{figures/overall}
+\includegraphics[width=\columnwidth]{overall}
 \caption{Acoustic scene similarity retrieval in the DCASE 2013 private dataset: precisions at rank $k$ ($p@k$) obtained for MFCCs and scattering with logarithmic compression.}
 \label{fig:ASS_1}
 \end{center}
@@ -424,7 +425,7 @@ This motivates our choice of $M = 8$ for the previous experiments in this sectio
 
 \begin{figure}[t]
 \begin{center}
-\includegraphics[width=\columnwidth]{figures/sensitivityM}
+\includegraphics[width=\columnwidth]{sensitivityM}
 \caption{Acoustic scene similarity retrieval in the DCASE 2013 private dataset: precision at rank $5$ ($p@5$) obtained for different methods as a function of the number of clusters $M$.}
 \label{fig:sensitivityM}
 \end{center}
@@ -461,63 +462,6 @@ All authors read and approved the final manuscript.
 %\bibliographystyle{spmpsci}
 %\bibliography{biblio}
 \printbibliography
-
-
-% \begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{figures/lostanlen}}]{Vincent Lostanlen} was born in 1992. He received an engineering degree from TELECOM ParisTech in 2013 and his M.S. degree in acoustics, signal processing, and musical informatics (ATIAM) from the Universit\'{e} Pierre et Marie Curie (UPMC) and the Ircam in Paris, France, in 2013. Since 2013, he is a Ph.D. student at \'{E}cole normale sup\'{e}rieure in Paris, working under the supervision of St\'{e}phane Mallat. His research focuses on defining convolutional operators in the time-frequency domain with applications in audio classification.
-% \end{IEEEbiography}
-%
-% \begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{figures/lafay}}]{Gr\'egoire Lafay} was born in 1990. He received the B.S. degree in Acoustic from the University Pierre and Marie Curie (UPMC), Paris, FranArthritis National Research Foundatioce, and the B.S. degree in Musicology from the Sorbonne University, Paris, France, in 2011. He received his M.S. degree in acoustics, signal processing, and musical informatics (ATIAM) from the UPMC and the Ircam in Paris, France, in 2013. Since 2013, he is a Ph.D. student at IRCCyN, Nantes, France. His research interests include acoustic scene similarity and classification as well as acoustic scene perception.
-% \end{IEEEbiography}
-%
-%
-% \begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{figures/anden}}]{Joakim And\'en}
-% received the M.Sc. degree in mathematics from the Universit\'e Pierre et Marie Curie, Paris, France, in 2010 and the Ph.D. degree in applied mathematics from Ecole Polytechnique, Palaiseau, France, in 2014. He is currently a postdoctoral researcher with the Program in Applied and Computational mathematics at Princeton University, Princeton, USA. His research interests include signal processing, machine learning, and statistical data analysis. He is a member of the IEEE.
-%
-% \end{IEEEbiography}
-%
-% \begin{IEEEbiography}[{\includegraphics[width=1.25in,height=1.25in,clip,keepaspectratio]{figures/lagrange}}]{Mathieu Lagrange} is a CNRS research scientist at IRCCyN, a French laboratory dedicated to cybernetics. He obtained his Ph.D. in computer science at the University of Bordeaux in 2004, and visited several institutions in Canada (University of Victoria, McGill University) and in France (Orange Labs, TELECOM ParisTech, Ircam). His research focuses on machine listening algorithms applied to the analysis of musical and environmental audio.
-% \end{IEEEbiography}
-
-% biography section
-%
-% If you have an EPS/PDF photo (graphicx package needed) extra braces are
-% needed around the contents of the optional argument to biography to prevent
-% the LaTeX parser from getting confused when it sees the complicated
-% \includegraphics command within an optional argument. (You could create
-% your own custom macro containing the \includegraphics command to make things
-% simpler here.)
-%\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{mshell}}]{Michael Shell}
-% or if you just want to reserve a space for a photo:
-
-%\begin{IEEEbiography}{Mathieu Lagrange}
-%Biography text here.
-%\end{IEEEbiography}
-
-% if you will not have a photo at all:
-%\begin{IEEEbiographynophoto}{John Doe}
-%Biography text here.
-%\end{IEEEbiographynophoto}
-
-% insert where needed to balance the two columns on the last page with
-% biographies
-%\newpage
-
-%\begin{IEEEbiographynophoto}{Jane Doe}
-%Biography text here.
-%\end{IEEEbiographynophoto}
-
-% You can push biographies down or up by placing
-% a \vfill before or after them. The appropriate
-% use of \vfill depends on what kind of text is
-% on the last page and whether or not the columns
-% are being equalized.
-
-%\vfill
-
-% Can be used to pull up biographies so that the bottom of the last one
-% is flush with the other column.
-%\enlargethispage{-5in}
-
 
 \section{Supplementary material}
 

@@ -1,6 +1,6 @@
 \begin{figure}
 \begin{center}
-\includegraphics[width=\columnwidth]{figures/gammatones}
+\includegraphics[width=\columnwidth]{gammatones}
 \caption{
 \label{fig:gammatones}
 Gammatone wavelets $\boldsymbol{\psi}(t)$ in the time domain with quality factors (a) $Q = 4$ and (b) $Q = 1$.
@@ -11,7 +11,7 @@ Oscillations (red, blue) are the real and imaginary parts. The envelope (yellow)
  
 \begin{figure}
 \begin{center}
-\includegraphics[width=\columnwidth]{figures/compression}
+\includegraphics[width=\columnwidth]{compression}
 \caption{
 \label{fig:histograms}
 Histogram of values taken by the first-order scattering coefficient $\mathbf{S}\boldsymbol{x}(\gamma)$, corresponding to a central acoustic frequency of $302\,\mathrm{Hz}$,
@@ -23,7 +23,7 @@ Histogram of values taken by the first-order scattering coefficient $\mathbf{S}\
  
 \begin{figure}
 \begin{center}
-\includegraphics[width=\columnwidth]{figures/park_scalogram.png}
+\includegraphics[width=\columnwidth]{park_scalogram.png}
 \caption{
 \label{fig:scalogram}
 Wavelet scalogram $\boldsymbol{x}_1(t,\gamma_1)$ of the audio recording \emph{park04} in the DCASE 2013 dataset. We observe that this acoustic scene is a mixture of transient events (chirping birds, footsteps) and stationary texture (flowing water).}
@@ -33,7 +33,7 @@ Wavelet scalogram $\boldsymbol{x}_1(t,\gamma_1)$ of the audio recording \emph{pa
  
 \begin{figure}[t]
 \begin{center}
-\includegraphics[width=\columnwidth]{figures/baselines}
+\includegraphics[width=\columnwidth]{baselines}
 \caption{Acoustic scene similarity retrieval in the DCASE 2013 private dataset: precisions at rank $k$ ($p@k$) obtained for several baseline approaches, as a function of the rank $k$.}
 \label{fig:ASS_-1}
 \end{center}
@@ -42,7 +42,7 @@ Wavelet scalogram $\boldsymbol{x}_1(t,\gamma_1)$ of the audio recording \emph{pa
  
 \begin{figure}[t]
 \begin{center}
-\includegraphics[width=\columnwidth]{figures/log}
+\includegraphics[width=\columnwidth]{log}
 \caption{Acoustic scene similarity retrieval in the DCASE 2013 private dataset: precisions at rank $k$ ($p@k$) obtained for scattering with or without logarithmic compression, as a function of the rank $k$.}
 \label{fig:ASS_0}
 \end{center}
@@ -51,7 +51,7 @@ Wavelet scalogram $\boldsymbol{x}_1(t,\gamma_1)$ of the audio recording \emph{pa
  
 \begin{figure}[t]
 \begin{center}
-\includegraphics[width=\columnwidth]{figures/overall}
+\includegraphics[width=\columnwidth]{overall}
 \caption{Acoustic scene similarity retrieval in the DCASE 2013 private dataset: precisions at rank $k$ ($p@k$) obtained for MFCCs and scattering with logarithmic compression.}
 \label{fig:ASS_1}
 \end{center}
@@ -60,7 +60,7 @@ Wavelet scalogram $\boldsymbol{x}_1(t,\gamma_1)$ of the audio recording \emph{pa
  
 \begin{figure}[t]
 \begin{center}
-\includegraphics[width=\columnwidth]{figures/sensitivityM}
+\includegraphics[width=\columnwidth]{sensitivityM}
 \caption{Acoustic scene similarity retrieval in the DCASE 2013 private dataset: precision at rank $5$ ($p@5$) obtained for different methods as a function of the number of clusters $M$.}
 \label{fig:sensitivityM}
 \end{center}
