@@ -21,6 +21,16 @@ Histogram of values taken by the first-order scattering coefficient $\mathbf{S}\
 \end{figure}
 \efloatseparator
  
+\begin{figure}
+\begin{center}
+\includegraphics[width=\columnwidth]{figures/park_scalogram.png}
+\caption{
+\label{fig:scalogram}
+Wavelet scalogram $\boldsymbol{x}_1(t,\gamma_1)$ of the audio recording \emph{park04} in the DCASE 2013 dataset. We observe that this acoustic scene is a mixture of transient events (chirping birds, footsteps) and stationary texture (flowing water).}
+\end{center}
+\end{figure}
+\efloatseparator
+ 
 \begin{figure}[t]
 \begin{center}
 \includegraphics[width=\columnwidth]{figures/baselines}

@@ -4,8 +4,10 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {figure}{\numberline {2}{\ignorespaces Histogram of values taken by the first-order scattering coefficient $\mathbf {S}\boldsymbol {x}(\gamma )$, corresponding to a central acoustic frequency of $302\tmspace +\thinmuskip {.1667em}\mathrm {Hz}$, (a) before and (b) after logarithmic compression.}}{23}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {3}{\ignorespaces Acoustic scene similarity retrieval in the DCASE 2013 private dataset: precisions at rank $k$ ($p@k$) obtained for several baseline approaches, as a function of the rank $k$.}}{24}
+\contentsline {figure}{\numberline {3}{\ignorespaces Wavelet scalogram $\boldsymbol {x}_1(t,\gamma _1)$ of the audio recording \emph {park04} in the DCASE 2013 dataset. We observe that this acoustic scene is a mixture of transient events (chirping birds, footsteps) and stationary texture (flowing water).}}{24}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {4}{\ignorespaces Acoustic scene similarity retrieval in the DCASE 2013 private dataset: precisions at rank $k$ ($p@k$) obtained for scattering with or without logarithmic compression, as a function of the rank $k$.}}{25}
+\contentsline {figure}{\numberline {4}{\ignorespaces Acoustic scene similarity retrieval in the DCASE 2013 private dataset: precisions at rank $k$ ($p@k$) obtained for several baseline approaches, as a function of the rank $k$.}}{25}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5}{\ignorespaces Acoustic scene similarity retrieval in the DCASE 2013 private dataset: precisions at rank $k$ ($p@k$) obtained for MFCCs and scattering with logarithmic compression.}}{26}
+\contentsline {figure}{\numberline {5}{\ignorespaces Acoustic scene similarity retrieval in the DCASE 2013 private dataset: precisions at rank $k$ ($p@k$) obtained for scattering with or without logarithmic compression, as a function of the rank $k$.}}{26}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {6}{\ignorespaces Acoustic scene similarity retrieval in the DCASE 2013 private dataset: precisions at rank $k$ ($p@k$) obtained for MFCCs and scattering with logarithmic compression.}}{27}
