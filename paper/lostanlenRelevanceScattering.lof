@@ -11,3 +11,5 @@
 \contentsline {figure}{\numberline {5}{\ignorespaces Acoustic scene similarity retrieval in the DCASE 2013 private dataset: precisions at rank $k$ ($p@k$) obtained for scattering with or without logarithmic compression, as a function of the rank $k$.}}{26}
 \defcounter {refsection}{0}\relax 
 \contentsline {figure}{\numberline {6}{\ignorespaces Acoustic scene similarity retrieval in the DCASE 2013 private dataset: precisions at rank $k$ ($p@k$) obtained for MFCCs and scattering with logarithmic compression.}}{27}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {7}{\ignorespaces Acoustic scene similarity retrieval in the DCASE 2013 private dataset: precision at rank $5$ ($p@5$) obtained for different methods as a function of the number of clusters $M$.}}{28}
