@@ -8,7 +8,7 @@ Q3: This sentence is correct but the following one is not. "The similarity among
 
 Q4: The sentence is correct.
 
-Q5: Check equations [VINCENT ?]
+Q5: Check equations [VINCENT ?] [THEY LOOK GOOD TO ME /JOAKIM]
 
 Q6: All captions and reference to Figures have been checked.
 
