@@ -16,20 +16,51 @@ Q7: The edit is not correct. The "early" is the name of a method. In the manuscr
 
 Q8: The insertion is appropriate.
 
-Q9: [JE PROPOSE D'ENLEVER TOUTES LES URLS DES REFS, VOTRE AVIS ?]
+Q9: [JE PROPOSE D'ENLEVER TOUTES LES URLS DES REFS, VOTRE AVIS ?] [OK POUR MOI /JOAKIM]
 
 Q10: [VINCENT, LE SUPPLEMENTARY MATERIAL CE SONT TES ANNEXES, J'AI FAIT UNE DEMANDE D'ENVOI]
 
 Q11:
 
-Q12: BIB CHECK [JOAKIM ?]
+Q12: The BibTeX entry for [2] is:
 
-Q13:
+@inproceedings{arandjelovic2017look,
+  title={Look, listen and learn},
+  author={Arandjelovic, Relja and Zisserman, Andrew},
+  booktitle={IEEE International Conference on Computer Vision (ICCV)},
+  pages={609--617},
+  year={2017},
+  organization={IEEE}
+}
 
-Q14:
+Q13: The publisher and addresses are as given:
 
-Q15:
+[4]: Curran Associates, Inc., Red Hook, NY, USA
+[12]: National Taiwan University, Taipei, Taiwan
+[20]: École Normale Supérieure, Paris, France
+[22]: Wiley, New York, NY, USA
+[25]: Elsevier, Amsterdam, The Netherlands
+[36]: IEEE, New York, NY, USA, but conference was held in Tallinn, Estonia
+[42]: There are only 41 references listed in the manuscript.
 
-Q16:
+Q14: The publisher addresses are as given:
 
-Q17:
+[5]: New York, NY, USA
+[7]: New York, NY, USA
+[16]: Stuttgart, Germany
+[24]: New York, NY, USA
+[33]: New York, NY, USA
+[34]: Berlin, Germany
+[47]: There are only 41 references listed in the manuscript.
+
+Q15: The volume numbers and page ranges are as given:
+
+[6]: 61(4), 1100-1108
+[31]: This is already given in the manuscript as 439(7079), 978-982.
+
+Q16: The missing publisher in [14] is "The Acoustical Society of Japan"
+
+Q17: The page ranges are as given:
+
+[17]: 1096-1104.
+[39]: This is already given in the manuscript as 1601-1608.
