@@ -64,3 +64,26 @@ Q17: The page ranges are as given:
 
 [17]: 1096-1104.
 [39]: This is already given in the manuscript as 1601-1608.
+
+In addition, we also have the following corrections to the manuscript:
+
+- line 5: Affiliations are not correct. Joakim Andén is with the Center for Computational Biology, Flatiron Institute, New York, NY, USA. Vincent Lostanlen is with New York University, New York, NY, USA.
+- line 121-123: Missing commas. It should be "Characterization of the similarity between audio recordings, be they at the scale of the minute, the hour, the day, or larger, is of interest ..."
+- lines 141-142: "park" should be in italics.
+- lines 163-164: missing commas before "such as" and before "seem".
+- line 276: missing "is" before "varying".
+- line 367: "linearize" should be "linearizes".
+- line 474: "30-s" should be "30-second".
+- line 522: "numbers" should be "number".
+- line 544: "PCA" should be written out "principal components analysis".
+- lines 538, 557, 563, 572, 605: Should be subsections, not subsubsections, that is, 7.1, 7.2, etc. instead of 7.0.1, 7.0.2, etc.
+- line 559: "clarity" should be "clarity's".
+- line 560: "a" should be "an".
+- line 564: There's a "the" missing before "best result".
+- line 591: There's a "way" missing before "of doing so".
+- line 594: "lays" should be "lies".
+- line 659: "Matlab" should be "MATLAB".
+
+- lines 698, 715: "Acta Acustica U" should be "Acta Acustica United".
+- line 701: "a preliminary study" should be "A preliminary study".
+- line 710: Missing periods after "Acoust" and "Sci".
