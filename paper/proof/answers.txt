@@ -65,8 +65,7 @@ Q17: The page ranges are as given:
 [17]: 1096-1104.
 [39]: This is already given in the manuscript as 1601-1608.
 
-In addition, we also have the following corrections to the manuscript:
-
+In addition, we have the following corrections to the manuscript:
 - line 5: Affiliations are not correct. Joakim Andén is with the Center for Computational Biology, Flatiron Institute, New York, NY, USA. Vincent Lostanlen is with New York University, New York, NY, USA.
 - line 121-123: Missing commas. It should be "Characterization of the similarity between audio recordings, be they at the scale of the minute, the hour, the day, or larger, is of interest ..."
 - lines 141-142: "park" should be in italics.
@@ -87,3 +86,12 @@ In addition, we also have the following corrections to the manuscript:
 - lines 698, 715: "Acta Acustica U" should be "Acta Acustica United".
 - line 701: "a preliminary study" should be "A preliminary study".
 - line 710: Missing periods after "Acoust" and "Sci".
+
+We also have the following corrections to the supplementary material:
+- There should be no "1" before the title "Supplementary Material".
+- In the first paragraph, last sentence, "Then, we" should be "We therefore".
+- In the third paraphraph, first sentence, "originated" should be "which originated".
+- In the fourth paragraph, first sentence, there should not be a comma before "by replacing".
+- In the fifth paragraph, third sentence, "of which we deduce" should be "from which we deduce" and should not be indented.
+- In the sixth paragraph, ninth sentence "yet of the variable" should be "but now in the variable".
+- In the sixth paragraph, tenth sentence, there is an inserted space before ":" that should be removed.
