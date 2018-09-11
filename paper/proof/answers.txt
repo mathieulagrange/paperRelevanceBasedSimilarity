@@ -1,0 +1,35 @@
+Please find below our answers to your requests
+
+Q1: Spelling is ok.
+
+Q2: The affiliation should be changed to "LS2N, CNRS, Ecole Centrale de Nantes, France".
+
+Q3: This sentence is correct but the following one is not. "The similarity among the scene s1 and s2 is computed as the similarity (see Section 6 for further details)." should be replaced by "The similarity among the scene s1 and s2 is computed as the similarity between M1 and M2 (see Section 6 for further details)."
+
+Q4: The sentence is correct.
+
+Q5: Check equations [VINCENT ?]
+
+Q6: All captions and reference to Figures have been checked.
+
+Q7: The edit is not correct. The "early" is the name of a method. In the manuscript submitted "early", "BoF" and "RbQ-*" are displayed in italic. The sentence should read "The early approach being simpler in terms of implementation and runtime complexity, we retain this method as baseline for the remainder of the experiments."
+
+Q8: The insertion is appropriate.
+
+Q9: [JE PROPOSE D'ENLEVER TOUTES LES URLS DES REFS, VOTRE AVIS ?]
+
+Q10: [VINCENT, LE SUPPLEMENTARY MATERIAL CE SONT TES ANNEXES, J'AI FAIT UNE DEMANDE D'ENVOI]
+
+Q11:
+
+Q12: BIB CHECK [JOAKIM ?]
+
+Q13:
+
+Q14:
+
+Q15:
+
+Q16:
+
+Q17:
