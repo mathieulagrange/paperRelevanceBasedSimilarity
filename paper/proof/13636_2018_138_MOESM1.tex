@@ -71,7 +71,7 @@ Gammatone auditory filter of dimensionless frequency $1$ is defined
 as a gamma distribution of order $N\in\mathbb{N}^{*}$ and bandwidth
 $\sigma$ modulated by a sine wave, that is,
 \[
-t^{N-1}\exp(-2\pi\sigma t)\cos(2\pi t).
+t^{N-1}\exp(-2\pi\sigma t)\cos(2\pi \xi t).
 \]
 For a fixed $\sigma$, the integer $N$ controls the relative shape
 of the envelope, becoming less skewed as $N$ increases. Psychoacoustical
@@ -98,7 +98,7 @@ by its analytic part $\exp(2\pi\mathrm{\mathrm{i}}t)$ and by taking
 the first derivative of the gamma distribution, thus ensuring null
 mean. The definition of the Gammatone wavelet becomes
 \[
-\boldsymbol{\psi}(t)=\left(2\pi(\mathrm{i}-\sigma)t^{N-1}+(N-1)t^{N-2}\right)\exp(-2\pi\sigma t)\exp(2\pi\mathrm{i}t)
+\boldsymbol{\psi}(t)=\left(2\pi(\mathrm{i}-\sigma)t^{N-1}+(N-1)t^{N-2}\right)\exp(-2\pi\sigma t)\exp(2\pi\mathrm{i}\xi t)
 \]
 in the time domain, and
 \[
