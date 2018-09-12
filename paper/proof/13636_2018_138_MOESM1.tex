@@ -52,7 +52,9 @@
 
 The asymmetric amplitude profile of Gammatones makes them suitable to model temporal masking in auditory filterbanks~\cite{Fastl2007}.
 Yet, the introductory paper on Gammatone wavelets \cite{Venkitaraman2014} does not provide a formula for deducing $\sigma$ from the specification of a quality factor $Q$.
-In this appendix, we provide a rationale for choosing the topmost center frequency $\xi$ of a Gammatone wavelet filter bank in a discrete-time setting. Then, we relate the bandwidth parameter $\sigma$ to the choice of a quality factor Q.
+In this appendix, we provide a rationale for choosing the topmost center frequency $\xi$ of a Gammatone wavelet filter bank in a discrete-time setting.
+Then, we relate the bandwidth parameter $\sigma$ to the choice of a quality factor Q.
+We express both $\xi$ and $\sigma$ in radians, so that converting this value to Hertz would incur a multiplication by $2\pi/f_s$ where $f_s$ is the sampling frequency of the audio signal at hand.
 
 
 \subsubsection*{Motivation}
