@@ -54,7 +54,6 @@ The asymmetric amplitude profile of Gammatones makes them suitable to model temp
 Yet, the introductory paper on Gammatone wavelets \cite{Venkitaraman2014} does not provide a formula for deducing $\sigma$ from the specification of a quality factor $Q$.
 In this appendix, we provide a rationale for choosing the topmost center frequency $\xi$ of a Gammatone wavelet filter bank in a discrete-time setting.
 Then, we relate the bandwidth parameter $\sigma$ to the choice of a quality factor Q.
-We express both $\xi$ and $\sigma$ in radians, so that converting this value to Hertz would incur a multiplication by $2\pi/f_s$ where $f_s$ is the sampling frequency of the audio signal at hand.
 
 
 \subsubsection*{Motivation}
@@ -125,12 +124,14 @@ the Gammatone wavelet filter bank must satisfy the inequalities
 \[
 1-\varepsilon\leq\vert\boldsymbol{\hat{\phi}}(\omega)\vert+\sum_{\gamma}\vert\boldsymbol{\hat{\psi}}(2^{\gamma}\omega)\vert+\vert\boldsymbol{\hat{\psi}}(-2^{\gamma}\omega)\vert\leq1
 \]
-for all frequencies $\omega$, where $\varepsilon$ is a small margin
-\cite{Anden2014}. Satisfying the equation above near the Nyquist
-frequency $\omega=\pi$ can be achieved by placing the log-frequency
+for all frequencies $\omega$ in the audible range, where $\varepsilon$ is a small margin
+\cite{Anden2014}. 
+Let $\xi_{\mathrm{s}}$ be the sampling rate of the audio signal $\boldsymbol{x}(t)$ at hand.
+Satisfying the equation above near the Nyquist
+frequency $\omega=\frac{1}{2}\xi_{\mathrm{s}}$ can be achieved by placing the log-frequency
 $\log_{2}\xi$ of the first (topmost) wavelet in between the log-frequency
 $\log_{2}(\xi\times2^{-1/Q})$ of the second wavelet and the log-frequency
-$\log_{2}(2\pi-\xi)$ of the mirror of the first wavelet. We obtain
+$\log_{2}(\xi_{\mathrm{s}}-\xi)$ of the mirror of the first wavelet. We obtain
 the equation
 \[
 \log_{2}\xi-\log_{2}(\xi\times2^{-1/Q})=\log_{2}(2\pi-\xi)-\log_{2}\xi,
