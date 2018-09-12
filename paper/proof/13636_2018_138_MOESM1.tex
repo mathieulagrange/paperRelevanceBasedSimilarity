@@ -48,12 +48,12 @@
 
 \begin{document}
 
-\section{Supplementary material}
+\section*{Supplementary material}
 
 The asymmetric amplitude profile of Gammatones makes them suitable to model temporal masking in auditory filterbanks~\cite{Fastl2007}.
 Yet, the introductory paper on Gammatone wavelets \cite{Venkitaraman2014} does not provide a formula for deducing $\sigma$ from the specification of a quality factor $Q$.
 In this appendix, we provide a rationale for choosing the topmost center frequency $\xi$ of a Gammatone wavelet filter bank in a discrete-time setting.
-Then, we relate the bandwidth parameter $\sigma$ to the choice of a quality factor Q.
+We therefore relate the bandwidth parameter $\sigma$ to the choice of a quality factor Q.
 
 
 \subsubsection*{Motivation}
@@ -67,7 +67,7 @@ A simple way to break invariance to time reversal is to choose $\boldsymbol{\psi
 as an asymmetric wavelet instead of a Gabor symmetric wavelet.
 
 The complex-valued Gammatone wavelet is a modification of the real-valued
-Gammatone auditory filter, originated in auditory physiology. The
+Gammatone auditory filter, which originated in auditory physiology. The
 Gammatone auditory filter of center frequency $\xi$ is defined
 as a gamma distribution of order $N\in\mathbb{N}^{*}$ and bandwidth
 $\sigma$ modulated by a sine wave, that is,
@@ -94,7 +94,7 @@ More generally, there are no real-valued functions in $H^{2}$ \cite{Grossmann198
 
 With the aim of building a pseudo-analytic admissible Gammatone wavelet,
 \cite{Venkitaraman2014} have modified the definition of the Gammatone
-auditory filter, by replacing the real-valued sine wave $\cos(2\pi \xi t)$
+auditory filter by replacing the real-valued sine wave $\cos(2\pi \xi t)$
 by its analytic part $\exp(2\pi\mathrm{\mathrm{i}}\xi t)$ and by taking
 the first derivative of the gamma distribution, thus ensuring null
 mean. The definition of the Gammatone wavelet becomes
@@ -136,8 +136,7 @@ the equation
 \[
 \log_{2}\xi-\log_{2}(\xi\times2^{-1/Q})=\log_{2}(\tfrac{1}{2}\xi_{\mathrm{s}}-\xi)-\log_{2}\xi,
 \]
-
-of which we deduce the normalized identity
+from which we deduce the normalized identity
 \[
 \dfrac{\xi}{\xi_\mathrm{s}}=\dfrac{1}{1+2^{1/Q}}.
 \]
@@ -205,7 +204,7 @@ B =
 Now, let us express the parameter $\sigma$ as a function of some
 required bandwidth $B$ at some cutoff threshold $r$. After having
 raised the above to its square and rearranged the terms, we obtain
-another quadratic equation, yet of the variable $\mbox{\ensuremath{\sigma}}^{2}$:
+another quadratic equation, but now of the variable $\mbox{\ensuremath{\sigma}}^{2}$:
 \[
 \dfrac{4}{N^2 r^2 \xi^2} (\sigma^2)^2 + \dfrac{8 (1-r)}{N r} \sigma^2 - B^2 = 0.
 \]

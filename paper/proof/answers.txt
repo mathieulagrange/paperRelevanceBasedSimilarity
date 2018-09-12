@@ -26,14 +26,7 @@ https://eprints.qut.edu.au/96243/;
 http://www.jstor.org/stable/2984875;
 https://eprints.qut.edu.au/96243/.
 
-Q10: We have the following corrections to the supplementary material:
-- There should be no "1" before the title "Supplementary Material".
-- In the first paragraph, last sentence, "Then, we" should be "We therefore".
-- In the third paragraph, first sentence, "originated" should be "which originated".
-- In the fourth paragraph, first sentence, there should not be a comma before "by replacing".
-- In the fifth paragraph, third sentence, "of which we deduce" should be "from which we deduce" and should not be indented.
-- In the sixth paragraph, ninth sentence "yet of the variable" should be "but now in the variable".
-- In the sixth paragraph, tenth sentence, there is an inserted space before ":" that should be removed.
+Q10: We have brought corrections to the supplementary material.
 
 Q11: The sentence "More information can be found in [REF]." should be added at the end of the last paragraph of section 3.4.
 
