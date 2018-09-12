@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  12 SEP 2018 13:55
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  12 SEP 2018 14:11
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -620,7 +620,49 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 51.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [1{/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+)
+
+LaTeX Warning: Citation `Fastl2007' on page 1 undefined on input line 53.
+
+
+LaTeX Warning: Citation `Venkitaraman2014' on page 1 undefined on input line 54
+.
+
+
+LaTeX Warning: Citation `Flanagan1960' on page 1 undefined on input line 81.
+
+
+LaTeX Warning: Citation `Patterson1976' on page 1 undefined on input line 81.
+
+
+LaTeX Warning: Citation `Lyon2010' on page 1 undefined on input line 81.
+
+
+LaTeX Warning: Citation `Fastl2007' on page 1 undefined on input line 84.
+
+
+LaTeX Warning: Citation `Pressnitzer2005' on page 1 undefined on input line 85.
+
+
+
+LaTeX Warning: Citation `Grossmann1984' on page 1 undefined on input line 91.
+
+
+LaTeX Warning: Citation `Venkitaraman2014' on page 1 undefined on input line 96
+.
+
+[1{/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+
+LaTeX Warning: Citation `Cohen1995' on page 2 undefined on input line 112.
+
+
+LaTeX Warning: Citation `Venkitaraman2014' on page 2 undefined on input line 11
+7.
+
+
+LaTeX Warning: Citation `Anden2014' on page 2 undefined on input line 128.
+
+
 Underfull \hbox (badness 10000) has occurred while \output is active
 [][]
  []
@@ -630,32 +672,35 @@ Underfull \hbox (badness 10000) has occurred while \output is active
 [][]
  []
 
-[4] (./13636_2018_138_MOESM1.aux) ) 
+[4] (./13636_2018_138_MOESM1.aux)
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ ) 
 Here is how much of TeX's memory you used:
  13464 strings out of 492995
  266414 string characters out of 6132704
- 303871 words of memory out of 5000000
+ 303844 words of memory out of 5000000
  16750 multiletter control sequences out of 15000+600000
  9050 words of font info for 34 fonts, out of 8000000 for 9000
  1142 hyphenation exceptions out of 8191
- 48i,9n,54p,418b,207s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2017/texmf-dist/fonts/ty
-pe1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2017/texmf-dist/fonts/typ
-e1/public/amsfonts/cm/cmbx8.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/
-public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/p
-ublic/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/pub
-lic/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmmib10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmr10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/
-amsfonts/cm/cmr5.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/ams
-fonts/cm/cmr7.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfon
-ts/cm/cmr8.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmsy10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmsy7.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/
-cmti10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/symb
-ols/msbm10.pfb>
-Output written on 13636_2018_138_MOESM1.pdf (4 pages, 167310 bytes).
+ 48i,12n,54p,418b,207s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
+></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb><
+/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></
+usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></u
+sr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr
+/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/l
+ocal/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/l
+ocal/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/loc
+al/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/
+texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/tex
+live/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texliv
+e/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive
+/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2
+017/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/20
+17/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on 13636_2018_138_MOESM1.pdf (4 pages, 166379 bytes).
 PDF statistics:
  80 PDF objects out of 1000 (max. 8388607)
  58 compressed objects within 1 object stream

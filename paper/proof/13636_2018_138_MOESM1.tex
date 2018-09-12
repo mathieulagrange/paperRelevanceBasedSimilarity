@@ -234,8 +234,23 @@ N r (1-r)
 .
 \]
 If the filter bank has to be approximately orthogonal, we typically
-set $B$ to $B=\left(1-2^{-1/Q}\right)\times\xi$.
-We conclude with the following closed form for $\sigma$:
+set $B$ to
+\[
+B = 
+\left(\sqrt[Q]{2} - \dfrac{1}{\sqrt[Q]{2}} \right)
+\times \xi.
+\]
+We conclude with the following normalized closed form for $\sigma$:
+\[
+\dfrac{\sigma}{\xi} = \sqrt{N r (1-r)}
+\left(
+\sqrt{
+1 +
+\dfrac{\left(\sqrt[Q]{2} - \dfrac{1}{\sqrt[Q]{2}} \right)^2}{
+4 (1-r)^2
+}}
+- 1\right).
+\]
 
 
 
