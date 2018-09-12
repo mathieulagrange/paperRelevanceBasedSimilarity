@@ -1,0 +1,274 @@
+\documentclass[smallextended]{svjour3}
+%\usepackage{cite}
+% *** GRAPHICS RELATED PACKAGES ***
+%
+%\usepackage[pdftex]{graphicx}
+%
+\usepackage[cmex10]{amsmath}
+
+% *** ALIGNMENT PACKAGES ***
+%
+\usepackage{array}
+%\usepackage{fixltx2e}
+
+\usepackage{stfloats}
+% LaTeX2e). It also provides a command:
+\fnbelowfloat
+\usepackage{endfloat}
+\usepackage{booktabs}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{pgf}
+\usepackage{tikz}
+\usetikzlibrary{arrows,positioning}
+\usepackage[hyphens]{url}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{xspace}
+\newcommand*{\eg}{e.g.\@\xspace}
+\newcommand*{\ie}{i.e.\@\xspace}
+\newcommand*{\vs}{vs.\@\xspace}
+
+\newcommand*{\EMD}{\mathrm{EMD}}
+
+% correct bad hyphenation here
+\hyphenation{wave-let}
+
+\usepackage{color}
+\newcommand{\vl}[1]{\textcolor{orange}{Vincent : #1}}
+\newcommand{\gl}[1]{\textcolor{red}{Gr\'egoire : #1}}
+\newcommand{\ja}[1]{\textcolor{magenta}{Joakim : #1}}
+\newcommand{\ml}[1]{\textcolor{blue}{ Mathieu : #1}}
+
+%\usepackage[backend=bibtex,style=numeric-comp,sorting=none,firstinits=true]{biblatex}
+%%\bibliography{biblio}
+%\renewcommand{\baselinestretch}{2}
+
+\graphicspath{{./}{figures/}}
+
+\begin{document}
+
+\section{Supplementary material}
+
+The asymmetric amplitude profile of Gammatones makes them suitable to model temporal masking in auditory filterbanks~\cite{Fastl2007}.
+Yet, the introductory paper on Gammatone wavelets \cite{Venkitaraman2014} does not provide a formula for deducing $\sigma$ from the specification of a quality factor $Q$.
+In this appendix, we provide a rationale for choosing the topmost center frequency $\xi$ of a Gammatone wavelet filter bank in a discrete-time setting. Then, we relate the bandwidth parameter $\sigma$ to the choice of a quality factor Q.
+
+
+\subsubsection*{Motivation}
+Time reversal of a real signal $\boldsymbol{x}(t)$ is equivalent
+to the complex conjugation of its Fourier transform $\boldsymbol{\widehat{x}}(\omega$).
+As a consequence, the Fourier transform modulus $\vert\boldsymbol{\widehat{x}}(\omega)\vert$
+is not only invariant to translation, but also invariant to time reversal.
+Yet, although invariance to translation is needed for classification,
+invariance to time reversal is an undesirable property.
+A simple way to break invariance to time reversal is to choose $\boldsymbol{\psi}(t)$
+as an asymmetric wavelet instead of a Gabor symmetric wavelet.
+
+The complex-valued Gammatone wavelet is a modification of the real-valued
+Gammatone auditory filter, originated in auditory physiology. The
+Gammatone auditory filter of dimensionless frequency $1$ is defined
+as a gamma distribution of order $N\in\mathbb{N}^{*}$ and bandwidth
+$\sigma$ modulated by a sine wave, that is,
+\[
+t^{N-1}\exp(-2\pi\sigma t)\cos(2\pi t).
+\]
+For a fixed $\sigma$, the integer $N$ controls the relative shape
+of the envelope, becoming less skewed as $N$ increases. Psychoacoustical
+experiments have shown that, for $N=4$, the Gammatone function provides
+a valid approximation of the basilar membrane response in the mammalian
+cochlea \cite{Flanagan1960,Patterson1976,Lyon2010}. In particular,
+it is asymmetric both in the time domain and in the Fourier domain,
+which allows to reproduce the asymmetry of temporal masking as well
+as the asymmetry of spectral masking \cite{Fastl2007}. It is thus
+used in computational models for auditory physiology \cite{Pressnitzer2005}.
+However, it does not comply with the Grossman-Morlet admissibility
+condition, because it has a non-negligible average. In addition, because
+the Gammatone auditory filter takes real values in the time domain,
+its Fourier transform satisfies Hermitian symmetry, which implies
+that it does not belong to the space $H^{2}$ of analytic functions.
+More generally, there are no real-valued functions in $H^{2}$ \cite{Grossmann1984}.
+
+\subsubsection*{Related work}
+
+With the aim of building a pseudo-analytic admissible Gammatone wavelet,
+\cite{Venkitaraman2014} have modified the definition of the Gammatone
+auditory filter, by replacing the real-valued sine wave $\cos(2\pi t)$
+by its analytic part $\exp(2\pi\mathrm{\mathrm{i}}t)$ and by taking
+the first derivative of the gamma distribution, thus ensuring null
+mean. The definition of the Gammatone wavelet becomes
+\[
+\boldsymbol{\psi}(t)=\left(2\pi(\mathrm{i}-\sigma)t^{N-1}+(N-1)t^{N-2}\right)\exp(-2\pi\sigma t)\exp(2\pi\mathrm{i}t)
+\]
+in the time domain, and
+\[
+\boldsymbol{\widehat{\psi}}(\omega)=\dfrac{\mathrm{i}\omega\times(N-1)!}{(\sigma+\mathrm{i}(\omega-\sigma))^{N}}
+\]
+in the Fourier domain. Besides its biological plausibility, the Gammatone
+wavelet enjoys a near-optimal time-frequency localization with respect
+to the Heisenberg uncertainty principle. Furthermore, this time-frequency
+localization tends to optimality as $N$ approaches infinity, because
+the limit $N\rightarrow+\infty$ yields a Gabor wavelet \cite{Cohen1995}.
+Last but not least, the Gammatone wavelet transform of finite order
+$N$ is causal, as opposed to the Morlet wavelet transform, which
+makes it better suited to real-time applications. From an evolutionary
+point of view, it has been argued that the Gammatone reaches a practical
+compromise between time-frequency localization and causality constraints \cite{Venkitaraman2014}.
+
+
+\subsubsection*{Center frequency parameter}
+
+In order to preserve energy and allow for perfect reconstruction,
+the Gammatone wavelet filter bank must satisfy the inequalities
+\[
+1-\varepsilon\leq\vert\boldsymbol{\hat{\phi}}(\omega)\vert+\sum_{\gamma}\vert\boldsymbol{\hat{\psi}}(2^{\gamma}\omega)\vert+\vert\boldsymbol{\hat{\psi}}(-2^{\gamma}\omega)\vert\leq1
+\]
+for all frequencies $\omega$, where $\varepsilon$ is a small margin
+\cite{Anden2014}. Satisfying the equation above near the Nyquist
+frequency $\omega=\pi$ can be achieved by placing the log-frequency
+$\log_{2}\xi$ of the first (topmost) wavelet in between the log-frequency
+$\log_{2}(\xi\times2^{-1/Q})$ of the second wavelet and the log-frequency
+$\log_{2}(2\pi-\xi)$ of the mirror of the first wavelet. We obtain
+the equation
+\[
+\log_{2}\xi-\log_{2}(\xi\times2^{-1/Q})=\log_{2}(2\pi-\xi)-\log_{2}\xi,
+\]
+
+of which we deduce the identity
+\[
+\xi=\dfrac{2\pi}{1+2^{1/Q}}.
+\]
+For $Q=1$, this yields a center frequency of $\xi=\frac{2\pi}{3}$.
+For greater values of $Q$, the center frequency $\xi$ tends towards
+$\pi$.
+
+
+\subsubsection*{Bandwidth parameter}
+
+The quality factor $Q$ of the Gammatone wavelet is defined as the
+ratio between the center frequency $\xi$ of the wavelet $\boldsymbol{\hat{\psi}}(\omega)$
+and its bandwidth $B$ in the Fourier domain. This bandwidth is given
+by the difference between the two solutions $\omega$ of the following
+equation:
+
+\[
+\dfrac{\vert\boldsymbol{\hat{\psi}}(\omega)\vert}{\vert\boldsymbol{\hat{\psi}}(\xi)\vert}=\dfrac{\omega}{\xi}\times\left(1+\dfrac{\left(\omega-\xi\right)^{2}}{\sigma^{2}}\right)^{-N/2}=r,
+\]
+where the magnitude cutoff $r$ is most
+often set to $\sqrt{\frac{1}{2}}$. Let $\Delta\omega=\omega-\xi$.
+Raising the above equation to the power $N/2$ yields the following:
+\[
+\left(1+\dfrac{\Delta\omega}{\omega_{c}}\right)^{N/2}=r\times\left(1+\frac{\Delta\omega^{2}}{\alpha^{2}}\right).
+\]
+Since $\Delta\omega\ll\xi$, we may approximate the left-hand side
+with a first-order Taylor expansion. This leads to a quadratic equation
+of the variable $\Delta\negmedspace\omega$:
+\[
+\dfrac{r^{2/N}}{\sigma^{2}}\times\Delta\omega^{2}-\dfrac{2}{N\xi}\times\Delta\omega+\left(r^{2/N}-1\right)=0.
+\]
+The discriminant of the above equation is:
+\[
+D=4\times\left(\dfrac{1}{N^{2}\xi^{2}}+\dfrac{r^{2/N}\left(1-r^{2/N}\right)}{\sigma^{2}}\right),
+\]
+which is a positive number as long as $r<1$. The bandwidth $B$ of
+$\boldsymbol{\hat{\psi}}$ is given by the difference between the
+two solutions of the quadratic equation, that is:
+\[
+B=\dfrac{2\sigma^{2}}{r^{2/N}}\times\sqrt{\dfrac{1}{N^{2}\xi^{2}}+\dfrac{r^{2/N}\left(1-r^{2/N}\right)}{\sigma^{2}}}.
+\]
+Now, let us express the parameter $\alpha$ as a function of some
+required bandwidth $B$ at some cutoff threshold $r$. After having
+raised the above to its square and rearranged the terms, we obtain
+another quadratic equation, yet of the variable $\mbox{\ensuremath{\alpha}}^{2}$:
+\[
+\dfrac{4}{r^{4/N}N^{2}\xi^{2}}\sigma^{4}+\dfrac{4\times\left(1-r^{2/N}\right)}{r^{2/N}}\sigma^{2}-B^{2}=0
+\]
+We multiply the equation by $\dfrac{r^{2/N}}{4\times\left(1-r^{2/N}\right)}\neq0:$
+\[
+\dfrac{1}{r^{2/N}\left(1-r^{2/N}\right)N^{2}\xi^{2}}\sigma^{4}+\sigma^{2}-\dfrac{r^{2/N}B^{2}}{4\times\left(1-r^{2/N}\right)}=0
+\]
+This leads to defining $\sigma^{2}$ as the unique positive root of
+the above polynomial:
+\[
+\sigma^{2}=\dfrac{r^{2/N}\left(1-r^{2/N}\right)N^{2}\xi^{2}}{2}\times\left(\sqrt{1+\dfrac{B^{2}}{\left(1-r^{2/N}\right)^{2}N^{2}\xi^{2}}}-1\right).
+\]
+If the filter bank has to be approximately orthogonal, we typically
+set $B$ to $B=\left(1-2^{-1/Q}\right)\times\xi$.
+
+We conclude with the following closed form for $\alpha$:
+\[
+\alpha=K_{N}\times\sqrt{\dfrac{\sqrt{1+h_{N}\left(Q\right)^{2}}-1}{2}}\times\xi,
+\]
+where
+\[
+K_{N}=r^{1/N}N\sqrt{1-r^{2/N}}\mbox{ and }h_{N}\left(Q\right)=\dfrac{1-2^{-1/Q}}{N\times\left(1-r^{2/N}\right)}.
+\]
+
+
+
+% that's all folks
+\begin{thebibliography}{10}
+\providecommand{\url}[1]{{#1}}
+\providecommand{\urlprefix}{URL }
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{DOI~\discretionary{}{}{}#1}\else
+  \providecommand{\doi}{DOI~\discretionary{}{}{}\begingroup
+  \urlstyle{rm}\Url}\fi
+
+
+\bibitem{Anden2014}
+And{\'e}n, J., Mallat, S.: Deep scattering spectrum.
+\newblock IEEE Transactions on Signal Processing \textbf{62}(16), 4114--4128
+  (2014)
+
+\bibitem{Cohen1995}
+Cohen, L.: Time-frequency analysis.
+\newblock Prentice Hall (1995)
+
+\bibitem{Flanagan1960}
+Flanagan, J.: Models for approximating basilar membrane displacement.
+\newblock Journal of the Acoustical Society of America \textbf{32}(7), 937--937
+  (1960)
+
+\bibitem{Grossmann1984}
+Grossmann, A., Morlet, J.: {Decomposition of Hardy functions into square
+  integrable wavelets of constant shape}.
+\newblock SIAM Journal on Mathematical Analysis \textbf{15}(4), 723--736 (1984)
+
+
+\bibitem{Lyon2010}
+Lyon, R., Katsiamis, A., Drakakis, E.: History and future of auditory filter
+  models.
+\newblock In: Proceedings of the IEEE International Symposium on Circuits and
+  Systems (ISCS) (2010)
+
+\bibitem{Patterson1976}
+Patterson, R.: Auditory filter shapes derived with noise stimuli.
+\newblock Journal of the Acoustical Society of America \textbf{59}(3), 640--654
+  (1976)
+
+\bibitem{Pressnitzer2005}
+Pressnitzer, D., Gnansia, D.: Real-time auditory models.
+\newblock In: Proceedings of the International Computer Music Conference (ICMC)
+  (2005)
+
+
+\bibitem{Venkitaraman2014}
+Venkitaraman, A., Adiga, A., Seelamantula, C.S.: {Auditory-motivated Gammatone
+  wavelet transform}.
+\newblock Signal Processing \textbf{94}, 608--619 (2014)
+
+
+\bibitem{Fastl2007}
+Zwicker, E., Fastl, H.: Psychoacoustics: Facts and models, vol.~22.
+\newblock Springer Science \& Business Media (2013)
+
+
+
+
+
+
+
+\end{thebibliography}
+
+\end{document}

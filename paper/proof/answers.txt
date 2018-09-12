@@ -8,19 +8,34 @@ Q3: This sentence is correct but the following one is not. "The similarity among
 
 Q4: The sentence is correct.
 
-Q5: Check equations [VINCENT ?] [THEY LOOK GOOD TO ME /JOAKIM]
+Q5: The equations are presented correctly.
 
-Q6: All captions and reference to Figures have been checked.
+Q6: All captions and references to Figures have been checked.
 
 Q7: The edit is not correct. The "early" is the name of a method. In the manuscript submitted "early", "BoF" and "RbQ-*" are displayed in italic. The sentence should read "The early approach being simpler in terms of implementation and runtime complexity, we retain this method as baseline for the remainder of the experiments."
 
 Q8: The insertion is appropriate.
 
-Q9: [JE PROPOSE D'ENLEVER TOUTES LES URLS DES REFS, VOTRE AVIS ?] [OK POUR MOI /JOAKIM]
+Q9: The urls have been checked. Please remove the following urls in the bibliography:
+http://www.jstor.org/stable/2984875;
+https://doi.org/10.1109/TIT.1982.1056489;
+https://doi.org/10.1002/cpa.21413;
+https://doi.org/10.1109/SAMPTA.2017.8024473;
+https://doi.org/10.1016/j.ecoinf.2016.05.005;
+https://eprints.qut.edu.au/96243/;
+http://www.jstor.org/stable/2984875;
+https://eprints.qut.edu.au/96243/.
 
-Q10: [VINCENT, LE SUPPLEMENTARY MATERIAL CE SONT TES ANNEXES, J'AI FAIT UNE DEMANDE D'ENVOI]
+Q10: We have the following corrections to the supplementary material:
+- There should be no "1" before the title "Supplementary Material".
+- In the first paragraph, last sentence, "Then, we" should be "We therefore".
+- In the third paragraph, first sentence, "originated" should be "which originated".
+- In the fourth paragraph, first sentence, there should not be a comma before "by replacing".
+- In the fifth paragraph, third sentence, "of which we deduce" should be "from which we deduce" and should not be indented.
+- In the sixth paragraph, ninth sentence "yet of the variable" should be "but now in the variable".
+- In the sixth paragraph, tenth sentence, there is an inserted space before ":" that should be removed.
 
-Q11:
+Q11: The sentence "More information can be found in [REF]." should be added at the end of the last paragraph of section 3.4.
 
 Q12: The BibTeX entry for [2] is:
 
@@ -86,12 +101,3 @@ In addition, we have the following corrections to the manuscript:
 - lines 698, 715: "Acta Acustica U" should be "Acta Acustica United".
 - line 701: "a preliminary study" should be "A preliminary study".
 - line 710: Missing periods after "Acoust" and "Sci".
-
-We also have the following corrections to the supplementary material:
-- There should be no "1" before the title "Supplementary Material".
-- In the first paragraph, last sentence, "Then, we" should be "We therefore".
-- In the third paraphraph, first sentence, "originated" should be "which originated".
-- In the fourth paragraph, first sentence, there should not be a comma before "by replacing".
-- In the fifth paragraph, third sentence, "of which we deduce" should be "from which we deduce" and should not be indented.
-- In the sixth paragraph, ninth sentence "yet of the variable" should be "but now in the variable".
-- In the sixth paragraph, tenth sentence, there is an inserted space before ":" that should be removed.

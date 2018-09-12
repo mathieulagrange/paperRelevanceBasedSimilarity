@@ -234,7 +234,7 @@ Likewise, because critical bands are skewed towards higher frequencies, a maskin
 It should also be noted that Gammatone wavelets follow the typical amplitude profile of natural sounds, beginning with a relatively sharp attack and ending with a slower decay.
 As such, they are similar to filters discovered automatically by unsupervised encoding of natural sounds~\cite{Smith2006,sainath2015interspeech}.
 In addition, Gammatone wavelets have proven to outperform Morlet wavelets on a benchmark of supervised musical instrument classification from scattering coefficients \cite{lostanlen2017phd}.
-This suggests that, despite being hand-crafted and not learned, Gammatone wavelets provide a sparser time-frequency representation of acoustic scenes compared to other variants.
+This suggests that, despite being hand-crafted and not learned, Gammatone wavelets provide a sparser time-frequency representation of acoustic scenes compared to other variants.  More information can be found in Annex \ref{sec:annex}.
 
 \section{Feature design}
 \label{sec:design}
@@ -463,7 +463,7 @@ All authors read and approved the final manuscript.
 %\bibliography{biblio}
 \printbibliography
 
-\section{Supplementary material}
+\section{Supplementary material} \label{sec:annex}
 
 The asymmetric amplitude profile of Gammatones makes them suitable to model temporal masking in auditory filterbanks~\cite{Fastl2007}.
 Yet, the introductory paper on Gammatone wavelets \cite{Venkitaraman2014} does not provide a formula for deducing $\sigma$ from the specification of a quality factor $Q$.
