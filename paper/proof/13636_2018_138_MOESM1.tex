@@ -154,57 +154,89 @@ by the difference between the two solutions $\omega$ of the following
 equation:
 
 \[
-\dfrac{\vert\boldsymbol{\hat{\psi}}(\omega)\vert}{\vert\boldsymbol{\hat{\psi}}(\xi)\vert}=\dfrac{\omega}{\xi}\times\left(1+\dfrac{\left(\omega-\xi\right)^{2}}{\sigma^{2}}\right)^{-N/2}=r,
+\dfrac{\vert\boldsymbol{\hat{\psi}}(\omega)\vert}{\vert\boldsymbol{\hat{\psi}}(\xi)\vert}
+=
+\dfrac{\omega}{\xi}\times
+\left(1+\dfrac{\left(\omega-\xi\right)^{2}}{\sigma^{2}}\right)^{-N/2}=r,
 \]
-where the magnitude cutoff $r$ is most
-often set to $\sqrt{\frac{1}{2}}$. Let $\Delta\omega=\omega-\xi$.
-Raising the above equation to the power $N/2$ yields the following:
+where the magnitude cutoff $r<1$ is most
+often set to $\sqrt{\frac{1}{2}}$. Let $\mathrm{\Delta}\omega=\omega-\xi$.
+Since $\mathrm{\Delta}\omega\ll\xi$, we may linearize the exponentiation to $(-\tfrac{N}{2})$ by the first-order Taylor expansion
 \[
-\left(1+\dfrac{\Delta\omega}{\xi}\right)^{N/2}=r\times\left(1+\frac{\Delta\omega^{2}}{\sigma^{2}}\right).
+\left(1 + \frac{(\mathrm{\Delta}\omega)^2}{\sigma^2}\right)^{\frac{N}{2}} 
+\approx
+1 + \frac{N}{2} \left(\frac{\mathrm{\Delta}\omega}{\sigma}\right)^2.
 \]
-Since $\Delta\omega\ll\xi$, we may approximate the left-hand side
-with a first-order Taylor expansion. This leads to a quadratic equation
-of the variable $\Delta\negmedspace\omega$:
+Furthermore, we may rewrite the ratio $\frac{\omega}{\xi}$ as $\frac{\xi + \mathrm{\Delta}\omega}{\xi} = (1 + \frac{\mathrm{\Delta}{\omega}}{\xi})$.
+This leads to a quadratic equation
+of the variable $\mathrm{\Delta}\omega$:
 \[
-\dfrac{r^{2/N}}{\sigma^{2}}\times\Delta\omega^{2}-\dfrac{2}{N\xi}\times\Delta\omega+\left(r^{2/N}-1\right)=0.
+1 + \dfrac{\mathrm{\Delta}\omega}{\xi}
+=
+r
+\times
+\left(1 + \dfrac{N}{2} \left(\dfrac{\mathrm{\Delta}\omega}{\sigma}\right)^2 \right),
 \]
-The discriminant of the above equation is:
+which rewrites as
 \[
-D=4\times\left(\dfrac{1}{N^{2}\xi^{2}}+\dfrac{r^{2/N}\left(1-r^{2/N}\right)}{\sigma^{2}}\right),
+(\mathrm{\Delta}\omega)^2
+- \dfrac{2\sigma^2}{Nr\xi} (\mathrm{\Delta}\omega)
+- \dfrac{2\sigma^2}{N} \dfrac{1-r}{r} = 0.
 \]
-which is a positive number as long as $r<1$. The bandwidth $B$ of
-$\boldsymbol{\hat{\psi}}$ is given by the difference between the
-two solutions of the quadratic equation, that is:
+
+The discriminant of the above equation is
 \[
-B=\dfrac{2\sigma^{2}}{r^{2/N}}\times\sqrt{\dfrac{1}{N^{2}\xi^{2}}+\dfrac{r^{2/N}\left(1-r^{2/N}\right)}{\sigma^{2}}}.
+D=\dfrac{4\sigma^2}{Nr}
+\left(
+\dfrac{\sigma^2}{Nr\xi^2}
++
+2(1-r)
+\right),
+\]
+which is a positive number because $r<1$.
+The bandwidth $B$ of $\boldsymbol{\hat{\psi}}$ is given by the difference between the two solutions of the quadratic equation, that is:
+\[
+B = 
+\sqrt{D} =
+\dfrac{2\sigma}{\sqrt{N r}}
+\sqrt{\dfrac{\sigma^2}{N r \xi^2} + 2 (1-r)}
+.
 \]
 Now, let us express the parameter $\sigma$ as a function of some
 required bandwidth $B$ at some cutoff threshold $r$. After having
 raised the above to its square and rearranged the terms, we obtain
 another quadratic equation, yet of the variable $\mbox{\ensuremath{\sigma}}^{2}$:
 \[
-\dfrac{4}{r^{4/N}N^{2}\xi^{2}}\sigma^{4}+\dfrac{4\times\left(1-r^{2/N}\right)}{r^{2/N}}\sigma^{2}-B^{2}=0
+\dfrac{4}{N^2 r^2 \xi^2} (\sigma^2)^2 + \dfrac{8 (1-r)}{N r} \sigma^2 - B^2 = 0.
 \]
-We multiply the equation by $\dfrac{r^{2/N}}{4\times\left(1-r^{2/N}\right)}\neq0:$
+We multiply the equation by $\tfrac{1}{8} N^2 r^2 \xi^2 \neq 0$, thus yielding
 \[
-\dfrac{1}{r^{2/N}\left(1-r^{2/N}\right)N^{2}\xi^{2}}\sigma^{4}+\sigma^{2}-\dfrac{r^{2/N}B^{2}}{4\times\left(1-r^{2/N}\right)}=0
+\dfrac{1}{2} (\sigma^2)^2
++
+N r (1-r) \xi^2 \sigma^2
+-
+\dfrac{N^2 r^2 \xi^2 B^2}{8}
+= 0.
 \]
-This leads to defining $\sigma^{2}$ as the unique positive root of
-the above polynomial:
+The discriminant of the above equation is equal to:
 \[
-\sigma^{2}=\dfrac{r^{2/N}\left(1-r^{2/N}\right)N^{2}\xi^{2}}{2}\times\left(\sqrt{1+\dfrac{B^{2}}{\left(1-r^{2/N}\right)^{2}N^{2}\xi^{2}}}-1\right).
+D^\prime = N^2 r^2 \xi^2 \left(\xi^2 (1-r)^2 + \tfrac{1}{4}B^2\right).
+\]
+Because this discriminant is strictly positive, the equation has two roots.
+Yet, only the smallest of the two satisfies $\sigma^2 < \xi^2$.
+Therefore, we have
+\[
+\sigma^{2}=
+N r (1-r)
+\left(
+\sqrt{1 + \left(\dfrac{B}{2\xi (1-r)}\right)^2}
+- 1\right) \xi^2 
+.
 \]
 If the filter bank has to be approximately orthogonal, we typically
 set $B$ to $B=\left(1-2^{-1/Q}\right)\times\xi$.
-
 We conclude with the following closed form for $\sigma$:
-\[
-\sigma=K_{N}\times\sqrt{\dfrac{\sqrt{1+h_{N}\left(Q\right)^{2}}-1}{2}}\times\xi,
-\]
-where
-\[
-K_{N}=r^{1/N}N\sqrt{1-r^{2/N}}\mbox{ and }h_{N}\left(Q\right)=\dfrac{1-2^{-1/Q}}{N\times\left(1-r^{2/N}\right)}.
-\]
+
 
 
 
