@@ -158,7 +158,7 @@ where the magnitude cutoff $r$ is most
 often set to $\sqrt{\frac{1}{2}}$. Let $\Delta\omega=\omega-\xi$.
 Raising the above equation to the power $N/2$ yields the following:
 \[
-\left(1+\dfrac{\Delta\omega}{\omega_{c}}\right)^{N/2}=r\times\left(1+\frac{\Delta\omega^{2}}{\alpha^{2}}\right).
+\left(1+\dfrac{\Delta\omega}{\xi}\right)^{N/2}=r\times\left(1+\frac{\Delta\omega^{2}}{\sigma^{2}}\right).
 \]
 Since $\Delta\omega\ll\xi$, we may approximate the left-hand side
 with a first-order Taylor expansion. This leads to a quadratic equation
@@ -176,10 +176,10 @@ two solutions of the quadratic equation, that is:
 \[
 B=\dfrac{2\sigma^{2}}{r^{2/N}}\times\sqrt{\dfrac{1}{N^{2}\xi^{2}}+\dfrac{r^{2/N}\left(1-r^{2/N}\right)}{\sigma^{2}}}.
 \]
-Now, let us express the parameter $\alpha$ as a function of some
+Now, let us express the parameter $\sigma$ as a function of some
 required bandwidth $B$ at some cutoff threshold $r$. After having
 raised the above to its square and rearranged the terms, we obtain
-another quadratic equation, yet of the variable $\mbox{\ensuremath{\alpha}}^{2}$:
+another quadratic equation, yet of the variable $\mbox{\ensuremath{\sigma}}^{2}$:
 \[
 \dfrac{4}{r^{4/N}N^{2}\xi^{2}}\sigma^{4}+\dfrac{4\times\left(1-r^{2/N}\right)}{r^{2/N}}\sigma^{2}-B^{2}=0
 \]
@@ -195,9 +195,9 @@ the above polynomial:
 If the filter bank has to be approximately orthogonal, we typically
 set $B$ to $B=\left(1-2^{-1/Q}\right)\times\xi$.
 
-We conclude with the following closed form for $\alpha$:
+We conclude with the following closed form for $\sigma$:
 \[
-\alpha=K_{N}\times\sqrt{\dfrac{\sqrt{1+h_{N}\left(Q\right)^{2}}-1}{2}}\times\xi,
+\sigma=K_{N}\times\sqrt{\dfrac{\sqrt{1+h_{N}\left(Q\right)^{2}}-1}{2}}\times\xi,
 \]
 where
 \[
