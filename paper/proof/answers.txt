@@ -28,7 +28,7 @@ https://eprints.qut.edu.au/96243/.
 
 Q10: We have brought corrections to the supplementary material.
 
-Q11: The sentence "More information can be found in [REF]." should be added at the end of the last paragraph of section 3.4.
+Q11: The sentence "More information can be found in [REF_TO_SUPLEMENTARY_MATERIAL]." should be added at the end of the last paragraph of section 3.4.
 
 Q12: The BibTeX entry for [2] is:
 
